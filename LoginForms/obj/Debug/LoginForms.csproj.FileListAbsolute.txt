@@ -1,0 +1,16 @@
+C:\Users\Julio Cocoletzi\source\repos\LoginForms\LoginForms\bin\Debug\LoginForms.exe.config
+C:\Users\Julio Cocoletzi\source\repos\LoginForms\LoginForms\bin\Debug\LoginForms.exe
+C:\Users\Julio Cocoletzi\source\repos\LoginForms\LoginForms\bin\Debug\LoginForms.pdb
+C:\Users\Julio Cocoletzi\source\repos\LoginForms\LoginForms\obj\Debug\LoginForms.csprojAssemblyReference.cache
+C:\Users\Julio Cocoletzi\source\repos\LoginForms\LoginForms\obj\Debug\LoginForms.Main.resources
+C:\Users\Julio Cocoletzi\source\repos\LoginForms\LoginForms\obj\Debug\LoginForms.Properties.Resources.resources
+C:\Users\Julio Cocoletzi\source\repos\LoginForms\LoginForms\obj\Debug\LoginForms.csproj.GenerateResource.cache
+C:\Users\Julio Cocoletzi\source\repos\LoginForms\LoginForms\obj\Debug\LoginForms.csproj.CoreCompileInputs.cache
+C:\Users\Julio Cocoletzi\source\repos\LoginForms\LoginForms\obj\Debug\LoginForms.exe
+C:\Users\Julio Cocoletzi\source\repos\LoginForms\LoginForms\obj\Debug\LoginForms.pdb
+C:\Users\Julio Cocoletzi\source\repos\LoginForms\LoginForms\bin\Debug\EntityFramework.dll
+C:\Users\Julio Cocoletzi\source\repos\LoginForms\LoginForms\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Julio Cocoletzi\source\repos\LoginForms\LoginForms\bin\Debug\EntityFramework.xml
+C:\Users\Julio Cocoletzi\source\repos\LoginForms\LoginForms\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Julio Cocoletzi\source\repos\LoginForms\LoginForms\obj\Debug\LoginForms.csproj.CopyComplete
+C:\Users\Julio Cocoletzi\source\repos\LoginForms\LoginForms\obj\Debug\LoginForms.Login.resources
