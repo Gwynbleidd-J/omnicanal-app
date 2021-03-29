@@ -31,7 +31,7 @@ namespace LoginForms
         {
             this.lblNombre = new System.Windows.Forms.Label();
             this.lblContrasena = new System.Windows.Forms.Label();
-            this.txtNombre = new System.Windows.Forms.TextBox();
+            this.txtEmail = new System.Windows.Forms.TextBox();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.btnEntrar = new System.Windows.Forms.Button();
             this.btnCerrar = new System.Windows.Forms.Button();
@@ -43,9 +43,9 @@ namespace LoginForms
             this.lblNombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNombre.Location = new System.Drawing.Point(12, 16);
             this.lblNombre.Name = "lblNombre";
-            this.lblNombre.Size = new System.Drawing.Size(64, 18);
+            this.lblNombre.Size = new System.Drawing.Size(54, 18);
             this.lblNombre.TabIndex = 0;
-            this.lblNombre.Text = "Usuario:";
+            this.lblNombre.Text = "E-mail:";
             // 
             // lblContrasena
             // 
@@ -57,13 +57,13 @@ namespace LoginForms
             this.lblContrasena.TabIndex = 1;
             this.lblContrasena.Text = "Contraseña:";
             // 
-            // txtNombre
+            // txtEmail
             // 
-            this.txtNombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNombre.Location = new System.Drawing.Point(107, 17);
-            this.txtNombre.Name = "txtNombre";
-            this.txtNombre.Size = new System.Drawing.Size(269, 22);
-            this.txtNombre.TabIndex = 2;
+            this.txtEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEmail.Location = new System.Drawing.Point(107, 17);
+            this.txtEmail.Name = "txtEmail";
+            this.txtEmail.Size = new System.Drawing.Size(269, 22);
+            this.txtEmail.TabIndex = 2;
             // 
             // txtPassword
             // 
@@ -103,7 +103,7 @@ namespace LoginForms
             this.Controls.Add(this.btnCerrar);
             this.Controls.Add(this.btnEntrar);
             this.Controls.Add(this.txtPassword);
-            this.Controls.Add(this.txtNombre);
+            this.Controls.Add(this.txtEmail);
             this.Controls.Add(this.lblContrasena);
             this.Controls.Add(this.lblNombre);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -119,7 +119,7 @@ namespace LoginForms
 
         private System.Windows.Forms.Label lblNombre;
         private System.Windows.Forms.Label lblContrasena;
-        private System.Windows.Forms.TextBox txtNombre;
+        private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.Button btnEntrar;
         private System.Windows.Forms.Button btnCerrar;

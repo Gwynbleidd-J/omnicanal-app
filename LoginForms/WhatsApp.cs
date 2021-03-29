@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace LoginForms
 {
-    public partial class Main : Form
+    public partial class WhatsApp : Form
     {
-        public Main()
+        public WhatsApp()
         {
             InitializeComponent();
         }

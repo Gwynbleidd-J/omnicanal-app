@@ -7,11 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using LoginForms.Models;
+using LoginForms.Shared;
 
 namespace LoginForms
 {
     public partial class Login : Form
     {
+        RestHelper rh = new RestHelper();
         public Login()
         {
             InitializeComponent();
@@ -22,29 +25,41 @@ namespace LoginForms
             this.Close();
         }
 
-        private void btnEntrar_Click(object sender, EventArgs e)
+        private async void btnEntrar_Click(object sender, EventArgs e)
         {
-            string spassword = Encrypt.GetSHA256(txtPassword.Text.Trim());
-            
-            using (Models.loginEntities db = new Models.loginEntities())
+            if (txtEmail.Text == "" || txtPassword.Text == "")
             {
-                var lst = from d in db.Usuario
-                          where d.Nombre == txtNombre.Text
-                          && d.Password == spassword
-                          select d;
+                MessageBox.Show("Campos Vacios", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else {
+                var json = await rh.Login(txtEmail.Text, txtPassword.Text);
+                string message = rh.ResponseMessage(json);
+                if(message == "User authorized")
+                {
+                    Usuario user = rh.GetUser(json);
+                    string spassword = Encrypt.GetSHA256(txtPassword.Text.Trim());
+                    using (Models.loginEntities db = new Models.loginEntities())
+                    {
+                        var lst = from d in db.Usuario
+                                  where d.Email == txtEmail.Text
+                                  && d.Password == spassword
+                                  select d;
+                        if (lst.Count() > 0)
+                        {
+                            this.Hide();
+                            MessageBox.Show($"Bienvenido {txtEmail.Text}");
+                            UserSignUp signUp = new UserSignUp();
+                            signUp.FormClosed += (s, args) => this.Close();
+                            signUp.Show();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Credenciales incorrectas");
+                        }
 
-                if (lst.Count() >0)
-                {
-                    this.Hide();
-                    MessageBox.Show($"Bienvenido {txtNombre.Text}");
-                    Main main = new Main();
-                    main.FormClosed += (s, args) => this.Close();
-                    main.Show();
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("Credenciales incorrectas");
-                }
+
 
             }
         }

@@ -8,6 +8,7 @@
     <Property Name="Nombre" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="ApellidoPaterno" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="ApellidoMaterno" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
   </EntityType>
   <EntityContainer Name="loginEntities" annotation:LazyLoadingEnabled="true">

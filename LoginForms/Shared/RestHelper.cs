@@ -27,17 +27,18 @@ namespace LoginForms.Shared
                             return data;
                         }
                     }
+
                 }
             }
             return string.Empty;
         }
 
-        public async Task<string> RegisterUser(string username, string mail, string password)
+        //POST
+        public async Task<string> RegistrerUser(string mail, string password)
         {
             var inputData = new Dictionary<string, string>
             {
-                { "userName", username},
-                { "email", mail},
+                {"email", mail},
                 {"password", password}
             };
 
@@ -56,85 +57,30 @@ namespace LoginForms.Shared
                             return json;
                         }
                     }
+
                 }
             }
             return string.Empty;
         }
 
-        public async Task<string> Login(string username, string password )
+        //POST
+        public async Task<string> Login(string email, string password)
         {
             var inputData = new Dictionary<string, string>
             {
-                {"user", username },
-                {"password", password }
-            };
-
-            var input = new FormUrlEncodedContent(inputData);
-
-            using (HttpClient client = new HttpClient())
-            {
-                using (HttpResponseMessage response = await client.PostAsync(baseUrl + "auth", input))
-                {
-                    using (HttpContent content = response.Content)
-                    {
-                        string data = await content.ReadAsStringAsync();
-                        if (data != null)
-                        {
-                            string json = BeautifyJson(data);
-                            return json;
-                        }
-                    }
-                }
-            }
-            return string.Empty;
-        }
-
-        public async Task<string> Data(string idUser, string strDatos, string strToken)
-        {
-            var inputData = new Dictionary<string, string>
-            {
-                {"idUser", idUser },
-                {"data", strDatos }
-            };
-
-            var input = new FormUrlEncodedContent(inputData);
-
-            using (HttpClient client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", strToken);
-                using (HttpResponseMessage response = await client.PostAsync(baseUrl + "datos", input))
-                {
-                    using (HttpContent content = response.Content)
-                    {
-                        string data = await content.ReadAsStringAsync();
-                        if(data != null)
-                        {
-                            string json = BeautifyJson(data);
-                            return json;
-                        }
-                    }
-                }
-            }
-            return string.Empty;
-        }
-
-        public async Task<string> GetData(string idUser, string strToken)
-        {
-            var inputData = new Dictionary<string, string>
-            {
-                {"idUser", idUser}
+                { "email", email},
+                {"password", password}
             };
 
             var input = new FormUrlEncodedContent(inputData);
 
             using (HttpClient cliente = new HttpClient())
             {
-                cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", strToken);
-                using (HttpResponseMessage respuesta = await cliente.GetAsync(baseUrl + "saver/" + idUser))
+                using (HttpResponseMessage response = await cliente.PostAsync(baseUrl + "auth", input))
                 {
-                    using (HttpContent contenido = respuesta.Content)
+                    using (HttpContent content = response.Content)
                     {
-                        string data = await contenido.ReadAsStringAsync();
+                        string data = await content.ReadAsStringAsync();
                         if (data != null)
                         {
                             string json = BeautifyJson(data);
@@ -146,6 +92,8 @@ namespace LoginForms.Shared
             }
             return string.Empty;
         }
+
+
 
         public string BeautifyJson(string strJson)
         {
@@ -153,29 +101,23 @@ namespace LoginForms.Shared
             return parseJson.ToString(Formatting.Indented);
         }
 
-        public string MessageResponse(string strJson)
+        public string ResponseMessage(string strJson)
         {
+
             MsjApi msj = JsonConvert.DeserializeObject<MsjApi>(strJson);
-            string mensaje = msj.message;
-            return mensaje;
+
+            string message = msj.message;
+
+            return message;
         }
 
-        public Usuario GetUsuario(string strJson)
+        public Usuario GetUser(string strJson)
         {
             MsjApi resp = JsonConvert.DeserializeObject<MsjApi>(strJson);
             var data = resp.data;
             string json = BeautifyJson(data.ToString());
             Usuario user = JsonConvert.DeserializeObject<Usuario>(json);
             return user;
-        }
-
-        public List<Texto> GetTextos(string strJson)
-        {
-            MsjApi resp = JsonConvert.DeserializeObject<MsjApi>(strJson);
-            var data = resp.data;
-            string json = BeautifyJson(data.ToString());
-            List<Texto> lst = JsonConvert.DeserializeObject<List<Texto>>(json);
-            return lst;
         }
     }
     public class MsjApi
@@ -184,13 +126,5 @@ namespace LoginForms.Shared
         public string message { get; set; }
         public object data { get; set; }
     }
-    public class Texto
-    {
-        public int idSaver { get; set; }
-        public string data { get; set; }
-        public DateTime lastUpdate { get; set; }
-    }
-
-
 }
 

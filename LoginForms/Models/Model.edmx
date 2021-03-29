@@ -13,6 +13,7 @@
           <Property Name="Nombre" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="ApellidoPaterno" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="ApellidoMaterno" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <EntityContainer Name="loginModelStoreContainer">
@@ -31,6 +32,7 @@
           <Property Name="Nombre" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ApellidoPaterno" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ApellidoMaterno" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <EntityContainer Name="loginEntities" annotation:LazyLoadingEnabled="true">
@@ -49,6 +51,7 @@
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
                 <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -70,7 +73,7 @@
         <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

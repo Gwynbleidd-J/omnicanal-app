@@ -8,6 +8,7 @@
           <ScalarProperty Name="Nombre" ColumnName="Nombre" />
           <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
           <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="Password" ColumnName="Password" />
         </MappingFragment>
       </EntityTypeMapping>
