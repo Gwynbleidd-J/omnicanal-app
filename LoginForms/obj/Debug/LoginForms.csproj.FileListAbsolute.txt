@@ -48,3 +48,5 @@ C:\Users\Julio Cocoletzi\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms
 C:\Users\Julio Cocoletzi\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.pdb
 C:\Users\Julio Cocoletzi\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.UserSignUp.resources
 C:\Users\Julio Cocoletzi\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.WhatsApp.resources
+C:\Users\Julio Cocoletzi\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.CallsView.resources
+C:\Users\Julio Cocoletzi\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.Telegram.resources

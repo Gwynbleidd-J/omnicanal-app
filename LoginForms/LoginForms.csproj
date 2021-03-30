@@ -99,6 +99,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\SwaggerConfig.cs" />
+    <Compile Include="CallsView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CallsView.Designer.cs">
+      <DependentUpon>CallsView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Encrypt.cs" />
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
@@ -146,8 +152,14 @@
     <Compile Include="WhatsApp.Designer.cs">
       <DependentUpon>WhatsApp.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="CallsView.resx">
+      <DependentUpon>CallsView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Telegram.resx">
+      <DependentUpon>Telegram.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserSignUp.resx">
       <DependentUpon>UserSignUp.cs</DependentUpon>
