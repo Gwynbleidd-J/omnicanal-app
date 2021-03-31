@@ -27,37 +27,23 @@ namespace LoginForms
 
         private async void btnEntrar_Click(object sender, EventArgs e)
         {
-            if (txtEmail.Text == "" || txtPassword.Text == "")
+            if (txtUserName.Text == "" || txtPassword.Text == "")
             {
                 MessageBox.Show("Campos Vacios", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else {
-                var json = await rh.Login(txtEmail.Text, txtPassword.Text);
+                var json = await rh.Login(txtUserName.Text, txtPassword.Text);
                 string message = rh.ResponseMessage(json);
                 if(message == "User authorized")
                 {
-                    Usuario user = rh.GetUser(json);
-                    string spassword = Encrypt.GetSHA256(txtPassword.Text.Trim());
-                    using (Models.loginEntities db = new Models.loginEntities())
-                    {
-                        var lst = from d in db.Usuario
-                                  where d.Email == txtEmail.Text
-                                  && d.Password == spassword
-                                  select d;
-                        if (lst.Count() > 0)
-                        {
-                            this.Hide();
-                            MessageBox.Show($"Bienvenido {txtEmail.Text}");
-                            UserSignUp signUp = new UserSignUp();
-                            signUp.FormClosed += (s, args) => this.Close();
-                            signUp.Show();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Credenciales incorrectas");
-                        }
+                    User user = rh.GetUser(json);
+                    this.Hide();
+                    MessageBox.Show($"Bienvenido {txtUserName.Text}");
+                    FormPrincipal formPrincipal = new FormPrincipal();
+                    formPrincipal.lblToken.Text = user.token;
+                    formPrincipal.FormClosed += (s, args) => this.Close();
+                    formPrincipal.Show();
 
-                    }
                 }
 
 

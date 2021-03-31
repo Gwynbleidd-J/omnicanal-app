@@ -35,10 +35,11 @@ namespace LoginForms.Shared
         }
 
         //POST
-        public async Task<string> RegistrerUser(string mail, string password)
+        public async Task<string> RegistrerUser(string userName, string mail, string password)
         {
             var inputData = new Dictionary<string, string>
             {
+                {"username", userName },
                 {"email", mail},
                 {"password", password}
             };
@@ -65,19 +66,19 @@ namespace LoginForms.Shared
         }
 
         //POST
-        public async Task<string> Login(string email, string password)
+        public async Task<string> Login(string userName, string password)
         {
             var inputData = new Dictionary<string, string>
             {
-                { "email", email},
+                { "username", userName},
                 {"password", password}
             };
 
             var input = new FormUrlEncodedContent(inputData);
 
-            using (HttpClient cliente = new HttpClient())
+            using (HttpClient client = new HttpClient())
             {
-                using (HttpResponseMessage response = await cliente.PostAsync(baseUrl + "auth", input))
+                using (HttpResponseMessage response = await client.PostAsync(baseUrl + "auth", input))
                 {
                     using (HttpContent content = response.Content)
                     {
@@ -104,10 +105,10 @@ namespace LoginForms.Shared
 
             var input = new FormUrlEncodedContent(inputData);
 
-            using (HttpClient cliente = new HttpClient())
+            using (HttpClient client = new HttpClient())
             {
-                cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", strToken);
-                using (HttpResponseMessage respuesta = await cliente.PostAsync(baseUrl + "saver", input))
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", strToken);
+                using (HttpResponseMessage respuesta = await client.PostAsync(baseUrl + "saver", input))
                 {
                     using (HttpContent contenido = respuesta.Content)
                     {
@@ -134,10 +135,10 @@ namespace LoginForms.Shared
 
             var input = new FormUrlEncodedContent(inputData);
 
-            using (HttpClient cliente = new HttpClient())
+            using (HttpClient client = new HttpClient())
             {
-                cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", strToken);
-                using (HttpResponseMessage respuesta = await cliente.GetAsync(baseUrl + "saver/" + idUser))
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", strToken);
+                using (HttpResponseMessage respuesta = await client.GetAsync(baseUrl + "saver/" + idUser))
                 {
                     using (HttpContent contenido = respuesta.Content)
                     {
@@ -170,12 +171,12 @@ namespace LoginForms.Shared
             return message;
         }
 
-        public Usuario GetUser(string strJson)
+        public User GetUser(string strJson)
         {
             MsjApi resp = JsonConvert.DeserializeObject<MsjApi>(strJson);
             var data = resp.data;
             string json = BeautifyJson(data.ToString());
-            Usuario user = JsonConvert.DeserializeObject<Usuario>(json);
+            User user = JsonConvert.DeserializeObject<User>(json);
             return user;
         }
 
