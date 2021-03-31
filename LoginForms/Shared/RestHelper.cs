@@ -6,12 +6,13 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Configuration;
 
 namespace LoginForms.Shared
 {
     public class RestHelper
     {
-        private string baseUrl = "http://201.149.90.195:3001/";
+        private string baseUrl = ConfigurationManager.AppSettings["ipServidor"];
 
         public async Task<string> GetAll()
         {
@@ -93,7 +94,65 @@ namespace LoginForms.Shared
             return string.Empty;
         }
 
+        public async Task<string> SaverDatos(string idUser, string strDatos, string strToken)
+        {
+            var inputData = new Dictionary<string, string>
+            {
+                {"idUser", idUser},
+                {"data", strDatos}
+            };
 
+            var input = new FormUrlEncodedContent(inputData);
+
+            using (HttpClient cliente = new HttpClient())
+            {
+                cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", strToken);
+                using (HttpResponseMessage respuesta = await cliente.PostAsync(baseUrl + "saver", input))
+                {
+                    using (HttpContent contenido = respuesta.Content)
+                    {
+                        string data = await contenido.ReadAsStringAsync();
+                        if (data != null)
+                        {
+                            string json = BeautifyJson(data);
+                            return json;
+                        }
+                    }
+
+                }
+            }
+            return string.Empty;
+        }
+
+        //GET
+        public async Task<string> GetSaverDatos(string idUser, string strToken)
+        {
+            var inputData = new Dictionary<string, string>
+            {
+                {"idUser", idUser}
+            };
+
+            var input = new FormUrlEncodedContent(inputData);
+
+            using (HttpClient cliente = new HttpClient())
+            {
+                cliente.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", strToken);
+                using (HttpResponseMessage respuesta = await cliente.GetAsync(baseUrl + "saver/" + idUser))
+                {
+                    using (HttpContent contenido = respuesta.Content)
+                    {
+                        string data = await contenido.ReadAsStringAsync();
+                        if (data != null)
+                        {
+                            string json = BeautifyJson(data);
+                            return json;
+                        }
+                    }
+
+                }
+            }
+            return string.Empty;
+        }
 
         public string BeautifyJson(string strJson)
         {
@@ -119,12 +178,28 @@ namespace LoginForms.Shared
             Usuario user = JsonConvert.DeserializeObject<Usuario>(json);
             return user;
         }
+
+        public List<Text> GetTextos(string strJson)
+        {
+            MsjApi resp = JsonConvert.DeserializeObject<MsjApi>(strJson);
+            var data = resp.data;
+            string json = BeautifyJson(data.ToString());
+            List<Text> lst = JsonConvert.DeserializeObject<List<Text>>(json);
+            return lst;
+        }
     }
     public class MsjApi
     {
         public int status { get; set; }
         public string message { get; set; }
         public object data { get; set; }
+    }
+
+    public class Text
+    {
+        public int idSaver { get; set; }
+        public string data { get; set; }
+        public DateTime lastUpdate { get; set; }
     }
 }
 
