@@ -29,33 +29,73 @@ namespace LoginForms
         /// </summary>
         private void InitializeComponent()
         {
-            this.lblToken = new System.Windows.Forms.Label();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormPrincipal));
+            this.btnTelegram = new System.Windows.Forms.Button();
+            this.btnLlamadas = new System.Windows.Forms.Button();
+            this.btnWhatsApp = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // lblToken
+            // btnTelegram
             // 
-            this.lblToken.AutoSize = true;
-            this.lblToken.Location = new System.Drawing.Point(13, 13);
-            this.lblToken.Name = "lblToken";
-            this.lblToken.Size = new System.Drawing.Size(34, 13);
-            this.lblToken.TabIndex = 0;
-            this.lblToken.Text = "token";
+            this.btnTelegram.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTelegram.Image = ((System.Drawing.Image)(resources.GetObject("btnTelegram.Image")));
+            this.btnTelegram.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnTelegram.Location = new System.Drawing.Point(13, 72);
+            this.btnTelegram.Name = "btnTelegram";
+            this.btnTelegram.Size = new System.Drawing.Size(95, 38);
+            this.btnTelegram.TabIndex = 1;
+            this.btnTelegram.Text = "Telegram";
+            this.btnTelegram.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnTelegram.UseVisualStyleBackColor = true;
+            this.btnTelegram.Click += new System.EventHandler(this.btnTelegram_Click);
+            // 
+            // btnLlamadas
+            // 
+            this.btnLlamadas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLlamadas.Image = ((System.Drawing.Image)(resources.GetObject("btnLlamadas.Image")));
+            this.btnLlamadas.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnLlamadas.Location = new System.Drawing.Point(12, 126);
+            this.btnLlamadas.Name = "btnLlamadas";
+            this.btnLlamadas.Size = new System.Drawing.Size(95, 40);
+            this.btnLlamadas.TabIndex = 2;
+            this.btnLlamadas.Text = "Llamadas";
+            this.btnLlamadas.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnLlamadas.UseVisualStyleBackColor = true;
+            this.btnLlamadas.Click += new System.EventHandler(this.btnLlamadas_Click);
+            // 
+            // btnWhatsApp
+            // 
+            this.btnWhatsApp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnWhatsApp.Image = ((System.Drawing.Image)(resources.GetObject("btnWhatsApp.Image")));
+            this.btnWhatsApp.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnWhatsApp.Location = new System.Drawing.Point(12, 12);
+            this.btnWhatsApp.Name = "btnWhatsApp";
+            this.btnWhatsApp.Size = new System.Drawing.Size(95, 38);
+            this.btnWhatsApp.TabIndex = 3;
+            this.btnWhatsApp.Text = "Telegram";
+            this.btnWhatsApp.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnWhatsApp.UseVisualStyleBackColor = true;
+            this.btnWhatsApp.Click += new System.EventHandler(this.btnWhatsApp_Click_1);
             // 
             // FormPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.lblToken);
+            this.Controls.Add(this.btnWhatsApp);
+            this.Controls.Add(this.btnLlamadas);
+            this.Controls.Add(this.btnTelegram);
             this.Name = "FormPrincipal";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormPrincipal";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        public System.Windows.Forms.Label lblToken;
+        private System.Windows.Forms.Button btnTelegram;
+        private System.Windows.Forms.Button btnLlamadas;
+        private System.Windows.Forms.Button btnWhatsApp;
     }
 }

@@ -16,7 +16,7 @@ namespace LoginForms
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new CallsView());
+            Application.Run(new FormPrincipal());
         }
     }
 }

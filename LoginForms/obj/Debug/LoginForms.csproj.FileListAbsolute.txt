@@ -50,3 +50,4 @@ C:\Users\Julio Cocoletzi\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms
 C:\Users\Julio Cocoletzi\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.WhatsApp.resources
 C:\Users\Julio Cocoletzi\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.CallsView.resources
 C:\Users\Julio Cocoletzi\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.Telegram.resources
+C:\Users\Julio Cocoletzi\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.FormPrincipal.resources

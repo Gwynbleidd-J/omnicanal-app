@@ -34,11 +34,11 @@ namespace LoginForms
             this.label2 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.rtxtMensajes = new System.Windows.Forms.RichTextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.rtxtMensajes = new System.Windows.Forms.RichTextBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -90,6 +90,16 @@ namespace LoginForms
             this.panel1.Size = new System.Drawing.Size(645, 377);
             this.panel1.TabIndex = 5;
             // 
+            // rtxtMensajes
+            // 
+            this.rtxtMensajes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtxtMensajes.Location = new System.Drawing.Point(6, 31);
+            this.rtxtMensajes.Name = "rtxtMensajes";
+            this.rtxtMensajes.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Horizontal;
+            this.rtxtMensajes.Size = new System.Drawing.Size(623, 327);
+            this.rtxtMensajes.TabIndex = 1;
+            this.rtxtMensajes.Text = "";
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -130,16 +140,6 @@ namespace LoginForms
             this.button2.Text = "Enviar Mensaje";
             this.button2.UseVisualStyleBackColor = true;
             // 
-            // rtxtMensajes
-            // 
-            this.rtxtMensajes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtxtMensajes.Location = new System.Drawing.Point(6, 31);
-            this.rtxtMensajes.Name = "rtxtMensajes";
-            this.rtxtMensajes.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Horizontal;
-            this.rtxtMensajes.Size = new System.Drawing.Size(623, 327);
-            this.rtxtMensajes.TabIndex = 1;
-            this.rtxtMensajes.Text = "";
-            // 
             // WhatsApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -154,6 +154,7 @@ namespace LoginForms
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cmbConnector);
             this.Name = "WhatsApp";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "WhatsApp";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

@@ -23,16 +23,13 @@ namespace LoginForms.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("182.168.1.102")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://192.168.1.102:3000/api/")]
         public string ipServidor {
             get {
                 return ((string)(this["ipServidor"]));
-            }
-            set {
-                this["ipServidor"] = value;
             }
         }
     }

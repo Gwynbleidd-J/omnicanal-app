@@ -12,13 +12,13 @@ namespace LoginForms.Shared
 {
     public class RestHelper
     {
-        private string baseUrl = ConfigurationManager.AppSettings["ipServidor"];
+        private string baseUrl = "http://192.168.1.102:3000/api/";
 
         public async Task<string> GetAll()
         {
             using (HttpClient client = new HttpClient())
             {
-                using (HttpResponseMessage response = await client.GetAsync(baseUrl + "user"))
+                using (HttpResponseMessage response = await client.GetAsync(baseUrl))
                 {
                     using (HttpContent content = response.Content)
                     {
@@ -48,7 +48,7 @@ namespace LoginForms.Shared
 
             using (HttpClient client = new HttpClient())
             {
-                using (HttpResponseMessage response = await client.PostAsync(baseUrl + "user", input))
+                using (HttpResponseMessage response = await client.PostAsync(baseUrl, input))
                 {
                     using (HttpContent content = response.Content)
                     {
@@ -66,11 +66,11 @@ namespace LoginForms.Shared
         }
 
         //POST
-        public async Task<string> Login(string userName, string password)
+        public async Task<string> Login(string mail, string password)
         {
             var inputData = new Dictionary<string, string>
             {
-                { "username", userName},
+                { "email", mail},
                 {"password", password}
             };
 
@@ -78,11 +78,12 @@ namespace LoginForms.Shared
 
             using (HttpClient client = new HttpClient())
             {
-                using (HttpResponseMessage response = await client.PostAsync(baseUrl + "auth", input))
+                using (HttpResponseMessage response = await client.PostAsync(baseUrl+ "auth", input))
                 {
                     using (HttpContent content = response.Content)
                     {
                         string data = await content.ReadAsStringAsync();
+                        Console.WriteLine(data);
                         if (data != null)
                         {
                             string json = BeautifyJson(data);
@@ -137,8 +138,8 @@ namespace LoginForms.Shared
 
             using (HttpClient client = new HttpClient())
             {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", strToken);
-                using (HttpResponseMessage respuesta = await client.GetAsync(baseUrl + "saver/" + idUser))
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(strToken);
+                using (HttpResponseMessage respuesta = await client.GetAsync(baseUrl+ idUser))
                 {
                     using (HttpContent contenido = respuesta.Content)
                     {
