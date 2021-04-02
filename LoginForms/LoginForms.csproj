@@ -106,6 +106,12 @@
     <Compile Include="CallsView.Designer.cs">
       <DependentUpon>CallsView.cs</DependentUpon>
     </Compile>
+    <Compile Include="CasesSystem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CasesSystem.Designer.cs">
+      <DependentUpon>CasesSystem.cs</DependentUpon>
+    </Compile>
     <Compile Include="Encrypt.cs" />
     <Compile Include="FormPrincipal.cs">
       <SubType>Form</SubType>
@@ -162,6 +168,9 @@
     </Compile>
     <EmbeddedResource Include="CallsView.resx">
       <DependentUpon>CallsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CasesSystem.resx">
+      <DependentUpon>CasesSystem.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormPrincipal.resx">
       <DependentUpon>FormPrincipal.cs</DependentUpon>

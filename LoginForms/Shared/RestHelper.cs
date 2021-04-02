@@ -12,7 +12,7 @@ namespace LoginForms.Shared
 {
     public class RestHelper
     {
-        private string baseUrl = "http://192.168.1.102:3000/api/";
+        private string baseUrl = "http://192.168.0.9:3000/api/";
 
         public async Task<string> GetAll()
         {
@@ -68,10 +68,11 @@ namespace LoginForms.Shared
         //POST
         public async Task<string> Login(string mail, string password)
         {
+            User user = new User();
             var inputData = new Dictionary<string, string>
             {
-                { "email", mail},
-                {"password", password}
+                {user.email, mail},
+                {user.password, password}
             };
 
             var input = new FormUrlEncodedContent(inputData);

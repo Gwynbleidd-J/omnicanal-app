@@ -27,7 +27,7 @@ namespace LoginForms
 
         private async void btnEntrar_Click(object sender, EventArgs e)
         {
-            if (txtUserName.Text == "" || txtPassword.Text == "") //|| 
+            if (txtUserName.Text == "" || txtPassword.Text == "")
             {
                 MessageBox.Show("Campos Vacios", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
