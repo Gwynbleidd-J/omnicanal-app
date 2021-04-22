@@ -34,11 +34,12 @@ namespace LoginForms
             this.label2 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.rtxtMensajes = new System.Windows.Forms.RichTextBox();
+            this.rtxtSendMessage = new System.Windows.Forms.RichTextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnEnviar = new System.Windows.Forms.Button();
+            this.rtxtResponseMessage = new System.Windows.Forms.RichTextBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -83,22 +84,23 @@ namespace LoginForms
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.rtxtMensajes);
+            this.panel1.Controls.Add(this.rtxtResponseMessage);
+            this.panel1.Controls.Add(this.rtxtSendMessage);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Location = new System.Drawing.Point(12, 132);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(645, 377);
             this.panel1.TabIndex = 5;
             // 
-            // rtxtMensajes
+            // rtxtSendMessage
             // 
-            this.rtxtMensajes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtxtMensajes.Location = new System.Drawing.Point(6, 31);
-            this.rtxtMensajes.Name = "rtxtMensajes";
-            this.rtxtMensajes.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Horizontal;
-            this.rtxtMensajes.Size = new System.Drawing.Size(623, 327);
-            this.rtxtMensajes.TabIndex = 1;
-            this.rtxtMensajes.Text = "";
+            this.rtxtSendMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtxtSendMessage.Location = new System.Drawing.Point(6, 31);
+            this.rtxtSendMessage.Name = "rtxtSendMessage";
+            this.rtxtSendMessage.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Horizontal;
+            this.rtxtSendMessage.Size = new System.Drawing.Size(279, 329);
+            this.rtxtSendMessage.TabIndex = 1;
+            this.rtxtSendMessage.Text = "";
             // 
             // label3
             // 
@@ -130,22 +132,32 @@ namespace LoginForms
             this.button1.Text = "Cerrar";
             this.button1.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // btnEnviar
             // 
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(403, 563);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 8;
-            this.button2.Text = "Enviar Mensaje";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnEnviar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEnviar.Location = new System.Drawing.Point(403, 563);
+            this.btnEnviar.Name = "btnEnviar";
+            this.btnEnviar.Size = new System.Drawing.Size(75, 23);
+            this.btnEnviar.TabIndex = 8;
+            this.btnEnviar.Text = "Enviar Mensaje";
+            this.btnEnviar.UseVisualStyleBackColor = true;
+            // 
+            // rtxtResponseMessage
+            // 
+            this.rtxtResponseMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtxtResponseMessage.Location = new System.Drawing.Point(325, 31);
+            this.rtxtResponseMessage.Name = "rtxtResponseMessage";
+            this.rtxtResponseMessage.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Horizontal;
+            this.rtxtResponseMessage.Size = new System.Drawing.Size(279, 329);
+            this.rtxtResponseMessage.TabIndex = 2;
+            this.rtxtResponseMessage.Text = "";
             // 
             // WhatsApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(669, 619);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.btnEnviar);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.panel1);
@@ -173,7 +185,8 @@ namespace LoginForms
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.RichTextBox rtxtMensajes;
+        private System.Windows.Forms.Button btnEnviar;
+        private System.Windows.Forms.RichTextBox rtxtSendMessage;
+        private System.Windows.Forms.RichTextBox rtxtResponseMessage;
     }
 }

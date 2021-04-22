@@ -16,7 +16,7 @@ namespace LoginForms
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new CasesSystem());
+            Application.Run(new WhatsApp());
         }
     }
 }
