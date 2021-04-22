@@ -12,9 +12,26 @@ namespace LoginForms
 {
     public partial class WhatsApp : Form
     {
+        AsynchronousClient client = new AsynchronousClient();
         public WhatsApp()
         {
             InitializeComponent();
+        }
+
+        private void WhatsApp_Load(object sender, EventArgs e)
+        {
+            Task task = new Task(client.Connect);
+            task.Start();
+        }
+
+        private void btnEnviar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void rtxtResponseMessage_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

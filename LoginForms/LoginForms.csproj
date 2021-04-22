@@ -100,17 +100,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\SwaggerConfig.cs" />
+    <Compile Include="AsynchronousClient.cs" />
     <Compile Include="CallsView.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="CallsView.Designer.cs">
       <DependentUpon>CallsView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="CasesSystem.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="CasesSystem.Designer.cs">
-      <DependentUpon>CasesSystem.cs</DependentUpon>
     </Compile>
     <Compile Include="Encrypt.cs" />
     <Compile Include="FormPrincipal.cs">
@@ -126,6 +121,7 @@
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs" />
+    <Compile Include="StateObject.cs" />
     <Compile Include="Telegram.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -139,24 +135,6 @@
       <DependentUpon>UserSignUp.cs</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Models\Model.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Model.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Model.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Usuario.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shared\RestHelper.cs" />
@@ -168,9 +146,6 @@
     </Compile>
     <EmbeddedResource Include="CallsView.resx">
       <DependentUpon>CallsView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CasesSystem.resx">
-      <DependentUpon>CasesSystem.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormPrincipal.resx">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
@@ -196,13 +171,6 @@
     <EmbeddedResource Include="WhatsApp.resx">
       <DependentUpon>WhatsApp.cs</DependentUpon>
     </EmbeddedResource>
-    <EntityDeploy Include="Models\Model.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="Models\Model.edmx.diagram">
-      <DependentUpon>Model.edmx</DependentUpon>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -220,18 +188,6 @@
   <ItemGroup />
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Models\Model.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model.edmx</DependentUpon>
-      <LastGenOutput>Model.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\Model.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model.edmx</DependentUpon>
-      <LastGenOutput>Model.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
