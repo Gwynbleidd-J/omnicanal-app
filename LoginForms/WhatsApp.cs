@@ -16,5 +16,10 @@ namespace LoginForms
         {
             InitializeComponent();
         }
+
+        private void WhatsApp_Load(object sender, EventArgs e)
+        {
+            Console.WriteLine("hello mdfcks");
+        }
     }
 }
