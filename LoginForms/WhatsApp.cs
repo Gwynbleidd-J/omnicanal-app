@@ -18,7 +18,7 @@ namespace LoginForms
             InitializeComponent();
         }
 
-        private void WhatsApp1_Load(object sender, EventArgs e)
+        private void WhatsApp_Load(object sender, EventArgs e)
         {
             Task task = new Task(client.Connect);
             task.Start();
