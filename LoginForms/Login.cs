@@ -24,9 +24,44 @@ namespace LoginForms
         {
             this.Close();
         }
-
+         
         private async void btnEntrar_Click(object sender, EventArgs e)
         {
+            string ipAddress = rh.GetLocalIpAddress();
+            if (txtUserName.Text == "" || txtPassword.Text == "")
+            {
+                MessageBox.Show("Campos Vacios", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                try
+                {
+                    var json = await rh.Login(txtUserName.Text, txtPassword.Text, ipAddress);
+                    string mensage = rh.ResponseMessage(json);
+                    //MessageBox.Show(json, Text);
+                    User user = rh.GetUser(json);
+                    this.Hide();
+                    //MessageBox.Show($"Bienvenido {txtUserName.Text}");
+                    FormPrincipal formPrincipal = new FormPrincipal();
+                    //formPrincipal.lblToken.Text = user.token;
+                    formPrincipal.FormClosed += (s, args) => this.Close();
+                    formPrincipal.Show();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), Text, MessageBoxButtons.OK);
+                    // throw ex;
+                }
+
+            }
+
+        }
+
+        private async void txtPassword_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if((int)e.KeyChar == (int)Keys.Enter)
+            {
+                            string ipAddress = rh.GetLocalIpAddress();
             if (txtUserName.Text == "" || txtPassword.Text == "")
             {
                 MessageBox.Show("Campos Vacios", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -34,8 +69,9 @@ namespace LoginForms
             else {
                 try 
                 {
-                    var json = await rh.Login(txtUserName.Text, txtPassword.Text);
-                    Console.WriteLine(json);
+                    var json = await rh.Login(txtUserName.Text, txtPassword.Text, ipAddress);
+                    string mensage = rh.ResponseMessage(json);
+                    //MessageBox.Show(json, Text);
                     User user = rh.GetUser(json);
                     this.Hide();
                     MessageBox.Show($"Bienvenido {txtUserName.Text}");
@@ -46,13 +82,12 @@ namespace LoginForms
                 }
                 catch(Exception ex)
                 {
-                    throw ex;
+                    MessageBox.Show(ex.ToString(), Text, MessageBoxButtons.OK);
+                   // throw ex;
                 }
 
             }
-        }
-        private void txtPassword_KeyPress(object sender, KeyPressEventArgs e)
-        {
+            }
         }
     }
 }

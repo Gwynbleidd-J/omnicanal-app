@@ -20,7 +20,7 @@ namespace LoginForms
 
         private async void btnRegistrar_Click(object sender, EventArgs e)
         {
-            if(txtEmail.Text == "" || txtUserName.Text=="" || txtPassword.Text == "")
+            if (txtEmail.Text == "" || txtUserName.Text == "" || txtPassword.Text == "")
             {
                 MessageBox.Show("Campos Vacios", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -28,7 +28,7 @@ namespace LoginForms
             {
                 var response = await rh.RegistrerUser(txtUserName.Text, txtEmail.Text, txtPassword.Text);
                 string message = rh.ResponseMessage(response);
-                if(message == "Register succesfull")
+                if (message == "Register succesfull")
                 {
                     MessageBox.Show("Usuario Registrado con Éxito", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     txtEmail.Text = "";
@@ -37,7 +37,7 @@ namespace LoginForms
                 }
                 else
                 {
-                    MessageBox.Show(message+ " ", "¡Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(message + " ", "¡Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

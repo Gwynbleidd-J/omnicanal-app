@@ -148,6 +148,7 @@ namespace LoginForms
             this.Controls.Add(this.label2);
             this.Controls.Add(this.cmbConnecter);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Telegram";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Telegram";

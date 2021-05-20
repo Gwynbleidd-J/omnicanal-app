@@ -29,10 +29,12 @@ namespace LoginForms
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormPrincipal));
             this.btnTelegram = new System.Windows.Forms.Button();
             this.btnLlamadas = new System.Windows.Forms.Button();
-            this.btnWhatsApp = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.mainMenu1 = new System.Windows.Forms.MainMenu(this.components);
             this.SuspendLayout();
             // 
             // btnTelegram
@@ -40,7 +42,7 @@ namespace LoginForms
             this.btnTelegram.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTelegram.Image = ((System.Drawing.Image)(resources.GetObject("btnTelegram.Image")));
             this.btnTelegram.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnTelegram.Location = new System.Drawing.Point(13, 72);
+            this.btnTelegram.Location = new System.Drawing.Point(12, 56);
             this.btnTelegram.Name = "btnTelegram";
             this.btnTelegram.Size = new System.Drawing.Size(95, 38);
             this.btnTelegram.TabIndex = 1;
@@ -54,7 +56,7 @@ namespace LoginForms
             this.btnLlamadas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLlamadas.Image = ((System.Drawing.Image)(resources.GetObject("btnLlamadas.Image")));
             this.btnLlamadas.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnLlamadas.Location = new System.Drawing.Point(12, 126);
+            this.btnLlamadas.Location = new System.Drawing.Point(12, 100);
             this.btnLlamadas.Name = "btnLlamadas";
             this.btnLlamadas.Size = new System.Drawing.Size(95, 40);
             this.btnLlamadas.TabIndex = 2;
@@ -63,32 +65,34 @@ namespace LoginForms
             this.btnLlamadas.UseVisualStyleBackColor = true;
             this.btnLlamadas.Click += new System.EventHandler(this.btnLlamadas_Click);
             // 
-            // btnWhatsApp
+            // button1
             // 
-            this.btnWhatsApp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnWhatsApp.Image = ((System.Drawing.Image)(resources.GetObject("btnWhatsApp.Image")));
-            this.btnWhatsApp.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnWhatsApp.Location = new System.Drawing.Point(12, 12);
-            this.btnWhatsApp.Name = "btnWhatsApp";
-            this.btnWhatsApp.Size = new System.Drawing.Size(95, 38);
-            this.btnWhatsApp.TabIndex = 3;
-            this.btnWhatsApp.Text = "Telegram";
-            this.btnWhatsApp.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnWhatsApp.UseVisualStyleBackColor = true;
-            this.btnWhatsApp.Click += new System.EventHandler(this.btnWhatsApp_Click_1);
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
+            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button1.Location = new System.Drawing.Point(12, 12);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(95, 38);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "Telegram";
+            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // FormPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.btnWhatsApp);
+            this.ClientSize = new System.Drawing.Size(936, 627);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnLlamadas);
             this.Controls.Add(this.btnTelegram);
+            this.IsMdiContainer = true;
+            this.Menu = this.mainMenu1;
             this.Name = "FormPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormPrincipal";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.FormPrincipal_Load);
             this.ResumeLayout(false);
 
         }
@@ -96,6 +100,7 @@ namespace LoginForms
         #endregion
         private System.Windows.Forms.Button btnTelegram;
         private System.Windows.Forms.Button btnLlamadas;
-        private System.Windows.Forms.Button btnWhatsApp;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.MainMenu mainMenu1;
     }
 }

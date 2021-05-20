@@ -113,7 +113,6 @@ C:\Users\Julio Cocoletzi\Documents\Omnicanal\omnicanal_app\LoginForms\bin\Debug\
 C:\Users\Julio Cocoletzi\Documents\Omnicanal\omnicanal_app\LoginForms\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Julio Cocoletzi\Documents\Omnicanal\omnicanal_app\LoginForms\bin\Debug\System.Web.Http.xml
 C:\Users\Julio Cocoletzi\Documents\Omnicanal\omnicanal_app\LoginForms\bin\Debug\System.Web.Http.WebHost.xml
-C:\Users\Julio Cocoletzi\Documents\Omnicanal\omnicanal_app\LoginForms\obj\Debug\LoginForms.csprojAssemblyReference.cache
 C:\Users\Julio Cocoletzi\Documents\Omnicanal\omnicanal_app\LoginForms\obj\Debug\LoginForms.CallsView.resources
 C:\Users\Julio Cocoletzi\Documents\Omnicanal\omnicanal_app\LoginForms\obj\Debug\LoginForms.FormPrincipal.resources
 C:\Users\Julio Cocoletzi\Documents\Omnicanal\omnicanal_app\LoginForms\obj\Debug\LoginForms.Login.resources
@@ -126,3 +125,87 @@ C:\Users\Julio Cocoletzi\Documents\Omnicanal\omnicanal_app\LoginForms\obj\Debug\
 C:\Users\Julio Cocoletzi\Documents\Omnicanal\omnicanal_app\LoginForms\obj\Debug\LoginForms.csproj.CopyComplete
 C:\Users\Julio Cocoletzi\Documents\Omnicanal\omnicanal_app\LoginForms\obj\Debug\LoginForms.exe
 C:\Users\Julio Cocoletzi\Documents\Omnicanal\omnicanal_app\LoginForms\obj\Debug\LoginForms.pdb
+C:\Users\Julio Cocoletzi\Documents\Omnicanal\omnicanal_app\LoginForms\bin\Debug\RestSharp.dll
+C:\Users\Julio Cocoletzi\Documents\Omnicanal\omnicanal_app\LoginForms\bin\Debug\RestSharp.xml
+C:\Users\Julio Cocoletzi\Documents\Omnicanal\omnicanal_app\LoginForms\obj\Debug\LoginForms.Prueba.resources
+C:\Users\Julio Cocoletzi\Documents\Omnicanal\omnicanal_app\LoginForms\obj\Debug\LoginForms.csprojAssemblyReference.cache
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app\LoginForms\bin\Debug\LoginForms.exe.config
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app\LoginForms\bin\Debug\LoginForms.exe
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app\LoginForms\bin\Debug\LoginForms.pdb
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app\LoginForms\bin\Debug\EntityFramework.dll
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app\LoginForms\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app\LoginForms\bin\Debug\Microsoft.Web.Infrastructure.dll
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app\LoginForms\bin\Debug\Newtonsoft.Json.dll
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app\LoginForms\bin\Debug\RestSharp.dll
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app\LoginForms\bin\Debug\Swashbuckle.Core.dll
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app\LoginForms\bin\Debug\System.Net.Http.dll
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app\LoginForms\bin\Debug\System.Net.Http.Extensions.dll
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app\LoginForms\bin\Debug\System.Net.Http.Formatting.dll
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app\LoginForms\bin\Debug\System.Net.Http.Primitives.dll
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app\LoginForms\bin\Debug\System.Security.Cryptography.Algorithms.dll
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app\LoginForms\bin\Debug\System.Security.Cryptography.Encoding.dll
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app\LoginForms\bin\Debug\System.Security.Cryptography.Primitives.dll
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app\LoginForms\bin\Debug\System.Security.Cryptography.X509Certificates.dll
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app\LoginForms\bin\Debug\System.Web.Http.dll
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app\LoginForms\bin\Debug\System.Web.Http.WebHost.dll
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app\LoginForms\bin\Debug\WebActivatorEx.dll
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app\LoginForms\bin\Debug\EntityFramework.xml
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app\LoginForms\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app\LoginForms\bin\Debug\Newtonsoft.Json.xml
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app\LoginForms\bin\Debug\RestSharp.xml
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app\LoginForms\bin\Debug\System.Web.Http.xml
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app\LoginForms\bin\Debug\System.Web.Http.WebHost.xml
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app\LoginForms\obj\Debug\LoginForms.csprojAssemblyReference.cache
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app\LoginForms\obj\Debug\LoginForms.CallsView.resources
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app\LoginForms\obj\Debug\LoginForms.FormPrincipal.resources
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app\LoginForms\obj\Debug\LoginForms.Login.resources
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app\LoginForms\obj\Debug\LoginForms.Prueba.resources
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app\LoginForms\obj\Debug\LoginForms.Telegram.resources
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app\LoginForms\obj\Debug\LoginForms.UserSignUp.resources
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app\LoginForms\obj\Debug\LoginForms.Properties.Resources.resources
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app\LoginForms\obj\Debug\LoginForms.WhatsApp.resources
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app\LoginForms\obj\Debug\LoginForms.csproj.GenerateResource.cache
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app\LoginForms\obj\Debug\LoginForms.csproj.CoreCompileInputs.cache
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app\LoginForms\obj\Debug\LoginForms.csproj.CopyComplete
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app\LoginForms\obj\Debug\LoginForms.exe
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app\LoginForms\obj\Debug\LoginForms.pdb
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app_demoChat\LoginForms\bin\Debug\LoginForms.exe.config
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app_demoChat\LoginForms\bin\Debug\LoginForms.exe
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app_demoChat\LoginForms\bin\Debug\LoginForms.pdb
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app_demoChat\LoginForms\bin\Debug\EntityFramework.dll
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app_demoChat\LoginForms\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app_demoChat\LoginForms\bin\Debug\Microsoft.Web.Infrastructure.dll
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app_demoChat\LoginForms\bin\Debug\Newtonsoft.Json.dll
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app_demoChat\LoginForms\bin\Debug\RestSharp.dll
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app_demoChat\LoginForms\bin\Debug\Swashbuckle.Core.dll
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app_demoChat\LoginForms\bin\Debug\System.Net.Http.dll
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app_demoChat\LoginForms\bin\Debug\System.Net.Http.Extensions.dll
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app_demoChat\LoginForms\bin\Debug\System.Net.Http.Formatting.dll
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app_demoChat\LoginForms\bin\Debug\System.Net.Http.Primitives.dll
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app_demoChat\LoginForms\bin\Debug\System.Security.Cryptography.Algorithms.dll
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app_demoChat\LoginForms\bin\Debug\System.Security.Cryptography.Encoding.dll
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app_demoChat\LoginForms\bin\Debug\System.Security.Cryptography.Primitives.dll
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app_demoChat\LoginForms\bin\Debug\System.Security.Cryptography.X509Certificates.dll
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app_demoChat\LoginForms\bin\Debug\System.Web.Http.dll
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app_demoChat\LoginForms\bin\Debug\System.Web.Http.WebHost.dll
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app_demoChat\LoginForms\bin\Debug\WebActivatorEx.dll
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app_demoChat\LoginForms\bin\Debug\EntityFramework.xml
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app_demoChat\LoginForms\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app_demoChat\LoginForms\bin\Debug\Newtonsoft.Json.xml
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app_demoChat\LoginForms\bin\Debug\RestSharp.xml
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app_demoChat\LoginForms\bin\Debug\System.Web.Http.xml
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app_demoChat\LoginForms\bin\Debug\System.Web.Http.WebHost.xml
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app_demoChat\LoginForms\obj\Debug\LoginForms.csprojAssemblyReference.cache
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app_demoChat\LoginForms\obj\Debug\LoginForms.CallsView.resources
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app_demoChat\LoginForms\obj\Debug\LoginForms.FormPrincipal.resources
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app_demoChat\LoginForms\obj\Debug\LoginForms.Login.resources
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app_demoChat\LoginForms\obj\Debug\LoginForms.Prueba.resources
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app_demoChat\LoginForms\obj\Debug\LoginForms.Telegram.resources
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app_demoChat\LoginForms\obj\Debug\LoginForms.UserSignUp.resources
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app_demoChat\LoginForms\obj\Debug\LoginForms.Properties.Resources.resources
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app_demoChat\LoginForms\obj\Debug\LoginForms.WhatsApp.resources
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app_demoChat\LoginForms\obj\Debug\LoginForms.csproj.GenerateResource.cache
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app_demoChat\LoginForms\obj\Debug\LoginForms.csproj.CoreCompileInputs.cache
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app_demoChat\LoginForms\obj\Debug\LoginForms.csproj.CopyComplete
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app_demoChat\LoginForms\obj\Debug\LoginForms.exe
+C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app_demoChat\LoginForms\obj\Debug\LoginForms.pdb

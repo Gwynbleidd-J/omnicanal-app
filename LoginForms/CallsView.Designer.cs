@@ -195,6 +195,7 @@ namespace LoginForms
             this.btnLine1.TabIndex = 2;
             this.btnLine1.Text = "1";
             this.btnLine1.UseVisualStyleBackColor = true;
+            this.btnLine1.Click += new System.EventHandler(this.btnLine1_Click);
             // 
             // btnLine2
             // 
@@ -261,6 +262,7 @@ namespace LoginForms
             this.Controls.Add(this.btnLine1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "CallsView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CallsView";
