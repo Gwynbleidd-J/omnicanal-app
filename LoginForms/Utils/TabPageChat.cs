@@ -109,9 +109,9 @@ namespace LoginForms.Utils
             {
                 //tbPage = new TabPage();
                 if(platformIdentifier=="w")
-                    tbPage.Text = $"Whatsapp: {chatId}";
+                    tbPage.Text = $"Mensaje desde Whatsapp: {chatId}";
                 else
-                    tbPage.Text = $"Telegram: {chatId}";
+                    tbPage.Text = $"Mensaje desde Telegram: {chatId}";
 
                 tbPage.Name = $"tabPageChat_{chatId}"; 
                 tbPage.Tag = $"tabPageChat_{chatId}";
@@ -192,8 +192,10 @@ namespace LoginForms.Utils
                     try
                     {
                         if (!string.IsNullOrEmpty(txtSendMessage.Text.ToString()))
-                            if (await sendMessageFromPanelControl())
-                                askForNewMessages();
+                            await sendMessageFromPanelControl();
+                            //if (await sendMessageFromPanelControl())
+                            //    askForNewMessages();
+                                    
                                     //MessageBox.Show("Mensages nuevos cargados correctamente!");
                                     //addLabelMessages();
                                 //if(!string.IsNullOrEmpty(resulAskForNewMessages))
@@ -274,7 +276,7 @@ namespace LoginForms.Utils
                     newLabelMessage.Height = 20;                     
                     newLabelMessage.AutoSize = false;
                     newLabelMessage.Name = jsonChatMessagestHistoric.data.chat[i].id;
-                    newLabelMessage.BackColor = Color.LightGray;
+                    //newLabelMessage.BackColor = Color.LightGray;
                     newLabelMessage.Text = jsonChatMessagestHistoric.data.chat[i].text;
 
                     if(lastLabel == null)

@@ -45,6 +45,7 @@ namespace LoginForms
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(165, 20);
             this.textBox1.TabIndex = 0;
+            this.textBox1.Visible = false;
             // 
             // richTextBox1
             // 
@@ -53,6 +54,7 @@ namespace LoginForms
             this.richTextBox1.Size = new System.Drawing.Size(165, 384);
             this.richTextBox1.TabIndex = 1;
             this.richTextBox1.Text = "";
+            this.richTextBox1.Visible = false;
             // 
             // txtNewTabChat
             // 
@@ -60,6 +62,7 @@ namespace LoginForms
             this.txtNewTabChat.Name = "txtNewTabChat";
             this.txtNewTabChat.Size = new System.Drawing.Size(548, 20);
             this.txtNewTabChat.TabIndex = 4;
+            this.txtNewTabChat.Visible = false;
             this.txtNewTabChat.TextChanged += new System.EventHandler(this.txtNewTabChat_TextChanged);
             // 
             // tabControlChats
@@ -79,7 +82,6 @@ namespace LoginForms
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Size = new System.Drawing.Size(675, 462);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // button1
@@ -90,6 +92,7 @@ namespace LoginForms
             this.button1.TabIndex = 5;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
             // 
             // Prueba
             // 

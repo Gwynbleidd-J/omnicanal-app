@@ -261,6 +261,7 @@ namespace LoginForms
                 if (!tabChatExits(newNotification.chatId))
                 {
                     buildNewTabChat(newNotification);
+                    buildNewMessagesLabels(newNotification);
                 }
                 else
                 {

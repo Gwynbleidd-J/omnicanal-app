@@ -26,7 +26,7 @@ namespace LoginForms.Utils
         {
             try
             { 
-                chatsForAgent = 9;
+                chatsForAgent = 5;
                 //Control tbControl = frmPrueba.Controls["tabControlChats"];
                 if (tabControlFromForm != null)
                     tbControlChats = tabControlFromForm;

@@ -64,7 +64,7 @@ namespace LoginForms
             this.txtUserName.Name = "txtUserName";
             this.txtUserName.Size = new System.Drawing.Size(269, 22);
             this.txtUserName.TabIndex = 2;
-            this.txtUserName.Text = "julio@falso.com";
+            this.txtUserName.Text = "carlos@falso.com";
             // 
             // txtPassword
             // 

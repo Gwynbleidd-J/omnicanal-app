@@ -49,6 +49,7 @@ namespace LoginForms
             this.btnTelegram.Text = "Telegram";
             this.btnTelegram.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnTelegram.UseVisualStyleBackColor = true;
+            this.btnTelegram.Visible = false;
             this.btnTelegram.Click += new System.EventHandler(this.btnTelegram_Click);
             // 
             // btnLlamadas
@@ -77,6 +78,7 @@ namespace LoginForms
             this.button1.Text = "Telegram";
             this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // FormPrincipal
