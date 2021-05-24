@@ -34,7 +34,7 @@ namespace LoginForms
             prueba.MdiParent = this;
             prueba.Show();
             client = new AsynchronousClient(whatsApp.rtxtResponseMessage, this, prueba, this);
-            client.inicializarChatWindow();
+            //client.inicializarChatWindow();
         }
 
         private void FormPrincipal_Load(object sender, EventArgs e)

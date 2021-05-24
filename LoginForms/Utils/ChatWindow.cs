@@ -13,7 +13,7 @@ namespace LoginForms.Utils
     {
         #region atributos
         public string chatId { get; set; }
-        public Chat chatGenerals { get; set; }
+        public Models.Message chatGenerals { get; set; }
         public int chatsForAgent;
         public int nextTabPagePosition = 0;
         public TabControl tbControlChats { get; set; } 
@@ -89,8 +89,8 @@ namespace LoginForms.Utils
                 //tbControlChats.Controls.Add(tbPageChatTemporal);
                 //tbControlChats.TabPages.Add(tbPageChatTemporal.tbPage);
                 tbControlChats.Controls.Add(tbPageChatTemporal.tbPage);
-
-
+                //Intentar que el tab creado sea el que se seleccione en ese momento
+                tbControlChats.SelectedTab = tbPageChatTemporal.tbPage;
 
                 //arrTabPage[nextTabPagePosition] = tbPageChatTemporal;
                 arrTabPageChat.Add(tbPageChatTemporal);

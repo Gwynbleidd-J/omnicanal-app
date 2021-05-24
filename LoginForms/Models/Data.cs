@@ -8,6 +8,7 @@ namespace LoginForms.Models
 {
     public class Data
     {
-        public List<Chat> chat { get; set; }
+        public List<Message> messages { get; set; } 
+        public List<Chat> chats { get; set; }
     }
 }

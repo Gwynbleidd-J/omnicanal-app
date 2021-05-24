@@ -268,16 +268,16 @@ namespace LoginForms.Utils
                 //Label lastLabel = new Label();
                 Json jsonChatMessagestHistoric = JsonConvert.DeserializeObject<Json>(chatMessagestHistoric); 
                  
-                for (int i = jsonChatMessagestHistoric.data.chat.Count - 1; i >= 0; i--)
+                for (int i = jsonChatMessagestHistoric.data.messages.Count - 1; i >= 0; i--)
                 {
                     //Iniciio de construcción de la etiqueta dinámica
                     Label newLabelMessage = new Label();
                     newLabelMessage.Width = (pnlMessages.Width/2) + 15;
                     newLabelMessage.Height = 20;                     
                     newLabelMessage.AutoSize = false;
-                    newLabelMessage.Name = jsonChatMessagestHistoric.data.chat[i].id;
+                    newLabelMessage.Name = jsonChatMessagestHistoric.data.messages[i].id;
                     //newLabelMessage.BackColor = Color.LightGray;
-                    newLabelMessage.Text = jsonChatMessagestHistoric.data.chat[i].text;
+                    newLabelMessage.Text = jsonChatMessagestHistoric.data.messages[i].text;
 
                     if(lastLabel == null)
                         newLabelMessage.Location = new Point(0, 10);
@@ -289,7 +289,7 @@ namespace LoginForms.Utils
                     lastUsedHeigth += newLabelMessage.Height; 
 
                     //Validación para la alineación de la etiqueta según el Transmitter  <-- cliente / agente -->
-                    if (jsonChatMessagestHistoric.data.chat[i].transmitter == "c")
+                    if (jsonChatMessagestHistoric.data.messages[i].transmitter == "c")
                     { 
                         newLabelMessage.Left = 10;
                         newLabelMessage.TextAlign = ContentAlignment.MiddleLeft;

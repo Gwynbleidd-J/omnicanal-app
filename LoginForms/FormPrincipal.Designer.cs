@@ -93,7 +93,7 @@ namespace LoginForms
             this.Menu = this.mainMenu1;
             this.Name = "FormPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FormPrincipal";
+            this.Text = "Plataforma Omnicanal";
             this.Load += new System.EventHandler(this.FormPrincipal_Load);
             this.ResumeLayout(false);
 

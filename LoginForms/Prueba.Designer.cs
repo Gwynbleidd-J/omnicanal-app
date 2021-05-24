@@ -63,7 +63,7 @@ namespace LoginForms
             this.txtNewTabChat.Size = new System.Drawing.Size(548, 20);
             this.txtNewTabChat.TabIndex = 4;
             this.txtNewTabChat.Visible = false;
-            this.txtNewTabChat.TextChanged += new System.EventHandler(this.txtNewTabChat_TextChanged);
+            //this.txtNewTabChat.TextChanged += new System.EventHandler(this.txtNewTabChat_TextChanged);
             // 
             // tabControlChats
             // 

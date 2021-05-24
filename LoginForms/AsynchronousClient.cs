@@ -13,7 +13,6 @@ using Newtonsoft.Json.Linq;
 using System.Net.Http;
 using System.Web.Script.Serialization;
 using LoginForms.Models;
-
 using LoginForms.Utils;
 using System.Drawing;
 
@@ -38,6 +37,7 @@ namespace LoginForms
                 this.fPrincipal = fPrincipal;
                 //this.tbControlContainer = tabControlFromForm;
                 //inicializarChatWindow();
+                //recoverActiveChats();
             }
             catch (Exception ex)
             {
@@ -228,7 +228,7 @@ namespace LoginForms
         {
             try
             {
-                Chat notification = JsonConvert.DeserializeObject<Chat>(socketNotification);
+                Models.Message notification = JsonConvert.DeserializeObject<Models.Message>(socketNotification);
                 
                 prueba.treatNotification(notification);
                 
@@ -336,6 +336,36 @@ namespace LoginForms
             catch (Exception ex)
             {
                 Console.WriteLine("Error[inicializarChatWindow]: " + ex.ToString());
+            }
+        }
+
+        public void recoverActiveChats()
+        {
+            try
+            {
+
+                //prueba.recoverActiveChats();
+                //prueba.treatNotification();
+
+                Models.Message fakeNotification2 = new Models.Message();
+                fakeNotification2.chatId = "238";
+                fakeNotification2.platformIdentifier = "w";
+                fakeNotification2.clientPlatformIdentifier = "whatsapp:+5214625950962";
+                prueba.treatNotification(fakeNotification2); 
+
+                Models.Message fakeNotification1 = new Models.Message();
+                fakeNotification1.chatId = "236";
+                fakeNotification1.platformIdentifier = "w";
+                fakeNotification1.clientPlatformIdentifier = "whatsapp:+5214621257826";
+                prueba.treatNotification(fakeNotification1);
+                //Thread.Sleep(700);
+                
+                // {"chatId": "236", "platformIdentifier": "w", "clientPlatformIdentifier": "whatsapp:+5214621257826"}
+                // {"chatId": "236", "platformIdentifier": "w", "clientPlatformIdentifier": "whatsapp:+5214621257826"}
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error[AsynchronousClient_recoverActiveChats]: " + ex.ToString());
             }
         }
     }

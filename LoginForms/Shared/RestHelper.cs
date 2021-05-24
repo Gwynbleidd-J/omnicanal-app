@@ -64,6 +64,36 @@ namespace LoginForms.Shared
             return string.Empty;
         }
 
+        public async Task<string> RecoverActiveChats(string agentId)
+        {
+            string data = string.Empty;
+            try
+            {
+                var inputData = new Dictionary<string, string>
+                {
+                    {"userId", agentId}
+                };
+                var input = new FormUrlEncodedContent(inputData);
+                HttpClient client = new HttpClient();
+                HttpResponseMessage response = await client.PostAsync(baseUrl + "messenger/recoverActiveChats", input);
+                HttpContent content = response.Content;
+
+                data = await content.ReadAsStringAsync();
+                //if (data != null)
+                //{
+                //    return data.ToString();
+                //}
+                if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+                    return data;
+                else
+                    return response.StatusCode.ToString();
+            }
+            catch (Exception ex) 
+            {
+                Console.WriteLine("Error[RecoverActiveChats]: " + ex.ToString());
+            }
+            return string.Empty;
+        }
         //public async Task<string> GetMessage(string chatId, string id)
         //{
         //    var inputData = new MessageJson
