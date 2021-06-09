@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using LoginForms.Models;
@@ -17,11 +18,11 @@ namespace LoginForms.Shared
 {
     public class RestHelper
     {
+        //private string baseUrl = "http://192.168.1.102:3004/api/";
+
         //private string baseUrl = "http://192.168.1.102:3000/api/";
 
-        private string baseUrl = "http://192.168.1.102:3000/api/";
-
-        //private string baseUrl = "http://192.168.1.158:3000/api/";
+        private string baseUrl = "http://localhost:3000/api/";
 
         //private string baseUrl = "http://192.168.100.13:3000/api/";
 
@@ -61,7 +62,7 @@ namespace LoginForms.Shared
             else
                 return response.StatusCode.ToString();
 
-            return string.Empty;
+            //return string.Empty;
         }
 
         public async Task<string> RecoverActiveChats(string agentId)
@@ -71,7 +72,9 @@ namespace LoginForms.Shared
             {
                 var inputData = new Dictionary<string, string>
                 {
-                    {"userId", agentId}
+                    {"userId", agentId},
+                    { "agentPlatformIdentifier", "192.168.1.156"}
+                    //{ "agentPlatformIdentifier", "192.168.100.13"}
                 };
                 var input = new FormUrlEncodedContent(inputData);
                 HttpClient client = new HttpClient();
@@ -166,13 +169,26 @@ namespace LoginForms.Shared
 
                 var input = new FormUrlEncodedContent(inputData);
 
-                using (HttpClient client = new HttpClient())
+                HttpClient client = new HttpClient();
+                HttpResponseMessage response = await client.PostAsync(baseUrl + "auth", input);
+                HttpContent content = response.Content;
+                string data = await content.ReadAsStringAsync();
+                if(!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
                 {
-                    using (HttpResponseMessage response = await client.PostAsync(baseUrl + "auth", input))
+                    return data;
+                }
+                else
+                {
+                    return response.StatusCode.ToString();
+                }
+                /*
+                 using (HttpClient client1 = new HttpClient())
+                {
+                    using (HttpResponseMessage response1 = await client.PostAsync(baseUrl + "auth", input))
                     {
-                        using (HttpContent content = response.Content)
+                        using (HttpContent content1 = response.Content)
                         {
-                            string data = await content.ReadAsStringAsync();
+                            string data1 = await content.ReadAsStringAsync();
                             Console.WriteLine(data);
                             if (data != null)
                             {
@@ -183,6 +199,7 @@ namespace LoginForms.Shared
 
                     }
                 }
+                */
             }
             catch (Exception ex)
             {
@@ -202,7 +219,7 @@ namespace LoginForms.Shared
 
         //Metodo para deserializar las respuestas del servidor
         //decirle a Diego que si se puede hacer un metodo para que se encargue de las deserializaciones
-        public string ResponseMessage(string strJson)
+        public string DeserializarJson(string strJson)
         {
             Json json = JsonConvert.DeserializeObject<Json>(strJson);
             return json.ToString();
@@ -211,12 +228,222 @@ namespace LoginForms.Shared
         public User GetUser(string strJson)
         {
             MsjApi resp = JsonConvert.DeserializeObject<MsjApi>(strJson);
+            //Json response = JsonConvert.DeserializeObject<Json>(strJson);
+            //Json resp = JsonConvert.DeserializeObject<Json>(strJson);
+             //data = resp.dataLogin;
             var data = resp.data;
             string json = BeautifyJson(data.ToString());
-            User user = JsonConvert.DeserializeObject<User>(json);
-            return user; 
+           //string json = JsonConvert.SerializeObject(data, Formatting.Indented);
+           User user = JsonConvert.DeserializeObject<User>(json);
+           return user; 
         }
 
+        public async Task<string> getPermissions(string rolId)
+
+        {
+            var inputData = new Dictionary<string, string>
+            {
+                {"rolId", rolId}
+            };
+            var input = new FormUrlEncodedContent(inputData);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync(baseUrl + "permission", input);
+            HttpContent content = response.Content;
+
+            string data = await content.ReadAsStringAsync();
+            //if (data != null)
+            //{
+            //    return data.ToString();
+            //}
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+                return data;
+            else
+                return response.StatusCode.ToString();
+
+            //return string.Empty;
+        }
+
+        public async Task<string> getMenu(string id)
+        {
+            var inputData = new Dictionary<string, string>
+            {
+                {"id", id}
+            };
+            var input = new FormUrlEncodedContent(inputData);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync(baseUrl + "menu", input);
+            HttpContent content = response.Content;
+
+            string data = await content.ReadAsStringAsync();
+            //if (data != null)
+            //{
+            //    return data.ToString();
+            //}
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+                return data;
+            else
+                return response.StatusCode.ToString();
+
+            //return string.Empty;
+        }
+
+        public async Task<string> getMyAgents(string id)
+        {
+            var inputData = new Dictionary<string, string>
+            {
+                {"leaderId", id}
+            };
+            var input = new FormUrlEncodedContent(inputData);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync(baseUrl + "user/myAgents", input);
+            Console.WriteLine(response);
+            HttpContent content = response.Content;
+            string data = await content.ReadAsStringAsync();
+            
+            if(!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            {
+                return data;
+            }
+            else
+            {
+                return response.StatusCode.ToString();
+            }
+        }
+
+        public async Task<string> getAgentsDetails(string id)
+        {
+            var inputData = new Dictionary<string, string>
+            {
+                {"id", id }
+            };
+            var input = new FormUrlEncodedContent(inputData);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync(baseUrl + "user/agentInfo", input);
+            Console.WriteLine(response);
+            HttpContent content = response.Content;
+            string data = await content.ReadAsStringAsync();
+
+            if(!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            {
+                return data;
+            }
+            else
+            {
+                return response.StatusCode.ToString();
+            }
+        }
+
+        public async Task<string> getCloseChat(string chatId)
+        {
+            var inputData = new Dictionary<string, string>
+            {
+                { "chatId", chatId }
+            };
+
+            var input = new FormUrlEncodedContent(inputData);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync(baseUrl + "chat/closeChat", input);
+            Console.WriteLine(response);
+            HttpContent content = response.Content;
+            string data = response.StatusCode.ToString();
+
+
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            {
+                return data;
+            }
+            else
+            {
+                return response.StatusCode.ToString();
+            }
+
+        }
+
+        public async Task<string> getNetworkCategories()
+        {
+            //var inputData = new Dictionary<string, string> 
+            //{
+            //    { "id", id }
+            //};
+            //var input = new FormUrlEncodedContent(inputData);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.GetAsync(baseUrl + "network/networks/");
+            HttpContent content = response.Content;
+            string data = await content.ReadAsStringAsync();
+            if(!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            {
+                return data;
+            }
+            else
+            {
+                return response.StatusCode.ToString();
+            }
+        }
+
+
+        public async Task<string> updateNetworkCategories(string chatId, string networkCategoryId)
+        {
+            var inputData = new Dictionary<string, string>
+            {
+                {"chatId", chatId },
+                {"networkId", networkCategoryId }
+            };
+            var input = new FormUrlEncodedContent(inputData);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync(baseUrl + "chat/updateNetworkCategory", input);
+            Console.WriteLine(response);
+            HttpContent content = response.Content;
+            string data = response.StatusCode.ToString();
+
+            if(!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            {
+                return data;
+            }
+            else
+            {
+                return response.StatusCode.ToString();
+            }
+        }
+
+        public async Task<string> updateUserStatus(string statusId, string userId)
+        {
+            var inputData = new Dictionary<string, string>
+            {
+                {"status", statusId},
+                { "id", userId}
+            };
+            var input = new FormUrlEncodedContent(inputData);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync(baseUrl + "status/updateUserStatus", input);
+            HttpContent content = response.Content;
+            string data = response.StatusCode.ToString();
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            {
+                return data;
+            }
+            else
+            {
+                return response.StatusCode.ToString();
+            }
+        }
+
+        public async Task<string> getUserStatus()
+        {
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.GetAsync(baseUrl + "status");
+            HttpContent content = response.Content;
+            string data = await content.ReadAsStringAsync();
+
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            {
+                return data;
+            }
+            else
+            {
+                return response.StatusCode.ToString();
+            }
+
+        }
 
         public async Task<string> SendMessage(string text, string chatId, string clientPlatformIdentifier, string platformIdentifier)
         {
@@ -230,7 +457,9 @@ namespace LoginForms.Shared
                 { "chatId", chatId},
                 { "clientPlatformIdentifier", clientPlatformIdentifier},
                 { "platformIdentifier", platformIdentifier},
-                { "agentPlatformIdentifier", "192.168.1.153" }
+                { "agentPlatformIdentifier", "192.168.1.156" }
+                //{ "agentPlatformIdentifier", "192.168.100.13" }
+                
             };
 
             Console.WriteLine(inputData);

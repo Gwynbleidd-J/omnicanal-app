@@ -14,6 +14,7 @@ namespace LoginForms.Utils
 {
     public class TabPageChat
     {
+        //FORMULARIO PADRE
         #region Atributos
         public string chatId { get; set; }
         public string platformIdentifier { get; set; }
@@ -31,6 +32,8 @@ namespace LoginForms.Utils
         public Panel pnlMessages { get; set; }
         public Label lastLabel { get; set; }
 
+        public Button btnCloseButton { get; set; }
+
         //public PanelControl panelControl { get; set; }
 
         /// /Prueba para tener el botón y textBox de envío de mensajes al mismo nivel del tabPage
@@ -45,7 +48,7 @@ namespace LoginForms.Utils
         {
             try
             {
-                tbPage = new TabPage(); 
+                tbPage = new TabPage();
             }
             catch (Exception ex)
             {
@@ -85,6 +88,7 @@ namespace LoginForms.Utils
                 txtSendMessage = new TextBox(); 
                 btnSendMessage = new Button();
                 lastLabel = new Label();
+                btnCloseButton = new Button();
 
                 tbPage.Controls.Add(lblLastHeighUsed);
                 tbPage.Controls.Add(lblLastMessageId);
@@ -95,6 +99,7 @@ namespace LoginForms.Utils
                 //tbPage.Controls.Add(panelControl.pnlControls);
                 tbPage.Controls.Add(txtSendMessage);
                 tbPage.Controls.Add(btnSendMessage);
+                tbPage.Controls.Add(btnCloseButton);
 
             }
             catch (Exception ex)
@@ -165,7 +170,7 @@ namespace LoginForms.Utils
                 //Agregar al textbox para el envío de mensajes 
                 txtSendMessage.Name = $"txtSendMessage_{chatId}";
                 txtSendMessage.Tag = $"txtSendMessage_{chatId}";
-                txtSendMessage.Size = new Size(548, 20);
+                txtSendMessage.Size = new Size(480, 20);
                 txtSendMessage.Location = new Point(10, 432);
                 txtSendMessage.Text = "Buen día, soy su agente a cargo, ¿En qué le puedo ayudar?";
                 txtSendMessage.KeyPress += async (s, e) => {
@@ -185,8 +190,8 @@ namespace LoginForms.Utils
                 btnSendMessage.Name = $"btnSendMessage_{chatId}";
                 btnSendMessage.Tag = $"btnSendMessage_{chatId}";
                 btnSendMessage.Text = "Enviar";
-                btnSendMessage.Size = new Size(102, 23);
-                btnSendMessage.Location = new Point(564, 429);
+                btnSendMessage.Size = new Size(82, 23);
+                btnSendMessage.Location = new Point(498, 429);
 
                 btnSendMessage.Click += async (s, e) => {
                     try
@@ -206,6 +211,24 @@ namespace LoginForms.Utils
                         Console.WriteLine("Error[btnSendMessage.Click]: " + ex.Message);
                     }
                 };
+
+
+                btnCloseButton.Name = $"btnCloseButton_{chatId}";
+                btnCloseButton.Tag = $"btnCloseButton_{chatId}";
+                btnCloseButton.Text = $"Cerrar Chat";
+                btnCloseButton.Size = new Size(86,23);
+                btnCloseButton.Location = new Point(586, 429);
+
+                btnCloseButton.Click += async (s, e) =>
+                {
+                    if (await closeChat())
+                    {
+                        NetworkCategories networkCategories = new NetworkCategories(chatId);
+                        networkCategories.ShowDialog();
+                        removeTabChat();
+
+                    }    
+                };
             }
             catch (Exception ex) 
             { 
@@ -213,6 +236,13 @@ namespace LoginForms.Utils
                 //tbPage = null;
             }
             //return tbPage;
+        }
+
+        public void removeTabChat()
+        {
+            Control parentTabControlChat = tbPage.Parent;
+            parentTabControlChat.Controls.Remove(tbPage);
+            MessageBox.Show("Chat Cerrado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         public async Task<bool> sendMessageFromPanelControl()
@@ -324,6 +354,27 @@ namespace LoginForms.Utils
             }
         }
 
+        public async Task<bool> closeChat()
+        {
+            bool resultCloseChat = false;
+            try
+            {
+                //closeChatId = chatId;
+                string statusCodeMessage = await restHelper.getCloseChat(chatId);
+                if (!string.IsNullOrEmpty(statusCodeMessage) && statusCodeMessage == "OK")
+                {
+                    resultCloseChat = true;
+                }
+                return resultCloseChat;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error[CloseChat] {ex.Message}");
+                resultCloseChat = false;
+            }
+
+            return resultCloseChat;
+        }
         #endregion
     }
 }

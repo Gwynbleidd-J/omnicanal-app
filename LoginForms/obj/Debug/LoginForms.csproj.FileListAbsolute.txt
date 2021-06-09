@@ -209,3 +209,10 @@ C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app_demoChat\LoginForms\obj
 C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app_demoChat\LoginForms\obj\Debug\LoginForms.csproj.CopyComplete
 C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app_demoChat\LoginForms\obj\Debug\LoginForms.exe
 C:\Users\bebet\Desktop\omnicanal_app-hilos\omnicanal_app_demoChat\LoginForms\obj\Debug\LoginForms.pdb
+C:\Users\Julio Cocoletzi\Documents\omnicanal_app\LoginForms\bin\Debug\RestSharp.dll
+C:\Users\Julio Cocoletzi\Documents\omnicanal_app\LoginForms\bin\Debug\RestSharp.xml
+C:\Users\Julio Cocoletzi\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.Prueba.resources
+C:\Users\Julio Cocoletzi\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.MisAgentes.resources
+C:\Users\Julio Cocoletzi\Documents\omnicanal_app\LoginForms\bin\Debug\OzekiSDK.dll
+C:\Users\Julio Cocoletzi\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.AgentInformation.resources
+C:\Users\Julio Cocoletzi\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.NetworkCategories.resources

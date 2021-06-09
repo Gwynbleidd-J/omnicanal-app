@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using LoginForms.Models;
 using LoginForms.Shared;
+using Newtonsoft.Json;
 
 namespace LoginForms
 {
@@ -25,69 +26,63 @@ namespace LoginForms
             this.Close();
         }
          
-        private async void btnEntrar_Click(object sender, EventArgs e)
+        private void btnEntrar_Click(object sender, EventArgs e)
         {
-            string ipAddress = rh.GetLocalIpAddress();
             if (txtUserName.Text == "" || txtPassword.Text == "")
             {
                 MessageBox.Show("Campos Vacios", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                try
-                {
-                    var json = await rh.Login(txtUserName.Text, txtPassword.Text, ipAddress);
-                    string mensage = rh.ResponseMessage(json);
-                    //MessageBox.Show(json, Text);
-                    User user = rh.GetUser(json);
-                    this.Hide();
-                    //MessageBox.Show($"Bienvenido {txtUserName.Text}");
-                    FormPrincipal formPrincipal = new FormPrincipal();
-                    //formPrincipal.lblToken.Text = user.token;
-                    formPrincipal.FormClosed += (s, args) => this.Close();
-                    formPrincipal.Show();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString(), Text, MessageBoxButtons.OK);
-                    // throw ex;
-                }
-
+                userLogin();
             }
 
         }
 
-        private async void txtPassword_KeyPress(object sender, KeyPressEventArgs e)
+        private void txtPassword_KeyPress(object sender, KeyPressEventArgs e)
         {
             if((int)e.KeyChar == (int)Keys.Enter)
             {
-                            string ipAddress = rh.GetLocalIpAddress();
-            if (txtUserName.Text == "" || txtPassword.Text == "")
-            {
-                MessageBox.Show("Campos Vacios", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (txtUserName.Text == "" || txtPassword.Text == "")
+                {
+                    MessageBox.Show("Campos Vacios", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else 
+                {
+                    userLogin();
+                }
             }
-            else {
-                try 
-                {
-                    var json = await rh.Login(txtUserName.Text, txtPassword.Text, ipAddress);
-                    string mensage = rh.ResponseMessage(json);
-                    //MessageBox.Show(json, Text);
-                    User user = rh.GetUser(json);
-                    this.Hide();
-                    MessageBox.Show($"Bienvenido {txtUserName.Text}");
-                    FormPrincipal formPrincipal = new FormPrincipal();
-                    //formPrincipal.lblToken.Text = user.token;
-                    formPrincipal.FormClosed += (s, args) => this.Close();
-                    formPrincipal.Show();
-                }
-                catch(Exception ex)
-                {
-                    MessageBox.Show(ex.ToString(), Text, MessageBoxButtons.OK);
-                   // throw ex;
-                }
+        }
 
+        private async void userLogin()
+        {
+            string ipAddress = rh.GetLocalIpAddress();
+            try
+            {
+                var json = await rh.Login(txtUserName.Text, txtPassword.Text, ipAddress);
+                Json userNuevo = JsonConvert.DeserializeObject<Json>(json);
+                //string message = rh.ResponseMessage(json);
+                //string message = rh.DeserializarJson(json);
+                User user = rh.GetUser(json);
+                GlobalSocket.currentUser = userNuevo.data.user;
+                this.Hide();
+                //MessageBox.Show($"Bienvenido {txtUserName.Text}");
+                FormPrincipal formPrincipal = new FormPrincipal();
+                //formPrincipal.rolId = user.rolID;
+                //formPrincipal.lblToken.Text = user.token;
+                formPrincipal.FormClosed += (s, args) => this.Close();
+                formPrincipal.Show();
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error[Login]: {ex}");
             }
+
+        }
+
+        private void Login_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

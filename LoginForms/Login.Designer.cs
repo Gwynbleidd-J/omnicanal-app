@@ -64,7 +64,7 @@ namespace LoginForms
             this.txtUserName.Name = "txtUserName";
             this.txtUserName.Size = new System.Drawing.Size(269, 22);
             this.txtUserName.TabIndex = 2;
-            this.txtUserName.Text = "carlos@falso.com";
+            this.txtUserName.Text = "diego@falso.com";
             // 
             // txtPassword
             // 
@@ -112,6 +112,7 @@ namespace LoginForms
             this.Name = "Login";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Login_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

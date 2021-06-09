@@ -22,7 +22,7 @@ namespace LoginForms
     {
         private RichTextBox container;
         private Form whatsapp;
-        private Prueba prueba;
+        public Prueba prueba;
         private Form fPrincipal;
         //private TabControl tbControlContainer;
         //private ChatWindow chatWindow;
@@ -66,7 +66,8 @@ namespace LoginForms
 
                 //IP de Server jCarlos      192.168.1.102    
                 //IP de Server Localhost    127.0.0.1
-                IPAddress ipAddress = IPAddress.Parse("192.168.1.102");
+                IPAddress ipAddress = IPAddress.Parse("192.168.1.156");
+                //IPAddress ipAddress = IPAddress.Parse("192.168.100.13");
                 //IPAddress ipAddress = IPAddress.Parse("192.168.1.158");
                 //IPAddress ipAddress = IPAddress.Parse(rh.GetLocalIpAddress());
                 //IPAddress ipAddress = IPAddress.Parse("192.168.100.13");

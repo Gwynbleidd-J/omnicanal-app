@@ -11,7 +11,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using LoginForms.Shared;
-using LoginForms.Models;
 using LoginForms.Utils;
 using RestSharp;
 
@@ -285,6 +284,7 @@ namespace LoginForms
                 Console.WriteLine("Error[validarNuevoTab]: " + ex.ToString());
             }
         }
+         
         public bool tabChatExits(string chatId)
         {
             bool resultado = false;
@@ -306,18 +306,20 @@ namespace LoginForms
         public void buildNewTabChat(Models.Message chatGenerals)
         {
             try
-            {
-                //chatWindowLocal.chatId = chatId;
+            { 
                 chatWindowLocal.chatGenerals = chatGenerals;
                 Thread tBuildNewTabChat = new Thread(chatWindowLocal.addTabPage);
-                tBuildNewTabChat.Start();                
+                tBuildNewTabChat.Start();
+
+                 
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Error[buildNewTabChat]: " + ex.ToString());
             }
         }
-        
+         
+
         public void buildNewMessagesLabels(Models.Message chatGenerals)
         {
             try
@@ -337,38 +339,23 @@ namespace LoginForms
             try
             {
                 string recoveredChatsFromAPI = await restHelper.RecoverActiveChats("10");
+                
                 jsonRecoveredChats = JsonConvert.DeserializeObject<Json>(recoveredChatsFromAPI);
                 //Models.Message fakeNotification = new Models.Message();                
                 //MessageBox.Show("Mensajes activos recuperados: " + recoveredChats);
 
                 foreach (Chat chatGenerals in jsonRecoveredChats.data.chats)
-                { 
+                {
                     Models.Message fakeNotification = new Models.Message();
                     fakeNotification.chatId = chatGenerals.id;
                     fakeNotification.platformIdentifier = chatGenerals.platformIdentifier;
                     fakeNotification.clientPlatformIdentifier = chatGenerals.clientPlatformIdentifier;
                     treatNotification(fakeNotification);
 
-                    Thread.Sleep(5000);
+                    //Thread.Sleep(9000);
                 }
-                //if (jsonRecoveredChats.data.chats[0] != null)
-                //{
-                //    Models.Message fakeNotification1 = new Models.Message();
-                //    fakeNotification1.chatId = jsonRecoveredChats.data.chats[0].id;
-                //    fakeNotification1.platformIdentifier = jsonRecoveredChats.data.chats[0].platformIdentifier;
-                //    fakeNotification1.clientPlatformIdentifier = jsonRecoveredChats.data.chats[0].clientPlatformIdentifier;
-                //    treatNotification(fakeNotification1);
-                //    Thread.Sleep(5000);
-                //}
-                //Thread.Sleep(5000);
-                //if (jsonRecoveredChats.data.chats[1] != null)
-                //{
-                //    Models.Message fakeNotification2 = new Models.Message();
-                //    fakeNotification2.chatId = jsonRecoveredChats.data.chats[1].id;
-                //    fakeNotification2.platformIdentifier = jsonRecoveredChats.data.chats[1].platformIdentifier;
-                //    fakeNotification2.clientPlatformIdentifier = jsonRecoveredChats.data.chats[1].clientPlatformIdentifier;
-                //    treatNotification(fakeNotification2);
-                //}
+
+
 
             }
             catch (Exception ex)

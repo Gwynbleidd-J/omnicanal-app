@@ -35,6 +35,7 @@ namespace LoginForms
             this.tabControlChats = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.tabControlChats.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.SuspendLayout();
@@ -60,15 +61,14 @@ namespace LoginForms
             // 
             this.txtNewTabChat.Location = new System.Drawing.Point(10, 432);
             this.txtNewTabChat.Name = "txtNewTabChat";
-            this.txtNewTabChat.Size = new System.Drawing.Size(548, 20);
+            this.txtNewTabChat.Size = new System.Drawing.Size(480, 20);
             this.txtNewTabChat.TabIndex = 4;
             this.txtNewTabChat.Visible = false;
-            //this.txtNewTabChat.TextChanged += new System.EventHandler(this.txtNewTabChat_TextChanged);
             // 
             // tabControlChats
             // 
             this.tabControlChats.Controls.Add(this.tabPage1);
-            this.tabControlChats.Location = new System.Drawing.Point(206, 13);
+            this.tabControlChats.Location = new System.Drawing.Point(6, 13);
             this.tabControlChats.Name = "tabControlChats";
             this.tabControlChats.SelectedIndex = 0;
             this.tabControlChats.Size = new System.Drawing.Size(683, 488);
@@ -76,6 +76,7 @@ namespace LoginForms
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.button2);
             this.tabPage1.Controls.Add(this.button1);
             this.tabPage1.Controls.Add(this.txtNewTabChat);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -86,23 +87,34 @@ namespace LoginForms
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(564, 429);
+            this.button1.Location = new System.Drawing.Point(498, 429);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(102, 23);
+            this.button1.Size = new System.Drawing.Size(82, 23);
             this.button1.TabIndex = 5;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Visible = false;
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(586, 429);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(86, 23);
+            this.button2.TabIndex = 6;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Visible = false;
+            // 
             // Prueba
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(901, 514);
+            this.ClientSize = new System.Drawing.Size(699, 514);
             this.Controls.Add(this.tabControlChats);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.textBox1);
             this.Name = "Prueba";
+            this.Tag = "Chats";
             this.Text = "Chats";
             this.Load += new System.EventHandler(this.Prueba_Load);
             this.tabControlChats.ResumeLayout(false);
@@ -121,5 +133,6 @@ namespace LoginForms
         public System.Windows.Forms.TabControl tabControlChats;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }

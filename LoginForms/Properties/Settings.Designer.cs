@@ -25,11 +25,10 @@ namespace LoginForms.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://192.168.1.102:3000/api/")]
-        public string ipServidor {
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string AgentStatus {
             get {
-                return ((string)(this["ipServidor"]));
+                return ((string)(this["AgentStatus"]));
             }
         }
     }

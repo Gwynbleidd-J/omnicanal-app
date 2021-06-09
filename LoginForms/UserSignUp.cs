@@ -27,7 +27,8 @@ namespace LoginForms
             else
             {
                 var response = await rh.RegistrerUser(txtUserName.Text, txtEmail.Text, txtPassword.Text);
-                string message = rh.ResponseMessage(response);
+                string message = rh.DeserializarJson(response);
+                //string message = rh.ResponseMessage(response);
                 if (message == "Register succesfull")
                 {
                     MessageBox.Show("Usuario Registrado con Éxito", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);

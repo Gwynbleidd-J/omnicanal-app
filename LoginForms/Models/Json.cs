@@ -11,5 +11,6 @@ namespace LoginForms.Models
         public int status { get; set; }
         public string message { get; set; }
         public Data data { get; set; }
+
     }
 }

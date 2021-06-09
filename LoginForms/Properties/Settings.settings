@@ -2,8 +2,8 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="LoginForms.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="ipServidor" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://192.168.1.102:3000/api/</Value>
+    <Setting Name="AgentStatus" Type="System.String" Scope="Application">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>
