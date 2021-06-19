@@ -250,8 +250,9 @@ namespace LoginForms.Utils
             bool resultSendMessageFromPanelControl = false;
             try
             {
+                var agentId = GlobalSocket.currentUser.activeIp;
                 //string statusCodeSendMessage = await restHelper.SendMessage(txtSendMessage.Text.ToString(), chatId, "whatsapp:+5214621257826", "w");
-                string statusCodeSendMessage = await restHelper.SendMessage(txtSendMessage.Text.ToString(), lblChatId.Text.ToString(), lblClientPlatformIdentifier.Text.ToString(), lblPlatformIdentifier.Text.ToString());
+                string statusCodeSendMessage = await restHelper.SendMessage(txtSendMessage.Text.ToString(), lblChatId.Text.ToString(), lblClientPlatformIdentifier.Text.ToString(), lblPlatformIdentifier.Text.ToString(), agentId);
                 if (!string.IsNullOrEmpty(statusCodeSendMessage) && statusCodeSendMessage == "OK")
                 {
                     resultSendMessageFromPanelControl = true;

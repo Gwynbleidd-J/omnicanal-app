@@ -137,21 +137,21 @@ namespace LoginForms.Utils
         public async Task<bool> sendMessageFromPanelControl()
         {
             bool resultSendMessageFromPanelControl = false;
-            try
-            { 
-                string statusCodeSendMessage = await restHelper.SendMessage(txtSendMessage.Text.ToString(), chatId, "whatsapp:+5214621257826", "w");
-                if (!string.IsNullOrEmpty(statusCodeSendMessage) && statusCodeSendMessage == "OK")
-                {
-                    resultSendMessageFromPanelControl = true;
-                    txtSendMessage.Text = "";
-                }
-                return resultSendMessageFromPanelControl;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error[sendMessageFromPanelControl]: " + ex.Message);
-                resultSendMessageFromPanelControl = false;
-            }
+            //try
+            //{ 
+            //    string statusCodeSendMessage = await restHelper.SendMessage(txtSendMessage.Text.ToString(), chatId, "whatsapp:+5214621257826", "w");
+            //    if (!string.IsNullOrEmpty(statusCodeSendMessage) && statusCodeSendMessage == "OK")
+            //    {
+            //        resultSendMessageFromPanelControl = true;
+            //        txtSendMessage.Text = "";
+            //    }
+            //    return resultSendMessageFromPanelControl;
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine("Error[sendMessageFromPanelControl]: " + ex.Message);
+            //    resultSendMessageFromPanelControl = false;
+            //}
             return resultSendMessageFromPanelControl;
         }
 

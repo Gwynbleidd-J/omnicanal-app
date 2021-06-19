@@ -38,7 +38,9 @@ namespace LoginForms
             this.flpDynamicButtons = new System.Windows.Forms.FlowLayoutPanel();
             this.pnlChatMessages = new System.Windows.Forms.Panel();
             this.flpAgentStatus = new System.Windows.Forms.FlowLayoutPanel();
+            this.label1 = new System.Windows.Forms.Label();
             this.cmbUserStatus = new System.Windows.Forms.ComboBox();
+            this.btnCloseSesion = new System.Windows.Forms.Button();
             this.flpDynamicButtons.SuspendLayout();
             this.flpAgentStatus.SuspendLayout();
             this.SuspendLayout();
@@ -48,9 +50,10 @@ namespace LoginForms
             this.btnTelegram.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTelegram.Image = ((System.Drawing.Image)(resources.GetObject("btnTelegram.Image")));
             this.btnTelegram.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnTelegram.Location = new System.Drawing.Point(3, 47);
+            this.btnTelegram.Location = new System.Drawing.Point(4, 59);
+            this.btnTelegram.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnTelegram.Name = "btnTelegram";
-            this.btnTelegram.Size = new System.Drawing.Size(95, 38);
+            this.btnTelegram.Size = new System.Drawing.Size(127, 47);
             this.btnTelegram.TabIndex = 1;
             this.btnTelegram.Text = "Telegram";
             this.btnTelegram.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -63,9 +66,10 @@ namespace LoginForms
             this.btnLlamadas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLlamadas.Image = ((System.Drawing.Image)(resources.GetObject("btnLlamadas.Image")));
             this.btnLlamadas.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnLlamadas.Location = new System.Drawing.Point(3, 91);
+            this.btnLlamadas.Location = new System.Drawing.Point(4, 114);
+            this.btnLlamadas.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnLlamadas.Name = "btnLlamadas";
-            this.btnLlamadas.Size = new System.Drawing.Size(95, 40);
+            this.btnLlamadas.Size = new System.Drawing.Size(127, 49);
             this.btnLlamadas.TabIndex = 2;
             this.btnLlamadas.Text = "Llamadas";
             this.btnLlamadas.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -78,9 +82,10 @@ namespace LoginForms
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
             this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(3, 3);
+            this.button1.Location = new System.Drawing.Point(4, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(95, 38);
+            this.button1.Size = new System.Drawing.Size(127, 47);
             this.button1.TabIndex = 5;
             this.button1.Text = "Telegram";
             this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -94,47 +99,74 @@ namespace LoginForms
             this.flpDynamicButtons.Controls.Add(this.button1);
             this.flpDynamicButtons.Controls.Add(this.btnTelegram);
             this.flpDynamicButtons.Controls.Add(this.btnLlamadas);
-            this.flpDynamicButtons.Location = new System.Drawing.Point(2, 90);
+            this.flpDynamicButtons.Location = new System.Drawing.Point(3, 135);
+            this.flpDynamicButtons.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.flpDynamicButtons.Name = "flpDynamicButtons";
-            this.flpDynamicButtons.Size = new System.Drawing.Size(175, 534);
+            this.flpDynamicButtons.Size = new System.Drawing.Size(233, 575);
             this.flpDynamicButtons.TabIndex = 8;
             // 
             // pnlChatMessages
             // 
             this.pnlChatMessages.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlChatMessages.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.pnlChatMessages.Location = new System.Drawing.Point(183, 4);
+            this.pnlChatMessages.Location = new System.Drawing.Point(244, 5);
+            this.pnlChatMessages.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pnlChatMessages.Name = "pnlChatMessages";
-            this.pnlChatMessages.Size = new System.Drawing.Size(771, 620);
+            this.pnlChatMessages.Size = new System.Drawing.Size(1027, 763);
             this.pnlChatMessages.TabIndex = 9;
             // 
             // flpAgentStatus
             // 
+            this.flpAgentStatus.Controls.Add(this.label1);
             this.flpAgentStatus.Controls.Add(this.cmbUserStatus);
-            this.flpAgentStatus.Location = new System.Drawing.Point(6, 4);
+            this.flpAgentStatus.Location = new System.Drawing.Point(8, 5);
+            this.flpAgentStatus.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.flpAgentStatus.Name = "flpAgentStatus";
-            this.flpAgentStatus.Size = new System.Drawing.Size(171, 80);
+            this.flpAgentStatus.Size = new System.Drawing.Size(228, 123);
             this.flpAgentStatus.TabIndex = 10;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(4, 0);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(118, 17);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Cambia tu estado";
             // 
             // cmbUserStatus
             // 
             this.cmbUserStatus.FormattingEnabled = true;
-            this.cmbUserStatus.Location = new System.Drawing.Point(3, 3);
+            this.cmbUserStatus.Location = new System.Drawing.Point(4, 21);
+            this.cmbUserStatus.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmbUserStatus.Name = "cmbUserStatus";
-            this.cmbUserStatus.Size = new System.Drawing.Size(121, 21);
+            this.cmbUserStatus.Size = new System.Drawing.Size(160, 24);
             this.cmbUserStatus.TabIndex = 0;
-            this.cmbUserStatus.Text = "Cambia tu estado";
             this.cmbUserStatus.SelectedIndexChanged += new System.EventHandler(this.cmbUserStatus_SelectedIndexChanged);
+            // 
+            // btnCloseSesion
+            // 
+            this.btnCloseSesion.Location = new System.Drawing.Point(7, 718);
+            this.btnCloseSesion.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCloseSesion.Name = "btnCloseSesion";
+            this.btnCloseSesion.Size = new System.Drawing.Size(127, 39);
+            this.btnCloseSesion.TabIndex = 11;
+            this.btnCloseSesion.Text = "Cerrar Sesión";
+            this.btnCloseSesion.UseVisualStyleBackColor = true;
+            this.btnCloseSesion.Click += new System.EventHandler(this.btnCloseSesion_Click);
             // 
             // FormPrincipal
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(959, 627);
+            this.ClientSize = new System.Drawing.Size(1279, 772);
+            this.Controls.Add(this.btnCloseSesion);
             this.Controls.Add(this.flpAgentStatus);
             this.Controls.Add(this.pnlChatMessages);
             this.Controls.Add(this.flpDynamicButtons);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Menu = this.mainMenu1;
             this.Name = "FormPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -142,6 +174,7 @@ namespace LoginForms
             this.Load += new System.EventHandler(this.FormPrincipal_Load);
             this.flpDynamicButtons.ResumeLayout(false);
             this.flpAgentStatus.ResumeLayout(false);
+            this.flpAgentStatus.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -155,5 +188,7 @@ namespace LoginForms
         private System.Windows.Forms.Panel pnlChatMessages;
         private System.Windows.Forms.FlowLayoutPanel flpAgentStatus;
         private System.Windows.Forms.ComboBox cmbUserStatus;
+        private System.Windows.Forms.Button btnCloseSesion;
+        private System.Windows.Forms.Label label1;
     }
 }

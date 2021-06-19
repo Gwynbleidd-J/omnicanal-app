@@ -23,12 +23,15 @@ namespace LoginForms.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string AgentStatus {
             get {
                 return ((string)(this["AgentStatus"]));
+            }
+            set {
+                this["AgentStatus"] = value;
             }
         }
     }

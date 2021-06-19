@@ -18,14 +18,17 @@ namespace LoginForms.Shared
 {
     public class RestHelper
     {
-        //private string baseUrl = "http://192.168.1.102:3004/api/";
 
-        //private string baseUrl = "http://192.168.1.102:3000/api/";
+        /*
+         * Hasta ahorita la clase RestHelper.cs ya es dinamica ya no se le tiene que poner los datos
+         * estaticos, pero necesito probar que todos los métodos con los nuevos cambios este funcionando
+         * como deberian.
+         */
 
-        private string baseUrl = "http://localhost:3000/api/";
-
-        //private string baseUrl = "http://192.168.100.13:3000/api/";
-
+        private static readonly string baseUrl = ConfigurationManager.AppSettings["IpServidor"];
+        /*
+         * Lo mismo preguntar a Juan Carlos que pedo también con este método
+         */
         public async void llamarGet(string chatId, string id, RichTextBox rtx, Form whatsapp, Form telegram, Form fPrincipal)
         {
             try
@@ -65,16 +68,24 @@ namespace LoginForms.Shared
             //return string.Empty;
         }
 
-        public async Task<string> RecoverActiveChats(string agentId)
+        public async Task<string> RecoverActiveChats(string agentId, string agentPlatformIdentifier)
         {
+            /*
+             *ver como recuperar éste parametro por medio del Json que se manda
+             *{ "agentPlatformIdentifier", "192.168.1.156"} 
+             *{ "agentPlatformIdentifier", "192.168.100.13"}//// parametro de cambio
+             *{ "agentPlatformIdentifier", "192.168.1.146"} //direccion Ip de mi lap
+             */
+
+            string activeIp = GlobalSocket.currentUser.activeIp;
             string data = string.Empty;
             try
             {
+                //var agentId = GlobalSocket.currentUser.activeIp;
                 var inputData = new Dictionary<string, string>
                 {
                     {"userId", agentId},
-                    { "agentPlatformIdentifier", "192.168.1.156"}
-                    //{ "agentPlatformIdentifier", "192.168.100.13"}
+                    { "agentPlatformIdentifier", activeIp} 
                 };
                 var input = new FormUrlEncodedContent(inputData);
                 HttpClient client = new HttpClient();
@@ -97,6 +108,7 @@ namespace LoginForms.Shared
             }
             return string.Empty;
         }
+
         //public async Task<string> GetMessage(string chatId, string id)
         //{
         //    var inputData = new MessageJson
@@ -125,6 +137,7 @@ namespace LoginForms.Shared
         //}
 
         //POST
+       
         public async Task<string> RegistrerUser(string userName, string mail, string password)
         {
             var inputData = new Dictionary<string, string>
@@ -161,12 +174,11 @@ namespace LoginForms.Shared
             try
             {
                 var inputData = new Dictionary<string, string>
-            {
-                { "email", mail },
-                { "password", password },
-                { "ipAddress", ipAddress }
-            };
-
+                {
+                    { "email", mail },
+                    { "password", password },
+                    { "ipAddress", ipAddress }
+                };
                 var input = new FormUrlEncodedContent(inputData);
 
                 HttpClient client = new HttpClient();
@@ -209,7 +221,6 @@ namespace LoginForms.Shared
             return string.Empty;
 
         }
-
 
         public string BeautifyJson(string strJson)
         {
@@ -380,7 +391,6 @@ namespace LoginForms.Shared
             }
         }
 
-
         public async Task<string> updateNetworkCategories(string chatId, string networkCategoryId)
         {
             var inputData = new Dictionary<string, string>
@@ -445,10 +455,63 @@ namespace LoginForms.Shared
 
         }
 
-        public async Task<string> SendMessage(string text, string chatId, string clientPlatformIdentifier, string platformIdentifier)
+        public async Task<string> getLogOut(string userId)
         {
             var inputData = new Dictionary<string, string>
             {
+                {"Id", userId}
+            };
+            var input = new FormUrlEncodedContent(inputData);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync(baseUrl + "auth/logOut", input);
+            HttpContent content = response.Content;
+            string data = response.StatusCode.ToString();
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            {
+                return data;
+            }
+            else
+            {
+                return response.StatusCode.ToString();
+            }
+
+        }
+
+        public async Task<string> updateAgentActiveIp(string mail, string ipAddress)
+        {
+            var inputData = new Dictionary<string, string> 
+            {
+                {"email", mail},
+                {"ipAddress", ipAddress}
+            };
+            var input = new FormUrlEncodedContent(inputData);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync(baseUrl + "user/agentUpdateActiveIp", input);
+            HttpContent content = response.Content;
+            string data = response.StatusCode.ToString();
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            {
+                return data;
+            }
+            else
+            {
+                return response.StatusCode.ToString();
+            }
+
+        }
+
+        public async Task<string> SendMessage(string text, string chatId, string clientPlatformIdentifier, string platformIdentifier, string agentPlatformIdentifier)
+        {
+            var inputData = new Dictionary<string, string>
+            {
+                /*
+                 * En este porcion de codigo se necesita poner los parametros estaticos fijos
+                 * agentPlatformIdentifier
+                 * messagePlatformId
+                 * transmitter
+                 * statusId
+                 * agentPlatformIdentifier
+                 */
                 //whatsapp:+5214621929111 , w
                 { "messagePlatformId", ""},
                 { "text", text},
@@ -457,9 +520,7 @@ namespace LoginForms.Shared
                 { "chatId", chatId},
                 { "clientPlatformIdentifier", clientPlatformIdentifier},
                 { "platformIdentifier", platformIdentifier},
-                { "agentPlatformIdentifier", "192.168.1.156" }
-                //{ "agentPlatformIdentifier", "192.168.100.13" }
-                
+                { "agentPlatformIdentifier", agentPlatformIdentifier }
             };
 
             Console.WriteLine(inputData);
@@ -481,6 +542,11 @@ namespace LoginForms.Shared
             //sacarlo del json
         }
 
+
+        /*
+         * Preguntar a Juan Carlos que pedo con estos métodos
+         * Para analizar si se peuden borrar o no
+         */
         public void createChatForm(string chatId)
         {
             int usedHeight = 0;

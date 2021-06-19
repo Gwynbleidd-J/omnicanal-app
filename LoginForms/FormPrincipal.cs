@@ -21,22 +21,20 @@ namespace LoginForms
 {
     public partial class FormPrincipal : Form
     {
-        //Json json = JsonConvert.DeserializeObject<Json>();
         WhatsApp whatsApp;
         Prueba prueba;
-        //RestHelper rh = new RestHelper();
         AsynchronousClient client;
         RestHelper rh = new RestHelper();
-        public string rolId;
         Json jsonStatus;
-
-        public FormPrincipal()
+        public string rolId;
+        public FormPrincipal()//string agent
         {
+            //agentStatus = agent
             InitializeComponent();
-            Control.CheckForIllegalCrossThreadCalls = false;            
+            Control.CheckForIllegalCrossThreadCalls = false;
             whatsApp = new WhatsApp();
             prueba = new Prueba();
-            
+
 
             //this.IsMdiContainer = true;
             //whatsApp.MdiParent = this;
@@ -47,12 +45,10 @@ namespace LoginForms
             prueba.Parent = pnlChatMessages;
             prueba.ControlBox = false;
             //prueba.Show();
-
             client = new AsynchronousClient(whatsApp.rtxtResponseMessage, this, prueba, this);
             //client.inicializarChatWindow();
-
-
         }
+
 
         private void FormPrincipal_Load(object sender, EventArgs e)
         {
@@ -61,6 +57,8 @@ namespace LoginForms
             dynamicUserButtons();
             labelAgentStatus();
             comboBoxGetUserStatus();
+            setStatusAgent();
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -162,6 +160,11 @@ namespace LoginForms
         }
 
 
+        private void setStatusAgent()
+        {
+            cmbUserStatus.Text = GlobalSocket.currentUser.status.status;
+        }
+
         private async void comboBoxGetUserStatus()
         {
             try
@@ -169,12 +172,13 @@ namespace LoginForms
                 string jsonUserStatus = await rh.getUserStatus();
                 jsonStatus = JsonConvert.DeserializeObject<Json>(jsonUserStatus);
 
-                for (int i = 0; i < jsonStatus.data.status.Count;  i++)
+                for (int i = 0; i < jsonStatus.data.status.Count; i++)
                 {
                     cmbUserStatus.Items.Add(new ListItem(jsonStatus.data.status[i].status, jsonStatus.data.status[i].id));
+                    
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine($"Error[comboBoxGetUserStatus] {ex.Message}");
             }
@@ -193,13 +197,22 @@ namespace LoginForms
                         valor = jsonStatus.data.status[i].id.ToString();
                     }
                 }
-
                 await rh.updateUserStatus(valor, userId);
+                MessageBox.Show("Estatus Agente Cambiado", "Estatus Agente", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch(Exception ex)
             {
                 Console.WriteLine($"Error[cmbUserStatus_SelectedIndexChanged] {ex.Message}");
             }
+        }
+
+        private void btnCloseSesion_Click(object sender, EventArgs e)
+        {
+            //Peticion Http a la api para el agente cierre sesión y tambien 
+            //pensar una manera de como invalidar el Jwt cada vez que se cierre sesión.
+            Login login = new Login();
+            this.Dispose();
+            login.Show();
         }
     }
 }

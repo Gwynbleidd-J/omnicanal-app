@@ -39,7 +39,8 @@ namespace LoginForms
                     User user = new User();
                     Json jsonUsers = JsonConvert.DeserializeObject<Json>(users);
                     user = jsonUsers.data.users[i];
-                   
+                    string individualId = user.ID;
+
                     FlowLayoutPanel panelAgentInformation = new FlowLayoutPanel
                     {
                         BackColor = Color.FromArgb(145, 153, 179),
@@ -67,7 +68,7 @@ namespace LoginForms
                         Font = new Font("Microsoft Sans Serif", 11),
                         AutoSize = true
                     };
-                    string individualId = user.ID;
+                    
                     
                     Label labelEmail = new Label 
                     { 

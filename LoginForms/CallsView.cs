@@ -12,6 +12,7 @@ using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using Ozeki.VoIP;
 using Ozeki.Media;
+using System.Configuration;
 
 namespace LoginForms
 {
@@ -33,6 +34,15 @@ namespace LoginForms
 
         private bool localHeld;
 
+        private static readonly string requiredRegister = ConfigurationManager.AppSettings["requiredRegister"];
+        private static readonly string displayName = ConfigurationManager.AppSettings["displayName"];
+        private static readonly string userName = ConfigurationManager.AppSettings["userName"];
+        private static readonly string registerName = ConfigurationManager.AppSettings["registerName"];
+        private static readonly string password = ConfigurationManager.AppSettings["password"];
+        private static readonly string domain = ConfigurationManager.AppSettings["domain"];
+        private static readonly string port = ConfigurationManager.AppSettings["port"];
+        private static readonly string proxy = ConfigurationManager.AppSettings["proxy"];
+
 
         public CallsView()
         {
@@ -42,16 +52,15 @@ namespace LoginForms
 
         private void InitializeSoftPhone()
         {
+
             try
             {
-                softPhone = SoftPhoneFactory.CreateSoftPhone(SoftPhoneFactory.GetLocalIP(), 58000, 62000);
+                softPhone = SoftPhoneFactory.CreateSoftPhone(SoftPhoneFactory.GetLocalIP(),58000, 62000);
                 InvokeGUIThread(() => { lb_log.Items.Add("Softphone created!"); });
 
                 softPhone.IncomingCall += new EventHandler<VoIPEventArgs<IPhoneCall>>(softPhone_inComingCall);
 
-                //SIPAccount sIPAccount = new SIPAccount(true, "2000", "2000", "2000", "2000", "192.168.1.140", 5060);
-                SIPAccount sIPAccount = new SIPAccount(true, "29495", "29495", "29495", "IbZ09uh2WDjJ50lv8WPs", "producto.enlacetpe.mx", 5060, "187.188.103.230");
-                //SIPAccount sIPAccount = new SIPAccount(register.isRequired, register.displayName, register.userName, register.registerName, register.password, register.domain, register.port, register.proxy);
+                SIPAccount sIPAccount = new SIPAccount(Convert.ToBoolean(requiredRegister), displayName, userName, registerName, password, domain, Convert.ToInt32(port), proxy);
                 InvokeGUIThread(() =>
                 {
                     lb_log.Items.Add($"SIP Account created - {sIPAccount.DisplayName}");

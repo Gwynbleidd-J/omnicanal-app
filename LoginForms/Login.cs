@@ -11,6 +11,7 @@ using LoginForms.Models;
 using LoginForms.Shared;
 using Newtonsoft.Json;
 
+
 namespace LoginForms
 {
     public partial class Login : Form
@@ -57,21 +58,29 @@ namespace LoginForms
         private async void userLogin()
         {
             string ipAddress = rh.GetLocalIpAddress();
+
             try
             {
-                var json = await rh.Login(txtUserName.Text, txtPassword.Text, ipAddress);
-                Json userNuevo = JsonConvert.DeserializeObject<Json>(json);
+                FormPrincipal formPrincipal = new FormPrincipal();
+                var jsonLogin = await rh.Login(txtUserName.Text, txtPassword.Text, ipAddress);
+                var jsonUpdateAgentActiveIp = await rh.updateAgentActiveIp(txtUserName.Text, ipAddress);
+                Json userNuevo = JsonConvert.DeserializeObject<Json>(jsonLogin);
                 //string message = rh.ResponseMessage(json);
                 //string message = rh.DeserializarJson(json);
-                User user = rh.GetUser(json);
+                User user = rh.GetUser(jsonLogin);
+                //string agentStatus = GlobalSocket.currentUser.status.id;
+
+                var token = user.token;
                 GlobalSocket.currentUser = userNuevo.data.user;
+                GlobalSocket.currentUser.activeIp = ipAddress;
+
                 this.Hide();
                 //MessageBox.Show($"Bienvenido {txtUserName.Text}");
-                FormPrincipal formPrincipal = new FormPrincipal();
                 //formPrincipal.rolId = user.rolID;
                 //formPrincipal.lblToken.Text = user.token;
                 formPrincipal.FormClosed += (s, args) => this.Close();
                 formPrincipal.Show();
+
             }
             catch (Exception ex)
             {
@@ -82,7 +91,15 @@ namespace LoginForms
 
         private void Login_Load(object sender, EventArgs e)
         {
+        }
 
+        private void Login_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if(MessageBox.Show("¿Deseas salir de la aplicación?", "Omnicanal",MessageBoxButtons.YesNo) != DialogResult.Yes)
+            {
+                e.Cancel = true;
+                Application.Exit();
+            }
         }
     }
 }

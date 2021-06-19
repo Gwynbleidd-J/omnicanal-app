@@ -50,7 +50,7 @@ namespace LoginForms
 
                 var arr = this.tabControlChats.TabPages;
                 var arreglo = chatWindowLocal.arrTabPageChat;
-                await restHelper.SendMessage("Mensage de prueba desde el chat: " + chatId, "188", "whatsapp:+5214621257826", "w");
+                //await restHelper.SendMessage("Mensage de prueba desde el chat: " + chatId, "188", "whatsapp:+5214621257826", "w");
             }
             catch (Exception ex)
             {
@@ -334,11 +334,17 @@ namespace LoginForms
             }
         }
         
-        public async void recoverActiveChats()
+        public async void recoverActiveChats(Models.Message chat)
         {
+            //preguntarle a Juan Carlos que pedo con el chatId
+            //y tambien como pensaba implementar este metodo
+            //el pedo está en como mandar llamar el chatId en esta clase
+            //Ver si está implementacion del chatId funciona
+            //sino pensar como cambiarla
             try
             {
-                string recoveredChatsFromAPI = await restHelper.RecoverActiveChats("10");
+                var agentId = GlobalSocket.currentUser.activeIp;
+                string recoveredChatsFromAPI = await restHelper.RecoverActiveChats(chat.chatId, agentId);
                 
                 jsonRecoveredChats = JsonConvert.DeserializeObject<Json>(recoveredChatsFromAPI);
                 //Models.Message fakeNotification = new Models.Message();                

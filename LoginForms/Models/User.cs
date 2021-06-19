@@ -10,7 +10,6 @@ namespace LoginForms.Models
     {
         public string ID { get; set; }
         public string name { get; set; }
-        public string username { get; set; }
         public string paternalSurname { get; set; }
         public string maternalSurname { get; set; }
         public string email { get; set; }
@@ -20,13 +19,15 @@ namespace LoginForms.Models
         public string activeChats { get; set; }
         public string activeIp { get; set; }
         public string rolID { get; set; }
-        public string statusID { get; set; }
         public string leaderId { get; set; }
         public string token { get; set; }
 
         public Rol rol { get; set; }
 
         public UserDetails details { get; set; }
+
+        public UserStatus status { get; set; }
+
 
         //public string ipAddress { get; set; }
 

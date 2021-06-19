@@ -72,7 +72,7 @@ namespace LoginForms
                 //Enviar el mensaje al servidor:
                 Console.WriteLine("Enviando al servidor: " + rtxtSendMessage.Text.ToString());
                 //client.Send(GlobalSocket.GlobalVarible, rtxtSendMessage.Text.ToString());
-                await rh.SendMessage(rtxtSendMessage.Text, labelChatId.Text, lblClient.Text, lblPlatformIdentifier.Text);//aqui es donde el chat id no debe de ser estatico
+                //await rh.SendMessage(rtxtSendMessage.Text, labelChatId.Text, lblClient.Text, lblPlatformIdentifier.Text);//aqui es donde el chat id no debe de ser estatico
                 rtxtSendMessage.Text += "";
 
             }
@@ -92,7 +92,7 @@ namespace LoginForms
                     //Enviar el mensaje al servidor:
                     Console.WriteLine("Enviando al servidor: " + rtxtSendMessage.Text.ToString());
                     //client.Send(GlobalSocket.GlobalVarible, rtxtSendMessage.Text.ToString());
-                    await rh.SendMessage(rtxtSendMessage.Text, labelChatId.Text, lblClient.Text, lblPlatformIdentifier.Text);
+                    //await rh.SendMessage(rtxtSendMessage.Text, labelChatId.Text, lblClient.Text, lblPlatformIdentifier.Text);
                     rtxtSendMessage.Text += "";
                 }
                 catch (Exception ex)
