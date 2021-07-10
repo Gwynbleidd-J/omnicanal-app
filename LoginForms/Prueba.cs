@@ -18,17 +18,22 @@ namespace LoginForms
 {
     public partial class Prueba : Form
     {
-        public int contPfrueba = 1;
+        //public int contPfrueba = 1;
         public Json jsonRecoveredChats { get; set; }
+
         public TabControl tbCtrl = new TabControl();
+        
         RestHelper restHelper = new RestHelper();
+        
         public ChatWindow chatWindowLocal { get; set; }
+        
         public Prueba()
         {
             InitializeComponent();
             chatWindowLocal = new ChatWindow(this.tabControlChats);
             //
         }
+        
         private void Prueba_Load(object sender, EventArgs e)
         {
             try
@@ -40,6 +45,7 @@ namespace LoginForms
                 Console.WriteLine("Error[Prueba_Load]: " + ex.ToString());
             }
         }
+        
         public async void btnSendMessage_Click(object sender, EventArgs e)
         {
             try
@@ -371,5 +377,19 @@ namespace LoginForms
         }
         #endregion
 
+        private void btnBeginChat_Click(object sender, EventArgs e)
+        {
+            TabPage tabPage = new TabPage
+            {
+                Text = "Ejemplo"
+            };
+
+            Label label = new Label
+            {
+                Text = $"Hola"
+            };
+            tabPage.Controls.Add(label);
+            tabControlChats.TabPages.Add(tabPage);
+        }
     }
 }

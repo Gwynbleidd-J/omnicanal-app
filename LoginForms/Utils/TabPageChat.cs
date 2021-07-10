@@ -238,10 +238,12 @@ namespace LoginForms.Utils
             //return tbPage;
         }
 
-        public void removeTabChat()
+        public async void removeTabChat()
         {
+            var userId = GlobalSocket.currentUser.ID;
             Control parentTabControlChat = tbPage.Parent;
             parentTabControlChat.Controls.Remove(tbPage);
+            await restHelper.getSubstactActiveChat(userId);
             MessageBox.Show("Chat Cerrado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
@@ -304,16 +306,16 @@ namespace LoginForms.Utils
                     //Iniciio de construcción de la etiqueta dinámica
                     Label newLabelMessage = new Label();
                     newLabelMessage.Width = (pnlMessages.Width/2) + 15;
-                    newLabelMessage.Height = 20;                     
+                    newLabelMessage.Height = 30; //20                     
                     newLabelMessage.AutoSize = false;
                     newLabelMessage.Name = jsonChatMessagestHistoric.data.messages[i].id;
                     //newLabelMessage.BackColor = Color.LightGray;
                     newLabelMessage.Text = jsonChatMessagestHistoric.data.messages[i].text;
 
                     if(lastLabel == null)
-                        newLabelMessage.Location = new Point(0, 10);
+                        newLabelMessage.Location = new Point(0, 10);//10
                     else
-                        newLabelMessage.Location = new Point(0, lastLabel.Location.Y + 30);
+                        newLabelMessage.Location = new Point(0, lastLabel.Location.Y + 40); //30
 
                     lastLabel = newLabelMessage;
                     lastMessageId = newLabelMessage.Name;
@@ -324,11 +326,15 @@ namespace LoginForms.Utils
                     { 
                         newLabelMessage.Left = 10;
                         newLabelMessage.TextAlign = ContentAlignment.MiddleLeft;
+                        newLabelMessage.BackColor = Color.FromArgb(66,66,74);
+                        newLabelMessage.ForeColor = Color.FromArgb(255, 255, 255);
                     }
                     else
                     { 
                         newLabelMessage.Left = newLabelMessage.Width -60;
-                        newLabelMessage.TextAlign = ContentAlignment.MiddleRight;  
+                        newLabelMessage.TextAlign = ContentAlignment.MiddleRight;
+                        newLabelMessage.BackColor = Color.FromArgb(13, 75, 70);
+                        newLabelMessage.ForeColor = Color.FromArgb(255, 255, 255);
                     }
 
                     //lastUsedHeigth = lastUsedHeigth + 20;

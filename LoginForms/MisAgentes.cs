@@ -69,7 +69,6 @@ namespace LoginForms
                         AutoSize = true
                     };
                     
-                    
                     Label labelEmail = new Label 
                     { 
                         Text = $"Email: {user.email}",
@@ -78,7 +77,6 @@ namespace LoginForms
                         AutoSize = true
                     };
                     panelAgentInformation.Controls.AddRange(new Control[] { labelAgentName, labelEmail });
-                    //panelAgentInformation.Controls.AddRange(new Control[] { labelAgentName, labelActiveChats, labelEmail });
                     
                     labelAgentName.Click += (s, e) =>
                     {

@@ -2,13 +2,7 @@
 using LoginForms.Shared;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace LoginForms
@@ -17,6 +11,7 @@ namespace LoginForms
     {
         RestHelper rh = new RestHelper();
         string idAgent;
+
         public AgentInformation(string individualId)
         {
             idAgent = individualId;
@@ -32,29 +27,23 @@ namespace LoginForms
         {
             try
             {
+
                 string agentDetails = await rh.getAgentsDetails(idAgent);
                 Json jsonAgentDetails = JsonConvert.DeserializeObject<Json>(agentDetails);
 
-                /*
-                MsjApi resp = JsonConvert.DeserializeObject<MsjApi>(agentDetails);
-                var data = resp.data;
-                string json = JsonConvert.SerializeObject(data, Formatting.Indented);
-                string json1 = rh.BeautifyJson(data.ToString());
-                UserDetails userDet = JsonConvert.DeserializeObject<UserDetails>(json1);
-                 */
                 FlowLayoutPanel panelAgentDetails = new FlowLayoutPanel
                 {
                     BackColor = Color.FromArgb(145, 153, 179),
                     BorderStyle = BorderStyle.FixedSingle,
                     FlowDirection = FlowDirection.TopDown,
-                    Size = new Size(390, 140)
+                    Size = new Size(410, 220)
                 };
 
                 flpAgentInformation.Controls.Add(panelAgentDetails);
 
                 Label labelNombreAgente = new Label
                 {
-                    Text = $"Nombre Agente:{jsonAgentDetails.data.details[0].name} {jsonAgentDetails.data.details[0].paternalSurname} {jsonAgentDetails.data.details[0].maternalSurname}",
+                    Text = $"Nombre Agente:{jsonAgentDetails.data.details.name} {jsonAgentDetails.data.details.paternalSurname} {jsonAgentDetails.data.details.maternalSurname}",
                     ForeColor = Color.FromArgb(19, 34, 38),
                     Font = new Font("Microsoft Sans Serif", 11),
                     AutoSize = true
@@ -62,15 +51,7 @@ namespace LoginForms
 
                 Label labelEmail = new Label
                 {
-                    Text = $"Email: {jsonAgentDetails.data.details[0].email}",
-                    ForeColor = Color.FromArgb(19, 34, 38),
-                    Font = new Font("Microsoft Sans Serif", 11),
-                    AutoSize = true
-                };
-
-                Label labelActiveChats = new Label
-                {
-                    Text = $"Active Chats: {jsonAgentDetails.data.details[0].activeChats}",
+                    Text = $"Email: {jsonAgentDetails.data.details.email}",
                     ForeColor = Color.FromArgb(19, 34, 38),
                     Font = new Font("Microsoft Sans Serif", 11),
                     AutoSize = true
@@ -78,7 +59,7 @@ namespace LoginForms
 
                 Label labelRol = new Label
                 {
-                    Text = $"Permisos: {jsonAgentDetails.data.details[0].rol.name}",
+                    Text = $"Permisos: {jsonAgentDetails.data.details.rol.name}",
                     ForeColor = Color.FromArgb(19, 34, 38),
                     Font = new Font("Microsoft Sans Serif", 11),
                     AutoSize = true
@@ -86,37 +67,53 @@ namespace LoginForms
 
                 Label labelStatus = new Label
                 {
-                    Text = $"Estado Agente: {jsonAgentDetails.data.details[0].status.status}",
+                    Text = $"Estado Agente: {jsonAgentDetails.data.details.status.status}",
                     ForeColor = Color.FromArgb(19, 34, 38),
                     Font = new Font("Microsoft Sans Serif", 11),
                     AutoSize = true
                 };
 
-                //Label labelSolvedChats = new Label
-                //{
-                //    Text = $"Solved Chats: {jsonAgentDetails.data.details.solvedChats}",
-                //    ForeColor = Color.FromArgb(19, 34, 38),
-                //    Font = new Font("Microsoft Sans Serif", 11),
-                //    AutoSize = true
-                //};
+                Label labelSolvedChats = new Label
+                {
+                    Text = $"Chats Terminados: {jsonAgentDetails.data.solvedChats.solvedchats}",
+                    ForeColor = Color.FromArgb(19, 34, 38),
+                    Font = new Font("Microsoft Sans Serif", 11),
+                    AutoSize = true
+                };
 
-                //Label labelStatus = new Label
-                //{
-                //    Text = $"Estatus: {jsonAgentDetails.data.details.status}",
-                //    ForeColor = Color.FromArgb(19, 34, 38),
-                //    Font = new Font("Microsoft Sans Serif", 11),
-                //    AutoSize = true
-                //};
+                Label labelActiveChats = new Label
+                {
+                    Text = $"Chats Activos: {jsonAgentDetails.data.activeChats.activechats}",
+                    ForeColor = Color.FromArgb(19, 34, 38),
+                    Font = new Font("Microsoft Sans Serif", 11),
+                    AutoSize = true
+                };
 
-                //panelAgentDetails.Controls.AddRange(new Control[] { labelNombreAgente, labelActiveCalls, labelActiveChats, labelScore, labelSolvedCalls, labelActiveChats, labelStatus });
-                panelAgentDetails.Controls.AddRange(new Control[] { labelNombreAgente, labelEmail, labelActiveChats, labelRol, labelStatus });
+                Label labelSolvedCalls = new Label
+                {
+                    Text = $"Llamadas Terminadas: {jsonAgentDetails.data.SolvedCalls.solvedcalls}",
+                    ForeColor = Color.FromArgb(19, 34, 38),
+                    Font = new Font("Microsoft Sans Serif", 11),
+                    AutoSize = true
+                };
+
+                Label labelActiveCalls = new Label
+                {
+                    Text = $"Llamadas Activas: {jsonAgentDetails.data.ActiveCalls.activecalls}",
+                    ForeColor = Color.FromArgb(19, 34, 38),
+                    Font = new Font("Microsoft Sans Serif", 11),
+                    AutoSize = true
+                };
+
+                panelAgentDetails.Controls.AddRange(new Control[] { labelNombreAgente, labelEmail, labelRol, labelStatus, labelSolvedChats, 
+                labelActiveChats,labelSolvedCalls,labelActiveCalls});
 
 
             }
 
             catch (Exception ex)
             {
-                //Console.WriteLine($"Error[agentsDetails]: {ex}");
+                Console.WriteLine($"Error[agentsDetails]: {ex}");
                 MessageBox.Show(ex.Message);
             }
         }

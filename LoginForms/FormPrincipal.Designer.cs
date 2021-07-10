@@ -51,7 +51,7 @@ namespace LoginForms
             this.btnTelegram.Image = ((System.Drawing.Image)(resources.GetObject("btnTelegram.Image")));
             this.btnTelegram.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnTelegram.Location = new System.Drawing.Point(4, 59);
-            this.btnTelegram.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnTelegram.Margin = new System.Windows.Forms.Padding(4);
             this.btnTelegram.Name = "btnTelegram";
             this.btnTelegram.Size = new System.Drawing.Size(127, 47);
             this.btnTelegram.TabIndex = 1;
@@ -67,7 +67,7 @@ namespace LoginForms
             this.btnLlamadas.Image = ((System.Drawing.Image)(resources.GetObject("btnLlamadas.Image")));
             this.btnLlamadas.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnLlamadas.Location = new System.Drawing.Point(4, 114);
-            this.btnLlamadas.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnLlamadas.Margin = new System.Windows.Forms.Padding(4);
             this.btnLlamadas.Name = "btnLlamadas";
             this.btnLlamadas.Size = new System.Drawing.Size(127, 49);
             this.btnLlamadas.TabIndex = 2;
@@ -83,7 +83,7 @@ namespace LoginForms
             this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
             this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button1.Location = new System.Drawing.Point(4, 4);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(127, 47);
             this.button1.TabIndex = 5;
@@ -99,10 +99,10 @@ namespace LoginForms
             this.flpDynamicButtons.Controls.Add(this.button1);
             this.flpDynamicButtons.Controls.Add(this.btnTelegram);
             this.flpDynamicButtons.Controls.Add(this.btnLlamadas);
-            this.flpDynamicButtons.Location = new System.Drawing.Point(3, 135);
-            this.flpDynamicButtons.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.flpDynamicButtons.Location = new System.Drawing.Point(3, 136);
+            this.flpDynamicButtons.Margin = new System.Windows.Forms.Padding(4);
             this.flpDynamicButtons.Name = "flpDynamicButtons";
-            this.flpDynamicButtons.Size = new System.Drawing.Size(233, 575);
+            this.flpDynamicButtons.Size = new System.Drawing.Size(233, 574);
             this.flpDynamicButtons.TabIndex = 8;
             // 
             // pnlChatMessages
@@ -110,7 +110,7 @@ namespace LoginForms
             this.pnlChatMessages.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlChatMessages.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.pnlChatMessages.Location = new System.Drawing.Point(244, 5);
-            this.pnlChatMessages.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pnlChatMessages.Margin = new System.Windows.Forms.Padding(4);
             this.pnlChatMessages.Name = "pnlChatMessages";
             this.pnlChatMessages.Size = new System.Drawing.Size(1027, 763);
             this.pnlChatMessages.TabIndex = 9;
@@ -120,7 +120,7 @@ namespace LoginForms
             this.flpAgentStatus.Controls.Add(this.label1);
             this.flpAgentStatus.Controls.Add(this.cmbUserStatus);
             this.flpAgentStatus.Location = new System.Drawing.Point(8, 5);
-            this.flpAgentStatus.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.flpAgentStatus.Margin = new System.Windows.Forms.Padding(4);
             this.flpAgentStatus.Name = "flpAgentStatus";
             this.flpAgentStatus.Size = new System.Drawing.Size(228, 123);
             this.flpAgentStatus.TabIndex = 10;
@@ -131,15 +131,15 @@ namespace LoginForms
             this.label1.Location = new System.Drawing.Point(4, 0);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(118, 17);
+            this.label1.Size = new System.Drawing.Size(122, 17);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Cambia tu estado";
+            this.label1.Text = "Cambia tu estado.";
             // 
             // cmbUserStatus
             // 
             this.cmbUserStatus.FormattingEnabled = true;
             this.cmbUserStatus.Location = new System.Drawing.Point(4, 21);
-            this.cmbUserStatus.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmbUserStatus.Margin = new System.Windows.Forms.Padding(4);
             this.cmbUserStatus.Name = "cmbUserStatus";
             this.cmbUserStatus.Size = new System.Drawing.Size(160, 24);
             this.cmbUserStatus.TabIndex = 0;
@@ -148,7 +148,7 @@ namespace LoginForms
             // btnCloseSesion
             // 
             this.btnCloseSesion.Location = new System.Drawing.Point(7, 718);
-            this.btnCloseSesion.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCloseSesion.Margin = new System.Windows.Forms.Padding(4);
             this.btnCloseSesion.Name = "btnCloseSesion";
             this.btnCloseSesion.Size = new System.Drawing.Size(127, 39);
             this.btnCloseSesion.TabIndex = 11;
@@ -161,12 +161,13 @@ namespace LoginForms
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1279, 772);
+            this.ClientSize = new System.Drawing.Size(1279, 804);
             this.Controls.Add(this.btnCloseSesion);
             this.Controls.Add(this.flpAgentStatus);
             this.Controls.Add(this.pnlChatMessages);
             this.Controls.Add(this.flpDynamicButtons);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
+            this.MaximizeBox = false;
             this.Menu = this.mainMenu1;
             this.Name = "FormPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

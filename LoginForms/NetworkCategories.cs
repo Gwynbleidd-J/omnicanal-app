@@ -22,6 +22,7 @@ namespace LoginForms
         string chatid;
         Json jsonNetwork;
         RestHelper rh = new RestHelper();
+        string valor;
         public NetworkCategories(string chatId)
         {
             InitializeComponent();
@@ -78,22 +79,19 @@ namespace LoginForms
 
         //}
 
-        private void btnAccept_Click(object sender, EventArgs e)
+        private async void btnAccept_Click(object sender, EventArgs e)
         {
             try
             {
-                //TabPageChat pageChat = new TabPageChat();
-                //Control parentTabControlChat = pageChat.tbPage;
-                //parentTabControlChat.Controls.Remove(parentTabControlChat);
-                //MessageBox.Show("Seleccionado: " + cmbNetwork.SelectedValue);
-
-                this.Close();
-
-                //comboBoxGetNetworkCategory();
-                //this.Close();
-
-                //Aqui se manda la peticion para al metodo de la api que cambia el valor de networkCategory
-                //en la base de datos
+                if (!string.IsNullOrEmpty(valor))
+                {
+                    await rh.updateNetworkCategories(chatid, valor);
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("No has seleccionado una sucursal", "Omnicanal", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
             }
             catch(Exception ex)
             {
@@ -102,12 +100,12 @@ namespace LoginForms
 
         }
 
-        private async void cmbNetwork_SelectedIndexChanged(object sender, EventArgs e)
+        private void cmbNetwork_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
                 //MessageBox.Show($"Nombre: {cmbNetwork.SelectedItem}, Index: {cmbNetwork.SelectedValue}");
-                string valor = "";
+                valor = "";
                 for (int i = 0; i < jsonNetwork.data.networks.Count; i++)
                 {
                     if (jsonNetwork.data.networks[i].name == cmbNetwork.SelectedItem.ToString())
@@ -117,7 +115,7 @@ namespace LoginForms
                 }
                // MessageBox.Show($"Nombre: {cmbNetwork.SelectedItem}, Index: {valor}");
                 // cmbNetwork.SelectedValue.ToString();
-                await rh.updateNetworkCategories(chatid, valor);
+
             }
             catch (Exception ex)
             {

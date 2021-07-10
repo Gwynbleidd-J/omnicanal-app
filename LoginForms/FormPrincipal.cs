@@ -26,6 +26,8 @@ namespace LoginForms
         AsynchronousClient client;
         RestHelper rh = new RestHelper();
         Json jsonStatus;
+        Login login;
+        AsynchronousClient asynchronousClient;
         public string rolId;
         public FormPrincipal()//string agent
         {
@@ -58,6 +60,7 @@ namespace LoginForms
             labelAgentStatus();
             comboBoxGetUserStatus();
             setStatusAgent();
+            createAgentInformationForm();
 
         }
 
@@ -93,15 +96,6 @@ namespace LoginForms
         {
             try
             {
-                //string permissions = await rh.getPermissions(rolId);
-                //Label labelAccount = new Label();
-                //labelAccount.Name = "userInfo";
-                //labelAccount.Text = "Administrador";
-                //labelAccount.Font = new Font("Arial", 11);
-                //Controls.Add(labelAccount);
-                //flpDynamicButtons.Controls.Add(labelAccount);
-
-
                 for (int i = 0; i < GlobalSocket.currentUser.rol.permission.Count; i++)
                 {
                     System.Windows.Forms.Button dynamicButton = new System.Windows.Forms.Button();
@@ -110,7 +104,6 @@ namespace LoginForms
                     dynamicButton.Width = 95;
                     dynamicButton.Text = $"{GlobalSocket.currentUser.rol.permission[i].menu.description}";
 
-                    //Controls.Add(dynamicButton);  ////se comenta para definir bien su utilidad 
 
                     Assembly asm = Assembly.GetEntryAssembly();
                     Type formtype = asm.GetType(string.Format("{0}.{1}", "LoginForms", GlobalSocket.currentUser.rol.permission[i].menu.name));
@@ -158,7 +151,6 @@ namespace LoginForms
 
             flpAgentStatus.Controls.AddRange(new Control[] { labelAgentName, labelAgentRol});
         }
-
 
         private void setStatusAgent()
         {
@@ -208,11 +200,49 @@ namespace LoginForms
 
         private void btnCloseSesion_Click(object sender, EventArgs e)
         {
-            //Peticion Http a la api para el agente cierre sesión y tambien 
-            //pensar una manera de como invalidar el Jwt cada vez que se cierre sesión.
-            Login login = new Login();
-            this.Dispose();
-            login.Show();
+            login = new Login();
+            //asynchronousClient = new AsynchronousClient();
+            string userToken = GlobalSocket.currentUser.token;
+            userToken= "";
+            if (string.IsNullOrEmpty(userToken))
+            {
+                //asynchronousClient.CloseSocketConnection();
+                MessageBox.Show("usuario cerró sesión", "Omnicanal", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Dispose();
+                login.Show();
+            }
+
         }
+
+        public string createAgentInformationForm()
+        {
+            string indidualId = GlobalSocket.currentUser.ID;
+            return indidualId;
+        }
+
+
+        //Metodos que no recuerdo para que se utilizan, pero deben de tener una utilidad
+        //no los borro ya que despues voy a evaluar si dejarlos o borrarlos.s
+
+
+        //private void AddFormInPanel(Form form)
+        //{
+        //    if (this.pnlChatMessages.Controls.Count > 0)
+        //        this.pnlChatMessages.Controls.RemoveAt(0);
+        //    form.TopLevel = false;
+        //    form.FormBorderStyle = FormBorderStyle.None;
+        //    form.Dock = DockStyle.Fill;
+        //    this.pnlChatMessages.Controls.Add(form);
+        //    this.pnlChatMessages.Tag = form;
+        //    form.Show();
+        //}
+
+        //private void btnAgentDetails_Click(object sender, EventArgs e)
+        //{
+        //    string userId = GlobalSocket.currentUser.ID;
+        //    var form = Application.OpenForms.OfType<AgentMainPage>().FirstOrDefault();
+        //    AgentMainPage agentMainPage = form ?? new AgentMainPage();
+        //    AddFormInPanel(agentMainPage);
+        //}
     }
 }

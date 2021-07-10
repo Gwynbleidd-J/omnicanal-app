@@ -1,19 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
 using System.Net;
 using System.Net.Sockets;
 using System.Windows.Forms;
 using LoginForms.Shared;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System.Net.Http;
-using System.Web.Script.Serialization;
-using LoginForms.Models;
-using LoginForms.Utils;
 using System.Drawing;
 
 namespace LoginForms
@@ -44,6 +36,10 @@ namespace LoginForms
                 Console.WriteLine("Error[construct AsynchronousClient]: " + ex.ToString());
             }
         }
+        
+        public AsynchronousClient()
+        {
+        }
 
         public RestHelper rh = new RestHelper();
         //Puerto en server de jCarlos       8000
@@ -63,29 +59,26 @@ namespace LoginForms
             try
             {
                 RestHelper rh = new RestHelper();
-
-                //IP de Server jCarlos      192.168.1.102    
-                //IP de Server Localhost    127.0.0.1
-                //IPAddress ipAddress = IPAddress.Parse("192.168.1.156");
-                //IPAddress ipAddress = IPAddress.Parse("192.168.100.13");
-                //IPAddress ipAddress = IPAddress.Parse("192.168.1.158");
                 IPAddress ipAddress = IPAddress.Parse(rh.GetLocalIpAddress());
-                //IPAddress ipAddress = IPAddress.Parse("192.168.100.13");
                 IPEndPoint remoteEP = new IPEndPoint(ipAddress, port);
-
                 // Create a TCP/IP socket.  
-                //Socket client = new Socket(ipAddress.AddressFamily,SocketType.Stream, ProtocolType.Tcp);
                 GlobalSocket.GlobalVarible = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-
-                //client.BeginConnect(remoteEP, new AsyncCallback(ConnectCallback), client);
-                //connectDone.WaitOne();
-
                 GlobalSocket.GlobalVarible.BeginConnect(remoteEP, new AsyncCallback(ConnectCallback), GlobalSocket.GlobalVarible);
                 connectDone.WaitOne();
-
-                //// Receive the response from the remote device.
                 Receive();
                 receiveDone.WaitOne();
+                //if(GlobalSocket.GlobalVarible.Connected == true)
+                //{
+                //    Console.WriteLine($"El cliente esta conectado a un socket");
+                //    Receive();
+                //    receiveDone.WaitOne();
+                //}
+                //else
+                //{
+                //    Console.WriteLine($"El cliente no está conectado a ningún socket");
+                //}
+                //// Receive the response from the remote device.
+
             }
             catch (Exception e)
             {
@@ -118,7 +111,7 @@ namespace LoginForms
                 // Complete the connection.  
                 client.EndConnect(ar);
 
-                Console.WriteLine("Socket connected to {0}",
+                Console.WriteLine("Socket connectedado to {0}",
                     client.RemoteEndPoint.ToString());
 
                 // Signal that the connection has been made.  
@@ -226,6 +219,30 @@ namespace LoginForms
             }
         }
 
+        public void CloseSocketConnection()
+        {
+            try
+            {
+                GlobalSocket.GlobalVarible.Shutdown(SocketShutdown.Both);
+                if (GlobalSocket.GlobalVarible.Connected)
+                {
+                    Console.WriteLine($"Socket Connected");
+                }
+                else
+                {
+                    Console.WriteLine($"Socket Disconnected");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error[CloseSocketConnection][AsynchronousClient] {ex.Message}");
+            }
+            finally
+            {
+                GlobalSocket.GlobalVarible.Close();
+            }
+        }
+
         public void treatNotification(string socketNotification)
         {
             try
@@ -258,6 +275,8 @@ namespace LoginForms
             }
         }
 
+       
+        //Metodos que no tienen ninguna referencia en el codigo
         public bool tabChatExits(string chatId)
         {
             bool resultado = false;

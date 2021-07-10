@@ -21,9 +21,15 @@ namespace LoginForms.Models
 
         public List<UserStatus> status { get; set; }
 
-        public List<UserDetails> details { get; set; }
+        public UserDetails details { get; set; }
 
+        //public UserDetails details { get; set; }
         public User user { get; set; }
+        public SolvedChats solvedChats { get; set; }
+        public ActiveChats activeChats { get; set; }
+        public SolvedCalls SolvedCalls { get; set; }
+        public ActiveCalls ActiveCalls { get; set; }
+
 
         //public UserStatus userStatus { get; set; }
     }

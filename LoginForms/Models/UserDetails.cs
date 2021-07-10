@@ -20,16 +20,8 @@ namespace LoginForms.Models
         public string activeIp { get; set; }
         public string rolID { get; set; }
         public string leaderId { get; set; }
-        //public string token { get; set; }
+        public string token { get; set; }
         public Rol rol { get; set; }
         public UserStatus status { get; set; }
-        //public string name { get; set; }
-        //public string solvedChats { get; set; }
-        //public string activeChats { get; set; }
-        //public string solvedCalls { get; set; }
-        //public string activeCalls { get; set; }
-        //public string score { get; set; }
-        //public string status { get; set; }
-
     }
 }

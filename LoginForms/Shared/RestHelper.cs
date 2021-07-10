@@ -70,13 +70,6 @@ namespace LoginForms.Shared
 
         public async Task<string> RecoverActiveChats(string agentId, string agentPlatformIdentifier)
         {
-            /*
-             *ver como recuperar éste parametro por medio del Json que se manda
-             *{ "agentPlatformIdentifier", "192.168.1.156"} 
-             *{ "agentPlatformIdentifier", "192.168.100.13"}//// parametro de cambio
-             *{ "agentPlatformIdentifier", "192.168.1.146"} //direccion Ip de mi lap
-             */
-
             string activeIp = GlobalSocket.currentUser.activeIp;
             string data = string.Empty;
             try
@@ -93,10 +86,6 @@ namespace LoginForms.Shared
                 HttpContent content = response.Content;
 
                 data = await content.ReadAsStringAsync();
-                //if (data != null)
-                //{
-                //    return data.ToString();
-                //}
                 if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
                     return data;
                 else
@@ -193,25 +182,6 @@ namespace LoginForms.Shared
                 {
                     return response.StatusCode.ToString();
                 }
-                /*
-                 using (HttpClient client1 = new HttpClient())
-                {
-                    using (HttpResponseMessage response1 = await client.PostAsync(baseUrl + "auth", input))
-                    {
-                        using (HttpContent content1 = response.Content)
-                        {
-                            string data1 = await content.ReadAsStringAsync();
-                            Console.WriteLine(data);
-                            if (data != null)
-                            {
-                                string json = BeautifyJson(data);
-                                return json;
-                            }
-                        }
-
-                    }
-                }
-                */
             }
             catch (Exception ex)
             {
@@ -321,11 +291,11 @@ namespace LoginForms.Shared
             }
         }
 
-        public async Task<string> getAgentsDetails(string id)
+        public async Task<string> getAgentsDetails(string userId)
         {
             var inputData = new Dictionary<string, string>
             {
-                {"id", id }
+                {"userId", userId }
             };
             var input = new FormUrlEncodedContent(inputData);
             HttpClient client = new HttpClient();
@@ -358,7 +328,6 @@ namespace LoginForms.Shared
             HttpContent content = response.Content;
             string data = response.StatusCode.ToString();
 
-
             if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
             {
                 return data;
@@ -368,6 +337,28 @@ namespace LoginForms.Shared
                 return response.StatusCode.ToString();
             }
 
+        }
+
+        public async Task<string> getSubstactActiveChat(string userId)
+        {
+            var inputData = new Dictionary<string, string>
+            {
+                { "userId", userId }
+            };
+            var input = new FormUrlEncodedContent(inputData);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync(baseUrl + "chat/subtractActiveChat", input);
+            Console.WriteLine(response.StatusCode);
+            HttpContent content = response.Content;
+            string data = response.StatusCode.ToString();
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            {
+                return data;
+            }
+            else
+            {
+                return response.StatusCode.ToString();
+            }
         }
 
         public async Task<string> getNetworkCategories()
@@ -541,7 +532,6 @@ namespace LoginForms.Shared
             //tambien el chatPlatformIdentifer
             //sacarlo del json
         }
-
 
         /*
          * Preguntar a Juan Carlos que pedo con estos métodos

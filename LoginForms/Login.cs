@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net.Sockets;
 using System.Windows.Forms;
 using LoginForms.Models;
 using LoginForms.Shared;
@@ -16,7 +10,9 @@ namespace LoginForms
 {
     public partial class Login : Form
     {
-        RestHelper rh = new RestHelper();
+        readonly RestHelper rh = new RestHelper();
+        readonly AsynchronousClient asynchronousClient = new AsynchronousClient();
+
         public Login()
         {
             InitializeComponent();
@@ -24,9 +20,29 @@ namespace LoginForms
 
         private void btnCerrar_Click(object sender, EventArgs e)
         {
-            this.Close();
+            //Application.Exit();
+            #region Llamada al metodo para cerrar el socket desde la aplicacion
+            try
+            {
+                if (GlobalSocket.GlobalVarible.Connected)
+                {
+                    asynchronousClient.CloseSocketConnection();
+                    Application.Exit();
+                }
+                else
+                {
+                    Console.WriteLine($"No se pudo cerrar sesión, problemas con el socket");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error [BtnCerrar_Click][Login] {ex.Message}");
+            }
+            #endregion
+
+
         }
-         
+
         private void btnEntrar_Click(object sender, EventArgs e)
         {
             if (txtUserName.Text == "" || txtPassword.Text == "")
@@ -64,20 +80,14 @@ namespace LoginForms
                 FormPrincipal formPrincipal = new FormPrincipal();
                 var jsonLogin = await rh.Login(txtUserName.Text, txtPassword.Text, ipAddress);
                 var jsonUpdateAgentActiveIp = await rh.updateAgentActiveIp(txtUserName.Text, ipAddress);
-                Json userNuevo = JsonConvert.DeserializeObject<Json>(jsonLogin);
-                //string message = rh.ResponseMessage(json);
-                //string message = rh.DeserializarJson(json);
+                Json jsonUser = JsonConvert.DeserializeObject<Json>(jsonLogin);
                 User user = rh.GetUser(jsonLogin);
                 //string agentStatus = GlobalSocket.currentUser.status.id;
-
-                var token = user.token;
-                GlobalSocket.currentUser = userNuevo.data.user;
+                GlobalSocket.currentUser = jsonUser.data.user;
                 GlobalSocket.currentUser.activeIp = ipAddress;
+                GlobalSocket.currentUser.token = user.token;
 
                 this.Hide();
-                //MessageBox.Show($"Bienvenido {txtUserName.Text}");
-                //formPrincipal.rolId = user.rolID;
-                //formPrincipal.lblToken.Text = user.token;
                 formPrincipal.FormClosed += (s, args) => this.Close();
                 formPrincipal.Show();
 
@@ -85,20 +95,7 @@ namespace LoginForms
             catch (Exception ex)
             {
                 Console.WriteLine($"Error[Login]: {ex}");
-            }
-
-        }
-
-        private void Login_Load(object sender, EventArgs e)
-        {
-        }
-
-        private void Login_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if(MessageBox.Show("¿Deseas salir de la aplicación?", "Omnicanal",MessageBoxButtons.YesNo) != DialogResult.Yes)
-            {
-                e.Cancel = true;
-                Application.Exit();
+                MessageBox.Show($"Error[Login]: {ex.Message}", $"Omnicanal", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
     }
