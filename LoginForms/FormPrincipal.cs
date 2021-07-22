@@ -27,7 +27,7 @@ namespace LoginForms
         RestHelper rh = new RestHelper();
         Json jsonStatus;
         Login login;
-        AsynchronousClient asynchronousClient;
+        AsynchronousClient asynchronousClient = new AsynchronousClient();
         public string rolId;
         public FormPrincipal()//string agent
         {
@@ -203,10 +203,11 @@ namespace LoginForms
             login = new Login();
             //asynchronousClient = new AsynchronousClient();
             string userToken = GlobalSocket.currentUser.token;
-            userToken= "";
+            userToken = "";
+
             if (string.IsNullOrEmpty(userToken))
             {
-                //asynchronousClient.CloseSocketConnection();
+                asynchronousClient.CloseSocketConnection();
                 MessageBox.Show("usuario cerró sesión", "Omnicanal", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Dispose();
                 login.Show();
@@ -223,7 +224,6 @@ namespace LoginForms
 
         //Metodos que no recuerdo para que se utilizan, pero deben de tener una utilidad
         //no los borro ya que despues voy a evaluar si dejarlos o borrarlos.s
-
 
         //private void AddFormInPanel(Form form)
         //{

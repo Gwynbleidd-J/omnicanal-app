@@ -493,6 +493,13 @@ namespace LoginForms.Shared
 
         public async Task<string> SendMessage(string text, string chatId, string clientPlatformIdentifier, string platformIdentifier, string agentPlatformIdentifier)
         {
+            var numberToSend = "";
+
+            if (string.IsNullOrEmpty(chatId) && string.IsNullOrEmpty(clientPlatformIdentifier)) 
+            { 
+                numberToSend = GlobalSocket.numberToSend;
+            }
+
             var inputData = new Dictionary<string, string>
             {
                 /*
@@ -511,7 +518,8 @@ namespace LoginForms.Shared
                 { "chatId", chatId},
                 { "clientPlatformIdentifier", clientPlatformIdentifier},
                 { "platformIdentifier", platformIdentifier},
-                { "agentPlatformIdentifier", agentPlatformIdentifier }
+                { "agentPlatformIdentifier", agentPlatformIdentifier },
+                { "numberToSend", numberToSend}
             };
 
             Console.WriteLine(inputData);
@@ -533,8 +541,59 @@ namespace LoginForms.Shared
             //sacarlo del json
         }
 
+        public async Task<string> newEmptyChat(string text, string chatId, string clientPlatformIdentifier, string platformIdentifier, string agentPlatformIdentifier)
+        {
+            var numberToSend = "";
+
+            if (string.IsNullOrEmpty(chatId) && string.IsNullOrEmpty(clientPlatformIdentifier))
+            {
+                numberToSend = GlobalSocket.numberToSend;
+            }
+
+            var inputData = new Dictionary<string, string>
+            {
+                /*
+                 * En este porcion de codigo se necesita poner los parametros estaticos fijos
+                 * agentPlatformIdentifier
+                 * messagePlatformId
+                 * transmitter
+                 * statusId
+                 * agentPlatformIdentifier
+                 */
+                //whatsapp:+5214621929111 , w
+                { "messagePlatformId", ""},
+                { "text", "..."},
+                { "clientPhoneNumber", GlobalSocket.numberToSend},
+                { "transmitter",  "a"},
+                { "statusId", ""},
+                { "chatId", "0"},
+                { "clientPlatformIdentifier","whatsapp:+521"+GlobalSocket.numberToSend}, 
+                { "platformIdentifier", "w"},
+                { "agentPlatformIdentifier", GlobalSocket.currentUser.activeIp},
+                { "userId", GlobalSocket.currentUser.ID }
+                
+            };
+
+            Console.WriteLine(inputData.Keys.ToString());
+            var input = new FormUrlEncodedContent(inputData);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync(baseUrl + "messenger/newEmptyChat", input);
+            HttpContent content = response.Content;
+            //string data = await content.ReadAsStringAsync();
+            string data = response.StatusCode.ToString();
+            if (data != null)
+            {
+                return data.ToString();
+            }
+
+            return string.Empty;
+            //cuando se contruya form
+            //se identifique de cual chat viene el mensaje
+            //tambien el chatPlatformIdentifer
+            //sacarlo del json
+        }
         /*
-         * Preguntar a Juan Carlos que pedo con estos métodos
+         * Preguntar a Juan Carlos que se va a a hacer con estos métodos
          * Para analizar si se peuden borrar o no
          */
         public void createChatForm(string chatId)

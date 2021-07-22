@@ -34,9 +34,9 @@ namespace LoginForms
             this.txtNewTabChat = new System.Windows.Forms.TextBox();
             this.tabControlChats = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.btnBeginChat = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.btnBeginChat = new System.Windows.Forms.Button();
             this.tabControlChats.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.SuspendLayout();
@@ -91,17 +91,6 @@ namespace LoginForms
             this.tabPage1.TabIndex = 0;
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // btnBeginChat
-            // 
-            this.btnBeginChat.Location = new System.Drawing.Point(8, 621);
-            this.btnBeginChat.Margin = new System.Windows.Forms.Padding(4);
-            this.btnBeginChat.Name = "btnBeginChat";
-            this.btnBeginChat.Size = new System.Drawing.Size(138, 37);
-            this.btnBeginChat.TabIndex = 7;
-            this.btnBeginChat.Text = "Enviar Mensaje";
-            this.btnBeginChat.UseVisualStyleBackColor = true;
-            this.btnBeginChat.Click += new System.EventHandler(this.btnBeginChat_Click);
-            // 
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(781, 528);
@@ -123,6 +112,17 @@ namespace LoginForms
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Visible = false;
+            // 
+            // btnBeginChat
+            // 
+            this.btnBeginChat.Location = new System.Drawing.Point(8, 621);
+            this.btnBeginChat.Margin = new System.Windows.Forms.Padding(4);
+            this.btnBeginChat.Name = "btnBeginChat";
+            this.btnBeginChat.Size = new System.Drawing.Size(138, 37);
+            this.btnBeginChat.TabIndex = 7;
+            this.btnBeginChat.Text = "Enviar Mensaje";
+            this.btnBeginChat.UseVisualStyleBackColor = true;
+            this.btnBeginChat.Click += new System.EventHandler(this.btnBeginChat_Click);
             // 
             // Prueba
             // 

@@ -16,7 +16,7 @@ namespace LoginForms.Utils
     {
         //FORMULARIO PADRE
         #region Atributos
-        public string chatId { get; set; }
+        public string chatId { get; set; } 
         public string platformIdentifier { get; set; }
         public string clientPlatformIdentifier { get; set; }
         public string lastMessageId { get; set; }
@@ -253,6 +253,7 @@ namespace LoginForms.Utils
             try
             {
                 var agentId = GlobalSocket.currentUser.activeIp;
+                var numberToSend = GlobalSocket.numberToSend;
                 //string statusCodeSendMessage = await restHelper.SendMessage(txtSendMessage.Text.ToString(), chatId, "whatsapp:+5214621257826", "w");
                 string statusCodeSendMessage = await restHelper.SendMessage(txtSendMessage.Text.ToString(), lblChatId.Text.ToString(), lblClientPlatformIdentifier.Text.ToString(), lblPlatformIdentifier.Text.ToString(), agentId);
                 if (!string.IsNullOrEmpty(statusCodeSendMessage) && statusCodeSendMessage == "OK")

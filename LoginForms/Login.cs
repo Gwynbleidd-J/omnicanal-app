@@ -20,27 +20,25 @@ namespace LoginForms
 
         private void btnCerrar_Click(object sender, EventArgs e)
         {
-            //Application.Exit();
+            Application.Exit();
             #region Llamada al metodo para cerrar el socket desde la aplicacion
-            try
-            {
-                if (GlobalSocket.GlobalVarible.Connected)
-                {
-                    asynchronousClient.CloseSocketConnection();
-                    Application.Exit();
-                }
-                else
-                {
-                    Console.WriteLine($"No se pudo cerrar sesión, problemas con el socket");
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error [BtnCerrar_Click][Login] {ex.Message}");
-            }
+            //try
+            //{
+            //    if (GlobalSocket.GlobalVarible.Connected)
+            //    {
+            //        asynchronousClient.CloseSocketConnection();
+            //        Application.Exit();
+            //    }
+            //    else
+            //    {
+            //        Console.WriteLine($"No se pudo cerrar sesión, problemas con el socket");
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine($"Error [BtnCerrar_Click][Login] {ex.Message}");
+            //}
             #endregion
-
-
         }
 
         private void btnEntrar_Click(object sender, EventArgs e)
@@ -86,6 +84,7 @@ namespace LoginForms
                 GlobalSocket.currentUser = jsonUser.data.user;
                 GlobalSocket.currentUser.activeIp = ipAddress;
                 GlobalSocket.currentUser.token = user.token;
+                //sIPAccount = new SIPAccount(requiredRegister, displayName, userName, registerName, password, domain, port, proxy);
 
                 this.Hide();
                 formPrincipal.FormClosed += (s, args) => this.Close();

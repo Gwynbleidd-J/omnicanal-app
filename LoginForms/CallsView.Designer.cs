@@ -61,6 +61,8 @@ namespace LoginForms
             this.rdUDP = new System.Windows.Forms.RadioButton();
             this.lblProtocol = new System.Windows.Forms.Label();
             this.btnDisconect = new System.Windows.Forms.Button();
+            this.btnTransfer = new System.Windows.Forms.Button();
+            this.txtTransfer = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // lbl_NumberToDial
@@ -366,6 +368,7 @@ namespace LoginForms
             this.rdTLS.TabIndex = 16;
             this.rdTLS.Text = "TLS";
             this.rdTLS.UseVisualStyleBackColor = true;
+            this.rdTLS.Visible = false;
             this.rdTLS.CheckedChanged += new System.EventHandler(this.rdTLS_CheckedChanged);
             // 
             // rdUDP
@@ -377,6 +380,7 @@ namespace LoginForms
             this.rdUDP.TabIndex = 17;
             this.rdUDP.Text = "UDP";
             this.rdUDP.UseVisualStyleBackColor = true;
+            this.rdUDP.Visible = false;
             this.rdUDP.CheckedChanged += new System.EventHandler(this.rdUDP_CheckedChanged);
             // 
             // lblProtocol
@@ -388,6 +392,7 @@ namespace LoginForms
             this.lblProtocol.TabIndex = 18;
             this.lblProtocol.Text = "Protocolo";
             this.lblProtocol.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.lblProtocol.Visible = false;
             // 
             // btnDisconect
             // 
@@ -399,11 +404,31 @@ namespace LoginForms
             this.btnDisconect.UseVisualStyleBackColor = true;
             this.btnDisconect.Click += new System.EventHandler(this.btnDisconect_Click);
             // 
+            // btnTransfer
+            // 
+            this.btnTransfer.Location = new System.Drawing.Point(609, 121);
+            this.btnTransfer.Name = "btnTransfer";
+            this.btnTransfer.Size = new System.Drawing.Size(100, 28);
+            this.btnTransfer.TabIndex = 20;
+            this.btnTransfer.Text = "Transferir";
+            this.btnTransfer.UseVisualStyleBackColor = true;
+            this.btnTransfer.Click += new System.EventHandler(this.btnTransfer_Click);
+            // 
+            // txtTransfer
+            // 
+            this.txtTransfer.Location = new System.Drawing.Point(558, 10);
+            this.txtTransfer.Name = "txtTransfer";
+            this.txtTransfer.Size = new System.Drawing.Size(151, 22);
+            this.txtTransfer.TabIndex = 21;
+            this.txtTransfer.Visible = false;
+            // 
             // CallsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(900, 495);
+            this.Controls.Add(this.txtTransfer);
+            this.Controls.Add(this.btnTransfer);
             this.Controls.Add(this.btnDisconect);
             this.Controls.Add(this.lblProtocol);
             this.Controls.Add(this.rdUDP);
@@ -481,5 +506,7 @@ namespace LoginForms
         private System.Windows.Forms.RadioButton rdUDP;
         private System.Windows.Forms.Label lblProtocol;
         private System.Windows.Forms.Button btnDisconect;
+        private System.Windows.Forms.Button btnTransfer;
+        private System.Windows.Forms.TextBox txtTransfer;
     }
 }

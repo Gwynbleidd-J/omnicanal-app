@@ -7,9 +7,17 @@ using System.Windows.Forms;
 using LoginForms.Shared;
 using Newtonsoft.Json;
 using System.Drawing;
+using System.Configuration;
 
 namespace LoginForms
 {
+
+    /*CAMBIOS PROPUESTOS PARA MEJORAR LA CLASE AsynchronousClient.cs
+     * A la aplicacion de sockets se le haran pequeños cambios para solucionar algunos errores al momento de desconectarse.
+     * de la API y cerrar comunicacion con el socket.
+     * Solo le agregaran métodos a la clase.
+     * El código comentado es el código original.
+     */
     class AsynchronousClient
     {
         private RichTextBox container;
@@ -19,6 +27,7 @@ namespace LoginForms
         //private TabControl tbControlContainer;
         //private ChatWindow chatWindow;
 
+        //Constructores
         public AsynchronousClient(RichTextBox container, Form whatsapp, Prueba prueba, Form fPrincipal)
         {
             try
@@ -36,17 +45,14 @@ namespace LoginForms
                 Console.WriteLine("Error[construct AsynchronousClient]: " + ex.ToString());
             }
         }
-        
         public AsynchronousClient()
         {
         }
-
+        
         public RestHelper rh = new RestHelper();
-        //Puerto en server de jCarlos       8000
-        //Puerto en server de Localhost     8124
-        private const int port = 8000;
+        private readonly int port = Convert.ToInt32(ConfigurationManager.AppSettings["serverPort"]);
 
-
+        
         // ManualResetEvent instances signal completion.  
         private static ManualResetEvent connectDone = new ManualResetEvent(false);
         private static ManualResetEvent sendDone = new ManualResetEvent(false);
@@ -58,27 +64,29 @@ namespace LoginForms
         {
             try
             {
-                RestHelper rh = new RestHelper();
+                //Establish the remote endpoint for the socket.
                 IPAddress ipAddress = IPAddress.Parse(rh.GetLocalIpAddress());
                 IPEndPoint remoteEP = new IPEndPoint(ipAddress, port);
+                
+                
                 // Create a TCP/IP socket.  
                 GlobalSocket.GlobalVarible = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+                //Connect to the remote endpoint
                 GlobalSocket.GlobalVarible.BeginConnect(remoteEP, new AsyncCallback(ConnectCallback), GlobalSocket.GlobalVarible);
                 connectDone.WaitOne();
-                Receive();
+                Receive(GlobalSocket.GlobalVarible);//Receive();
                 receiveDone.WaitOne();
-                //if(GlobalSocket.GlobalVarible.Connected == true)
-                //{
-                //    Console.WriteLine($"El cliente esta conectado a un socket");
-                //    Receive();
-                //    receiveDone.WaitOne();
-                //}
-                //else
-                //{
-                //    Console.WriteLine($"El cliente no está conectado a ningún socket");
-                //}
-                //// Receive the response from the remote device.
 
+                //Send(GlobalSocket.GlobalVarible, "This is a test");
+                sendDone.WaitOne();
+
+                Receive(GlobalSocket.GlobalVarible);
+                receiveDone.WaitOne();
+
+                Console.WriteLine($"Response received:{response}");
+
+                GlobalSocket.GlobalVarible.Shutdown(SocketShutdown.Both);
+                GlobalSocket.GlobalVarible.Close();
             }
             catch (Exception e)
             {
@@ -111,8 +119,7 @@ namespace LoginForms
                 // Complete the connection.  
                 client.EndConnect(ar);
 
-                Console.WriteLine("Socket connectedado to {0}",
-                    client.RemoteEndPoint.ToString());
+                Console.WriteLine($"Socket connected to:{client.RemoteEndPoint}");
 
                 // Signal that the connection has been made.  
                 connectDone.Set();
@@ -123,47 +130,18 @@ namespace LoginForms
             }
         }
 
-        //public void Send(Socket client, String data)
-        //{
-        //    // Convert the string data to byte data using ASCII encoding.  
-        //    byte[] byteData = Encoding.ASCII.GetBytes(data);
-
-        //    // Begin sending the data to the remote device.  
-        //    client.BeginSend(byteData, 0, byteData.Length, 0,
-        //        new AsyncCallback(SendCallback), client);
-        //}
-
-        //private static void SendCallback(IAsyncResult ar)
-        //{
-        //    try
-        //    {
-        //        // Retrieve the socket from the state object.  
-        //        Socket client = (Socket)ar.AsyncState;
-
-        //        // Complete sending the data to the remote device.  
-        //        int bytesSent = client.EndSend(ar);
-        //        Console.WriteLine("Sent {0} bytes to server.", bytesSent);
-
-        //        // Signal that all bytes have been sent.  
-        //        sendDone.Set();
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        Console.WriteLine(e.ToString());
-        //    }
-        //}
-
-        public void Receive()
+        public void Receive(Socket client) //public void Receive()
         {
             try
             {
                 // Create the state object.  
                 StateObject state = new StateObject();
-                state.workSocket = GlobalSocket.GlobalVarible;
+                state.workSocket = client; //state.workSocket = GlobalSocket.GlobalVariable
+                                           // Begin receiving the data from the remote device.
 
-                // Begin receiving the data from the remote device.  
-                GlobalSocket.GlobalVarible.BeginReceive(state.buffer, 0, StateObject.bufferSize, 0,
-                    new AsyncCallback(ReceiveCallback), state);
+                client.BeginReceive(state.buffer, 0, StateObject.bufferSize, 0, new AsyncCallback(ReceiveCallback), state);
+                //GlobalSocket.GlobalVarible.BeginReceive(state.buffer, 0, StateObject.bufferSize, 0,
+                //    new AsyncCallback(ReceiveCallback), state);
 
 
             }
@@ -202,7 +180,7 @@ namespace LoginForms
                 }
                 else
                 {
-                    Console.WriteLine("Cuando es menor que 0");
+                    Console.WriteLine("Ya no se está recibiendo datos");
                     // All the data has arrived; put it in response.  
                     if (state.stringBuilder.Length > 1)
                     {
@@ -213,9 +191,40 @@ namespace LoginForms
                 }
             }
 
+
             catch (Exception e)
             {
                 Console.WriteLine("Error[ReceiveCallback]: " + e.ToString());
+            }
+        }
+
+        public void Send(Socket client, String data)
+        {
+            // Convert the string data to byte data using ASCII encoding.  
+            byte[] byteData = Encoding.ASCII.GetBytes(data);
+
+            // Begin sending the data to the remote device.  
+            client.BeginSend(byteData, 0, byteData.Length, 0,
+                new AsyncCallback(SendCallback), client);
+        }
+
+        private static void SendCallback(IAsyncResult ar)
+        {
+            try
+            {
+                // Retrieve the socket from the state object.  
+                Socket client = (Socket)ar.AsyncState;
+
+                // Complete sending the data to the remote device.  
+                int bytesSent = client.EndSend(ar);
+                Console.WriteLine("Sent {0} bytes to server.", bytesSent);
+
+                // Signal that all bytes have been sent.  
+                sendDone.Set();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
             }
         }
 
@@ -224,6 +233,7 @@ namespace LoginForms
             try
             {
                 GlobalSocket.GlobalVarible.Shutdown(SocketShutdown.Both);
+                GlobalSocket.GlobalVarible.Disconnect(true);
                 if (GlobalSocket.GlobalVarible.Connected)
                 {
                     Console.WriteLine($"Socket Connected");

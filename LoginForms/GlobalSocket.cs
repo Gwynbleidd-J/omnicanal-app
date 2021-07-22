@@ -25,5 +25,6 @@ namespace LoginForms
             get { return user; }
             set { user = value; }
         }
+        public static string numberToSend { get; set; }
     }
 }

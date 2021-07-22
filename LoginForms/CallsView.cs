@@ -50,40 +50,82 @@ namespace LoginForms
         {
             try
             {
-                var userAgent = "Omnicanal-Softphone";
+                InvokeGUIThread(() => { lb_log.Items.Clear(); });
+                var userAgent = "Totalsec-Softphone";
+                //Aqui nada mas se crea el objeto softphone con los codecs de audio y video
                 softPhone = SoftPhoneFactory.CreateSoftPhone(SoftPhoneFactory.GetLocalIP(), 58000, 62000, userAgent);
-                //softPhone = SoftPhoneFactory.CreateSoftPhone(58024, 60999, userAgent);
                 InvokeGUIThread(() => { lb_log.Items.Add("Softphone created!"); });
-
                 softPhone.IncomingCall += new EventHandler<VoIPEventArgs<IPhoneCall>>(softPhone_inComingCall);
 
-
-                sIPAccount = new SIPAccount(requiredRegister, displayName, userName, registerName, password, domain, 5061, proxy);
+                //sIPAccount = new SIPAccount(requiredRegister, displayName, userName, registerName, password, domain, port, proxy);
+                sIPAccount = new SIPAccount(true, "29335", "29335", "29335", "IbZ09uh2WDjJ50lv8WPs", "totalsec.com.mx", 5060, "200.38.97.144");
+                //sIPAccount = new SIPAccount(requiredRegister, displayName, userName, registerName, password, domain, port, proxy);
                 InvokeGUIThread(() =>
                 {
                     lb_log.Items.Add($"SIP Account created - {sIPAccount.DisplayName}");
-                    lb_log.Items.Add($"User Name - {sIPAccount.UserName}");
-                    lb_log.Items.Add($"Ip Address - {sIPAccount.DomainServerHost}");
-                    lb_log.Items.Add($"Server Port - {sIPAccount.DomainServerPort}");
-
+                    lb_log.Items.Add($"Extensión - {sIPAccount.UserName}");
+                    lb_log.Items.Add($"Dominio - {sIPAccount.DomainServerHost}");
+                    lb_log.Items.Add($"Puerto - {sIPAccount.DomainServerPort}");
                 });
-                //string certificado = "C:/Users/Gwynbleidd J/Desktop/Demo_a.cer";
-                //X509Certificate x509Certificate = new X509Certificate(certificado);
-                
                 var phoneLineConfig = new PhoneLineConfiguration(sIPAccount);
-                phoneLineConfig.TransportType = TransportType.Tls;
+                phoneLineConfig.TransportType = TransportType.Udp;
                 phoneLine = softPhone.CreatePhoneLine(phoneLineConfig);
                 phoneLine.RegistrationStateChanged += phoneLine_PhoneLineInformation;
                 InvokeGUIThread(() => { lb_log.Items.Add("Phoneline created."); });
                 softPhone.RegisterPhoneLine(phoneLine);
-
                 txtDisplay.Text = string.Empty;
                 lbl_NumberToDial.Text = sIPAccount.RegisterName;
-
+                
                 inComingCall = false;
                 reDialNumber = string.Empty;
                 localHeld = false;
                 ConnectMedia();
+                
+            }
+            catch (Exception ex)
+            {
+                InvokeGUIThread(() => { lb_log.Items.Add(ex.Message); });
+            }
+        }
+        
+        private void rdUDP_CheckedChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                InvokeGUIThread(() => { lb_log.Items.Clear(); });
+                if (rdUDP.Checked == true)
+                {
+                    var userAgent = "Omnicanal-Softphone";
+                    softPhone = SoftPhoneFactory.CreateSoftPhone(SoftPhoneFactory.GetLocalIP(), 58000, 62000, userAgent);
+                    InvokeGUIThread(() => { lb_log.Items.Add("Softphone created!"); });
+
+                    softPhone.IncomingCall += new EventHandler<VoIPEventArgs<IPhoneCall>>(softPhone_inComingCall);
+
+
+                    sIPAccount = new SIPAccount(requiredRegister, displayName, userName, registerName, password, domain, port, proxy);
+                    //sIPAccount = new SIPAccount(true, "5003","5003","5003","5003", "192.168.1.140", 5060);
+                    InvokeGUIThread(() =>
+                    {
+                        lb_log.Items.Add($"SIP Account created - {sIPAccount.DisplayName}");
+                        lb_log.Items.Add($"User Name - {sIPAccount.UserName}");
+                        lb_log.Items.Add($"Ip Address - {sIPAccount.DomainServerHost}");
+                        lb_log.Items.Add($"Server Port - {sIPAccount.DomainServerPort}");
+
+                    });
+                    var phoneLineConfig = new PhoneLineConfiguration(sIPAccount);
+                    phoneLineConfig.TransportType = TransportType.Udp;
+                    phoneLine = softPhone.CreatePhoneLine(phoneLineConfig);
+                    phoneLine.RegistrationStateChanged += phoneLine_PhoneLineInformation;
+                    InvokeGUIThread(() => { lb_log.Items.Add("Phoneline created."); });
+                    softPhone.RegisterPhoneLine(phoneLine);
+                    txtDisplay.Text = string.Empty;
+                    lbl_NumberToDial.Text = sIPAccount.RegisterName;
+
+                    inComingCall = false;
+                    reDialNumber = string.Empty;
+                    localHeld = false;
+                    ConnectMedia();
+                }
             }
             catch (Exception ex)
             {
@@ -91,93 +133,49 @@ namespace LoginForms
             }
         }
 
-        private void rdUDP_CheckedChanged(object sender, EventArgs e)
-        {
-        //    try
-        //    {
-        //        InvokeGUIThread(() => { lb_log.Items.Clear(); });
-        //        if (rdUDP.Checked == true)
-        //        {
-        //            var userAgent = "Omnicanal-Softphone";
-        //            softPhone = SoftPhoneFactory.CreateSoftPhone(SoftPhoneFactory.GetLocalIP(), 58000, 62000, userAgent);
-        //            InvokeGUIThread(() => { lb_log.Items.Add("Softphone created!"); });
-
-        //            softPhone.IncomingCall += new EventHandler<VoIPEventArgs<IPhoneCall>>(softPhone_inComingCall);
-
-
-        //            sIPAccount = new SIPAccount(requiredRegister, displayName, userName, registerName, password, domain, port, proxy);
-        //            InvokeGUIThread(() =>
-        //            {
-        //                lb_log.Items.Add($"SIP Account created - {sIPAccount.DisplayName}");
-        //                lb_log.Items.Add($"User Name - {sIPAccount.UserName}");
-        //                lb_log.Items.Add($"Ip Address - {sIPAccount.DomainServerHost}");
-        //                lb_log.Items.Add($"Server Port - {sIPAccount.DomainServerPort}");
-
-        //            });
-        //            var phoneLineConfig = new PhoneLineConfiguration(sIPAccount);
-        //            phoneLineConfig.TransportType = TransportType.Udp;
-        //            phoneLine = softPhone.CreatePhoneLine(phoneLineConfig);
-        //            phoneLine.RegistrationStateChanged += phoneLine_PhoneLineInformation;
-        //            InvokeGUIThread(() => { lb_log.Items.Add("Phoneline created."); });
-        //            softPhone.RegisterPhoneLine(phoneLine);
-        //            txtDisplay.Text = string.Empty;
-        //            lbl_NumberToDial.Text = sIPAccount.RegisterName;
-
-        //            inComingCall = false;
-        //            reDialNumber = string.Empty;
-        //            localHeld = false;
-        //            ConnectMedia();
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        InvokeGUIThread(() => { lb_log.Items.Add(ex.Message); });
-           //}
-        }
-
         private void rdTLS_CheckedChanged(object sender, EventArgs e)
         {
-        //    try
-        //    {
-        //        InvokeGUIThread(() => { lb_log.Items.Clear(); });
-        //        if (rdTLS.Checked == true)
-        //        {
-        //            var userAgent = "Omnicanal-Softphone";
-        //            softPhone = SoftPhoneFactory.CreateSoftPhone(SoftPhoneFactory.GetLocalIP(), 58000, 62000, userAgent);
-        //            InvokeGUIThread(() => { lb_log.Items.Add("Softphone created!"); });
+            try
+            {
+                InvokeGUIThread(() => { lb_log.Items.Clear(); });
+                if (rdTLS.Checked == true)
+                {
+                    var userAgent = "Omnicanal-Softphone";
+                    softPhone = SoftPhoneFactory.CreateSoftPhone(SoftPhoneFactory.GetLocalIP(), 58000, 62000, userAgent);
+                    InvokeGUIThread(() => { lb_log.Items.Add("Softphone created!"); });
 
-        //            softPhone.IncomingCall += new EventHandler<VoIPEventArgs<IPhoneCall>>(softPhone_inComingCall);
+                    softPhone.IncomingCall += new EventHandler<VoIPEventArgs<IPhoneCall>>(softPhone_inComingCall);
 
 
-        //            //sIPAccount = new SIPAccount(requiredRegister, displayName, userName, registerName, password, domain, port, proxy);
-        //            sIPAccount = new SIPAccount(requiredRegister, displayName, userName, registerName, password, domain, port, proxy);
-        //            InvokeGUIThread(() =>
-        //            {
-        //                lb_log.Items.Add($"SIP Account created - {sIPAccount.DisplayName}");
-        //                lb_log.Items.Add($"User Name - {sIPAccount.UserName}");
-        //                lb_log.Items.Add($"Ip Address - {sIPAccount.DomainServerHost}");
-        //                lb_log.Items.Add($"Server Port - {sIPAccount.DomainServerPort}");
+                    //sIPAccount = new SIPAccount(requiredRegister, displayName, userName, registerName, password, domain, port, proxy);
+                    sIPAccount = new SIPAccount(requiredRegister, displayName, userName, registerName, password, domain, 5060, proxy);
+                    InvokeGUIThread(() =>
+                    {
+                        lb_log.Items.Add($"SIP Account created - {sIPAccount.DisplayName}");
+                        lb_log.Items.Add($"User Name - {sIPAccount.UserName}");
+                        lb_log.Items.Add($"Ip Address - {sIPAccount.DomainServerHost}");
+                        lb_log.Items.Add($"Server Port - {sIPAccount.DomainServerPort}");
 
-        //            });
-        //            var phoneLineConfig = new PhoneLineConfiguration(sIPAccount);
-        //            phoneLineConfig.TransportType = TransportType.Tls;
-        //            phoneLine = softPhone.CreatePhoneLine(phoneLineConfig);
-        //            phoneLine.RegistrationStateChanged += phoneLine_PhoneLineInformation;
-        //            InvokeGUIThread(() => { lb_log.Items.Add("Phoneline created."); });
-        //            softPhone.RegisterPhoneLine(phoneLine);
-        //            txtDisplay.Text = string.Empty;
-        //            lbl_NumberToDial.Text = sIPAccount.RegisterName;
+                    });
+                    var phoneLineConfig = new PhoneLineConfiguration(sIPAccount);
+                    phoneLineConfig.TransportType = TransportType.Udp;
+                    phoneLine = softPhone.CreatePhoneLine(phoneLineConfig);
+                    phoneLine.RegistrationStateChanged += phoneLine_PhoneLineInformation;
+                    InvokeGUIThread(() => { lb_log.Items.Add("Phoneline created."); });
+                    softPhone.RegisterPhoneLine(phoneLine);
+                    txtDisplay.Text = string.Empty;
+                    lbl_NumberToDial.Text = sIPAccount.RegisterName;
 
-        //            inComingCall = false;
-        //            reDialNumber = string.Empty;
-        //            localHeld = false;
-        //            ConnectMedia();
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        InvokeGUIThread(() => { lb_log.Items.Add(ex.Message); });
-        //    }
+                    inComingCall = false;
+                    reDialNumber = string.Empty;
+                    localHeld = false;
+                    ConnectMedia();
+                }
+            }
+            catch (Exception ex)
+            {
+                InvokeGUIThread(() => { lb_log.Items.Add(ex.Message); });
+            }
         }
 
         private void StartDevices()
@@ -244,11 +242,12 @@ namespace LoginForms
         private void softPhone_inComingCall(object sender, VoIPEventArgs<IPhoneCall> e)
         {
             InvokeGUIThread(() => { lb_log.Items.Add("Incoming call from: " + e.Item.DialInfo.ToString()); txtDisplay.Text = "Ringing (" + e.Item.DialInfo.Dialed + ")"; });
-
+            
             reDialNumber = e.Item.DialInfo.Dialed;
-            call = e.Item;
+            call = e.Item; 
             WireUpCallEvents();
             inComingCall = true;
+            //call.Forward("10531");
         }
 
         private void phoneLine_PhoneLineInformation(object sender, RegistrationStateChangedArgs e)
@@ -257,16 +256,15 @@ namespace LoginForms
 
             InvokeGUIThread(() =>
             {
-                if (phoneLineInformation == RegState.RegistrationSucceeded)
-                {
-                    lb_log.Items.Add("Registration succeeded - Online");
-                }
-                else
-                {
-                    lb_log.Items.Add("Not registered - Offline: " + phoneLineInformation.ToString());
-                }
+            if (phoneLineInformation == RegState.RegistrationSucceeded)
+            {
+                lb_log.Items.Add("Registro exitoso - Online");
+            }
+            else
+            {
+                lb_log.Items.Add("No registrado - Offline: " + phoneLineInformation.ToString());
+            }
             });
-            lb_log.Items.Add(e.Error);
 
         }
 
@@ -443,10 +441,33 @@ namespace LoginForms
                     phoneLine.Dispose();
                 });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 lb_log.Items.Add($"Error Al desconectar {ex.Message}");
             }
+        }
+
+        private void btnTransfer_Click(object sender, EventArgs e)
+        {
+            //if(call.CallState == CallState.InCall) 
+            //{ 
+            string transfer = "15481";
+            if (call == null)
+            {
+                return;
+            }
+            if (string.IsNullOrEmpty(transfer))
+            {
+                return;
+            }
+            call.BlindTransfer(transfer);
+            lb_log.Items.Add($"Transfiriendo a: {transfer}");
+            //}
+
+            //else
+            //{
+            //    lb_log.Items.Add($"No se pudo transferir a la extension");
+            //}
         }
     }
 }

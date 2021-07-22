@@ -267,6 +267,7 @@ C:\Users\Gwynbleidd J\Documents\Omnicanal Project\omnicanal_app\LoginForms\bin\D
 C:\Users\Gwynbleidd J\Documents\Omnicanal Project\omnicanal_app\LoginForms\bin\Debug\EntityFramework.dll
 C:\Users\Gwynbleidd J\Documents\Omnicanal Project\omnicanal_app\LoginForms\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\Gwynbleidd J\Documents\Omnicanal Project\omnicanal_app\LoginForms\bin\Debug\Microsoft.Web.Infrastructure.dll
+C:\Users\Gwynbleidd J\Documents\Omnicanal Project\omnicanal_app\LoginForms\bin\Debug\OzekiSDK.dll
 C:\Users\Gwynbleidd J\Documents\Omnicanal Project\omnicanal_app\LoginForms\bin\Debug\RestSharp.dll
 C:\Users\Gwynbleidd J\Documents\Omnicanal Project\omnicanal_app\LoginForms\bin\Debug\Swashbuckle.Core.dll
 C:\Users\Gwynbleidd J\Documents\Omnicanal Project\omnicanal_app\LoginForms\bin\Debug\System.Net.Http.dll
@@ -285,6 +286,7 @@ C:\Users\Gwynbleidd J\Documents\Omnicanal Project\omnicanal_app\LoginForms\bin\D
 C:\Users\Gwynbleidd J\Documents\Omnicanal Project\omnicanal_app\LoginForms\bin\Debug\RestSharp.xml
 C:\Users\Gwynbleidd J\Documents\Omnicanal Project\omnicanal_app\LoginForms\bin\Debug\System.Web.Http.xml
 C:\Users\Gwynbleidd J\Documents\Omnicanal Project\omnicanal_app\LoginForms\bin\Debug\System.Web.Http.WebHost.xml
+C:\Users\Gwynbleidd J\Documents\Omnicanal Project\omnicanal_app\LoginForms\obj\Debug\LoginForms.csprojAssemblyReference.cache
 C:\Users\Gwynbleidd J\Documents\Omnicanal Project\omnicanal_app\LoginForms\obj\Debug\LoginForms.AgentInformation.resources
 C:\Users\Gwynbleidd J\Documents\Omnicanal Project\omnicanal_app\LoginForms\obj\Debug\LoginForms.AgentMainPage.resources
 C:\Users\Gwynbleidd J\Documents\Omnicanal Project\omnicanal_app\LoginForms\obj\Debug\LoginForms.CallsView.resources
@@ -302,5 +304,3 @@ C:\Users\Gwynbleidd J\Documents\Omnicanal Project\omnicanal_app\LoginForms\obj\D
 C:\Users\Gwynbleidd J\Documents\Omnicanal Project\omnicanal_app\LoginForms\obj\Debug\LoginForms.csproj.CopyComplete
 C:\Users\Gwynbleidd J\Documents\Omnicanal Project\omnicanal_app\LoginForms\obj\Debug\LoginForms.exe
 C:\Users\Gwynbleidd J\Documents\Omnicanal Project\omnicanal_app\LoginForms\obj\Debug\LoginForms.pdb
-C:\Users\Gwynbleidd J\Documents\Omnicanal Project\omnicanal_app\LoginForms\bin\Debug\OzekiSDK.dll
-C:\Users\Gwynbleidd J\Documents\Omnicanal Project\omnicanal_app\LoginForms\obj\Debug\LoginForms.csprojAssemblyReference.cache
