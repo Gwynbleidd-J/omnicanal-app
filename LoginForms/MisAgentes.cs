@@ -46,7 +46,7 @@ namespace LoginForms
                         BackColor = Color.FromArgb(145, 153, 179),
                         BorderStyle = BorderStyle.FixedSingle,
                         FlowDirection = FlowDirection.TopDown,
-                        Size = new Size(320, 100)
+                        Size = new Size(320, 120)
                     };
                     flpAgentInfo.Controls.Add(panelAgentInformation);
 
@@ -69,14 +69,25 @@ namespace LoginForms
                         AutoSize = true
                     };
                     
-                    Label labelEmail = new Label 
-                    { 
+                    Label labelEmail = new Label
+                    {
                         Text = $"Email: {user.email}",
                         ForeColor = Color.FromArgb(19, 34, 38),
                         Font = new Font("Microsoft Sans Serif", 11),
                         AutoSize = true
                     };
-                    panelAgentInformation.Controls.AddRange(new Control[] { labelAgentName, labelEmail });
+
+                    Button buttonChangeAgentStatus = new Button
+                    {
+                        Name = $"btnChangeAgentStatus",
+                        Text = $"Cambiar estatus agente",
+                        Font = new Font("Microsoft Sans Serif", 10),
+                        Size = new Size(210, 35),
+                        TextAlign = ContentAlignment.MiddleCenter,
+                        ForeColor = Color.Black
+                    };
+
+                    panelAgentInformation.Controls.AddRange(new Control[] { labelAgentName, labelEmail, buttonChangeAgentStatus });
                     
                     labelAgentName.Click += (s, e) =>
                     {
@@ -84,9 +95,14 @@ namespace LoginForms
                         agentInformation.ShowDialog();
                     };
 
+                    buttonChangeAgentStatus.Click += (s, e) =>
+                    {
+                        ChangeAgentStatus agentStatus = new ChangeAgentStatus(individualId);
+                        agentStatus.ShowDialog();
+                    };
                 }
             }
-
+            
             catch(Exception ex)
             {
                 Console.WriteLine($"Error[agentInfo]: {ex.Message}");

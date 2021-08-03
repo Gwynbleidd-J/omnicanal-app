@@ -105,6 +105,7 @@ namespace LoginForms
                     AutoSize = true
                 };
 
+
                 panelAgentDetails.Controls.AddRange(new Control[] { labelNombreAgente, labelEmail, labelRol, labelStatus, labelSolvedChats, 
                 labelActiveChats,labelSolvedCalls,labelActiveCalls});
 

@@ -37,7 +37,7 @@ namespace LoginForms
             // btnAccept
             // 
             this.btnAccept.Location = new System.Drawing.Point(135, 134);
-            this.btnAccept.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAccept.Margin = new System.Windows.Forms.Padding(4);
             this.btnAccept.Name = "btnAccept";
             this.btnAccept.Size = new System.Drawing.Size(100, 28);
             this.btnAccept.TabIndex = 1;
@@ -49,7 +49,7 @@ namespace LoginForms
             // 
             this.cmbNetwork.FormattingEnabled = true;
             this.cmbNetwork.Location = new System.Drawing.Point(107, 90);
-            this.cmbNetwork.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmbNetwork.Margin = new System.Windows.Forms.Padding(4);
             this.cmbNetwork.Name = "cmbNetwork";
             this.cmbNetwork.Size = new System.Drawing.Size(160, 24);
             this.cmbNetwork.TabIndex = 2;
@@ -75,7 +75,7 @@ namespace LoginForms
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cmbNetwork);
             this.Controls.Add(this.btnAccept);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "NetworkCategories";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "NetworkCategories";
