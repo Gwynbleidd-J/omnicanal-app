@@ -94,7 +94,6 @@ namespace LoginForms
             }
         }
 
-
         //public void EscucharMesdsdnsajes()
         //{
         //    try
@@ -285,7 +284,7 @@ namespace LoginForms
             }
         }
 
-       
+        #region Estos métodos no tienen ninguna referencias en el código considerar borrarlos
         //Metodos que no tienen ninguna referencia en el codigo
         public bool tabChatExits(string chatId)
         {
@@ -341,18 +340,18 @@ namespace LoginForms
 
                 //////Nuevo: disparar el evento desde la instancia del form
                 //prueba.chatWindowLocal.tbControlChats = tbControlContainer;
-                prueba.chatWindowLocal.chatId = notification; 
+                prueba.chatWindowLocal.chatId = notification;
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Error[sendNewTabChatParams]: " + ex.ToString());
             }
         }
-         
+
         public void inicializarChatWindow()
         {
             try
-            {   
+            {
                 //Intentar creando un tabControls propio
                 TabControl tabControlChats_2 = new TabControl();
                 //prueba.Controls.Add(tabControlChats_2);
@@ -382,7 +381,7 @@ namespace LoginForms
                 fakeNotification2.chatId = "238";
                 fakeNotification2.platformIdentifier = "w";
                 fakeNotification2.clientPlatformIdentifier = "whatsapp:+5214625950962";
-                prueba.treatNotification(fakeNotification2); 
+                prueba.treatNotification(fakeNotification2);
 
                 Models.Message fakeNotification1 = new Models.Message();
                 fakeNotification1.chatId = "236";
@@ -390,7 +389,7 @@ namespace LoginForms
                 fakeNotification1.clientPlatformIdentifier = "whatsapp:+5214621257826";
                 prueba.treatNotification(fakeNotification1);
                 //Thread.Sleep(700);
-                
+
                 // {"chatId": "236", "platformIdentifier": "w", "clientPlatformIdentifier": "whatsapp:+5214621257826"}
                 // {"chatId": "236", "platformIdentifier": "w", "clientPlatformIdentifier": "whatsapp:+5214621257826"}
             }
@@ -399,5 +398,7 @@ namespace LoginForms
                 Console.WriteLine("Error[AsynchronousClient_recoverActiveChats]: " + ex.ToString());
             }
         }
+        #endregion
+
     }
 }

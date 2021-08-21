@@ -27,8 +27,9 @@ namespace LoginForms.Shared
 
         private static readonly string baseUrl = ConfigurationManager.AppSettings["IpServidor"];
         /*
-         * Lo mismo preguntar a Juan Carlos que pedo también con este método
+         * Lo mismo preguntar a Juan Carlos que pasa también con este método
          */
+        #region ver que pasa con el método de llamarGet
         public async void llamarGet(string chatId, string id, RichTextBox rtx, Form whatsapp, Form telegram, Form fPrincipal)
         {
             try
@@ -42,6 +43,7 @@ namespace LoginForms.Shared
                 Console.WriteLine("Error [LlamarGet]: " + ex.Message);
             }
         }
+        #endregion
         //GET
         public async Task<string> GetAllMessage(string chatId, string id)
         {
@@ -68,32 +70,33 @@ namespace LoginForms.Shared
             //return string.Empty;
         }
 
-        public async Task<string> RecoverActiveChats(string agentId, string agentPlatformIdentifier)
+        //public async Task<string> RecoverActiveChats(string agentId, string agentPlatformIdentifier)
+        public async Task<string> RecoverActiveChats(string agentId)
         {
-            string activeIp = GlobalSocket.currentUser.activeIp;
-            string data = string.Empty;
+            //string activeIp = GlobalSocket.currentUser.activeIp;
+            //agentPlatformIdentifier = GlobalSocket.currentUser.activeIp;
             try
             {
                 //var agentId = GlobalSocket.currentUser.activeIp;
                 var inputData = new Dictionary<string, string>
                 {
-                    {"userId", agentId},
-                    { "agentPlatformIdentifier", activeIp} 
+                    {"userId", agentId}
+                    //, { "agentPlatformIdentifier", agentPlatformIdentifier} 
                 };
                 var input = new FormUrlEncodedContent(inputData);
                 HttpClient client = new HttpClient();
                 HttpResponseMessage response = await client.PostAsync(baseUrl + "messenger/recoverActiveChats", input);
                 HttpContent content = response.Content;
 
-                data = await content.ReadAsStringAsync();
+                string data = await content.ReadAsStringAsync();
                 if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
                     return data;
                 else
                     return response.StatusCode.ToString();
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
-                Console.WriteLine("Error[RecoverActiveChats]: " + ex.ToString());
+                Console.WriteLine("Error[RecoverActiveChats][RestHelper]: " + ex.ToString());
             }
             return string.Empty;
         }

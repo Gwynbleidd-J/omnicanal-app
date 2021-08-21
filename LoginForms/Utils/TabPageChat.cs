@@ -36,7 +36,7 @@ namespace LoginForms.Utils
 
         //public PanelControl panelControl { get; set; }
 
-        /// /Prueba para tener el botón y textBox de envío de mensajes al mismo nivel del tabPage
+        /// Prueba para tener el botón y textBox de envío de mensajes al mismo nivel del tabPage
         public TextBox txtSendMessage { get; set; } 
         public Button btnSendMessage { get; set; }
         RestHelper restHelper = new RestHelper();
@@ -192,7 +192,6 @@ namespace LoginForms.Utils
                 btnSendMessage.Text = "Enviar";
                 btnSendMessage.Size = new Size(82, 23);
                 btnSendMessage.Location = new Point(498, 429);
-
                 btnSendMessage.Click += async (s, e) => {
                     try
                     {
@@ -300,8 +299,8 @@ namespace LoginForms.Utils
             {
                 //Implementar el uso de páneles independientes para resolver el espaciado creciente en el panel de mensajes
                 //Label lastLabel = new Label();
-                Json jsonChatMessagestHistoric = JsonConvert.DeserializeObject<Json>(chatMessagestHistoric); 
-                 
+                Json jsonChatMessagestHistoric = JsonConvert.DeserializeObject<Json>(chatMessagestHistoric);
+
                 for (int i = jsonChatMessagestHistoric.data.messages.Count - 1; i >= 0; i--)
                 {
                     //Iniciio de construcción de la etiqueta dinámica

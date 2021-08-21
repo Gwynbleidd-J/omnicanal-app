@@ -20,11 +20,8 @@ namespace LoginForms
     {
         //public int contPfrueba = 1;
         public Json jsonRecoveredChats { get; set; }
-
         public TabControl tbCtrl = new TabControl();
-
         RestHelper restHelper = new RestHelper();
-
         TabPageChat pageChat = new TabPageChat();
         public Label lblLastMessageId { get; set; }
         public Label lblChatId { get; set; }
@@ -36,29 +33,28 @@ namespace LoginForms
         public TextBox txtSendMessage { get; set; }
         public Button btnSendMessage { get; set; }
         public Button btnCloseButton { get; set; }
-
         public TextBox txtNumber { get; set; }
-
         public Form frmNumberToSend { get; set; }
-
-
         public ChatWindow chatWindowLocal { get; set; }
-
         public TabPage tbPage { get; set; }
-        
+
+
         public Prueba()
         {
+
             InitializeComponent();
             chatWindowLocal = new ChatWindow(this.tabControlChats);
             tbPage = new TabPage();
             //
         }
-        
+
+
         private void Prueba_Load(object sender, EventArgs e)
         {
             try
             {
-                //recoverActiveChats();
+                string agentId = GlobalSocket.currentUser.ID;
+                recoverActiveChats(agentId);
             }
             catch (Exception ex)
             {
@@ -66,6 +62,10 @@ namespace LoginForms
             }
         }
         
+
+        /*
+         * Este botón ya no se utiliza, necesito preguntarle a Juan Carlos que pasa con este metodo
+         */
         public async void btnSendMessage_Click(object sender, EventArgs e)
         {
             try
@@ -290,6 +290,7 @@ namespace LoginForms
         #endregion
 
         #region Métodos que si estoy usando ya
+
         public void treatNotification(Models.Message newNotification) 
         {
             try
@@ -297,6 +298,8 @@ namespace LoginForms
                 if (!tabChatExits(newNotification.chatId))
                 {
                     buildNewTabChat(newNotification);
+                    //Thread.Sleep(100);
+                    Thread.CurrentThread.Join(50);
                     buildNewMessagesLabels(newNotification);
                 }
                 else
@@ -333,11 +336,9 @@ namespace LoginForms
         {
             try
             { 
-                chatWindowLocal.chatGenerals = chatGenerals;
+                //chatWindowLocal.chatGenerals = chatGenerals;
                 Thread tBuildNewTabChat = new Thread(chatWindowLocal.addTabPage);
-                tBuildNewTabChat.Start();
-
-                 
+                tBuildNewTabChat.Start(chatGenerals);    
             }
             catch (Exception ex)
             {
@@ -350,33 +351,42 @@ namespace LoginForms
         {
             try
             {
-                chatWindowLocal.chatGenerals = chatGenerals;
+                
+                //chatWindowLocal.chatGenerals = chatGenerals;
                 Thread tBuildNewMessagesLabels = new Thread(chatWindowLocal.threadAddNewMessages);
-                tBuildNewMessagesLabels.Start();
+                tBuildNewMessagesLabels.Start(chatGenerals);
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Error[buildNewMessagesLabels]: " + ex.ToString());
             }
         }
-        
-        public async void recoverActiveChats(Models.Message chat)
+
+        /* Checar para mañana:
+         * Método del cual se van a cargar los mensajes que se tienen pendientes, si por alguna razón
+         * la aplicacion se llegara a cerrar de manera inesperada, preguntarle a Juan Carlos como planeaba
+         * utilizar este método.
+         * 
+         * 
+         */
+        public async void recoverActiveChats(string agentId)
         {
-            //preguntarle a Juan Carlos que pedo con el chatId
+            //preguntarle a Juan Carlos que pasa con el chatId
             //y tambien como pensaba implementar este metodo
-            //el pedo está en como mandar llamar el chatId en esta clase
+            //el problema está en como mandar llamar el chatId en esta clase
             //Ver si está implementacion del chatId funciona
             //sino pensar como cambiarla
             try
             {
-                var agentId = GlobalSocket.currentUser.activeIp;
-                string recoveredChatsFromAPI = await restHelper.RecoverActiveChats(chat.chatId, agentId);
+                //agentId = GlobalSocket.currentUser.activeIp;
+                //string recoveredChatsFromAPI = await restHelper.RecoverActiveChats(chat.chatId, agentId);
+                string recoveredChatsFromAPI = await restHelper.RecoverActiveChats(agentId);
                 
                 jsonRecoveredChats = JsonConvert.DeserializeObject<Json>(recoveredChatsFromAPI);
                 //Models.Message fakeNotification = new Models.Message();                
                 //MessageBox.Show("Mensajes activos recuperados: " + recoveredChats);
 
-                foreach (Chat chatGenerals in jsonRecoveredChats.data.chats)
+                foreach(LoginForms.Models.Chat chatGenerals in jsonRecoveredChats.data.chats)
                 {
                     Models.Message fakeNotification = new Models.Message();
                     fakeNotification.chatId = chatGenerals.id;
@@ -386,9 +396,6 @@ namespace LoginForms
 
                     //Thread.Sleep(9000);
                 }
-
-
-
             }
             catch (Exception ex)
             {

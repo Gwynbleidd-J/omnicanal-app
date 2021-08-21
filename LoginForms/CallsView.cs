@@ -1282,10 +1282,16 @@ namespace LoginForms
 
         public Int32 onRecvOptions(StringBuilder optionsMessage)
         {
-            //         string text = "Received an OPTIONS message: ";
-            //       text += optionsMessage.ToString();
-            //     MessageBox.Show(text, "Received an OPTIONS message", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-
+            string text = "Received an OPTIONS message: ";
+            text += optionsMessage.ToString();
+            ListBoxSIPLog.Invoke(new MethodInvoker(delegate
+            {
+                //Para detener la llamada cuando se logre la llamada
+                //soundPlayer.Stop();
+                ListBoxSIPLog.Items.Add(Text);
+            }));
+            //MessageBox.Show(text, "Received an OPTIONS message", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            
             return 0;
         }
 
@@ -1714,6 +1720,7 @@ namespace LoginForms
             // Create and set the SIP callback handers, this MUST called before
             // _sdkLib.initialize();
             //
+
             portSIPLib.createCallbackHandlers();
 
             string logFilePath = ""; // The log file path, you can change it - the folder MUST exists

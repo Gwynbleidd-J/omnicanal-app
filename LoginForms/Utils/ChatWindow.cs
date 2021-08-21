@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using LoginForms.Models;
+using System.Reflection;
 
 namespace LoginForms.Utils
 {
@@ -19,7 +20,8 @@ namespace LoginForms.Utils
         public TabControl tbControlChats { get; set; } 
         public List<TabPageChat> arrTabPageChat{ get; set; } 
         public List<TabPage> arrTabPage { get; set; } 
-        public TabPageChat tbPageChat { get; set; } 
+        public TabPageChat tbPageChat { get; set; }
+        public bool MinThread = false;
         #endregion
         #region Métodos
         public ChatWindow(TabControl tabControlFromForm)
@@ -40,12 +42,12 @@ namespace LoginForms.Utils
                 Console.WriteLine("Error[construct ChatWindow]: " + ex.Message);
             }
         }
-        public void addTabPage()
+        public void addTabPage(Object temp)
         {
             try
-            { 
-                Thread threadCreateNewTabChat = new Thread((invokeAddTabPage)); 
-                threadCreateNewTabChat.Start();
+            {
+                Thread threadCreateNewTabChat = new Thread((invokeAddTabPage));    
+                threadCreateNewTabChat.Start(temp);
             }
             catch(Exception ex)
             {
@@ -53,12 +55,22 @@ namespace LoginForms.Utils
             }
         }
           
-        public void invokeAddTabPage()
+        public void invokeAddTabPage(Object temp)
         {
             try
             {
-                if (tbControlChats.InvokeRequired)      
-                    tbControlChats.Invoke(new Action(() => threadAddTabPage()));    
+                if (tbControlChats.InvokeRequired)
+                {
+                    var chat = (Models.Message)temp;
+                    if (!MinThread)
+                    {
+                        MinThread = true;
+                        Thread.CurrentThread.Priority = ThreadPriority.Highest;
+                    }
+                    tbControlChats.Invoke(new Action(() => threadAddTabPage(chat)));
+                }
+                    
+                  
             }
             catch (Exception ex)
             {
@@ -66,7 +78,7 @@ namespace LoginForms.Utils
             }
         }
 
-        public void threadAddTabPage()
+        public void threadAddTabPage(Models.Message temp)
         {
             try
             { 
@@ -77,9 +89,9 @@ namespace LoginForms.Utils
                 //tbPageChatTemporal.Name = "tbTemporal_" + chatId;
                 //tbPageChatTemporal.Text = chatId;
                 
-                tbPageChat.chatId = chatGenerals.chatId;
-                tbPageChat.platformIdentifier = chatGenerals.platformIdentifier;
-                tbPageChat.clientPlatformIdentifier = chatGenerals.clientPlatformIdentifier;
+                tbPageChat.chatId = temp.chatId;
+                tbPageChat.platformIdentifier = temp.platformIdentifier;
+                tbPageChat.clientPlatformIdentifier = temp.clientPlatformIdentifier;
                 //tbControlChats.Controls.Add(tbPageChat.tbPage);
 
                 tbPageChat.addEmptyControls();
@@ -110,24 +122,28 @@ namespace LoginForms.Utils
             //return tbPage;
         }
 
-        public void threadAddNewMessages()
+        public void threadAddNewMessages(object temp)
         {
             try
             {
-                Thread threadAddNewMessages = new Thread((invokeAddNewMessages)); 
-                threadAddNewMessages.Start(); 
+                    Thread threadAddNewMessages = new Thread((invokeAddNewMessages));
+                    threadAddNewMessages.Start(temp);
             }
             catch (Exception ex) 
             {
                 Console.WriteLine("Error[ChatWindow ThreadAddNewMessages]: " + ex.Message); 
             } 
         } 
-        public void invokeAddNewMessages()
+        public void invokeAddNewMessages(object temp)
         {
             try
             {
                 if (tbControlChats.InvokeRequired)
-                    tbControlChats.Invoke(new Action(() => AddNewMessages()));
+                {
+                    var obj = (Models.Message)temp;
+                    tbControlChats.Invoke(new Action(() => AddNewMessages(obj)));
+                }
+                    
             }
             catch (Exception ex)
             {
@@ -135,12 +151,12 @@ namespace LoginForms.Utils
             } 
         }
 
-        public void AddNewMessages()
+        public void AddNewMessages(Models.Message temp)
         {
             try
             {
                 for (int position = 0; position < arrTabPageChat.Count; position++)
-                    if (arrTabPageChat[position].tbPage != null && arrTabPageChat[position].tbPage.Name == "tabPageChat_" + chatGenerals.chatId)
+                    if (arrTabPageChat[position].tbPage != null && arrTabPageChat[position].tbPage.Name == "tabPageChat_" + temp.chatId)
                         arrTabPageChat[position].askForNewMessages();
             }
             catch (Exception ex)
