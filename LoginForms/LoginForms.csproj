@@ -207,6 +207,12 @@
     <Compile Include="Utils\ChatWindow.cs" />
     <Compile Include="Utils\PanelControl.cs" />
     <Compile Include="Utils\TabPageChat.cs" />
+    <Compile Include="WebChat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WebChat.Designer.cs">
+      <DependentUpon>WebChat.cs</DependentUpon>
+    </Compile>
     <Compile Include="WhatsApp.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -255,6 +261,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="WebChat.resx">
+      <DependentUpon>WebChat.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="WhatsApp.resx">
       <DependentUpon>WhatsApp.cs</DependentUpon>
     </EmbeddedResource>

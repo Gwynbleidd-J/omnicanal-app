@@ -23,12 +23,13 @@ namespace LoginForms
         private RichTextBox container;
         private Form whatsapp;
         public Prueba prueba;
+        public WebChat webChat;
         private Form fPrincipal;
         //private TabControl tbControlContainer;
         //private ChatWindow chatWindow;
 
         //Constructores
-        public AsynchronousClient(RichTextBox container, Form whatsapp, Prueba prueba, Form fPrincipal)
+        public AsynchronousClient(RichTextBox container, Form whatsapp, Prueba prueba, Form fPrincipal, WebChat webChat)
         {
             try
             {
@@ -39,6 +40,9 @@ namespace LoginForms
                 //this.tbControlContainer = tabControlFromForm;
                 //inicializarChatWindow();
                 //recoverActiveChats();
+
+                //Se agrega referencia al nuevo form para probar funcionalidad de las construcción dinámica en otra ventana
+                this.webChat = webChat;
             }
             catch (Exception ex)
             {
@@ -65,7 +69,7 @@ namespace LoginForms
             try
             {
                 //Establish the remote endpoint for the socket.
-                IPAddress ipAddress = IPAddress.Parse(rh.GetLocalIpAddress());
+                IPAddress ipAddress = IPAddress.Parse("192.168.1.145");
                 IPEndPoint remoteEP = new IPEndPoint(ipAddress, port);
                 
                 
@@ -257,8 +261,17 @@ namespace LoginForms
             try
             {
                 Models.Message notification = JsonConvert.DeserializeObject<Models.Message>(socketNotification);
+
+                Console.WriteLine("notificacion:"+notification);
+                if (notification.platformIdentifier != "c")
+                {
+                    prueba.treatNotification(notification);
+                }
+                else
+                {
+                    webChat.treatNotification(notification);
+                }
                 
-                prueba.treatNotification(notification);
                 
                 //if (!prueba.tabChatExits(notification.chatId))
                 //    prueba.buildNewTabChat(notification.chatId);

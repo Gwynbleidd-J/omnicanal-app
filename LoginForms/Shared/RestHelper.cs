@@ -531,6 +531,14 @@ namespace LoginForms.Shared
             HttpResponseMessage response = await client.PostAsync(baseUrl + "messenger/outMessage", input);
             HttpContent content = response.Content;
             //string data = await content.ReadAsStringAsync();
+
+            if (platformIdentifier == "c")
+            {
+                string socketData = JsonConvert.SerializeObject(inputData);
+                Console.WriteLine("\n\nSe intentara enviar por socket la data directamente al servidor a continuacion:\n");
+                new AsynchronousClient().Send(GlobalSocket.GlobalVarible, socketData);
+            }
+
             string data = response.StatusCode.ToString();
             if (data != null)
             {

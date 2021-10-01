@@ -113,10 +113,12 @@ namespace LoginForms.Utils
             try
             {
                 //tbPage = new TabPage();
-                if(platformIdentifier=="w")
+                if (platformIdentifier == "w")
                     tbPage.Text = $"Mensaje desde Whatsapp: {chatId}";
-                else
+                else if (platformIdentifier == "t")
                     tbPage.Text = $"Mensaje desde Telegram: {chatId}";
+                else if (platformIdentifier == "c")
+                    tbPage.Text = $"Mensaje desde Web: {chatId}";
 
                 tbPage.Name = $"tabPageChat_{chatId}"; 
                 tbPage.Tag = $"tabPageChat_{chatId}";
@@ -291,7 +293,7 @@ namespace LoginForms.Utils
                 Console.WriteLine("Error[askForNewMessages]: " + ex.Message); 
             }
             //return gotNewMessages;
-        }
+        } 
 
         public void addLabelMessages()
         {

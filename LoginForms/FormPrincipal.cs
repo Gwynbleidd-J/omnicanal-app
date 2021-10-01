@@ -23,6 +23,7 @@ namespace LoginForms
     {
         WhatsApp whatsApp;
         Prueba prueba;
+        WebChat webchat;
         AsynchronousClient client;
         RestHelper rh = new RestHelper();
         Json jsonStatus;
@@ -36,7 +37,7 @@ namespace LoginForms
             Control.CheckForIllegalCrossThreadCalls = false;
             whatsApp = new WhatsApp();
             prueba = new Prueba();
-
+            webchat = new WebChat();
 
             //this.IsMdiContainer = true;
             //whatsApp.MdiParent = this;
@@ -46,8 +47,12 @@ namespace LoginForms
             prueba.TopLevel = false;
             prueba.Parent = pnlChatMessages;
             prueba.ControlBox = false;
+
+            webchat.TopLevel = false;
+            webchat.Parent = pnlChatMessages;
+            webchat.ControlBox = false;
             //prueba.Show();
-            client = new AsynchronousClient(whatsApp.rtxtResponseMessage, this, prueba, this);
+            client = new AsynchronousClient(whatsApp.rtxtResponseMessage, this, prueba, this, webchat);
             //client.inicializarChatWindow();
         }
 
@@ -121,6 +126,18 @@ namespace LoginForms
                         f.Focus();
                         f.Show();
                         client.prueba = f as Prueba;
+                    };
+                    dynamicButton.Click += (s, e) =>
+                    {
+                        f.TopLevel = false;
+                        f.Parent = pnlChatMessages;
+                        f.ControlBox = false;
+                        f.BringToFront();
+                        f.Location = new Point(0, 0);
+                        f.Dock = DockStyle.Fill;
+                        f.Focus();
+                        f.Show();
+                        client.webChat = f as WebChat;
                     };
                     flpDynamicButtons.Controls.Add(dynamicButton);
                 }
