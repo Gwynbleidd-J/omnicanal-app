@@ -90,6 +90,18 @@ namespace LoginForms
                         ForeColor = Color.Black
                     };
 
+                    labelAgentName.Click += (s, e) =>
+                    {
+                        AgentInformation agentInformation = new AgentInformation(individualId);
+                        agentInformation.ShowDialog();
+                    };
+
+                    buttonChangeAgentStatus.Click += (s, e) =>
+                    {
+                        ChangeAgentStatus agentStatus = new ChangeAgentStatus(individualId);
+                        agentStatus.ShowDialog();
+                    };
+
                     panelAgentInformation.Controls.AddRange(new Control[] { labelAgentName, labelEmail, buttonChangeAgentStatus});
                 }
             }
