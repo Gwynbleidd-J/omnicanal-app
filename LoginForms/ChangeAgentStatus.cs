@@ -59,7 +59,6 @@ namespace LoginForms
                     }
                 }
                 await rh.updateUserStatus(valor, idAgent);
-                MessageBox.Show("Estatus Agente Cambiado", "Estatus Agente", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {

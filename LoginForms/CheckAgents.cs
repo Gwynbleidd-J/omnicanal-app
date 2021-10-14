@@ -7,35 +7,30 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace LoginForms
 {
-    public partial class MisAgentes : Form
+    public partial class CheckAgents : Form
     {
         RestHelper rh = new RestHelper();
         string idAgent;
-        
-        public MisAgentes()
-        {
-            InitializeComponent();
-            agentsInformation(GlobalSocket.currentUser.ID);
-        }
 
-        public MisAgentes(string individualId)
+        public CheckAgents(string individualId)
         {
             idAgent = individualId;
-        }
-
-        private void MisAgentes_Load(object sender, EventArgs e)
-        {
+            InitializeComponent();
             
         }
 
-        private async void agentsInformation(string leaderId)
+        private void CheckAgents_Load(object sender, EventArgs e)
+        {
+            agentsInformation(idAgent);
+        }
+
+        public async void agentsInformation(string leaderId)
         {
             try
             {
@@ -95,47 +90,17 @@ namespace LoginForms
                         ForeColor = Color.Black
                     };
 
-                    Button buttonCheckAgents = new Button
-                    {
-                        Name = $"buttonCheckAgents",
-                        Text = $"Consultar Agentes Asignados",
-                        Font = new Font("Microsoft Sans Serif", 10),
-                        Size = new Size(210, 35),
-                        TextAlign = ContentAlignment.MiddleCenter,
-                        ForeColor = Color.Black
-                    };
-
-                    panelAgentInformation.Controls.AddRange(new Control[] { labelAgentName, labelEmail, buttonChangeAgentStatus, buttonCheckAgents });
-
-
-                    labelAgentName.Click += (s, e) =>
-                    {
-                        AgentInformation agentInformation = new AgentInformation(individualId);
-                        agentInformation.ShowDialog();
-                    };
-
-                    buttonChangeAgentStatus.Click += (s, e) =>
-                    {
-                        ChangeAgentStatus agentStatus = new ChangeAgentStatus(individualId);
-                        agentStatus.ShowDialog();
-                    };
-
-                    buttonCheckAgents.Click += (s, e) =>
-                    {
-                        CheckAgents checkAgents = new CheckAgents(individualId);
-                        checkAgents.ShowDialog();
-                    };
-                    
+                    panelAgentInformation.Controls.AddRange(new Control[] { labelAgentName, labelEmail, buttonChangeAgentStatus});
                 }
             }
-            
-            catch(Exception ex)
+
+            catch (Exception ex)
             {
                 Console.WriteLine($"Error[agentInfo]: {ex.Message}");
             }
 
         }
 
+
     }
 }
-

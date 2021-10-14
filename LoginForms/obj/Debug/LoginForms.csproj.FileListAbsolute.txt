@@ -390,3 +390,5 @@ C:\Users\danyp\OneDrive\Documentos\Omnicanal\omnicanal_app\LoginForms\obj\Debug\
 C:\Users\danyp\OneDrive\Documentos\Omnicanal\omnicanal_app\LoginForms\obj\Debug\LoginForms.csproj.CopyComplete
 C:\Users\danyp\OneDrive\Documentos\Omnicanal\omnicanal_app\LoginForms\obj\Debug\LoginForms.exe
 C:\Users\danyp\OneDrive\Documentos\Omnicanal\omnicanal_app\LoginForms\obj\Debug\LoginForms.pdb
+C:\Users\Gwynbleidd J\Documents\Omnicanal Project\omnicanal_app\LoginForms\obj\Debug\LoginForms.WebChat.resources
+C:\Users\Gwynbleidd J\Documents\Omnicanal Project\omnicanal_app\LoginForms\obj\Debug\LoginForms.CheckAgents.resources
