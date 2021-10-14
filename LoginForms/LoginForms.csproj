@@ -132,6 +132,12 @@
     <Compile Include="ChangeAgentStatus.Designer.cs">
       <DependentUpon>ChangeAgentStatus.cs</DependentUpon>
     </Compile>
+    <Compile Include="ChangeMaxActiveChats.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChangeMaxActiveChats.Designer.cs">
+      <DependentUpon>ChangeMaxActiveChats.cs</DependentUpon>
+    </Compile>
     <Compile Include="CheckAgents.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -236,6 +242,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ChangeAgentStatus.resx">
       <DependentUpon>ChangeAgentStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChangeMaxActiveChats.resx">
+      <DependentUpon>ChangeMaxActiveChats.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CheckAgents.resx">
       <DependentUpon>CheckAgents.cs</DependentUpon>

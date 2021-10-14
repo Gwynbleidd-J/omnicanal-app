@@ -494,6 +494,30 @@ namespace LoginForms.Shared
 
         }
 
+        public async Task<string> updateAgentMaxActiveChats(string id, string maxActiveChats)
+        {
+            var inputData = new Dictionary<string, string>
+            {
+                {"id", id},
+                {"maxActiveChats", maxActiveChats}
+            };
+            var input = new FormUrlEncodedContent(inputData);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync(baseUrl + "user/agentUpdateMaxActiveChats", input);
+            HttpContent content = response.Content;
+            string data = response.StatusCode.ToString();
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            {
+                Console.WriteLine("Se actualizo el numero de chats simultaneos");
+                return data;
+            }
+            else
+            {
+                return response.StatusCode.ToString();
+            }
+
+        }
+
         public async Task<string> SendMessage(string text, string chatId, string clientPlatformIdentifier, string platformIdentifier, string agentPlatformIdentifier)
         {
             var numberToSend = "";

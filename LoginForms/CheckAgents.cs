@@ -90,6 +90,16 @@ namespace LoginForms
                         ForeColor = Color.Black
                     };
 
+                    Button buttonChangeMaxActiveChats = new Button
+                    {
+                        Name = $"btnChangeMaxActiveChats",
+                        Text = $"Cambiar chats simultaneos",
+                        Font = new Font("Microsoft Sans Serif", 10),
+                        Size = new Size(210, 35),
+                        TextAlign = ContentAlignment.MiddleCenter,
+                        ForeColor = Color.Black
+                    };
+
                     labelAgentName.Click += (s, e) =>
                     {
                         AgentInformation agentInformation = new AgentInformation(individualId);
@@ -102,7 +112,13 @@ namespace LoginForms
                         agentStatus.ShowDialog();
                     };
 
-                    panelAgentInformation.Controls.AddRange(new Control[] { labelAgentName, labelEmail, buttonChangeAgentStatus});
+                    buttonChangeMaxActiveChats.Click += (s, e) =>
+                    {
+                        ChangeMaxActiveChats agentMaxChats = new ChangeMaxActiveChats(individualId);
+                        agentMaxChats.ShowDialog();
+                    };
+
+                    panelAgentInformation.Controls.AddRange(new Control[] { labelAgentName, labelEmail, buttonChangeAgentStatus, buttonChangeMaxActiveChats});
                 }
             }
 
