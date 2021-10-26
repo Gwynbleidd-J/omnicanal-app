@@ -285,7 +285,6 @@ C:\Users\Gwynbleidd J\Documents\Omnicanal Project\omnicanal_app\LoginForms\bin\D
 C:\Users\Gwynbleidd J\Documents\Omnicanal Project\omnicanal_app\LoginForms\bin\Debug\RestSharp.xml
 C:\Users\Gwynbleidd J\Documents\Omnicanal Project\omnicanal_app\LoginForms\bin\Debug\System.Web.Http.xml
 C:\Users\Gwynbleidd J\Documents\Omnicanal Project\omnicanal_app\LoginForms\bin\Debug\System.Web.Http.WebHost.xml
-C:\Users\Gwynbleidd J\Documents\Omnicanal Project\omnicanal_app\LoginForms\obj\Debug\LoginForms.csprojAssemblyReference.cache
 C:\Users\Gwynbleidd J\Documents\Omnicanal Project\omnicanal_app\LoginForms\obj\Debug\LoginForms.AgentInformation.resources
 C:\Users\Gwynbleidd J\Documents\Omnicanal Project\omnicanal_app\LoginForms\obj\Debug\LoginForms.AgentMainPage.resources
 C:\Users\Gwynbleidd J\Documents\Omnicanal Project\omnicanal_app\LoginForms\obj\Debug\LoginForms.CallsView.resources
@@ -300,7 +299,6 @@ C:\Users\Gwynbleidd J\Documents\Omnicanal Project\omnicanal_app\LoginForms\obj\D
 C:\Users\Gwynbleidd J\Documents\Omnicanal Project\omnicanal_app\LoginForms\obj\Debug\LoginForms.WhatsApp.resources
 C:\Users\Gwynbleidd J\Documents\Omnicanal Project\omnicanal_app\LoginForms\obj\Debug\LoginForms.csproj.GenerateResource.cache
 C:\Users\Gwynbleidd J\Documents\Omnicanal Project\omnicanal_app\LoginForms\obj\Debug\LoginForms.csproj.CoreCompileInputs.cache
-C:\Users\Gwynbleidd J\Documents\Omnicanal Project\omnicanal_app\LoginForms\obj\Debug\LoginForms.csproj.CopyComplete
 C:\Users\Gwynbleidd J\Documents\Omnicanal Project\omnicanal_app\LoginForms\obj\Debug\LoginForms.exe
 C:\Users\Gwynbleidd J\Documents\Omnicanal Project\omnicanal_app\LoginForms\obj\Debug\LoginForms.pdb
 C:\Users\Gwynbleidd J\Documents\Omnicanal Project\omnicanal_app\LoginForms\obj\Debug\LoginForms.ChangeAgentStatus.resources
@@ -436,3 +434,52 @@ C:\Users\danyp\OneDrive\Documentos\Omnicanal cambios julio\omnicanal_app\LoginFo
 C:\Users\danyp\OneDrive\Documentos\Omnicanal cambios julio\omnicanal_app\LoginForms\obj\Debug\LoginForms.csproj.CoreCompileInputs.cache
 C:\Users\danyp\OneDrive\Documentos\Omnicanal cambios julio\omnicanal_app\LoginForms\obj\Debug\LoginForms.exe
 C:\Users\danyp\OneDrive\Documentos\Omnicanal cambios julio\omnicanal_app\LoginForms\obj\Debug\LoginForms.pdb
+C:\Users\Gwynbleidd J\Documents\Omnicanal Project\omnicanal_app\LoginForms\obj\Debug\LoginForms.ChangeMaxActiveChats.resources
+C:\Users\Gwynbleidd J\Documents\Omnicanal Project\omnicanal_app\LoginForms\obj\Debug\LoginForms.ChangeParameters.resources
+D:\Documentos\Omnicanal Project\omnicanal_app\LoginForms\bin\Debug\LoginForms.exe.config
+D:\Documentos\Omnicanal Project\omnicanal_app\LoginForms\bin\Debug\LoginForms.exe
+D:\Documentos\Omnicanal Project\omnicanal_app\LoginForms\bin\Debug\LoginForms.pdb
+D:\Documentos\Omnicanal Project\omnicanal_app\LoginForms\bin\Debug\EntityFramework.dll
+D:\Documentos\Omnicanal Project\omnicanal_app\LoginForms\bin\Debug\EntityFramework.SqlServer.dll
+D:\Documentos\Omnicanal Project\omnicanal_app\LoginForms\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Documentos\Omnicanal Project\omnicanal_app\LoginForms\bin\Debug\RestSharp.dll
+D:\Documentos\Omnicanal Project\omnicanal_app\LoginForms\bin\Debug\Swashbuckle.Core.dll
+D:\Documentos\Omnicanal Project\omnicanal_app\LoginForms\bin\Debug\System.Net.Http.dll
+D:\Documentos\Omnicanal Project\omnicanal_app\LoginForms\bin\Debug\System.Net.Http.Extensions.dll
+D:\Documentos\Omnicanal Project\omnicanal_app\LoginForms\bin\Debug\System.Net.Http.Formatting.dll
+D:\Documentos\Omnicanal Project\omnicanal_app\LoginForms\bin\Debug\System.Net.Http.Primitives.dll
+D:\Documentos\Omnicanal Project\omnicanal_app\LoginForms\bin\Debug\System.Security.Cryptography.Algorithms.dll
+D:\Documentos\Omnicanal Project\omnicanal_app\LoginForms\bin\Debug\System.Security.Cryptography.Encoding.dll
+D:\Documentos\Omnicanal Project\omnicanal_app\LoginForms\bin\Debug\System.Security.Cryptography.Primitives.dll
+D:\Documentos\Omnicanal Project\omnicanal_app\LoginForms\bin\Debug\System.Security.Cryptography.X509Certificates.dll
+D:\Documentos\Omnicanal Project\omnicanal_app\LoginForms\bin\Debug\System.Web.Http.dll
+D:\Documentos\Omnicanal Project\omnicanal_app\LoginForms\bin\Debug\System.Web.Http.WebHost.dll
+D:\Documentos\Omnicanal Project\omnicanal_app\LoginForms\bin\Debug\WebActivatorEx.dll
+D:\Documentos\Omnicanal Project\omnicanal_app\LoginForms\bin\Debug\EntityFramework.xml
+D:\Documentos\Omnicanal Project\omnicanal_app\LoginForms\bin\Debug\EntityFramework.SqlServer.xml
+D:\Documentos\Omnicanal Project\omnicanal_app\LoginForms\bin\Debug\RestSharp.xml
+D:\Documentos\Omnicanal Project\omnicanal_app\LoginForms\bin\Debug\System.Web.Http.xml
+D:\Documentos\Omnicanal Project\omnicanal_app\LoginForms\bin\Debug\System.Web.Http.WebHost.xml
+D:\Documentos\Omnicanal Project\omnicanal_app\LoginForms\obj\Debug\LoginForms.csproj.AssemblyReference.cache
+D:\Documentos\Omnicanal Project\omnicanal_app\LoginForms\obj\Debug\LoginForms.AgentInformation.resources
+D:\Documentos\Omnicanal Project\omnicanal_app\LoginForms\obj\Debug\LoginForms.AgentMainPage.resources
+D:\Documentos\Omnicanal Project\omnicanal_app\LoginForms\obj\Debug\LoginForms.CallsView.resources
+D:\Documentos\Omnicanal Project\omnicanal_app\LoginForms\obj\Debug\LoginForms.ChangeAgentStatus.resources
+D:\Documentos\Omnicanal Project\omnicanal_app\LoginForms\obj\Debug\LoginForms.ChangeMaxActiveChats.resources
+D:\Documentos\Omnicanal Project\omnicanal_app\LoginForms\obj\Debug\LoginForms.ChangeParameters.resources
+D:\Documentos\Omnicanal Project\omnicanal_app\LoginForms\obj\Debug\LoginForms.CheckAgents.resources
+D:\Documentos\Omnicanal Project\omnicanal_app\LoginForms\obj\Debug\LoginForms.FormPrincipal.resources
+D:\Documentos\Omnicanal Project\omnicanal_app\LoginForms\obj\Debug\LoginForms.Login.resources
+D:\Documentos\Omnicanal Project\omnicanal_app\LoginForms\obj\Debug\LoginForms.MisAgentes.resources
+D:\Documentos\Omnicanal Project\omnicanal_app\LoginForms\obj\Debug\LoginForms.NetworkCategories.resources
+D:\Documentos\Omnicanal Project\omnicanal_app\LoginForms\obj\Debug\LoginForms.Prueba.resources
+D:\Documentos\Omnicanal Project\omnicanal_app\LoginForms\obj\Debug\LoginForms.Telegram.resources
+D:\Documentos\Omnicanal Project\omnicanal_app\LoginForms\obj\Debug\LoginForms.UserSignUp.resources
+D:\Documentos\Omnicanal Project\omnicanal_app\LoginForms\obj\Debug\LoginForms.Properties.Resources.resources
+D:\Documentos\Omnicanal Project\omnicanal_app\LoginForms\obj\Debug\LoginForms.WebChat.resources
+D:\Documentos\Omnicanal Project\omnicanal_app\LoginForms\obj\Debug\LoginForms.WhatsApp.resources
+D:\Documentos\Omnicanal Project\omnicanal_app\LoginForms\obj\Debug\LoginForms.csproj.GenerateResource.cache
+D:\Documentos\Omnicanal Project\omnicanal_app\LoginForms\obj\Debug\LoginForms.csproj.CoreCompileInputs.cache
+D:\Documentos\Omnicanal Project\omnicanal_app\LoginForms\obj\Debug\LoginForms.exe
+D:\Documentos\Omnicanal Project\omnicanal_app\LoginForms\obj\Debug\LoginForms.pdb
+C:\Users\Gwynbleidd J\Documents\Omnicanal Project\omnicanal_app\LoginForms\obj\Debug\LoginForms.csproj.AssemblyReference.cache

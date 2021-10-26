@@ -34,22 +34,25 @@ namespace LoginForms
             // 
             // flpAgentInfo
             // 
+            this.flpAgentInfo.AutoSize = true;
             this.flpAgentInfo.Location = new System.Drawing.Point(17, 16);
             this.flpAgentInfo.Margin = new System.Windows.Forms.Padding(4);
             this.flpAgentInfo.Name = "flpAgentInfo";
-            this.flpAgentInfo.Size = new System.Drawing.Size(830, 612);
+            this.flpAgentInfo.Size = new System.Drawing.Size(885, 612);
             this.flpAgentInfo.TabIndex = 1;
             // 
             // CheckAgents
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(860, 641);
+            this.AutoScroll = true;
+            this.ClientSize = new System.Drawing.Size(915, 641);
             this.Controls.Add(this.flpAgentInfo);
             this.Name = "CheckAgents";
             this.Text = "CheckAgents";
             this.Load += new System.EventHandler(this.CheckAgents_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

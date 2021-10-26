@@ -69,10 +69,11 @@ namespace LoginForms
             try
             {
                 //Establish the remote endpoint for the socket.
-                IPAddress ipAddress = IPAddress.Parse("192.168.1.166");
+                //IPAddress ipAddress = IPAddress.Parse("201.149.34.171");
+                IPAddress ipAddress = IPAddress.Parse("192.168.1.145");
                 IPEndPoint remoteEP = new IPEndPoint(ipAddress, port);
-                
-                
+
+
                 // Create a TCP/IP socket.  
                 GlobalSocket.GlobalVarible = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
                 //Connect to the remote endpoint

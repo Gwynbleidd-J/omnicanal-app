@@ -138,6 +138,12 @@
     <Compile Include="ChangeMaxActiveChats.Designer.cs">
       <DependentUpon>ChangeMaxActiveChats.cs</DependentUpon>
     </Compile>
+    <Compile Include="ChangeParameters.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChangeParameters.Designer.cs">
+      <DependentUpon>ChangeParameters.cs</DependentUpon>
+    </Compile>
     <Compile Include="CheckAgents.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -166,6 +172,7 @@
     </Compile>
     <Compile Include="Models\ActiveCalls.cs" />
     <Compile Include="Models\ActiveChats.cs" />
+    <Compile Include="Models\AppParameters.cs" />
     <Compile Include="Models\Call.cs" />
     <Compile Include="Models\Chat.cs" />
     <Compile Include="Models\Data.cs" />
@@ -176,6 +183,7 @@
     <Compile Include="Models\Permission.cs" />
     <Compile Include="Models\Rol.cs" />
     <Compile Include="Models\SoftphoneCredentials.cs" />
+    <Compile Include="Models\SoftphoneParameters.cs" />
     <Compile Include="Models\SolvedCalls.cs" />
     <Compile Include="Models\SolvedChats.cs" />
     <Compile Include="Models\User.cs" />
@@ -245,6 +253,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ChangeMaxActiveChats.resx">
       <DependentUpon>ChangeMaxActiveChats.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChangeParameters.resx">
+      <DependentUpon>ChangeParameters.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CheckAgents.resx">
       <DependentUpon>CheckAgents.cs</DependentUpon>

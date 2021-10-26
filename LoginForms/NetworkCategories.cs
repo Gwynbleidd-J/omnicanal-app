@@ -123,4 +123,21 @@ namespace LoginForms
             }
         }
     }
+
+    class NetworkItems
+    {
+        public string Name;
+        public string Value;
+
+        public NetworkItems(string name, string value)
+        {
+            Name = name;
+            Value = value;
+        }
+
+        public override string ToString()
+        {
+            return Name;
+        }
+    }
 }
