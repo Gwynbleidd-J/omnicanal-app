@@ -21,6 +21,10 @@ namespace LoginForms.Models
 
         public List<UserStatus> status { get; set; }
 
+        public List<SoftphoneParameters> softphoneParameters { get; set; }
+
+        public List<AppParameters> botParameters { get; set; }
+
         public UserDetails details { get; set; }
 
         //public UserDetails details { get; set; }

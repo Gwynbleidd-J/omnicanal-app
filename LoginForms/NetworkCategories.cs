@@ -28,56 +28,8 @@ namespace LoginForms
             InitializeComponent();
             chatid = chatId;
             //updateNetworkCategory();
+            ComboBoxGetNetwork();
         }
-
-        private async void NetworkCategories_Load(object sender, EventArgs e)
-        {
-            await rh.getNetworkCategories();
-            comboBoxGetNetworkCategory();
-        }
-
-        private async void comboBoxGetNetworkCategory()
-        {
-            try { 
-                string jsonNetworkCategories = await rh.getNetworkCategories();
-                jsonNetwork = JsonConvert.DeserializeObject<Json>(jsonNetworkCategories);
-
-                for (int i = 0; i < jsonNetwork.data.networks.Count; i++)
-                {
-                    cmbNetwork.Items.Add(new ListItem(jsonNetwork.data.networks[i].name, jsonNetwork.data.networks[i].id));
-                    //cmbNetwork.Items.AddRange(new string[] { jsonNetwork.data.networks[i].id});
-                }
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine($"Error[getNetworkCategories] {ex}");
-            }
-        }
-
-        //private async void updateNetworkCategory()
-        //{
-        //    try 
-        //    {
-        //        string jsonNetworkCategories = await rh.getNetworkCategories();
-        //        jsonNetwork = JsonConvert.DeserializeObject<Json>(jsonNetworkCategories);
-
-        //        string cmbItemId;
-
-        //        for (int i = 0; i < jsonNetwork.data.networks.Count; i++)
-        //        {
-        //            cmbNetwork.Items.Add(new ListItem(jsonNetwork.data.networks[i].name, jsonNetwork.data.networks[i].id));
-        //        }
-
-        //        cmbItemId = cmbNetwork.SelectedIndex.ToString();
-
-        //        string networkCategory = await rh.updateNetworkCategories(chatid, cmbItemId);
-        //    }
-        //    catch(Exception ex)
-        //    {
-        //        Console.WriteLine($"Error[updateNetworkCategory] {ex.Message}");
-        //    }
-
-        //}
 
         private async void btnAccept_Click(object sender, EventArgs e)
         {
@@ -86,41 +38,61 @@ namespace LoginForms
                 if (!string.IsNullOrEmpty(valor))
                 {
                     await rh.updateNetworkCategories(chatid, valor);
-                    this.Close();
+                    this.Dispose();
                 }
                 else
                 {
                     MessageBox.Show("No has seleccionado una sucursal", "Omnicanal", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine($"Error[btnAccept] {ex.Message}");
             }
-
         }
 
         private void cmbNetwork_SelectedIndexChanged(object sender, EventArgs e)
         {
+            NetworkItems classItems = (NetworkItems)cmbNetwork.SelectedItem;
+            valor = classItems.Id;
+        }
+
+
+        private async void ComboBoxGetNetwork()
+        {
             try
             {
-                //MessageBox.Show($"Nombre: {cmbNetwork.SelectedItem}, Index: {cmbNetwork.SelectedValue}");
-                valor = "";
-                for (int i = 0; i < jsonNetwork.data.networks.Count; i++)
+                string networkCategories = await rh.getNetworkCategories();
+                Json jsonNetworkCategories = jsonNetwork = JsonConvert.DeserializeObject<Json>(networkCategories);
+                for (int i = 0; i < jsonNetworkCategories.data.networks.Count; i++)
                 {
-                    if (jsonNetwork.data.networks[i].name == cmbNetwork.SelectedItem.ToString())
-                    {
-                        valor = jsonNetwork.data.networks[i].id.ToString();
-                    }
+                    cmbNetwork.Items.Add(new NetworkItems(jsonNetwork.data.networks[i].description, jsonNetwork.data.networks[i].typification, jsonNetwork.data.networks[i].id));
                 }
-               // MessageBox.Show($"Nombre: {cmbNetwork.SelectedItem}, Index: {valor}");
-                // cmbNetwork.SelectedValue.ToString();
 
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error [cmbNetwork_SelectedIndexChanged] {ex.Message}");
+                Console.WriteLine($"Error[getNetworkCategories] {ex}");
             }
+        }
+    }
+
+    class NetworkItems
+    {
+        public string Name;
+        public string Value;
+        public string Id;
+
+        public NetworkItems(string name, string value, string id)
+        {
+            Name = name;
+            Value = value;
+            Id = id;
+        }
+
+        public override string ToString()
+        {
+            return Name;
         }
     }
 }

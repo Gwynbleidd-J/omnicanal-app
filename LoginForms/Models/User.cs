@@ -24,7 +24,7 @@ namespace LoginForms.Models
         public Rol rol { get; set; }
         public UserDetails details { get; set; }
         public UserStatus status { get; set; }
-        public SoftphoneCredentials credentials { get; set;  }
+        public SoftphoneParameters credentials { get; set;  }
 
 
 

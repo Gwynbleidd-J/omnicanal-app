@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Net.Sockets;
 using System.Windows.Forms;
 using LoginForms.Models;
@@ -71,7 +72,7 @@ namespace LoginForms
 
         private async void userLogin()
         {
-            string ipAddress = rh.GetLocalIpAddress();
+            string ipAddress = rh.GetPublicIpAddress();
 
             try
             {

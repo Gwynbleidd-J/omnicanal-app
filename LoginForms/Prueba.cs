@@ -493,6 +493,33 @@ namespace LoginForms
             }
         }
 
+        public TabPageChat getTabChatByChatId(string chatId)
+        {
+            try
+            {
+                TabPageChat chat = new TabPageChat();
+                string name = "";
+
+                for (int position = 0; position < chatWindowLocal.arrTabPageChat.Count; position++)
+                {
+                    name = chatWindowLocal.arrTabPageChat[position].tbPage.Name.ToString();
+                    var sTabPAge = chatWindowLocal.arrTabPageChat[position];
+
+                    if (sTabPAge != null && name == "tabPageChat_" + chatId)
+                    {
+                        chat = chatWindowLocal.arrTabPageChat[position];
+                    }
+                }
+
+                return chat;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error[tabChatExits]: " + ex.ToString());
+                return null;
+            }
+        }
+
         private async void buildChatForAgent()
         {
             #region Proceso de prueba

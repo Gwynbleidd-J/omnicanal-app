@@ -8,6 +8,10 @@ using LoginForms.Shared;
 using Newtonsoft.Json;
 using System.Drawing;
 using System.Configuration;
+using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
+using Microsoft.Toolkit.Uwp.Notifications;
+using LoginForms.Utils;
 
 namespace LoginForms
 {
@@ -54,7 +58,7 @@ namespace LoginForms
         }
         
         public RestHelper rh = new RestHelper();
-        private readonly int port = Convert.ToInt32(ConfigurationManager.AppSettings["serverPort"]);
+        private readonly int port = Convert.ToInt32(ConfigurationManager.AppSettings["serverTCPPort"]);
 
         
         // ManualResetEvent instances signal completion.  
@@ -69,7 +73,8 @@ namespace LoginForms
             try
             {
                 //Establish the remote endpoint for the socket.
-                IPAddress ipAddress = IPAddress.Parse("192.168.1.166");
+                IPAddress ipAddress = IPAddress.Parse("192.168.1.103");
+                //IPAddress ipAddress = IPAddress.Parse("201.149.34.171");
                 IPEndPoint remoteEP = new IPEndPoint(ipAddress, port);
                 
                 
@@ -123,6 +128,10 @@ namespace LoginForms
                 client.EndConnect(ar);
 
                 Console.WriteLine($"Socket connected to:{client.RemoteEndPoint}");
+
+                new RestHelper().updateAgentActiveIp(GlobalSocket.currentUser.email, client.LocalEndPoint.ToString().Substring(14));
+                Console.WriteLine($"Desde el socket:{client.LocalEndPoint}");
+                
 
                 // Signal that the connection has been made.  
                 connectDone.Set();
@@ -260,22 +269,58 @@ namespace LoginForms
         {
             try
             {
-                Models.Message notification = JsonConvert.DeserializeObject<Models.Message>(socketNotification);
+                var jobject = JsonConvert.DeserializeObject<JObject>(socketNotification);
 
-                Console.WriteLine("notificacion:"+notification);
-                if (notification.platformIdentifier != "c")
+                if (jobject.ContainsKey("Agent"))
                 {
-                    prueba.treatNotification(notification);
+
+                    string Agent = jobject.Value<string>("Agent");
+                    string Message = jobject.Value<string>("message");
+                    var time24 = DateTime.Now.ToString("HH:mm:ss");
+
+                    new ToastContentBuilder()
+                    .AddArgument("action", "viewConversation")
+                    .AddArgument("conversationId", Agent + time24)
+                    .AddText("Agente " + Agent)
+                    .AddText(Message)
+                    .AddAttributionText("Hora: " + time24)
+                    //.SetBackgroundActivation()
+                    .Show(toast =>
+                    {
+                        toast.ExpirationTime = DateTime.Now.AddSeconds(1);
+                        toast.Dismissed += (senderT, args) => ToastNotificationManagerCompat.History.Clear();
+                    });
+                }
+                else if (jobject.ContainsKey("CloseChat"))
+                {
+                    Console.WriteLine("\nEl id del chat es: " + jobject.Value<string>("chatId"));
+                    TabPageChat chat = prueba.getTabChatByChatId(jobject.Value<string>("chatId"));
+                    MessageBox.Show("El cliente ha abandonado la conversacion, \nSe cerrara el chat.");
+                    chat.txtSendMessage.Visible = false;
+                    chat.btnSendMessage.Visible = false;
+                    //chat.btnCloseButton.PerformClick();
                 }
                 else
                 {
-                    webChat.treatNotification(notification);
+                    Models.Message notification = JsonConvert.DeserializeObject<Models.Message>(socketNotification);
+
+                    Console.WriteLine("notificacion:" + notification);
+                    //if (notification.platformIdentifier != "c")
+                    //{
+                    //    prueba.treatNotification(notification);
+                    //}
+                    //else
+                    //{
+                    //    webChat.treatNotification(notification);
+                    //}
+
+                    prueba.treatNotification(notification);
+
                 }
-                
-                
+
                 //if (!prueba.tabChatExits(notification.chatId))
                 //    prueba.buildNewTabChat(notification.chatId);
-                 
+
                 #region Proceso para disparar el método de agregado dinámico
                 //using (Prueba fprueba = new Prueba())
                 //{

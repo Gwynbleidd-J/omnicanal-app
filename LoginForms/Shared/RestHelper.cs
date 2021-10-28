@@ -409,6 +409,118 @@ namespace LoginForms.Shared
             }
         }
 
+        public async Task<string> AppParameters(string twilioAccountSID, string twilioAuthToken, string whatsappAccount, string botTokenTelegram)
+        {
+            var inputData = new Dictionary<string, string>
+            {
+                {"twilioAccountSID", twilioAccountSID },
+                { "twilioAuthToken", twilioAuthToken},
+                { "whatsappAccount", whatsappAccount},
+                {"botTokenTelegram", botTokenTelegram }
+            };
+
+            var input = new FormUrlEncodedContent(inputData);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync(baseUrl + "parameters/appParameters", input);
+            Console.WriteLine(response);
+            HttpContent content = response.Content;
+            string data = await content.ReadAsStringAsync();
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            {
+                return data;
+            }
+            else
+            {
+                return response.StatusCode.ToString();
+            }
+        }
+
+        public async Task<string> SoftphoneParameters(string userId)
+        {
+            var inputData = new Dictionary<string, string>
+            {
+                {"userId", userId }
+            };
+
+            var input = new FormUrlEncodedContent(inputData);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync(baseUrl + "parameters/getCredentials", input);
+            Console.WriteLine(response);
+            HttpContent content = response.Content;
+            string data = await content.ReadAsStringAsync();
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            {
+                return data;
+            }
+            else
+            {
+                return response.StatusCode.ToString();
+            }
+        }
+
+        public async Task<string> getAppParameters()
+        {
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.GetAsync(baseUrl + "parameters/getAppParameters");
+            HttpContent content = response.Content;
+            string data = await content.ReadAsStringAsync();
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            {
+                return data;
+            }
+            else
+            {
+                return response.StatusCode.ToString();
+            }
+        }
+
+        public async Task<string> getUsers()
+        {
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.GetAsync(baseUrl + "parameters/getUsers");
+            HttpContent content = response.Content;
+            string data = await content.ReadAsStringAsync();
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            {
+                return data;
+            }
+            else
+            {
+                return response.StatusCode.ToString();
+            }
+        }
+
+        public async Task<string> updateSoftphoneParameters(string id, string userName, string displayName, string domain, string server, string password, string authName, string port)
+        {
+            var inputData = new Dictionary<string, string>
+            {
+                {"id", id },
+                { "userName", userName },
+                { "password", password },
+                { "domain", domain },
+                { "displayName", displayName },
+                { "authName", authName },
+                { "server", server },
+                { "port", port }
+
+            };
+            var input = new FormUrlEncodedContent(inputData);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync(baseUrl + "parameters/softphoneParameters", input);
+            Console.WriteLine(response);
+            HttpContent content = response.Content;
+            string data = await content.ReadAsStringAsync();
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            {
+                Console.WriteLine(response.StatusCode.ToString());
+                return response.StatusCode.ToString();
+            }
+            else
+            {
+                return response.StatusCode.ToString();
+            }
+        }
+
         public async Task<string> updateUserStatus(string statusId, string userId)
         {
             var inputData = new Dictionary<string, string>
@@ -680,6 +792,21 @@ namespace LoginForms.Shared
             }
         }
 
+        public string GetPublicIpAddress()
+        {
+            var request = (HttpWebRequest)WebRequest.Create("https://api.ipify.org/");
+            request.UserAgent = "curl";
+            string publicIpAddress;
+            request.Method = "GET";
+            using (WebResponse response = request.GetResponse())
+            {
+                using (var reader = new StreamReader(response.GetResponseStream()))
+                {
+                    publicIpAddress = reader.ReadToEnd();
+                }
+            }
+            return publicIpAddress.Replace("\n", "");
+        }
 
         public string GetLocalIpAddress()
         {
