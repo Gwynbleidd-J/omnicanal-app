@@ -128,8 +128,6 @@ namespace LoginForms
                 client.EndConnect(ar);
 
                 Console.WriteLine($"Socket connected to:{client.RemoteEndPoint}");
-
-                new RestHelper().updateAgentActiveIp(GlobalSocket.currentUser.email, client.LocalEndPoint.ToString().Substring(14));
                 Console.WriteLine($"Desde el socket:{client.LocalEndPoint}");
                 
 
@@ -299,6 +297,11 @@ namespace LoginForms
                     chat.txtSendMessage.Visible = false;
                     chat.btnSendMessage.Visible = false;
                     //chat.btnCloseButton.PerformClick();
+                }
+                else if (jobject.ContainsKey("socketPort")) {
+                    var port = jobject.Value<string>("socketPort");
+                    Console.WriteLine("\nHola agente, tu puerto asignado por la API es:"+port);
+                    new RestHelper().updateAgentActiveIp(GlobalSocket.currentUser.email, port.ToString());
                 }
                 else
                 {
