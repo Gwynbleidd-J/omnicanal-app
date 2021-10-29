@@ -293,7 +293,7 @@ namespace LoginForms
                 {
                     Console.WriteLine("\nEl id del chat es: " + jobject.Value<string>("chatId"));
                     TabPageChat chat = prueba.getTabChatByChatId(jobject.Value<string>("chatId"));
-                    MessageBox.Show("El cliente ha abandonado la conversacion, \nSe cerrara el chat.");
+                    MessageBox.Show("El cliente ha abandonado la conversacion, \nPor favor, cierre el chat.");
                     chat.txtSendMessage.Visible = false;
                     chat.btnSendMessage.Visible = false;
                     //chat.btnCloseButton.PerformClick();

@@ -663,4 +663,4 @@ C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.csproj.Gen
 C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.csproj.CoreCompileInputs.cache
 C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.exe
 C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.pdb
-C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.csproj.CopyComplete
+C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.csproj.AssemblyReference.cache
