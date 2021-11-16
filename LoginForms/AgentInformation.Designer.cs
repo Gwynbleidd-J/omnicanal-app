@@ -34,20 +34,22 @@ namespace LoginForms
             // 
             // flpAgentInformation
             // 
-            this.flpAgentInformation.Location = new System.Drawing.Point(12, 12);
+            this.flpAgentInformation.Location = new System.Drawing.Point(16, 15);
+            this.flpAgentInformation.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.flpAgentInformation.Name = "flpAgentInformation";
-            this.flpAgentInformation.Size = new System.Drawing.Size(449, 294);
+            this.flpAgentInformation.Size = new System.Drawing.Size(599, 362);
             this.flpAgentInformation.TabIndex = 0;
             // 
             // AgentInformation
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(472, 315);
+            this.ClientSize = new System.Drawing.Size(629, 388);
             this.Controls.Add(this.flpAgentInformation);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "AgentInformation";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "AgentInformation";
+            this.Text = "Información Agente";
             this.Load += new System.EventHandler(this.AgentInformation_Load);
             this.ResumeLayout(false);
 

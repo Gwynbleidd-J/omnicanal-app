@@ -66,6 +66,9 @@ namespace LoginForms
             comboBoxGetUserStatus();
             setStatusAgent();
             createAgentInformationForm();
+            timer1_Tick(sender, e);
+
+
 
         }
 
@@ -236,6 +239,12 @@ namespace LoginForms
         {
             string indidualId = GlobalSocket.currentUser.ID;
             return indidualId;
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            ScreenCapture screenCapture = new ScreenCapture();
+            screenCapture.CapturarPantalla();
         }
 
 

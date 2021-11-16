@@ -294,6 +294,28 @@ namespace LoginForms.Shared
             }
         }
 
+        public async Task<string> getSupervisorAgents(string rolId)
+        {
+            //var inputData = new Dictionary<string, string>
+            //{
+            //    {"rolID", rolId }
+            //};
+            //var input = new FormUrlEncodedContent(inputData);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.GetAsync(baseUrl + "user/supervisorAgents");
+            Console.WriteLine(response);
+            HttpContent content = response.Content;
+            string data = await content.ReadAsStringAsync();
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            {
+                return data;
+            }
+            else
+            {
+                return response.StatusCode.ToString();
+            }
+        }
+
         public async Task<string> getAgentsDetails(string userId)
         {
             var inputData = new Dictionary<string, string>
@@ -451,7 +473,7 @@ namespace LoginForms.Shared
             if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
             {
                 return data;
-            }
+            } 
             else
             {
                 return response.StatusCode.ToString();

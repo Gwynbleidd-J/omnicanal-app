@@ -101,11 +101,12 @@ namespace LoginForms
             this.groupBox3.Size = new System.Drawing.Size(553, 157);
             this.groupBox3.TabIndex = 134;
             this.groupBox3.TabStop = false;
+            this.groupBox3.Visible = false;
             // 
             // lblBotTokenTelegram
             // 
             this.lblBotTokenTelegram.AutoSize = true;
-            this.lblBotTokenTelegram.Location = new System.Drawing.Point(181, 97);
+            this.lblBotTokenTelegram.Location = new System.Drawing.Point(138, 97);
             this.lblBotTokenTelegram.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblBotTokenTelegram.Name = "lblBotTokenTelegram";
             this.lblBotTokenTelegram.Size = new System.Drawing.Size(112, 17);
@@ -115,7 +116,7 @@ namespace LoginForms
             // lblTokenTwilioAccount
             // 
             this.lblTokenTwilioAccount.AutoSize = true;
-            this.lblTokenTwilioAccount.Location = new System.Drawing.Point(150, 48);
+            this.lblTokenTwilioAccount.Location = new System.Drawing.Point(111, 48);
             this.lblTokenTwilioAccount.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTokenTwilioAccount.Name = "lblTokenTwilioAccount";
             this.lblTokenTwilioAccount.Size = new System.Drawing.Size(87, 17);
@@ -125,7 +126,7 @@ namespace LoginForms
             // lblWhatsappAccount
             // 
             this.lblWhatsappAccount.AutoSize = true;
-            this.lblWhatsappAccount.Location = new System.Drawing.Point(200, 72);
+            this.lblWhatsappAccount.Location = new System.Drawing.Point(155, 72);
             this.lblWhatsappAccount.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblWhatsappAccount.Name = "lblWhatsappAccount";
             this.lblWhatsappAccount.Size = new System.Drawing.Size(127, 17);
@@ -135,7 +136,7 @@ namespace LoginForms
             // lblSIDTwilioAccount
             // 
             this.lblSIDTwilioAccount.AutoSize = true;
-            this.lblSIDTwilioAccount.Location = new System.Drawing.Point(188, 23);
+            this.lblSIDTwilioAccount.Location = new System.Drawing.Point(146, 23);
             this.lblSIDTwilioAccount.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSIDTwilioAccount.Name = "lblSIDTwilioAccount";
             this.lblSIDTwilioAccount.Size = new System.Drawing.Size(118, 17);
@@ -205,6 +206,7 @@ namespace LoginForms
             this.groupBox2.TabIndex = 133;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Parámetros Servicio de Bots";
+            this.groupBox2.Visible = false;
             // 
             // txtBotTokenTelegram
             // 
@@ -314,7 +316,7 @@ namespace LoginForms
             // lblAuthName
             // 
             this.lblAuthName.AutoSize = true;
-            this.lblAuthName.Location = new System.Drawing.Point(162, 151);
+            this.lblAuthName.Location = new System.Drawing.Point(127, 150);
             this.lblAuthName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblAuthName.Name = "lblAuthName";
             this.lblAuthName.Size = new System.Drawing.Size(100, 17);
@@ -324,7 +326,7 @@ namespace LoginForms
             // lblPort
             // 
             this.lblPort.AutoSize = true;
-            this.lblPort.Location = new System.Drawing.Point(93, 179);
+            this.lblPort.Location = new System.Drawing.Point(69, 177);
             this.lblPort.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblPort.Name = "lblPort";
             this.lblPort.Size = new System.Drawing.Size(50, 17);
@@ -334,7 +336,7 @@ namespace LoginForms
             // lblPassword
             // 
             this.lblPassword.AutoSize = true;
-            this.lblPassword.Location = new System.Drawing.Point(142, 125);
+            this.lblPassword.Location = new System.Drawing.Point(105, 121);
             this.lblPassword.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblPassword.Name = "lblPassword";
             this.lblPassword.Size = new System.Drawing.Size(81, 17);
@@ -344,7 +346,7 @@ namespace LoginForms
             // lblDomain
             // 
             this.lblDomain.AutoSize = true;
-            this.lblDomain.Location = new System.Drawing.Point(110, 73);
+            this.lblDomain.Location = new System.Drawing.Point(80, 73);
             this.lblDomain.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblDomain.Name = "lblDomain";
             this.lblDomain.Size = new System.Drawing.Size(59, 17);
@@ -354,7 +356,7 @@ namespace LoginForms
             // lblDisplayName
             // 
             this.lblDisplayName.AutoSize = true;
-            this.lblDisplayName.Location = new System.Drawing.Point(179, 47);
+            this.lblDisplayName.Location = new System.Drawing.Point(140, 47);
             this.lblDisplayName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblDisplayName.Name = "lblDisplayName";
             this.lblDisplayName.Size = new System.Drawing.Size(113, 17);
@@ -364,7 +366,7 @@ namespace LoginForms
             // lblServer
             // 
             this.lblServer.AutoSize = true;
-            this.lblServer.Location = new System.Drawing.Point(108, 96);
+            this.lblServer.Location = new System.Drawing.Point(82, 96);
             this.lblServer.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblServer.Name = "lblServer";
             this.lblServer.Size = new System.Drawing.Size(61, 17);
@@ -374,7 +376,7 @@ namespace LoginForms
             // lblUserName
             // 
             this.lblUserName.AutoSize = true;
-            this.lblUserName.Location = new System.Drawing.Point(179, 21);
+            this.lblUserName.Location = new System.Drawing.Point(138, 21);
             this.lblUserName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblUserName.Name = "lblUserName";
             this.lblUserName.Size = new System.Drawing.Size(111, 17);

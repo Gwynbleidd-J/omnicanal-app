@@ -18,11 +18,14 @@ namespace LoginForms
     {
         RestHelper rh = new RestHelper();
         string idAgent;
+        string rolId = "1";
         
         public MisAgentes()
         {
             InitializeComponent();
-            agentsInformation(GlobalSocket.currentUser.ID);
+            ShowAgents();
+            //agentsInformation(GlobalSocket.currentUser.ID);
+            //SupervisorAgents(rolId);
         }
 
         public MisAgentes(string individualId)
@@ -30,9 +33,16 @@ namespace LoginForms
             idAgent = individualId;
         }
 
-        private void MisAgentes_Load(object sender, EventArgs e)
+        private void ShowAgents()
         {
-            
+            if(GlobalSocket.currentUser.rol.Id.ToString() == "3")
+            {
+                agentsInformation(GlobalSocket.currentUser.ID);
+            }
+            else
+            {
+                SupervisorAgents(rolId);
+            }
         }
 
         private async void agentsInformation(string leaderId)
@@ -43,10 +53,6 @@ namespace LoginForms
                 Json jsonMyAgentsInformation = JsonConvert.DeserializeObject<Json>(myAgentesInformation);
                 for (int i = 0; i < jsonMyAgentsInformation.data.users.Count; i++)
                 {
-                    //string users = await rh.getMyAgents(jsonMyAgentsInformation.data.users[i].leaderId);
-                    //User user = new User();
-                    //Json jsonUsers = JsonConvert.DeserializeObject<Json>(users);
-                    //user = jsonUsers.data.users[i];
                     string individualId = jsonMyAgentsInformation.data.users[i].ID;
 
                     FlowLayoutPanel panelAgentInformation = new FlowLayoutPanel
@@ -114,34 +120,39 @@ namespace LoginForms
                         TextAlign = ContentAlignment.MiddleCenter,
                         ForeColor = Color.Black
                     };
-
-                    panelAgentInformation.Controls.AddRange(new Control[] { labelAgentName, labelEmail, buttonChangeAgentStatus, buttonCheckAgents, buttonChangeMaxActiveChats });
-
-
-                    labelAgentName.Click += (s, e) =>
+                    
+                    if (jsonMyAgentsInformation.data.users[i].rolID == "2" || jsonMyAgentsInformation.data.users[i].rolID =="3")
                     {
-                        AgentInformation agentInformation = new AgentInformation(individualId);
-                        agentInformation.ShowDialog();
-                    };
+                        panelAgentInformation.Controls.AddRange(new Control[] { labelAgentName, labelEmail, buttonChangeAgentStatus, buttonCheckAgents, buttonChangeMaxActiveChats });
 
-                    buttonChangeAgentStatus.Click += (s, e) =>
+                        labelAgentName.Click += (s, e) =>
+                        {
+                            AgentInformation agentInformation = new AgentInformation(individualId);
+                            agentInformation.ShowDialog();
+                        };
+
+                        buttonChangeAgentStatus.Click += (s, e) =>
+                        {
+                            ChangeAgentStatus agentStatus = new ChangeAgentStatus(individualId);
+                            agentStatus.ShowDialog();
+                        };
+
+                        buttonCheckAgents.Click += (s, e) =>
+                        {
+                            CheckAgents checkAgents = new CheckAgents(individualId);
+                            checkAgents.ShowDialog();
+                        };
+
+                        buttonChangeMaxActiveChats.Click += (s, e) =>
+                        {
+                            ChangeMaxActiveChats agentMaxChats = new ChangeMaxActiveChats(individualId);
+                            agentMaxChats.ShowDialog();
+                        };
+                    }
+                    else
                     {
-                        ChangeAgentStatus agentStatus = new ChangeAgentStatus(individualId);
-                        agentStatus.ShowDialog();
-                    };
-
-                    buttonCheckAgents.Click += (s, e) =>
-                    {
-                        CheckAgents checkAgents = new CheckAgents(individualId);
-                        checkAgents.ShowDialog();
-                    };
-
-                    buttonChangeMaxActiveChats.Click += (s, e) =>
-                    {
-                        ChangeMaxActiveChats agentMaxChats = new ChangeMaxActiveChats(individualId);
-                        agentMaxChats.ShowDialog();
-                    };
-
+                        panelAgentInformation.Controls.AddRange(new Control[] { labelAgentName, labelEmail });
+                    }
                 }
             }
             
@@ -150,6 +161,52 @@ namespace LoginForms
                 Console.WriteLine($"Error[agentInfo]: {ex.Message}");
             }
 
+        }
+
+        private async void SupervisorAgents(string id)
+        {
+            string supervisorAgents = await rh.getSupervisorAgents(id);
+            Json jsonSupervisorAgents = JsonConvert.DeserializeObject<Json>(supervisorAgents);
+            for (int i = 0; i< jsonSupervisorAgents.data.users.Count; i ++)
+            {
+                FlowLayoutPanel panelAgentInformation = new FlowLayoutPanel
+                {
+                    BackColor = Color.FromArgb(145, 153, 179),
+                    BorderStyle = BorderStyle.FixedSingle,
+                    FlowDirection = FlowDirection.TopDown,
+                    Size = new Size(320, 200)
+                };
+                flpAgentInfo.Controls.Add(panelAgentInformation);
+
+                LinkLabel labelAgentName = new LinkLabel
+                {
+                    Text = $"Nombre Agente: {jsonSupervisorAgents.data.users[i].name} {jsonSupervisorAgents.data.users[i].paternalSurname} {jsonSupervisorAgents.data.users[i].maternalSurname}",
+                    LinkColor = Color.FromArgb(19, 34, 38),
+                    VisitedLinkColor = Color.FromArgb(19, 34, 38),
+                    ActiveLinkColor = Color.FromArgb(255, 255, 255),
+                    Font = new Font("Microsoft Sans Serif", 11),
+                    AutoSize = true,
+                    LinkBehavior = LinkBehavior.NeverUnderline
+                };
+
+                Label labelActiveChats = new Label
+                {
+                    Text = $"Chats Activos: {jsonSupervisorAgents.data.users[i].activeChats}",
+                    ForeColor = Color.FromArgb(19, 34, 38),
+                    Font = new Font("Microsoft Sans Serif", 11),
+                    AutoSize = true
+                };
+
+                Label labelEmail = new Label
+                {
+                    Text = $"Email: {jsonSupervisorAgents.data.users[i].email}",
+                    ForeColor = Color.FromArgb(19, 34, 38),
+                    Font = new Font("Microsoft Sans Serif", 11),
+                    AutoSize = true
+                };
+
+                panelAgentInformation.Controls.AddRange(new Control[] { labelAgentName,labelActiveChats,labelEmail });
+            }
         }
 
     }
