@@ -91,6 +91,12 @@
     <Compile Include="ChangeParameters.Designer.cs">
       <DependentUpon>ChangeParameters.cs</DependentUpon>
     </Compile>
+    <Compile Include="ChatMonitor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChatMonitor.Designer.cs">
+      <DependentUpon>ChatMonitor.cs</DependentUpon>
+    </Compile>
     <Compile Include="CheckAgents.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -203,6 +209,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ChangeParameters.resx">
       <DependentUpon>ChangeParameters.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChatMonitor.resx">
+      <DependentUpon>ChatMonitor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CheckAgents.resx">
       <DependentUpon>CheckAgents.cs</DependentUpon>

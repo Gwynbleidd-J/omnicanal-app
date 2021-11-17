@@ -101,6 +101,36 @@ namespace LoginForms.Shared
             return string.Empty;
         }
 
+        public async Task<string> RecoverAllActiveChats(string agentId)
+        {
+            try
+            {
+                //var inputData = new Dictionary<string, string>
+                //{
+                //    {"userId", agentId}
+                //};
+                //var input = new FormUrlEncodedContent(inputData);
+                HttpClient client = new HttpClient();
+                HttpResponseMessage response = await client.GetAsync(baseUrl + "chat/getAllActiveChats");
+                HttpContent content = response.Content;
+
+                string data = await content.ReadAsStringAsync();
+                if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+                {
+                    Console.WriteLine("Se obtuvieron lo siguientes chats:" +data.ToString());
+                    return data;
+                }
+                    
+                else
+                    return response.StatusCode.ToString();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error[RecoverAllActiveChats][RestHelper]: " + ex.ToString());
+            }
+            return string.Empty;
+        }
+
         //public async Task<string> GetMessage(string chatId, string id)
         //{
         //    var inputData = new MessageJson
@@ -129,7 +159,7 @@ namespace LoginForms.Shared
         //}
 
         //POST
-       
+
         public async Task<string> RegistrerUser(string userName, string mail, string password)
         {
             var inputData = new Dictionary<string, string>
@@ -580,6 +610,46 @@ namespace LoginForms.Shared
             {
                 return response.StatusCode.ToString();
             }
+
+        }
+
+        public async Task<string> validateTransferAgent(string userId) {
+
+            var inputData = new Dictionary<string, string>
+            {
+                { "id", userId }
+            };
+            var input = new FormUrlEncodedContent(inputData);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync(baseUrl + "user/validateTransferAgent", input);
+            HttpContent content = response.Content;
+            string data = await content.ReadAsStringAsync();
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK" )
+            {
+                Console.WriteLine("\nEste es el estado del agente:" +data.ToString());
+                return data;
+            }
+            else
+            {
+                return response.StatusCode.ToString();
+            }
+        }
+
+        public async Task<string> getAllAgents()
+        {
+
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.GetAsync(baseUrl + "user/getAllAgents");
+            HttpContent content = response.Content;
+            string data = await content.ReadAsStringAsync();
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            {
+                Console.WriteLine("Se obtuvieron lo siguientes chats:" + data.ToString());
+                return data;
+            }
+
+            else
+                return response.StatusCode.ToString();
 
         }
 

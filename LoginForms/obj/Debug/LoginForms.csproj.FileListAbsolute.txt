@@ -648,6 +648,7 @@ C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.CallsView.
 C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.ChangeAgentStatus.resources
 C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.ChangeMaxActiveChats.resources
 C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.ChangeParameters.resources
+C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.ChatMonitor.resources
 C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.CheckAgents.resources
 C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.FormPrincipal.resources
 C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.Login.resources
