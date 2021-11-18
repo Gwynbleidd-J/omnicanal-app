@@ -75,7 +75,7 @@ namespace LoginForms
             try
             {
                 //Establish the remote endpoint for the socket.
-                IPAddress ipAddress = IPAddress.Parse(remoteEndPoint);
+                IPAddress ipAddress = IPAddress.Parse("192.168.1.103");
                 //IPAddress ipAddress = IPAddress.Parse("201.149.34.171");
                 //IPAddress ipAddress = IPAddress.Parse("192.168.0.8");
                 IPEndPoint remoteEP = new IPEndPoint(ipAddress, port);
@@ -297,14 +297,19 @@ namespace LoginForms
                 {
                     Console.WriteLine("\nEl id del chat es: " + jobject.Value<string>("chatId"));
                     TabPageChat chat = prueba.getTabChatByChatId(jobject.Value<string>("chatId"));
-                    MessageBox.Show("El cliente ha abandonado la conversacion, \nSe cerrara el chat.");
+                    MessageBox.Show("El cliente ha abandonado la conversacion, \nPor favor, cierre el chat.");
                     chat.txtSendMessage.Visible = false;
                     chat.btnSendMessage.Visible = false;
                     //chat.btnCloseButton.PerformClick();
                 }
+                else if (jobject.ContainsKey("transferChat")) {
+                    Console.WriteLine("\nEl id del chat es: " + jobject.Value<string>("chatId"));
+                    TabPageChat chat = prueba.getTabChatByChatId(jobject.Value<string>("chatId"));
+                    chat.removeTabChat();
+                }
                 else if (jobject.ContainsKey("socketPort")) {
                     var port = jobject.Value<string>("socketPort");
-                    Console.WriteLine("\nHola agente, tu puerto asignado por la API es:"+port);
+                    Console.WriteLine("\nHola agente, tu puerto asignado por la API es:" + port);
                     new RestHelper().updateAgentActiveIp(GlobalSocket.currentUser.email, port.ToString());
                 }
                 else

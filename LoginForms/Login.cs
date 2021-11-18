@@ -78,7 +78,8 @@ namespace LoginForms
             {
                 FormPrincipal formPrincipal = new FormPrincipal();
                 var jsonLogin = await rh.Login(txtUserName.Text, txtPassword.Text, ipAddress);
-                var jsonUpdateAgentActiveIp = await rh.updateAgentActiveIp(txtUserName.Text, ipAddress);
+                //Se deshabilita la actualizacion de ip aqui pues se utilizara el puerto que mande la api como ip
+                //var jsonUpdateAgentActiveIp = await rh.updateAgentActiveIp(txtUserName.Text, ipAddress);
                 Json jsonUser = JsonConvert.DeserializeObject<Json>(jsonLogin);
                 User user = rh.GetUser(jsonLogin);
                 //string agentStatus = GlobalSocket.currentUser.status.id;
