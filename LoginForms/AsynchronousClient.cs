@@ -299,9 +299,14 @@ namespace LoginForms
                     chat.btnSendMessage.Visible = false;
                     //chat.btnCloseButton.PerformClick();
                 }
+                else if (jobject.ContainsKey("transferChat")) {
+                    Console.WriteLine("\nEl id del chat es: " + jobject.Value<string>("chatId"));
+                    TabPageChat chat = prueba.getTabChatByChatId(jobject.Value<string>("chatId"));
+                    chat.removeTabChat();
+                }
                 else if (jobject.ContainsKey("socketPort")) {
                     var port = jobject.Value<string>("socketPort");
-                    Console.WriteLine("\nHola agente, tu puerto asignado por la API es:"+port);
+                    Console.WriteLine("\nHola agente, tu puerto asignado por la API es:" + port);
                     new RestHelper().updateAgentActiveIp(GlobalSocket.currentUser.email, port.ToString());
                 }
                 else

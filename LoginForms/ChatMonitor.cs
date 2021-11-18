@@ -140,8 +140,6 @@ namespace LoginForms
             else
             {
                 var estado = await rh.validateTransferAgent(transferAgentId.ToString());
-
-
                 Console.WriteLine("\nEstado del agente a transferir:" + estado.ToString());
                 MessageBox.Show("Esta seguro de que desea transferir el chat a \n"+ transferAgentName +"?");
             }
