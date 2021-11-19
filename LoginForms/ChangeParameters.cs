@@ -81,7 +81,10 @@ namespace LoginForms
             Json jsonUsers = JsonConvert.DeserializeObject<Json>(users);
             for (int i = 0; i < jsonUsers.data.users.Count; i++)
             {
-                cmbAgents.Items.Add(new ParametersItems(jsonUsers.data.users[i].name, jsonUsers.data.users[i].ID));
+                if (jsonUsers.data.users[i].rolID == "1" || jsonUsers.data.users[i].rolID == "2")
+                {
+                    cmbAgents.Items.Add(new ParametersItems(jsonUsers.data.users[i].name, jsonUsers.data.users[i].ID));
+                }
             }
         }
 
