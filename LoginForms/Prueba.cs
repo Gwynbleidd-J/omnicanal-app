@@ -313,6 +313,17 @@ namespace LoginForms
                 Console.WriteLine("Error[validarNuevoTab]: " + ex.ToString());
             }
         }
+
+        public void buildExistingTabChat(Models.Message data) {
+            try
+            {
+                buildNewTabChat(data);
+            }
+            catch (Exception _e)
+            {
+                throw _e;
+            }
+        }
          
         public bool tabChatExits(string chatId)
         {

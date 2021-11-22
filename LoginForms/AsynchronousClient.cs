@@ -305,7 +305,11 @@ namespace LoginForms
                 else if (jobject.ContainsKey("transferChat")) {
                     Console.WriteLine("\nEl id del chat es: " + jobject.Value<string>("chatId"));
                     TabPageChat chat = prueba.getTabChatByChatId(jobject.Value<string>("chatId"));
+
+                    Models.Message tabNotification = JsonConvert.DeserializeObject<Models.Message>(socketNotification);
                     chat.removeTabChat();
+                    prueba.buildExistingTabChat(tabNotification);
+
                 }
                 else if (jobject.ContainsKey("socketPort")) {
                     var port = jobject.Value<string>("socketPort");

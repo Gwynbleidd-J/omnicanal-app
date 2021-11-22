@@ -394,6 +394,39 @@ namespace LoginForms.Shared
 
         }
 
+        public async Task<string> transferChat(string idAgenteAnterior, string idAgenteNuevo, string idChat) {
+            try
+            {
+                var inputData = new Dictionary<string, string>
+                {
+                    { "idAgenteAnterior", idAgenteAnterior},
+                    { "idAgenteNuevo", idAgenteNuevo},
+                    { "idChat", idChat}
+                };
+
+                var input = new FormUrlEncodedContent(inputData);
+                HttpClient client = new HttpClient();
+                HttpResponseMessage response = await client.PostAsync(baseUrl + "chat/transferChat", input);
+                Console.WriteLine(response);
+                HttpContent content = response.Content;
+                string data = response.StatusCode.ToString();
+
+                if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+                {
+                    return data;
+                }
+                else {
+                    return response.StatusCode.ToString();
+                }
+
+
+            }
+            catch (Exception _e)
+            {
+                throw _e;
+            }
+        }
+
         public async Task<string> getSubstactActiveChat(string userId)
         {
             var inputData = new Dictionary<string, string>

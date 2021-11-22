@@ -21,6 +21,7 @@ namespace LoginForms
         int transferAgentId = 0;
         string transferAgentName = "";
         bool Iniciado = false;
+        int chatId = 0;
 
         public ChatMonitor()
         {
@@ -121,7 +122,7 @@ namespace LoginForms
                 currentAgentId = int.Parse(textBox1.Text = row.Cells[2].Value.ToString());
                 textBox1.Text = row.Cells[3].Value.ToString();
                 textBox1.Enabled = false;
-
+                chatId = int.Parse(row.Cells[1].Value.ToString());
                 
                 Iniciado = true;
 
@@ -140,8 +141,46 @@ namespace LoginForms
             else
             {
                 var estado = await rh.validateTransferAgent(transferAgentId.ToString());
+                var cleanData = (JObject)JsonConvert.DeserializeObject(estado);
+                var algo = cleanData["data"];
+
+                var capacidad = algo["capacidad"].Value<bool>();
+                var disponibilidad = algo["disponibilidad"].Value<bool>();
+                
                 Console.WriteLine("\nEstado del agente a transferir:" + estado.ToString());
-                MessageBox.Show("Esta seguro de que desea transferir el chat a \n"+ transferAgentName +"?");
+
+                if (capacidad == true && disponibilidad == true)
+                {
+                    DialogResult result = MessageBox.Show("Esta seguro de que desea transferir el chat a \n" + transferAgentName + " ? ", "Advertencia", MessageBoxButtons.YesNo);
+                    if (result == DialogResult.Yes)
+                    {
+                        MessageBox.Show("Se transferira el chat");
+                        
+                        var respuestaTransferncia = await rh.transferChat(currentAgentId.ToString(), transferAgentId.ToString(), chatId.ToString());
+                        var cleanRespuesta = (JObject)JsonConvert.DeserializeObject(respuestaTransferncia);
+                        var Respuesta = cleanRespuesta["data"];
+
+                        if (Respuesta.HasValues)
+                        {
+                            MessageBox.Show("Se ha transferido el chat correctamente");
+                        }
+                        //var cleanResult = (JObject)JsonConvert.DeserializeObject(respuestaTransferncia);
+                        //var temp = cleanResult["data"];
+
+                        //var platformIdentifier = temp["platformIdentifier"].Value<string>();
+                        //var clientPlatformIdentifier = temp["clientPlatformIdentifier"].Value<string>();
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Se ha cancelado la transferencia del chat");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("El agente seleccionado no puede atender el chat en este momento");
+                }
+
             }
         }
 
