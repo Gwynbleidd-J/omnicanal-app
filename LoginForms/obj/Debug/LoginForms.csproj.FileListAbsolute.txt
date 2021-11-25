@@ -641,10 +641,8 @@ C:\Users\KODE\Documents\omnicanal_app\LoginForms\bin\Debug\System.Xml.XmlDocumen
 C:\Users\KODE\Documents\omnicanal_app\LoginForms\bin\Debug\System.Xml.XmlSerializer.dll
 C:\Users\KODE\Documents\omnicanal_app\LoginForms\bin\Debug\System.Xml.XPath.dll
 C:\Users\KODE\Documents\omnicanal_app\LoginForms\bin\Debug\System.Xml.XPath.XDocument.dll
-C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.csproj.AssemblyReference.cache
 C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.exe.config
 C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.AgentInformation.resources
-C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.AgentMainPage.resources
 C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.CallsView.resources
 C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.ChangeAgentStatus.resources
 C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.ChangeMaxActiveChats.resources
@@ -663,6 +661,6 @@ C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.WebChat.re
 C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.WhatsApp.resources
 C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.csproj.GenerateResource.cache
 C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.csproj.CoreCompileInputs.cache
-C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.csproj.CopyComplete
 C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.exe
 C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.pdb
+C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.csproj.AssemblyReference.cache

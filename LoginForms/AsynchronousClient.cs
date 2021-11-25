@@ -189,7 +189,7 @@ namespace LoginForms
                     socketNotification = Encoding.UTF8.GetString(state.buffer, 0, bytesRead).ToString();
                     Console.WriteLine("Desde string es: " + socketNotification);
 
-                    treatNotification(socketNotification);
+                    treatNotificationAsync(socketNotification);
                 }
                 else
                 {
@@ -267,7 +267,7 @@ namespace LoginForms
             }
         }
 
-        public void treatNotification(string socketNotification)
+        public async Task treatNotificationAsync(string socketNotification)
         {
             try
             {
@@ -302,19 +302,32 @@ namespace LoginForms
                     chat.btnSendMessage.Visible = false;
                     //chat.btnCloseButton.PerformClick();
                 }
-                else if (jobject.ContainsKey("transferChat")) {
+                else if (jobject.ContainsKey("closeTransferChat")) {
                     Console.WriteLine("\nEl id del chat es: " + jobject.Value<string>("chatId"));
-                    TabPageChat chat = prueba.getTabChatByChatId(jobject.Value<string>("chatId"));
 
-                    Models.Message tabNotification = JsonConvert.DeserializeObject<Models.Message>(socketNotification);
+                    TabPageChat chat = new Prueba().getTabChatByChatId(jobject.Value<string>("chatId"));
                     chat.removeTabChat();
-                    prueba.buildExistingTabChat(tabNotification);
 
+                } else if (jobject.ContainsKey("openTransferChat")) {
+
+                    Console.WriteLine("La respuesta de la transferencia de chats cayo al supervisor");
+
+                    string chatId = jobject.Value<string>("chatId");
+                    var chatData = await rh.getChatById(chatId);
+                    var cleanData = (JObject)JsonConvert.DeserializeObject(chatData);
+                    var algo = cleanData["data"];
+
+                    Models.Message Object = new Models.Message();
+                    Object.chatId = algo["id"].Value<string>();
+                    Object.platformIdentifier = algo["platformIdentifier"].Value<string>();
+                    Object.clientPlatformIdentifier = algo["clientPlatformIdentifier"].Value<string>();
+
+                    new Prueba().buildExistingTabChat(Object);
                 }
                 else if (jobject.ContainsKey("socketPort")) {
                     var port = jobject.Value<string>("socketPort");
                     Console.WriteLine("\nHola agente, tu puerto asignado por la API es:" + port);
-                    new RestHelper().updateAgentActiveIp(GlobalSocket.currentUser.email, port.ToString());
+                    await rh.updateAgentActiveIp(GlobalSocket.currentUser.email, port.ToString());
                 }
                 else
                 {

@@ -399,9 +399,10 @@ namespace LoginForms.Shared
             {
                 var inputData = new Dictionary<string, string>
                 {
-                    { "idAgenteAnterior", idAgenteAnterior},
-                    { "idAgenteNuevo", idAgenteNuevo},
-                    { "idChat", idChat}
+                    { "idAntiguo", idAgenteAnterior},
+                    { "idNuevo", idAgenteNuevo},
+                    { "idChat", idChat},
+                    { "idSupervisor", GlobalSocket.currentUser.ID }
                 };
 
                 var input = new FormUrlEncodedContent(inputData);
@@ -665,6 +666,29 @@ namespace LoginForms.Shared
             {
                 return response.StatusCode.ToString();
             }
+
+        }
+
+        public async Task<string> getChatById(string chatId){
+
+            var inputData = new Dictionary<string, string>{
+                { "chatId", chatId }
+            };
+            var input = new FormUrlEncodedContent(inputData);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync(baseUrl + "chat/getChatByIdRequest", input);
+            HttpContent content = response.Content;
+            string data = await content.ReadAsStringAsync();
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            {
+                Console.WriteLine("Chat obtenido:" + data);
+                return data;
+            }
+            else
+            {
+                return data;
+            }
+
 
         }
 

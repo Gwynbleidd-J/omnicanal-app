@@ -17,32 +17,112 @@ namespace LoginForms
     {
 
         RestHelper rh = new RestHelper();
+
         int currentAgentId = 0;
         int transferAgentId = 0;
         string transferAgentName = "";
+        string currentAgentName = "";
+
         bool Iniciado = false;
         int chatId = 0;
+
+        int indexSearch = 0;
+        string stringSearch = "";
+        bool fechaInicioSearch = false;
+
+        DateTime TiempoI = new DateTime();
+        DateTime TiempoF = new DateTime();
 
         public ChatMonitor()
         {
             InitializeComponent();
-            getActiveChats();
-            getAllAgentsAsync();
+            GetActiveChats();
+            GetAllAgentsAsync();
+            FillSearchCombo();
+            setTimeFilters();
         }
 
-        public async void getActiveChats()
+        public void FillSearchCombo() {
+
+            List<KeyValuePair<string, int>> listaSearch = new List<KeyValuePair<string, int>>();
+            for (int i = 0; i < dataGridView1.Columns.Count; i++)
+            {
+                if ( (dataGridView1.Columns[i]) is DataGridViewTextBoxColumn)
+                {
+                    listaSearch.Add(new KeyValuePair<string, int>(dataGridView1.Columns[i].HeaderText, i));
+                }
+            }
+
+            comboBox2.DataSource = listaSearch;
+            comboBox2.DisplayMember = "Key";
+            comboBox2.ValueMember = "Value";
+
+            comboBox2.SelectedIndex = 0;
+        }
+
+        public void setTimeFilters() {
+
+            string todayDate = DateTime.Now.ToShortDateString();
+
+            TiempoI = DateTime.Parse(todayDate + " 00:00:00");
+            TiempoF = DateTime.Parse(todayDate + " 23:59:59");
+
+            dateTimePicker1.Value = TiempoI;
+            dateTimePicker2.Value = TiempoF;
+        }
+
+
+        public void FilteredResults() {
+            // Prevent exception when hiding rows out of view
+            //CurrencyManager currencyManager = (CurrencyManager)BindingContext[dataGridView1.DataSource];
+            //currencyManager.SuspendBinding();
+
+            // Show all lines
+            for (int u = 0; u < dataGridView1.RowCount; u++)
+            {
+                dataGridView1.Rows[u].Visible = true;
+            }
+
+            string valor = "";
+
+            // Hide the ones that you want with the filter you want.
+            for (int u = 0; u < dataGridView1.RowCount; u++)
+            {
+                valor = dataGridView1.Rows[u].Cells[indexSearch].Value.ToString();
+                var fechaInicioFila = dataGridView1.Rows[u].Cells[HoraInicio.Index].Value;
+                if (DateTime.TryParse(fechaInicioFila.ToString(), out _))
+                {
+
+                }
+
+                if ((valor == stringSearch || stringSearch == ""))
+                {
+                    dataGridView1.Rows[u].Visible = true;
+                }
+                else
+                {
+                    dataGridView1.Rows[u].Visible = false;
+                }
+            }
+
+            // Resume data grid view binding
+            //currencyManager.ResumeBinding();
+        }
+
+        public async void GetActiveChats()
         {
             string agentId = GlobalSocket.currentUser.ID.ToString();
             var data = await rh.RecoverAllActiveChats(agentId);
             var cleanData = (JObject)JsonConvert.DeserializeObject(data);
             var algo = cleanData["data"].Children();
 
-            DataTable table = new DataTable();
-            table.Columns.Add("ID Chat", typeof(int));
-            table.Columns.Add("ID Agente", typeof(int));
-            table.Columns.Add("Agente asignado", typeof(string));
-            table.Columns.Add("Hora de inicio", typeof(string));
-            table.Columns.Add("Plataforma", typeof(string));
+            //DataTable table = new DataTable();
+
+            //table.Columns.Add("ID Chat", typeof(int));
+            //table.Columns.Add("ID Agente", typeof(int));
+            //table.Columns.Add("Agente asignado", typeof(string));
+            //table.Columns.Add("Hora de inicio", typeof(string));
+            //table.Columns.Add("Plataforma", typeof(string));
             //table.Columns.Add("Chats del agente", typeof(string));
             //table.Columns.Add("Chats Max. del agente", typeof(string));
 
@@ -53,27 +133,63 @@ namespace LoginForms
                 var agent = item["asignedAgent"].Value<string>();
                 var hora = item["startTime"].Value<string>();
                 var platform = item["platformIdentifier"].Value<string>();
-                var activeChats = item["activeChats"].Value<string>();
-                var maxActiveChats = item["maxActiveChats"].Value<string>();
+                //var activeChats = item["activeChats"].Value<string>();
+                //var maxActiveChats = item["maxActiveChats"].Value<string>();
 
-                table.Rows.Add(chatId, userId, agent, hora, platform);
+                dataGridView1.Rows.Add(chatId, userId, agent, hora, platform);
+                //table.Rows.Add(chatId, userId, agent, hora, platform);
             }
 
-            dataGridView1.DataSource = table;
+            //dataGridView1.DataSource = table;
 
-            DataGridViewButtonColumn detailsButtonColumn = new DataGridViewButtonColumn();
-            detailsButtonColumn.Name = "Transferir";
-            detailsButtonColumn.Text = "Transferir";
-            int columnIndex = 5;
-            detailsButtonColumn.UseColumnTextForButtonValue = true;
-            if (dataGridView1.Columns["Transferir"] == null)
-            {
-                dataGridView1.Columns.Insert(columnIndex, detailsButtonColumn);
-            }
+            //DataGridViewButtonColumn detailsButtonColumn = new DataGridViewButtonColumn
+            //{
+            //    Name = "Transferir",
+            //    Text = "Transferir"
+            //};
+            //int columnIndex = 5;
+            //detailsButtonColumn.UseColumnTextForButtonValue = true;
+            //if (dataGridView1.Columns["Transferir"] == null)
+            //{
+            //    dataGridView1.Columns.Insert(columnIndex, detailsButtonColumn);
+            //}
 
         }
 
-        private async void getAllAgentsAsync()
+        public async void RefreshDataGridView() {
+            try
+            {
+                //Este metodo no muestra resultado despues
+                dataGridView1.Rows.Clear();
+
+                string agentId = GlobalSocket.currentUser.ID.ToString();
+                var data = await rh.RecoverAllActiveChats(agentId);
+                var cleanData = (JObject)JsonConvert.DeserializeObject(data);
+                var algo = cleanData["data"].Children();
+
+                foreach (var item in algo)
+                {
+                    var chatId = item["chatId"].Value<string>();
+                    var userId = item["userId"].Value<string>();
+                    var agent = item["asignedAgent"].Value<string>();
+                    var hora = item["startTime"].Value<string>();
+                    var platform = item["platformIdentifier"].Value<string>();
+                    var activeChats = item["activeChats"].Value<string>();
+                    var maxActiveChats = item["maxActiveChats"].Value<string>();
+
+                    dataGridView1.Rows.Add(chatId, userId, agent, hora, platform);
+                }
+
+                dataGridView1.Refresh();
+
+            }
+            catch (Exception _e)
+            {
+                throw _e;
+            }
+        }
+
+        private async void GetAllAgentsAsync()
         {
             try
             {
@@ -119,68 +235,67 @@ namespace LoginForms
                 var row = dataGridView1.CurrentRow;
                 groupBox1.Visible = true;
 
-                currentAgentId = int.Parse(textBox1.Text = row.Cells[2].Value.ToString());
-                textBox1.Text = row.Cells[3].Value.ToString();
+                currentAgentId = int.Parse(row.Cells[1].Value.ToString());
+                currentAgentName = row.Cells[2].Value.ToString();
+                textBox1.Text = row.Cells[2].Value.ToString();
                 textBox1.Enabled = false;
-                chatId = int.Parse(row.Cells[1].Value.ToString());
+                chatId = int.Parse(row.Cells[0].Value.ToString());
                 
                 Iniciado = true;
+                
 
-
-                //MessageBox.Show("Detalles del chat: \nAsignado al agente:"+row.Cells[3].Value);
-                //MessageBox.Show("Esta seguro(a) que desea transferir este chat?");
             }
         }
 
         private async void button1_ClickAsync(object sender, EventArgs e)
         {
-            if (currentAgentId == transferAgentId)
+            try
             {
-                MessageBox.Show("No puede transferir el chat al mismo agente");
-            }
-            else
-            {
-                var estado = await rh.validateTransferAgent(transferAgentId.ToString());
-                var cleanData = (JObject)JsonConvert.DeserializeObject(estado);
-                var algo = cleanData["data"];
-
-                var capacidad = algo["capacidad"].Value<bool>();
-                var disponibilidad = algo["disponibilidad"].Value<bool>();
-                
-                Console.WriteLine("\nEstado del agente a transferir:" + estado.ToString());
-
-                if (capacidad == true && disponibilidad == true)
+                if (currentAgentId == transferAgentId)
                 {
-                    DialogResult result = MessageBox.Show("Esta seguro de que desea transferir el chat a \n" + transferAgentName + " ? ", "Advertencia", MessageBoxButtons.YesNo);
-                    if (result == DialogResult.Yes)
-                    {
-                        MessageBox.Show("Se transferira el chat");
-                        
-                        var respuestaTransferncia = await rh.transferChat(currentAgentId.ToString(), transferAgentId.ToString(), chatId.ToString());
-                        var cleanRespuesta = (JObject)JsonConvert.DeserializeObject(respuestaTransferncia);
-                        var Respuesta = cleanRespuesta["data"];
-
-                        if (Respuesta.HasValues)
-                        {
-                            MessageBox.Show("Se ha transferido el chat correctamente");
-                        }
-                        //var cleanResult = (JObject)JsonConvert.DeserializeObject(respuestaTransferncia);
-                        //var temp = cleanResult["data"];
-
-                        //var platformIdentifier = temp["platformIdentifier"].Value<string>();
-                        //var clientPlatformIdentifier = temp["clientPlatformIdentifier"].Value<string>();
-
-                    }
-                    else
-                    {
-                        MessageBox.Show("Se ha cancelado la transferencia del chat");
-                    }
+                    MessageBox.Show("No puede transferir el chat al mismo agente");
                 }
                 else
                 {
-                    MessageBox.Show("El agente seleccionado no puede atender el chat en este momento");
-                }
+                    var estado = await rh.validateTransferAgent(transferAgentId.ToString());
+                    var cleanData = (JObject)JsonConvert.DeserializeObject(estado);
+                    var algo = cleanData["data"];
 
+                    var capacidad = algo["capacidad"].Value<bool>();
+                    var disponibilidad = algo["disponibilidad"].Value<bool>();
+
+                    Console.WriteLine("\nEstado del agente a transferir:" + estado.ToString());
+
+                    if (capacidad == true && disponibilidad == true)
+                    {
+                        DialogResult result = MessageBox.Show("Esta seguro de que desea transferir el chat a \n" + transferAgentName + " ? ", "Advertencia", MessageBoxButtons.YesNo);
+                        if (result == DialogResult.Yes)
+                        {
+                            var respuestaTransferncia = await rh.transferChat(currentAgentId.ToString(), transferAgentId.ToString(), chatId.ToString());
+                            if (respuestaTransferncia == "OK")
+                            {
+                                MessageBox.Show("Se ha transferido el chat correctamente");
+
+                                currentAgentName = transferAgentName;
+                                currentAgentId = transferAgentId;
+                                textBox1.Text = currentAgentName;
+                                RefreshDataGridView();
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Se ha cancelado la transferencia del chat");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("El agente seleccionado no puede atender el chat en este momento");
+                    }
+                }
+            }
+            catch (Exception _e)
+            {
+                throw _e;
             }
         }
 
@@ -190,8 +305,33 @@ namespace LoginForms
             {
                 transferAgentId = int.Parse(comboBox1.SelectedValue.ToString());
                 transferAgentName = comboBox1.Text;
-                MessageBox.Show("Agente Seleccionado:" + comboBox1.Text + "\nIdentificador:" + comboBox1.SelectedValue);
+                //MessageBox.Show("Agente Seleccionado:" + comboBox1.Text + "\nIdentificador:" + comboBox1.SelectedValue);
             }
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+                indexSearch = comboBox2.SelectedIndex;
+                Console.WriteLine("\nIndice seleccionado:" + indexSearch + "\nColumna:" + comboBox1.GetItemText(comboBox2.SelectedItem));
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            var tiempoInicial = dateTimePicker1.Value;
+            var tiempoFinal = dateTimePicker2.Value;
+
+            TiempoI = DateTime.Parse(tiempoInicial.ToString());
+            TiempoF = DateTime.Parse(tiempoFinal.ToString());
+
+            Console.WriteLine("\nHora del primer timer:" +tiempoInicial +"\nHora del segudo timer:"+tiempoFinal );
+
+            stringSearch = textBox2.Text.Trim();
+            FilteredResults();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            groupBox1.Visible = false;
         }
     }
 }

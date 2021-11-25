@@ -1,21 +1,21 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Gwynbleidd J\\Documents\\Omnicanal Project\\omnicanal_app\\LoginForms\\LoginForms.csproj": {}
+    "C:\\Users\\KODE\\Documents\\omnicanal_app\\LoginForms\\LoginForms.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Gwynbleidd J\\Documents\\Omnicanal Project\\omnicanal_app\\LoginForms\\LoginForms.csproj": {
+    "C:\\Users\\KODE\\Documents\\omnicanal_app\\LoginForms\\LoginForms.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Gwynbleidd J\\Documents\\Omnicanal Project\\omnicanal_app\\LoginForms\\LoginForms.csproj",
+        "projectUniqueName": "C:\\Users\\KODE\\Documents\\omnicanal_app\\LoginForms\\LoginForms.csproj",
         "projectName": "LoginForms",
-        "projectPath": "C:\\Users\\Gwynbleidd J\\Documents\\Omnicanal Project\\omnicanal_app\\LoginForms\\LoginForms.csproj",
-        "packagesPath": "C:\\Users\\Gwynbleidd J\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Gwynbleidd J\\Documents\\Omnicanal Project\\omnicanal_app\\LoginForms\\obj\\",
+        "projectPath": "C:\\Users\\KODE\\Documents\\omnicanal_app\\LoginForms\\LoginForms.csproj",
+        "packagesPath": "C:\\Users\\KODE\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\KODE\\Documents\\omnicanal_app\\LoginForms\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
         "configFilePaths": [
-          "C:\\Users\\Gwynbleidd J\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\KODE\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
