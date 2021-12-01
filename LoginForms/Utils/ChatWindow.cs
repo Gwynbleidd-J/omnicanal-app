@@ -103,10 +103,15 @@ namespace LoginForms.Utils
                 tbPageChat.clientPlatformIdentifier = temp.clientPlatformIdentifier;
                 //tbControlChats.Controls.Add(tbPageChat.tbPage);
 
+                Console.WriteLine("\nSe ha creado el siguiente objeto tbPageChat:" +  tbPageChat.ToString());
+
                 tbPageChat.addEmptyControls();
                 //tbPageChat.threadBuildTabPage();
                 tbPageChat.threadBuildTabPage();
                 tbPageChatTemporal = tbPageChat;
+
+                Console.WriteLine("Antes de agregar el tab, la cuenta de controles era:" +tbControlChats.Controls.Count +"\n y el arreglo:" +arrTabPage.Count);
+
                 //tbControlChats.Controls.Add(tbPageChatTemporal);
                 //tbControlChats.TabPages.Add(tbPageChatTemporal.tbPage);
                 tbControlChats.Controls.Add(tbPageChatTemporal.tbPage);
@@ -115,6 +120,8 @@ namespace LoginForms.Utils
 
                 //arrTabPage[nextTabPagePosition] = tbPageChatTemporal;
                 arrTabPageChat.Add(tbPageChatTemporal);
+
+                Console.WriteLine("Despues de agregar el tab, la cuenta de controles es:" + tbControlChats.Controls.Count + "\n y el arreglo:" + arrTabPage.Count);
 
                 addImageTab(tbControlChats, tbPageChatTemporal);
                 //nextTabPagePosition++;

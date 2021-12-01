@@ -302,6 +302,7 @@ namespace LoginForms.Utils
                 //Implementar el uso de páneles independientes para resolver el espaciado creciente en el panel de mensajes
                 //Label lastLabel = new Label();
                 Json jsonChatMessagestHistoric = JsonConvert.DeserializeObject<Json>(chatMessagestHistoric);
+                Console.WriteLine("\nSe han recuperado "+jsonChatMessagestHistoric.data.messages.Count +" mensajes del chat "+jsonChatMessagestHistoric.data.messages[0].chatId);
 
                 for (int i = jsonChatMessagestHistoric.data.messages.Count - 1; i >= 0; i--)
                 {

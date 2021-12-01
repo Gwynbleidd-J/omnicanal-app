@@ -314,17 +314,20 @@ namespace LoginForms
             }
         }
 
-        public void buildExistingTabChat(Models.Message data) {
-            try
-            {
-                buildNewTabChat(data);
-                buildNewMessagesLabels(data);
-            }
-            catch (Exception _e)
-            {
-                throw _e;
-            }
-        }
+        //public void buildExistingTabChat(Models.Message data) {
+        //    try
+        //    {
+        //        //buildNewTabChat(data);
+        //        //buildNewMessagesLabels(data);
+
+        //        treatNotification(data);
+
+        //    }
+        //    catch (Exception _e)
+        //    {
+        //        throw _e;
+        //    }
+        //}
          
         public bool tabChatExits(string chatId)
         {

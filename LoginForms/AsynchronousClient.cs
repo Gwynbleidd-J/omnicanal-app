@@ -322,7 +322,10 @@ namespace LoginForms
                     Object.platformIdentifier = algo["platformIdentifier"].Value<string>();
                     Object.clientPlatformIdentifier = algo["clientPlatformIdentifier"].Value<string>();
 
-                    new Prueba().buildExistingTabChat(Object);
+                    Console.WriteLine("El objeto chat creado es este:" + JsonConvert.SerializeObject(Object).ToString());
+
+                    prueba.treatNotification(Object);
+                    //prueba.buildExistingTabChat(Object);
                 }
                 else if (jobject.ContainsKey("socketPort")) {
                     var port = jobject.Value<string>("socketPort");
