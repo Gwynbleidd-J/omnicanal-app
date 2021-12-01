@@ -332,7 +332,7 @@ namespace LoginForms
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == dataGridView1.Columns["Transferir"].Index && e.RowIndex > 0)
+            if (e.ColumnIndex == dataGridView1.Columns["Transferir"].Index && e.RowIndex >= 0)
             {
 
                 //solidGauge1.Value = double.Parse(textBox2.Text);

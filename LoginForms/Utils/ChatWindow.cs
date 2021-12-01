@@ -181,6 +181,11 @@ namespace LoginForms.Utils
                     var obj = (Models.Message)temp;
                     tbControlChats.Invoke(new Action(() => AddNewMessages(obj)));
                 }
+                else
+                {
+                    var obj = (Models.Message)temp;
+                    AddNewMessages(obj);
+                }
                     
             }
             catch (Exception ex)

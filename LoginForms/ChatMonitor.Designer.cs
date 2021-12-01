@@ -33,6 +33,12 @@ namespace LoginForms
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChatMonitor));
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.idChat = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.idAgente = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.agente = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.HoraInicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.plataforma = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Transferir = new System.Windows.Forms.DataGridViewButtonColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
@@ -41,12 +47,12 @@ namespace LoginForms
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.button3 = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.solidGauge1 = new LiveCharts.WinForms.SolidGauge();
             this.solidGauge2 = new LiveCharts.WinForms.SolidGauge();
             this.solidGauge3 = new LiveCharts.WinForms.SolidGauge();
@@ -54,12 +60,6 @@ namespace LoginForms
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.idChat = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.idAgente = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.agente = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.HoraInicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.plataforma = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Transferir = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -101,6 +101,66 @@ namespace LoginForms
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
+            // idChat
+            // 
+            this.idChat.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.idChat.Frozen = true;
+            this.idChat.HeaderText = "ID Chat";
+            this.idChat.MinimumWidth = 6;
+            this.idChat.Name = "idChat";
+            this.idChat.ReadOnly = true;
+            this.idChat.Width = 77;
+            // 
+            // idAgente
+            // 
+            this.idAgente.Frozen = true;
+            this.idAgente.HeaderText = "ID Agente";
+            this.idAgente.MinimumWidth = 6;
+            this.idAgente.Name = "idAgente";
+            this.idAgente.ReadOnly = true;
+            this.idAgente.Width = 91;
+            // 
+            // agente
+            // 
+            this.agente.Frozen = true;
+            this.agente.HeaderText = "Agente asignado";
+            this.agente.MinimumWidth = 6;
+            this.agente.Name = "agente";
+            this.agente.ReadOnly = true;
+            this.agente.Width = 132;
+            // 
+            // HoraInicio
+            // 
+            this.HoraInicio.Frozen = true;
+            this.HoraInicio.HeaderText = "Hora de Inicio";
+            this.HoraInicio.MinimumWidth = 6;
+            this.HoraInicio.Name = "HoraInicio";
+            this.HoraInicio.ReadOnly = true;
+            this.HoraInicio.Width = 114;
+            // 
+            // plataforma
+            // 
+            this.plataforma.Frozen = true;
+            this.plataforma.HeaderText = "Plataforma";
+            this.plataforma.MinimumWidth = 6;
+            this.plataforma.Name = "plataforma";
+            this.plataforma.ReadOnly = true;
+            this.plataforma.Width = 105;
+            // 
+            // Transferir
+            // 
+            this.Transferir.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Transferir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Transferir.Frozen = true;
+            this.Transferir.HeaderText = "Transferir";
+            this.Transferir.MinimumWidth = 6;
+            this.Transferir.Name = "Transferir";
+            this.Transferir.ReadOnly = true;
+            this.Transferir.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Transferir.Text = "Transferir";
+            this.Transferir.UseColumnTextForButtonValue = true;
+            this.Transferir.Width = 76;
+            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.button2);
@@ -109,7 +169,7 @@ namespace LoginForms
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.textBox1);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(976, 674);
+            this.groupBox1.Location = new System.Drawing.Point(549, 546);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(470, 171);
             this.groupBox1.TabIndex = 1;
@@ -186,19 +246,6 @@ namespace LoginForms
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = " Buscar";
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(994, 37);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(100, 50);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 10;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
-            this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
-            // 
             // dateTimePicker2
             // 
             this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Time;
@@ -249,6 +296,19 @@ namespace LoginForms
             this.comboBox2.TabIndex = 0;
             this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(994, 37);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(100, 50);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 10;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
+            this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
+            // 
             // solidGauge1
             // 
             this.solidGauge1.Font = new System.Drawing.Font("Calibri Light", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -268,7 +328,7 @@ namespace LoginForms
             // 
             // solidGauge3
             // 
-            this.solidGauge3.Location = new System.Drawing.Point(573, 519);
+            this.solidGauge3.Location = new System.Drawing.Point(58, 519);
             this.solidGauge3.Name = "solidGauge3";
             this.solidGauge3.Size = new System.Drawing.Size(161, 161);
             this.solidGauge3.TabIndex = 5;
@@ -276,7 +336,7 @@ namespace LoginForms
             // 
             // solidGauge4
             // 
-            this.solidGauge4.Location = new System.Drawing.Point(810, 519);
+            this.solidGauge4.Location = new System.Drawing.Point(295, 519);
             this.solidGauge4.Name = "solidGauge4";
             this.solidGauge4.Size = new System.Drawing.Size(160, 161);
             this.solidGauge4.TabIndex = 6;
@@ -296,7 +356,7 @@ namespace LoginForms
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Calibri", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(597, 683);
+            this.label4.Location = new System.Drawing.Point(423, 720);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(80, 17);
             this.label4.TabIndex = 8;
@@ -306,71 +366,11 @@ namespace LoginForms
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Calibri", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(822, 683);
+            this.label5.Location = new System.Drawing.Point(819, 720);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(100, 17);
             this.label5.TabIndex = 9;
             this.label5.Text = " Save this month";
-            // 
-            // idChat
-            // 
-            this.idChat.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.idChat.Frozen = true;
-            this.idChat.HeaderText = "ID Chat";
-            this.idChat.MinimumWidth = 6;
-            this.idChat.Name = "idChat";
-            this.idChat.ReadOnly = true;
-            this.idChat.Width = 77;
-            // 
-            // idAgente
-            // 
-            this.idAgente.Frozen = true;
-            this.idAgente.HeaderText = "ID Agente";
-            this.idAgente.MinimumWidth = 6;
-            this.idAgente.Name = "idAgente";
-            this.idAgente.ReadOnly = true;
-            this.idAgente.Width = 91;
-            // 
-            // agente
-            // 
-            this.agente.Frozen = true;
-            this.agente.HeaderText = "Agente asignado";
-            this.agente.MinimumWidth = 6;
-            this.agente.Name = "agente";
-            this.agente.ReadOnly = true;
-            this.agente.Width = 132;
-            // 
-            // HoraInicio
-            // 
-            this.HoraInicio.Frozen = true;
-            this.HoraInicio.HeaderText = "Hora de Inicio";
-            this.HoraInicio.MinimumWidth = 6;
-            this.HoraInicio.Name = "HoraInicio";
-            this.HoraInicio.ReadOnly = true;
-            this.HoraInicio.Width = 114;
-            // 
-            // plataforma
-            // 
-            this.plataforma.Frozen = true;
-            this.plataforma.HeaderText = "Plataforma";
-            this.plataforma.MinimumWidth = 6;
-            this.plataforma.Name = "plataforma";
-            this.plataforma.ReadOnly = true;
-            this.plataforma.Width = 105;
-            // 
-            // Transferir
-            // 
-            this.Transferir.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Transferir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Transferir.Frozen = true;
-            this.Transferir.HeaderText = "Transferir";
-            this.Transferir.MinimumWidth = 6;
-            this.Transferir.Name = "Transferir";
-            this.Transferir.ReadOnly = true;
-            this.Transferir.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Transferir.Text = "Transferir";
-            this.Transferir.UseColumnTextForButtonValue = true;
-            this.Transferir.Width = 76;
             // 
             // ChatMonitor
             // 
