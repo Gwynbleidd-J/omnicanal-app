@@ -318,6 +318,7 @@ namespace LoginForms
             try
             {
                 buildNewTabChat(data);
+                buildNewMessagesLabels(data);
             }
             catch (Exception _e)
             {
