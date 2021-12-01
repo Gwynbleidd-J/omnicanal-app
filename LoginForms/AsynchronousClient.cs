@@ -305,7 +305,7 @@ namespace LoginForms
                 else if (jobject.ContainsKey("closeTransferChat")) {
                     Console.WriteLine("\nEl id del chat es: " + jobject.Value<string>("chatId"));
 
-                    TabPageChat chat = new Prueba().getTabChatByChatId(jobject.Value<string>("chatId"));
+                    TabPageChat chat = prueba.getTabChatByChatId(jobject.Value<string>("chatId"));
                     chat.removeTabChat();
 
                 } else if (jobject.ContainsKey("openTransferChat")) {
@@ -325,7 +325,6 @@ namespace LoginForms
                     Console.WriteLine("El objeto chat creado es este:" + JsonConvert.SerializeObject(Object).ToString());
 
                     prueba.treatNotification(Object);
-                    //prueba.buildExistingTabChat(Object);
                 }
                 else if (jobject.ContainsKey("socketPort")) {
                     var port = jobject.Value<string>("socketPort");

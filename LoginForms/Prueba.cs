@@ -523,13 +523,15 @@ namespace LoginForms
             {
                 TabPageChat chat = new TabPageChat();
                 string name = "";
+                string searchedName = "tabPageChat_" + chatId;
 
                 for (int position = 0; position < chatWindowLocal.arrTabPageChat.Count; position++)
                 {
                     name = chatWindowLocal.arrTabPageChat[position].tbPage.Name.ToString();
                     var sTabPAge = chatWindowLocal.arrTabPageChat[position];
+                    Console.WriteLine("Comparando "+name +" y " +searchedName);
 
-                    if (sTabPAge != null && name == "tabPageChat_" + chatId)
+                    if (sTabPAge != null && name == searchedName)
                     {
                         chat = chatWindowLocal.arrTabPageChat[position];
                     }

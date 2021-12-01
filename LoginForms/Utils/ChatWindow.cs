@@ -121,7 +121,7 @@ namespace LoginForms.Utils
                 //arrTabPage[nextTabPagePosition] = tbPageChatTemporal;
                 arrTabPageChat.Add(tbPageChatTemporal);
 
-                Console.WriteLine("Despues de agregar el tab, la cuenta de controles es:" + tbControlChats.Controls.Count + "\n y el arreglo:" + arrTabPage.Count);
+                Console.WriteLine("Despues de agregar el tab, la cuenta de controles es:" + tbControlChats.Controls.Count + "\n y el arreglo:" + arrTabPageChat.Count);
 
                 addImageTab(tbControlChats, tbPageChatTemporal);
                 //nextTabPagePosition++;
