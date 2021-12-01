@@ -1,10 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "nX64bVY1PUy2CJj+oY1DSsaYM8f7aGhIYo4jOXSpiPqhXXvwd2roET1H3aVv2kOh4/Pw6j0w3DSEVA0dIf12jw==",
+  "dgSpecHash": "Nu6uLECDyDudQiSUQvQjtha4sTHxxV6PcY01SlGfKdevn9HryO8MTL2xNXWfBAB1BLil5PMfZzJ9G4X+nInQww==",
   "success": true,
   "projectFilePath": "C:\\Users\\KODE\\Documents\\omnicanal_app\\LoginForms\\LoginForms.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\KODE\\.nuget\\packages\\entityframework\\6.2.0\\entityframework.6.2.0.nupkg.sha512",
+    "C:\\Users\\KODE\\.nuget\\packages\\livecharts\\0.9.7\\livecharts.0.9.7.nupkg.sha512",
+    "C:\\Users\\KODE\\.nuget\\packages\\livecharts.winforms\\0.9.7.1\\livecharts.winforms.0.9.7.1.nupkg.sha512",
+    "C:\\Users\\KODE\\.nuget\\packages\\livecharts.wpf\\0.9.7\\livecharts.wpf.0.9.7.nupkg.sha512",
     "C:\\Users\\KODE\\.nuget\\packages\\microsoft.aspnet.webapi.client\\4.0.20710\\microsoft.aspnet.webapi.client.4.0.20710.nupkg.sha512",
     "C:\\Users\\KODE\\.nuget\\packages\\microsoft.aspnet.webapi.core\\4.0.20710\\microsoft.aspnet.webapi.core.4.0.20710.nupkg.sha512",
     "C:\\Users\\KODE\\.nuget\\packages\\microsoft.aspnet.webapi.webhost\\4.0.20710\\microsoft.aspnet.webapi.webhost.4.0.20710.nupkg.sha512",

@@ -349,7 +349,10 @@ namespace LoginForms
             { 
                 //chatWindowLocal.chatGenerals = chatGenerals;
                 Thread tBuildNewTabChat = new Thread(chatWindowLocal.addTabPage);
-                tBuildNewTabChat.Start(chatGenerals);    
+                tBuildNewTabChat.Start(chatGenerals);
+
+                //Comprobar funcionalidad de la siguiente linea
+                tBuildNewTabChat.Join();
             }
             catch (Exception ex)
             {
@@ -365,7 +368,11 @@ namespace LoginForms
                 
                 //chatWindowLocal.chatGenerals = chatGenerals;
                 Thread tBuildNewMessagesLabels = new Thread(chatWindowLocal.threadAddNewMessages);
+                
                 tBuildNewMessagesLabels.Start(chatGenerals);
+
+                //Comprobar funcionalidad de la siguiente linea
+                tBuildNewMessagesLabels.Join();
             }
             catch (Exception ex)
             {
@@ -404,6 +411,8 @@ namespace LoginForms
                     fakeNotification.platformIdentifier = chatGenerals.platformIdentifier;
                     fakeNotification.clientPlatformIdentifier = chatGenerals.clientPlatformIdentifier;
                     treatNotification(fakeNotification);
+
+                    chatWindowLocal.firstRecoveredChatsLoading = true;
 
                     //Thread.Sleep(9000);
                 }

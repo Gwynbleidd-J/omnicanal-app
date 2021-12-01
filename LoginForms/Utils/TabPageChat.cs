@@ -113,12 +113,12 @@ namespace LoginForms.Utils
             try
             {
                 //tbPage = new TabPage();
-                if (platformIdentifier == "w")
-                    tbPage.Text = $"Mensaje desde Whatsapp: {chatId}";
-                else if (platformIdentifier == "t")
-                    tbPage.Text = $"Mensaje desde Telegram: {chatId}";
-                else if (platformIdentifier == "c")
-                    tbPage.Text = $"Mensaje desde Web: {chatId}";
+                //if (platformIdentifier == "w")
+                //    tbPage.Text = $"Mensaje desde Whatsapp: {chatId}";
+                //else if (platformIdentifier == "t")
+                //    tbPage.Text = $"Mensaje desde Telegram: {chatId}";
+                //else if (platformIdentifier == "c")
+                //    tbPage.Text = $"Mensaje desde Web: {chatId}";
 
                 tbPage.Name = $"tabPageChat_{chatId}"; 
                 tbPage.Tag = $"tabPageChat_{chatId}";

@@ -128,6 +128,8 @@ namespace LoginForms
                         f.Dock = DockStyle.Fill;
                         f.Focus();
                         f.Show();
+                        f.FormBorderStyle = FormBorderStyle.None;
+                        f.BackColor= SystemColors.ButtonHighlight;
                         client.prueba = f as Prueba;
                     };
                     dynamicButton.Click += (s, e) =>

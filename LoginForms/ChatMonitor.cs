@@ -10,6 +10,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Media;
+using LiveCharts.WinForms;
+using LiveCharts.Wpf;
+using LiveCharts.Defaults;
+using System.Windows;
+using MessageBox = System.Windows.Forms.MessageBox;
+using System.Threading;
 
 namespace LoginForms
 {
@@ -29,6 +36,7 @@ namespace LoginForms
         int indexSearch = 0;
         string stringSearch = "";
         bool fechaInicioSearch = false;
+        double dummy = 50;
 
         DateTime TiempoI = new DateTime();
         DateTime TiempoF = new DateTime();
@@ -40,6 +48,97 @@ namespace LoginForms
             GetAllAgentsAsync();
             FillSearchCombo();
             setTimeFilters();
+            SetSolidGauge();
+        }
+
+        public string stringFormatter(double valor) {
+            return valor.ToString();
+        }
+
+        public void SetSolidGauge() {
+            solidGauge1.Uses360Mode = true;
+            solidGauge1.From = 0;
+            solidGauge1.To = 100;
+            solidGauge1.Value = dummy;            
+
+            solidGauge1.Base.GaugeRenderTransform = new TransformGroup
+            {
+                Children = new TransformCollection
+                {
+                    new RotateTransform(90),
+                    //new ScaleTransform {ScaleX = -1}
+                }
+            };
+
+            solidGauge1.Base.GaugeActiveFill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(240, 53, 13));
+            solidGauge1.LabelFormatter = val => val.ToString() + "%";
+            
+            solidGauge1.FontWeight = FontWeights.Light;
+            solidGauge1.FontSize = 4;
+            solidGauge1.FontStyle = FontStyles.Normal;
+            solidGauge1.FontStretch = FontStretches.Condensed;
+            solidGauge1.HighFontSize = 12;
+            solidGauge1.FontFamily = System.Windows.SystemFonts.SmallCaptionFontFamily;
+
+            Font fontM = new Font("Times New Roman", 12.0f);
+            solidGauge1.Font = fontM;
+
+
+            solidGauge2.Uses360Mode = true;
+            solidGauge2.From = 0;
+            solidGauge2.To = 10000;
+            solidGauge2.Value = 2823;
+            //solidGauge2.HighFontSize = 30;
+            //solidGauge2.Base.Foreground = System.Windows.Media.Brushes.White;
+            solidGauge2.InnerRadius = 45;
+            //solidGauge2.GaugeBackground = new SolidColorBrush(System.Windows.Media.Color.FromRgb(71, 128, 181));
+            solidGauge2.Base.GaugeRenderTransform = new TransformGroup
+            {
+                Children = new TransformCollection
+                {
+                    new RotateTransform(90),
+                    //new ScaleTransform {ScaleX = -1}
+                }
+            };
+            //solidGauge2.FromColor = Colors.Blue;
+            //solidGauge2.ToColor = Colors.Black;
+            solidGauge2.LabelFormatter = val => val.ToString("$2823");
+            //solidGauge2.HighFontSize = 14;
+
+
+            solidGauge3.Uses360Mode = true;
+            solidGauge3.From = 0;
+            solidGauge3.To = 850;
+            solidGauge3.Value = 823;
+            solidGauge3.InnerRadius = 45;
+            solidGauge3.Base.GaugeRenderTransform = new TransformGroup
+            {
+                Children = new TransformCollection
+                {
+                    new RotateTransform(90),
+                }
+            };
+            solidGauge3.Base.GaugeActiveFill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(240, 53, 13));
+            solidGauge3.LabelFormatter = val => val.ToString("$823");
+            solidGauge3.HighFontSize = 14;
+
+
+
+            solidGauge4.Uses360Mode = true;
+            solidGauge4.From = 0;
+            solidGauge4.To = 32000;
+            solidGauge4.Value = 24276;
+            solidGauge4.InnerRadius = 40;
+            solidGauge4.Base.GaugeRenderTransform = new TransformGroup
+            {
+                Children = new TransformCollection
+                {
+                    new RotateTransform(90),
+                }
+            };
+            solidGauge4.LabelFormatter = val => val.ToString("$24 276");
+            solidGauge4.HighFontSize = 12;
+
         }
 
         public void FillSearchCombo() {
@@ -89,13 +188,16 @@ namespace LoginForms
             for (int u = 0; u < dataGridView1.RowCount; u++)
             {
                 valor = dataGridView1.Rows[u].Cells[indexSearch].Value.ToString();
-                var fechaInicioFila = dataGridView1.Rows[u].Cells[HoraInicio.Index].Value;
-                if (DateTime.TryParse(fechaInicioFila.ToString(), out _))
-                {
+                var temp = dataGridView1.Rows[u].Cells[HoraInicio.Index].Value;
+                DateTime fechaInicioFila = DateTime.Parse(temp.ToString());
 
-                }
 
-                if ((valor == stringSearch || stringSearch == ""))
+                //if (DateTime.TryParse(fechaInicioFila.ToString(), out fechaInicioFila))
+                //{
+
+                //}
+
+                if ((valor == stringSearch || stringSearch == "") && (fechaInicioFila >= TiempoI && fechaInicioFila <= TiempoF ))
                 {
                     dataGridView1.Rows[u].Visible = true;
                 }
@@ -230,8 +332,11 @@ namespace LoginForms
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == dataGridView1.Columns["Transferir"].Index)
+            if (e.ColumnIndex == dataGridView1.Columns["Transferir"].Index && e.RowIndex > 0)
             {
+
+                //solidGauge1.Value = double.Parse(textBox2.Text);
+
                 var row = dataGridView1.CurrentRow;
                 groupBox1.Visible = true;
 
@@ -332,6 +437,19 @@ namespace LoginForms
         private void button2_Click(object sender, EventArgs e)
         {
             groupBox1.Visible = false;
+        }
+
+        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
+        {
+            //Task.Run(() => pictureBox1.Image = Image.FromFile("C:/Users/KODE/Downloads/button_pressed.png") );            
+            pictureBox1.Image = Image.FromFile("C:/Users/KODE/Downloads/button_pressed.png");
+        }
+
+        private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
+        {
+            CallsView call = new CallsView();
+            call.Show();
+            pictureBox1.Image = Image.FromFile("C:/Users/KODE/Downloads/button.png");
         }
     }
 }

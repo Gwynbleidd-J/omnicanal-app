@@ -533,6 +533,12 @@ C:\Users\KODE\Documents\omnicanal_app\LoginForms\bin\Debug\LoginForms.exe
 C:\Users\KODE\Documents\omnicanal_app\LoginForms\bin\Debug\LoginForms.pdb
 C:\Users\KODE\Documents\omnicanal_app\LoginForms\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\KODE\Documents\omnicanal_app\LoginForms\bin\Debug\EntityFramework.dll
+C:\Users\KODE\Documents\omnicanal_app\LoginForms\bin\Debug\LiveCharts.dll
+C:\Users\KODE\Documents\omnicanal_app\LoginForms\bin\Debug\LiveCharts.pdb
+C:\Users\KODE\Documents\omnicanal_app\LoginForms\bin\Debug\LiveCharts.WinForms.dll
+C:\Users\KODE\Documents\omnicanal_app\LoginForms\bin\Debug\LiveCharts.WinForms.pdb
+C:\Users\KODE\Documents\omnicanal_app\LoginForms\bin\Debug\LiveCharts.Wpf.dll
+C:\Users\KODE\Documents\omnicanal_app\LoginForms\bin\Debug\LiveCharts.Wpf.pdb
 C:\Users\KODE\Documents\omnicanal_app\LoginForms\bin\Debug\System.Web.Http.dll
 C:\Users\KODE\Documents\omnicanal_app\LoginForms\bin\Debug\System.Web.Http.WebHost.dll
 C:\Users\KODE\Documents\omnicanal_app\LoginForms\bin\Debug\Microsoft.Toolkit.Uwp.Notifications.dll

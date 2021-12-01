@@ -38,6 +38,10 @@
               "target": "Package",
               "version": "[6.2.0, )"
             },
+            "LiveCharts.WinForms": {
+              "target": "Package",
+              "version": "[0.9.7.1, )"
+            },
             "Microsoft.AspNet.WebApi.Client": {
               "target": "Package",
               "version": "[4.0.20710, )"
