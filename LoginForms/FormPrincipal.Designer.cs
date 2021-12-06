@@ -110,6 +110,9 @@ namespace LoginForms
             // 
             // pnlChatMessages
             // 
+            this.pnlChatMessages.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlChatMessages.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlChatMessages.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.pnlChatMessages.Location = new System.Drawing.Point(244, 5);
@@ -170,7 +173,6 @@ namespace LoginForms
             this.Controls.Add(this.pnlChatMessages);
             this.Controls.Add(this.flpDynamicButtons);
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.MaximizeBox = false;
             this.Menu = this.mainMenu1;
             this.Name = "FormPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

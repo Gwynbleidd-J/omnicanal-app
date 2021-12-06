@@ -660,6 +660,7 @@ C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.Login.reso
 C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.MisAgentes.resources
 C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.NetworkCategories.resources
 C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.Prueba.resources
+C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.screenMonitor.resources
 C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.Telegram.resources
 C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.UserSignUp.resources
 C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.Properties.Resources.resources
@@ -667,6 +668,6 @@ C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.WebChat.re
 C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.WhatsApp.resources
 C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.csproj.GenerateResource.cache
 C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.csproj.CoreCompileInputs.cache
+C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.csproj.CopyComplete
 C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.exe
 C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.pdb
-C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.csproj.AssemblyReference.cache

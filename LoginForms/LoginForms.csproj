@@ -161,6 +161,12 @@
       <DependentUpon>Prueba.cs</DependentUpon>
     </Compile>
     <Compile Include="ScreenCapture.cs" />
+    <Compile Include="screenMonitor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="screenMonitor.Designer.cs">
+      <DependentUpon>screenMonitor.cs</DependentUpon>
+    </Compile>
     <Compile Include="StateObject.cs" />
     <Compile Include="Telegram.cs">
       <SubType>Form</SubType>
@@ -228,6 +234,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Prueba.resx">
       <DependentUpon>Prueba.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="screenMonitor.resx">
+      <DependentUpon>screenMonitor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Telegram.resx">
       <DependentUpon>Telegram.cs</DependentUpon>
@@ -339,5 +348,6 @@
   <ItemGroup>
     <None Include="Resources\button_pressed.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

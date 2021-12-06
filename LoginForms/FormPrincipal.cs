@@ -69,7 +69,7 @@ namespace LoginForms
             timer1_Tick(sender, e);
 
 
-
+            //this.WindowState = FormWindowState.Maximized;
         }
 
         private void button1_Click(object sender, EventArgs e)
