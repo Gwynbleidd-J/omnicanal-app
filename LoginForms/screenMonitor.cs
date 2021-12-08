@@ -162,8 +162,8 @@ namespace LoginForms
             //var data = await rh.getMonitoring();
             //Image x = (Bitmap)((new ImageConverter()).ConvertFrom(data));
             //pictureBox1.Image = x;
-            //await rh.startMonitoring(idAgent, idSupervisor);
-            await CaptureScreenshotAsync();
+            await rh.startMonitoring(idAgent, idSupervisor);
+            //await CaptureScreenshotAsync();
         }
 
         private async void timer1_Tick(object sender, EventArgs e)
