@@ -668,6 +668,6 @@ C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.WebChat.re
 C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.WhatsApp.resources
 C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.csproj.GenerateResource.cache
 C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.csproj.CoreCompileInputs.cache
-C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.csproj.CopyComplete
 C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.exe
 C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.pdb
+C:\Users\KODE\Documents\omnicanal_app\LoginForms\obj\Debug\LoginForms.csproj.AssemblyReference.cache

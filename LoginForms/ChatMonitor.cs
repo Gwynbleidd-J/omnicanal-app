@@ -41,6 +41,8 @@ namespace LoginForms
         DateTime TiempoI = new DateTime();
         DateTime TiempoF = new DateTime();
 
+        bool presionado = false;
+
         public ChatMonitor()
         {
             InitializeComponent();
@@ -102,7 +104,7 @@ namespace LoginForms
             };
             //solidGauge2.FromColor = Colors.Blue;
             //solidGauge2.ToColor = Colors.Black;
-            solidGauge2.LabelFormatter = val => val.ToString("$2823");
+            solidGauge2.LabelFormatter = val => "$" + val.ToString();
             //solidGauge2.HighFontSize = 14;
 
 
@@ -119,7 +121,7 @@ namespace LoginForms
                 }
             };
             solidGauge3.Base.GaugeActiveFill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(240, 53, 13));
-            solidGauge3.LabelFormatter = val => val.ToString("$823");
+            solidGauge3.LabelFormatter = val => "$"+val.ToString();
             solidGauge3.HighFontSize = 14;
 
 
@@ -136,7 +138,7 @@ namespace LoginForms
                     new RotateTransform(90),
                 }
             };
-            solidGauge4.LabelFormatter = val => val.ToString("$24 276");
+            solidGauge4.LabelFormatter = val => "$"+val.ToString();
             solidGauge4.HighFontSize = 12;
 
         }
@@ -447,9 +449,29 @@ namespace LoginForms
 
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
-            CallsView call = new CallsView();
-            call.Show();
+            //CallsView call = new CallsView();
+            //call.Show();
+
+            if (presionado)
+            {
+                solidGauge1.Value = solidGauge1.Value * 2;
+                solidGauge2.Value = solidGauge2.Value * 2;
+                solidGauge3.Value = solidGauge3.Value * 2;
+                solidGauge4.Value = solidGauge4.Value * 2;
+            }
+            else
+            {
+                solidGauge1.Value = solidGauge1.Value / 2;
+                solidGauge2.Value = solidGauge2.Value / 2;
+                solidGauge3.Value = solidGauge3.Value / 2;
+                solidGauge4.Value = solidGauge4.Value / 2;
+            }
+
+            presionado = !presionado;
+
             pictureBox1.Image = Image.FromFile("C:/Users/KODE/Downloads/button.png");
+            
+
         }
     }
 }

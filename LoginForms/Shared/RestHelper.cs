@@ -13,6 +13,8 @@ using System.IO;
 using System.Windows.Forms;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace LoginForms.Shared
 {
@@ -425,6 +427,80 @@ namespace LoginForms.Shared
             catch (Exception _e)
             {
                 throw _e;
+            }
+        }
+
+        public async Task<string> startMonitoring(int idAgente, int idSupervisor) {
+
+            var inputData = new Dictionary<string, string>
+            {
+                {"idAgente", idAgente.ToString() },
+                {"idSupervisor", idSupervisor.ToString() }
+            };
+            var input = new FormUrlEncodedContent(inputData);
+
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync(baseUrl + "record/startMonitoring", input);
+            Console.WriteLine(response);
+            HttpContent content = response.Content;
+            string data = response.StatusCode.ToString();
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            {
+                return data;
+            }
+            else {
+                return response.StatusCode.ToString();
+            }
+        }
+
+        public async Task<string> shareScreenshot(Bitmap bitImage, string idSupervisor) {
+
+            HttpContent stringContent = new StringContent(idSupervisor);
+            ImageConverter converter = new ImageConverter();
+            byte[] BArray = (byte[])converter.ConvertTo(bitImage, typeof(byte[]));
+
+            //HttpContent fileStreamContent = new StreamContent(fileStream);
+            HttpContent bytesContent = new ByteArrayContent(BArray);
+
+            //Setting type of file
+            bytesContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
+
+            using (var client = new HttpClient())
+            using (var formData = new MultipartFormDataContent())
+            {
+
+                // <input type="text" name="filename" />
+                formData.Add(bytesContent, "campo1", "campo1");
+                formData.Add(stringContent, "campo2", idSupervisor);
+
+                var response = await client.PostAsync(baseUrl + "record", formData);
+                HttpContent content = response.Content;
+                var data = await content.ReadAsStringAsync();
+
+                if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+                {
+                    return data;
+                }
+                else
+                {
+                    return response.StatusCode.ToString();
+                }
+            }
+        }
+
+        public async Task<byte[]> getMonitoring()
+        {
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.GetAsync(baseUrl + "record/screen/");
+            HttpContent content = response.Content;
+            var data = await content.ReadAsByteArrayAsync();
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            {
+                return data;
+            }
+            else
+            {
+                return null;
             }
         }
 

@@ -12,6 +12,8 @@ using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using Microsoft.Toolkit.Uwp.Notifications;
 using LoginForms.Utils;
+using System.IO;
+using System.Drawing.Imaging;
 
 namespace LoginForms
 {
@@ -77,7 +79,7 @@ namespace LoginForms
                 //Establish the remote endpoint for the socket.
                 IPAddress ipAddress = IPAddress.Parse("192.168.1.102");
                 //IPAddress ipAddress = IPAddress.Parse("201.149.34.171");
-                //IPAddress ipAddress = IPAddress.Parse("192.168.0.8");
+                //IPAddress ipAddress = IPAddress.Parse("192.168.1.145");
                 IPEndPoint remoteEP = new IPEndPoint(ipAddress, port);
                 
                 
@@ -326,6 +328,38 @@ namespace LoginForms
 
                     prueba.treatNotification(Object);
                 }
+                else if (jobject.ContainsKey("startMonitoring"))
+                {
+                    string idSupervisor = jobject.Value<string>("idSupervisor");
+                    Rectangle bounds = Screen.GetBounds(Point.Empty);
+
+                    //string appPath = Path.GetDirectoryName(Application.ExecutablePath) + @"\AgentScreenshots\";
+                    //if (Directory.Exists(appPath) == false)
+                    //{
+                    //    Directory.CreateDirectory(appPath);
+                    //}
+                    //string path = appPath + "image.jpeg";
+
+                    using (Bitmap bitmap = new Bitmap(bounds.Width, bounds.Height))
+                    {
+                        using (Graphics g = Graphics.FromImage(bitmap))
+                        {
+                            g.CopyFromScreen(Point.Empty, Point.Empty, bounds.Size);
+                            await rh.shareScreenshot(bitmap, idSupervisor);
+
+                            //bitmap.Save(path, ImageFormat.Jpeg);
+                            //pictureBox1.ImageLocation = path;
+                            //await rh.startMonitoring(bitmap.ToString(), path);
+                        }
+                    }
+                }
+                else if (jobject.ContainsKey("getMonitoring")) {
+
+                    //var data = await rh.getMonitoring();
+                    var temp = jobject;
+                    var temp2 = temp;
+
+                }
                 else if (jobject.ContainsKey("socketPort")) {
                     var port = jobject.Value<string>("socketPort");
                     Console.WriteLine("\nHola agente, tu puerto asignado por la API es:" + port);
@@ -336,15 +370,6 @@ namespace LoginForms
                     Models.Message notification = JsonConvert.DeserializeObject<Models.Message>(socketNotification);
 
                     Console.WriteLine("notificacion:" + notification);
-                    //if (notification.platformIdentifier != "c")
-                    //{
-                    //    prueba.treatNotification(notification);
-                    //}
-                    //else
-                    //{
-                    //    webChat.treatNotification(notification);
-                    //}
-
                     prueba.treatNotification(notification);
 
                 }
