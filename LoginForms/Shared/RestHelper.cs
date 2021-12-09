@@ -488,10 +488,16 @@ namespace LoginForms.Shared
             }
         }
 
-        public async Task<byte[]> getMonitoring()
+        public async Task<byte[]> getMonitoring(string imageName)
         {
+
+            var inputData = new Dictionary<string, string> {
+                {"image",imageName }
+            };
+            var input = new FormUrlEncodedContent(inputData);
+
             HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.GetAsync(baseUrl + "record/screen/");
+            HttpResponseMessage response = await client.PostAsync(baseUrl + "record/screen/", input);
             HttpContent content = response.Content;
             var data = await content.ReadAsByteArrayAsync();
             if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")

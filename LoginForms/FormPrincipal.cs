@@ -28,6 +28,7 @@ namespace LoginForms
         RestHelper rh = new RestHelper();
         Json jsonStatus;
         Login login;
+        screenMonitor ScreenMonitor;
         AsynchronousClient asynchronousClient = new AsynchronousClient();
         public string rolId;
         public FormPrincipal()//string agent
@@ -38,6 +39,7 @@ namespace LoginForms
             whatsApp = new WhatsApp();
             prueba = new Prueba();
             webchat = new WebChat();
+            ScreenMonitor = new screenMonitor();
 
             //this.IsMdiContainer = true;
             //whatsApp.MdiParent = this;
@@ -48,11 +50,11 @@ namespace LoginForms
             prueba.Parent = pnlChatMessages;
             prueba.ControlBox = false;
 
-            webchat.TopLevel = false;
-            webchat.Parent = pnlChatMessages;
-            webchat.ControlBox = false;
+            //webchat.TopLevel = false;
+            //webchat.Parent = pnlChatMessages;
+            //webchat.ControlBox = false;
             //prueba.Show();
-            client = new AsynchronousClient(whatsApp.rtxtResponseMessage, this, prueba, this, webchat);
+            client = new AsynchronousClient(whatsApp.rtxtResponseMessage, this, prueba, this, webchat, ScreenMonitor);
             //client.inicializarChatWindow();
         }
 

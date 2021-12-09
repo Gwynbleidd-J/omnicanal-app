@@ -2,7 +2,6 @@
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Net.Http;
 using System.Configuration;
@@ -18,7 +17,7 @@ namespace LoginForms
         RestHelper rh = new RestHelper();
         bool Iniciado = false;
         int idAgent = 0;
-        int idSupervisor = int.Parse(GlobalSocket.currentUser.ID);
+        int idSupervisor = 0;
         string transferAgentName = "";
 
         string path = "";
@@ -86,7 +85,7 @@ namespace LoginForms
             {
                 idAgent = int.Parse(comboBox1.SelectedValue.ToString());
                 transferAgentName = comboBox1.Text;
-                //MessageBox.Show("Agente Seleccionado:" + comboBox1.Text + "\nIdentificador:" + comboBox1.SelectedValue);
+                Console.WriteLine("El agente a monitorear es:" +idAgent +comboBox1.Text);
             }
         }
 
@@ -146,7 +145,7 @@ namespace LoginForms
                     //pictureBox1.ImageLocation = urlPath;
                     //File.Delete(path);
 
-                    var ImageData = await rh.getMonitoring();
+                    //var ImageData = await rh.getMonitoring();
 
 
                     return "";
@@ -157,11 +156,28 @@ namespace LoginForms
             }
         }
 
+        public void setImage(Image img, string PPath) {
+
+            pictureBox1.Invalidate();
+            pictureBox1.Image = Image.FromFile(PPath);
+            pictureBox1.ImageLocation = PPath;
+            pictureBox1.Refresh();
+            pictureBox1.Invalidate();
+        }
+        public void setImage( Bitmap imagen)
+        {
+
+            //pictureBox1.Invalidate();
+            pictureBox1.Image = imagen;
+            //pictureBox1.ImageLocation = PPath;
+            //pictureBox1.Refresh();
+            //pictureBox1.Invalidate();
+
+        }
+
         private async void button1_Click(object sender, EventArgs e)
         {
-            //var data = await rh.getMonitoring();
-            //Image x = (Bitmap)((new ImageConverter()).ConvertFrom(data));
-            //pictureBox1.Image = x;
+            idSupervisor = int.Parse(GlobalSocket.currentUser.ID);
             await rh.startMonitoring(idAgent, idSupervisor);
             //await CaptureScreenshotAsync();
         }
@@ -169,6 +185,16 @@ namespace LoginForms
         private async void timer1_Tick(object sender, EventArgs e)
         {
             await CaptureScreenshotAsync();
+        }
+
+        private void comboBox1_Click(object sender, EventArgs e)
+        {
+            Iniciado = true;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            pictureBox1.Image = Image.FromFile("C:\\Users\\KODE\\Documents\\omnicanal_app\\LoginForms\\bin\\Debug\\AgentScreenshots\\image.jpeg");
         }
     }
 }

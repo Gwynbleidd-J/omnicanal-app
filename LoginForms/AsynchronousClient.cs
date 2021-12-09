@@ -31,13 +31,15 @@ namespace LoginForms
         public Prueba prueba;
         public WebChat webChat;
         private Form fPrincipal;
+        public screenMonitor screenM;
         //private TabControl tbControlContainer;
         //private ChatWindow chatWindow;
         RestHelper rh = new RestHelper();
         ScreenCapture screen = new ScreenCapture();
+        screenMonitor scr = new screenMonitor();
 
         //Constructores
-        public AsynchronousClient(RichTextBox container, Form whatsapp, Prueba prueba, Form fPrincipal, WebChat webChat)
+        public AsynchronousClient(RichTextBox container, Form whatsapp, Prueba prueba, Form fPrincipal, WebChat webChat, screenMonitor screenMonitor)
         {
             try
             {
@@ -51,6 +53,7 @@ namespace LoginForms
 
                 //Se agrega referencia al nuevo form para probar funcionalidad de las construcción dinámica en otra ventana
                 this.webChat = webChat;
+                screenM = screenMonitor;
             }
             catch (Exception ex)
             {
@@ -357,8 +360,30 @@ namespace LoginForms
 
                     //var data = await rh.getMonitoring();
                     var temp = jobject;
-                    var temp2 = temp;
+                    var imageTemp = jobject.Value<string>("Image");
 
+                    var dataTemp = await rh.getMonitoring(imageTemp);
+                    using (var ms = new MemoryStream(dataTemp))
+                    {
+                        Image imagen = Image.FromStream(ms);
+                        //Bitmap bits = (Bitmap)imagen;
+                        Bitmap bits = new Bitmap(imagen);
+
+                        string appPath = Path.GetDirectoryName(Application.ExecutablePath) + @"\AgentScreenshots\";
+                        if (Directory.Exists(appPath) == false)
+                        {
+                            Directory.CreateDirectory(appPath);
+                        }
+                        string path = appPath + "image.jpeg";
+
+                        //bits.Save(path, ImageFormat.Jpeg);
+                        //screenM.setImage(bits);
+
+                        screenMonitor scrM = (screenMonitor)Application.OpenForms["screenMonitor"];
+                        scrM.setImage(bits);
+
+                        //scr.Invoke(new Action(() => scr.setImage(imagen)));
+                    }
                 }
                 else if (jobject.ContainsKey("socketPort")) {
                     var port = jobject.Value<string>("socketPort");
