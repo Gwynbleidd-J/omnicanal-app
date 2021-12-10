@@ -36,10 +36,9 @@ namespace LoginForms
         //private ChatWindow chatWindow;
         RestHelper rh = new RestHelper();
         ScreenCapture screen = new ScreenCapture();
-        screenMonitor scr = new screenMonitor();
 
         //Constructores
-        public AsynchronousClient(RichTextBox container, Form whatsapp, Prueba prueba, Form fPrincipal, WebChat webChat, screenMonitor screenMonitor)
+        public AsynchronousClient(RichTextBox container, Form whatsapp, Prueba prueba, Form fPrincipal, WebChat webChat)
         {
             try
             {
@@ -53,7 +52,6 @@ namespace LoginForms
 
                 //Se agrega referencia al nuevo form para probar funcionalidad de las construcción dinámica en otra ventana
                 this.webChat = webChat;
-                screenM = screenMonitor;
             }
             catch (Exception ex)
             {
@@ -80,7 +78,7 @@ namespace LoginForms
             try
             {
                 //Establish the remote endpoint for the socket.
-                IPAddress ipAddress = IPAddress.Parse("192.168.1.102");
+                IPAddress ipAddress = IPAddress.Parse("192.168.1.103");
                 //IPAddress ipAddress = IPAddress.Parse("201.149.34.171");
                 //IPAddress ipAddress = IPAddress.Parse("192.168.1.145");
                 IPEndPoint remoteEP = new IPEndPoint(ipAddress, port);
@@ -336,19 +334,19 @@ namespace LoginForms
                     string idSupervisor = jobject.Value<string>("idSupervisor");
                     Rectangle bounds = Screen.GetBounds(Point.Empty);
 
-                    //string appPath = Path.GetDirectoryName(Application.ExecutablePath) + @"\AgentScreenshots\";
-                    //if (Directory.Exists(appPath) == false)
-                    //{
-                    //    Directory.CreateDirectory(appPath);
-                    //}
-                    //string path = appPath + "image.jpeg";
-
                     using (Bitmap bitmap = new Bitmap(bounds.Width, bounds.Height))
                     {
                         using (Graphics g = Graphics.FromImage(bitmap))
                         {
                             g.CopyFromScreen(Point.Empty, Point.Empty, bounds.Size);
                             await rh.shareScreenshot(bitmap, idSupervisor);
+
+                            //string appPath = Path.GetDirectoryName(Application.ExecutablePath) + @"\AgentScreenshots\";
+                            //if (Directory.Exists(appPath) == false)
+                            //{
+                            //    Directory.CreateDirectory(appPath);
+                            //}
+                            //string path = appPath + "image.jpeg";
 
                             //bitmap.Save(path, ImageFormat.Jpeg);
                             //pictureBox1.ImageLocation = path;
@@ -366,7 +364,6 @@ namespace LoginForms
                     using (var ms = new MemoryStream(dataTemp))
                     {
                         Image imagen = Image.FromStream(ms);
-                        //Bitmap bits = (Bitmap)imagen;
                         Bitmap bits = new Bitmap(imagen);
 
                         string appPath = Path.GetDirectoryName(Application.ExecutablePath) + @"\AgentScreenshots\";
@@ -376,13 +373,8 @@ namespace LoginForms
                         }
                         string path = appPath + "image.jpeg";
 
-                        //bits.Save(path, ImageFormat.Jpeg);
-                        //screenM.setImage(bits);
-
                         screenMonitor scrM = (screenMonitor)Application.OpenForms["screenMonitor"];
                         scrM.setImage(bits);
-
-                        //scr.Invoke(new Action(() => scr.setImage(imagen)));
                     }
                 }
                 else if (jobject.ContainsKey("socketPort")) {

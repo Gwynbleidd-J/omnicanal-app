@@ -443,8 +443,9 @@ namespace LoginForms
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
-            //Task.Run(() => pictureBox1.Image = Image.FromFile("C:/Users/KODE/Downloads/button_pressed.png") );            
-            pictureBox1.Image = Image.FromFile("C:/Users/KODE/Downloads/button_pressed.png");
+            //Task.Run(() => pictureBox1.Image = Image.FromFile("C:/Users/KODE/Downloads/button_pressed.png") );
+            var pressed = Properties.Resources.button_pressed;
+            pictureBox1.Image = pressed;
         }
 
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
@@ -468,8 +469,8 @@ namespace LoginForms
             }
 
             presionado = !presionado;
-
-            pictureBox1.Image = Image.FromFile("C:/Users/KODE/Downloads/button.png");
+            var resting = Properties.Resources.button;
+            pictureBox1.Image = resting;
             
 
         }

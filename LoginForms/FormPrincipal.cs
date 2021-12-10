@@ -39,8 +39,6 @@ namespace LoginForms
             whatsApp = new WhatsApp();
             prueba = new Prueba();
             webchat = new WebChat();
-            ScreenMonitor = new screenMonitor();
-
             //this.IsMdiContainer = true;
             //whatsApp.MdiParent = this;
             //whatsApp.Show();
@@ -54,7 +52,7 @@ namespace LoginForms
             //webchat.Parent = pnlChatMessages;
             //webchat.ControlBox = false;
             //prueba.Show();
-            client = new AsynchronousClient(whatsApp.rtxtResponseMessage, this, prueba, this, webchat, ScreenMonitor);
+            client = new AsynchronousClient(whatsApp.rtxtResponseMessage, this, prueba, this, webchat);
             //client.inicializarChatWindow();
         }
 
