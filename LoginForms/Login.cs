@@ -12,7 +12,7 @@ namespace LoginForms
     public partial class Login : Form
     {
         readonly RestHelper rh = new RestHelper();
-        readonly AsynchronousClient asynchronousClient = new AsynchronousClient();
+        //readonly AsynchronousClient asynchronousClient = new AsynchronousClient();
 
         public Login()
         {

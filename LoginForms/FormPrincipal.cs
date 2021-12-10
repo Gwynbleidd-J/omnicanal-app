@@ -25,6 +25,7 @@ namespace LoginForms
         Prueba prueba;
         WebChat webchat;
         AsynchronousClient client;
+       //AsynchronousClientScreen screen;
         RestHelper rh = new RestHelper();
         Json jsonStatus;
         Login login;
@@ -53,6 +54,8 @@ namespace LoginForms
             webchat.ControlBox = false;
             //prueba.Show();
             client = new AsynchronousClient(whatsApp.rtxtResponseMessage, this, prueba, this, webchat);
+            //screen = new AsynchronousClientScreen();
+            
             //client.inicializarChatWindow();
         }
 
@@ -60,13 +63,18 @@ namespace LoginForms
         private void FormPrincipal_Load(object sender, EventArgs e)
         {
             Task task = new Task(client.Connect);
+            //Task task1 = new Task(screen.Connect);
+
             task.Start();
+            //task1.Wait(300);
+            //task1.Start();
             dynamicUserButtons();
             labelAgentStatus();
             comboBoxGetUserStatus();
             setStatusAgent();
             createAgentInformationForm();
-            timer1_Tick(sender, e);
+            //timer1.Start();
+            //timer1_Tick(sender, e);
 
 
 
@@ -241,11 +249,14 @@ namespace LoginForms
             return indidualId;
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            ScreenCapture screenCapture = new ScreenCapture();
-            screenCapture.CapturarPantalla();
-        }
+        //private void timer1_Tick(object sender, EventArgs e)
+        //{
+        //    ScreenCapture screenCapture = new ScreenCapture();
+        //    screenCapture.capturaPantalla();
+        //}
+
+
+
 
 
         //Metodos que no recuerdo para que se utilizan, pero deben de tener una utilidad
