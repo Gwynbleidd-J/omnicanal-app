@@ -7,6 +7,7 @@ using LoginForms.Shared;
 using System.Collections.Generic;
 using System.Text;
 using System.Diagnostics;
+using System.Threading;
 
 namespace LoginForms
 {
@@ -17,10 +18,13 @@ namespace LoginForms
         bool Monitoreando = false;
         int idAgent = 0;
         string Agent = "";
-        int idSupervisor = 0;
-        string tiempoMonitoreo = "1";
+        int idSupervisor = int.Parse(GlobalSocket.currentUser.ID);
+        string tiempoMonitoreo = "0";
         Stopwatch stopWatch = new Stopwatch();
         TimeSpan timeSpanTemp = new TimeSpan();
+        AsynchronousClient client = new AsynchronousClient();
+
+        int contador = 0;
 
         StringBuilder builder = new StringBuilder();
 
@@ -81,55 +85,65 @@ namespace LoginForms
             }
         }
 
-        public void setImage( Bitmap imagen)
+        private async void button1_Click(object sender, EventArgs e)
         {
-            pictureBox1.Image = imagen;
-        }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
             if (Monitoreando)
             {
+                AsynchronousClient.Monitoreando = false;
                 button1.Text = "Comenzar monitoreo";
-                timer1.Enabled = false;
+                //timer1.Enabled = false;
                 comboBox1.Enabled = true;
                 panel1.Visible = false;
                 stopWatch.Reset();
+                pictureBox1.Image = null;
+                textBox1.Text = "";
+                tiempoMonitoreo = "0";
+                Monitoreando = false;
+
             }
-            else {
+            else
+            {
                 button1.Text = "Detener monitoreo";
-                timer1.Enabled = true;
+                //timer1.Enabled = true;
                 comboBox1.Enabled = false;
                 stopWatch.Restart();
-
                 panel1.Visible = true;
                 builder.Length = 0;
+
                 builder.Append("Monitoreando a: ");
                 builder.AppendLine();
                 builder.AppendLine();
                 builder.AppendLine(Agent);
-
-                builder.AppendLine();
-                builder.AppendLine();
-                builder.Append("Tiempo monitoreando:" +tiempoMonitoreo);
                 textBox1.Text = builder.ToString();
 
+                Monitoreando = true;
+
+                AsynchronousClient.Monitoreando = true;
+                await rh.startMonitoring(idAgent, idSupervisor);
+
+                //while (Monitoreando)
+                //{
+                //    Thread.CurrentThread.Join(1000);
+                //    contador++;
+                //    Console.WriteLine("HOLA QUE HACE, LOOPEANDO O QUE HACE:" +contador);
+                //    rh.startMonitoring(idAgent, idSupervisor);
+                //}
+
             }
-            Monitoreando = !Monitoreando;
         }
 
         private async void timer1_Tick(object sender, EventArgs e)
         {
-            idSupervisor = int.Parse(GlobalSocket.currentUser.ID);
             await rh.startMonitoring(idAgent, idSupervisor);
-            timeSpanTemp = stopWatch.Elapsed;
-            if (timeSpanTemp.Seconds > 0)
-            {
-                string tempTiempoMonitoreo = tiempoMonitoreo;
-                tiempoMonitoreo = timeSpanTemp.Seconds.ToString();
-                builder.Replace(tempTiempoMonitoreo,tiempoMonitoreo);
-                textBox1.Text = builder.ToString();
-            }
+            //timeSpanTemp = stopWatch.Elapsed;
+            //if (timeSpanTemp.Seconds > 0)
+            //{
+            //    string tempTiempoMonitoreo = tiempoMonitoreo;
+            //    tiempoMonitoreo = timeSpanTemp.Seconds.ToString();
+            //    builder.Replace(tempTiempoMonitoreo,tiempoMonitoreo);
+            //    textBox1.Text = builder.ToString();
+            //}
             Console.WriteLine("Tick ejecutado por el timer");
         }
 

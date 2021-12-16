@@ -459,6 +459,9 @@ namespace LoginForms.Shared
             ImageConverter converter = new ImageConverter();
             byte[] BArray = (byte[])converter.ConvertTo(bitImage, typeof(byte[]));
 
+            string idAgente = GlobalSocket.currentUser.ID;
+            HttpContent agentContent = new StringContent(idAgente);
+
             //HttpContent fileStreamContent = new StreamContent(fileStream);
             HttpContent bytesContent = new ByteArrayContent(BArray);
 
@@ -472,6 +475,7 @@ namespace LoginForms.Shared
                 // <input type="text" name="filename" />
                 formData.Add(bytesContent, "campo1", "campo1");
                 formData.Add(stringContent, "campo2", idSupervisor);
+                formData.Add(agentContent, "campo3", idAgente);
 
                 var response = await client.PostAsync(baseUrl + "record", formData);
                 HttpContent content = response.Content;

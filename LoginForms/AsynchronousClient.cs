@@ -31,11 +31,11 @@ namespace LoginForms
         public Prueba prueba;
         public WebChat webChat;
         private Form fPrincipal;
-        public screenMonitor screenM;
         //private TabControl tbControlContainer;
         //private ChatWindow chatWindow;
         RestHelper rh = new RestHelper();
         ScreenCapture screen = new ScreenCapture();
+        public static bool Monitoreando = false;
 
         //Constructores
         public AsynchronousClient(RichTextBox container, Form whatsapp, Prueba prueba, Form fPrincipal, WebChat webChat)
@@ -332,33 +332,82 @@ namespace LoginForms
                 else if (jobject.ContainsKey("startMonitoring"))
                 {
                     string idSupervisor = jobject.Value<string>("idSupervisor");
-                    Rectangle bounds = Screen.GetBounds(Point.Empty);
 
-                    using (Bitmap bitmap = new Bitmap(bounds.Width, bounds.Height))
+                    //*******
+                    //Metodo alternativo para obtener la captura de pantalla del agente
+                    //*******
+
+                    // Determine the size of the "virtual screen", including all monitors.
+                    int screenLeft = SystemInformation.VirtualScreen.Left;
+                    int screenTop = SystemInformation.VirtualScreen.Top;
+                    int screenWidth = SystemInformation.VirtualScreen.Width;
+                    int screenHeight = SystemInformation.VirtualScreen.Height;
+
+                    // Create a bitmap of the appropriate size to receive the screenshot.
+                    using (Bitmap bmp = new Bitmap(screenWidth, screenHeight))
                     {
-                        using (Graphics g = Graphics.FromImage(bitmap))
+                        // Draw the screenshot into our bitmap.
+                        using (Graphics g = Graphics.FromImage(bmp))
                         {
-                            g.CopyFromScreen(Point.Empty, Point.Empty, bounds.Size);
-                            await rh.shareScreenshot(bitmap, idSupervisor);
+                            g.CopyFromScreen(screenLeft, screenTop, 0, 0, bmp.Size);
+                            await rh.shareScreenshot(bmp, idSupervisor);
 
-                            //string appPath = Path.GetDirectoryName(Application.ExecutablePath) + @"\AgentScreenshots\";
-                            //if (Directory.Exists(appPath) == false)
-                            //{
-                            //    Directory.CreateDirectory(appPath);
-                            //}
-                            //string path = appPath + "image.jpeg";
-
-                            //bitmap.Save(path, ImageFormat.Jpeg);
-                            //pictureBox1.ImageLocation = path;
-                            //await rh.startMonitoring(bitmap.ToString(), path);
                         }
                     }
+
+                    //string idSupervisor = jobject.Value<string>("idSupervisor");
+                    //Rectangle bounds = Screen.GetBounds(Point.Empty);
+
+                    //using (Bitmap bitmap = new Bitmap(bounds.Width, bounds.Height))
+                    //{
+                    //    using (Graphics g = Graphics.FromImage(bitmap))
+                    //    {
+                    //        g.CopyFromScreen(Point.Empty, Point.Empty, bounds.Size);
+                    //        await rh.shareScreenshot(bitmap, idSupervisor);
+                    //    }
+                    //}
+
+                    //******
+                    //Metodo para guardar mapa de bits como imagen y mostrarlo
+                    //******
+                    
+                    //string appPath = Path.GetDirectoryName(Application.ExecutablePath) + @"\AgentScreenshots\";
+                    //if (Directory.Exists(appPath) == false)
+                    //{
+                    //    Directory.CreateDirectory(appPath);
+                    //}
+                    //string path = appPath + "image.jpeg";
+
+                    //bitmap.Save(path, ImageFormat.Jpeg);
+                    //pictureBox1.ImageLocation = path;
+
                 }
                 else if (jobject.ContainsKey("getMonitoring")) {
 
-                    //var data = await rh.getMonitoring();
                     var temp = jobject;
                     var imageTemp = jobject.Value<string>("Image");
+                    var idSupervisor = jobject.Value<int>("idSupervisor");
+                    var idAgente = jobject.Value<int>("idAgente");
+
+                    Console.WriteLine("\nEl id del supervisor es:" +idSupervisor + "\nEl id del Agente es:" +idAgente + "\nEl estatus de monitoreo es:"+ Monitoreando);
+
+                    if (Monitoreando)
+                    {
+                        await rh.startMonitoring(idAgente, idSupervisor);
+                    }
+
+                    //*******
+                    //Este metodo obtiene la ruta desde el servidor y la pinta 
+                    //*******
+
+                    //string baseUrl = ConfigurationManager.AppSettings["IpServidor"];
+                    //string webPath = baseUrl + "monitoreo/uploads/" + imageTemp;
+                    //screenMonitor scrM = (screenMonitor)Application.OpenForms["screenMonitor"];
+                    //scrM.setImagePath(webPath);
+
+                    //******
+                    //Este metodo obtiene el nombe de la imagen en el servidor y hace una peticion para obtener toda la imagen
+                    //******
 
                     var dataTemp = await rh.getMonitoring(imageTemp);
                     using (var ms = new MemoryStream(dataTemp))
@@ -374,7 +423,8 @@ namespace LoginForms
                         string path = appPath + "image.jpeg";
 
                         screenMonitor scrM = (screenMonitor)Application.OpenForms["screenMonitor"];
-                        scrM.setImage(bits);
+                        PictureBox pic = (PictureBox)scrM.Controls["pictureBox1"];
+                        pic.Image = bits;
                     }
                 }
                 else if (jobject.ContainsKey("socketPort")) {
