@@ -19,12 +19,7 @@ namespace LoginForms
         int idAgent = 0;
         string Agent = "";
         int idSupervisor = int.Parse(GlobalSocket.currentUser.ID);
-        string tiempoMonitoreo = "0";
-        Stopwatch stopWatch = new Stopwatch();
-        TimeSpan timeSpanTemp = new TimeSpan();
-        AsynchronousClient client = new AsynchronousClient();
 
-        int contador = 0;
 
         StringBuilder builder = new StringBuilder();
 
@@ -34,8 +29,6 @@ namespace LoginForms
             GetAllAgentsAsync();          
 
             pictureBox1.MinimumSize = new Size(400, 400);
-            timer1.Enabled = false;
-            timer1.Interval = 1000;
             panel1.Visible = false;
             
         }
@@ -92,22 +85,17 @@ namespace LoginForms
             {
                 AsynchronousClient.Monitoreando = false;
                 button1.Text = "Comenzar monitoreo";
-                //timer1.Enabled = false;
                 comboBox1.Enabled = true;
                 panel1.Visible = false;
-                stopWatch.Reset();
-                pictureBox1.Image = null;
                 textBox1.Text = "";
-                tiempoMonitoreo = "0";
                 Monitoreando = false;
+                pictureBox1.Image = null;
 
             }
             else
             {
                 button1.Text = "Detener monitoreo";
-                //timer1.Enabled = true;
                 comboBox1.Enabled = false;
-                stopWatch.Restart();
                 panel1.Visible = true;
                 builder.Length = 0;
 
@@ -120,31 +108,17 @@ namespace LoginForms
                 Monitoreando = true;
 
                 AsynchronousClient.Monitoreando = true;
-                await rh.startMonitoring(idAgent, idSupervisor);
+                var response =  await rh.startMonitoring(idAgent, idSupervisor);
+                if (response == "InternalServerError")
+                {
+                    builder.Length = 0;
+                    builder.Append("El agente seleccionado no se encuentra conectado");
+                    textBox1.Text = builder.ToString();
+                }
 
-                //while (Monitoreando)
-                //{
-                //    Thread.CurrentThread.Join(1000);
-                //    contador++;
-                //    Console.WriteLine("HOLA QUE HACE, LOOPEANDO O QUE HACE:" +contador);
-                //    rh.startMonitoring(idAgent, idSupervisor);
-                //}
+                Console.WriteLine("La respuesta a la peticion es:" +response);
 
             }
-        }
-
-        private async void timer1_Tick(object sender, EventArgs e)
-        {
-            await rh.startMonitoring(idAgent, idSupervisor);
-            //timeSpanTemp = stopWatch.Elapsed;
-            //if (timeSpanTemp.Seconds > 0)
-            //{
-            //    string tempTiempoMonitoreo = tiempoMonitoreo;
-            //    tiempoMonitoreo = timeSpanTemp.Seconds.ToString();
-            //    builder.Replace(tempTiempoMonitoreo,tiempoMonitoreo);
-            //    textBox1.Text = builder.ToString();
-            //}
-            Console.WriteLine("Tick ejecutado por el timer");
         }
 
         private void comboBox1_Click(object sender, EventArgs e)

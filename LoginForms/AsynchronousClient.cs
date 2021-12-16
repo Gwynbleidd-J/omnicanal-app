@@ -78,7 +78,7 @@ namespace LoginForms
             try
             {
                 //Establish the remote endpoint for the socket.
-                IPAddress ipAddress = IPAddress.Parse("192.168.1.103");
+                IPAddress ipAddress = IPAddress.Parse("192.168.1.84");
                 //IPAddress ipAddress = IPAddress.Parse("201.149.34.171");
                 //IPAddress ipAddress = IPAddress.Parse("192.168.1.145");
                 IPEndPoint remoteEP = new IPEndPoint(ipAddress, port);
@@ -355,22 +355,10 @@ namespace LoginForms
                         }
                     }
 
-                    //string idSupervisor = jobject.Value<string>("idSupervisor");
-                    //Rectangle bounds = Screen.GetBounds(Point.Empty);
-
-                    //using (Bitmap bitmap = new Bitmap(bounds.Width, bounds.Height))
-                    //{
-                    //    using (Graphics g = Graphics.FromImage(bitmap))
-                    //    {
-                    //        g.CopyFromScreen(Point.Empty, Point.Empty, bounds.Size);
-                    //        await rh.shareScreenshot(bitmap, idSupervisor);
-                    //    }
-                    //}
-
                     //******
                     //Metodo para guardar mapa de bits como imagen y mostrarlo
                     //******
-                    
+
                     //string appPath = Path.GetDirectoryName(Application.ExecutablePath) + @"\AgentScreenshots\";
                     //if (Directory.Exists(appPath) == false)
                     //{
@@ -384,10 +372,21 @@ namespace LoginForms
                 }
                 else if (jobject.ContainsKey("getMonitoring")) {
 
+                    screenMonitor scrM = (screenMonitor)Application.OpenForms["screenMonitor"];
+                    PictureBox pic = (PictureBox)scrM.Controls["pictureBox1"];
+
                     var temp = jobject;
                     var imageTemp = jobject.Value<string>("Image");
                     var idSupervisor = jobject.Value<int>("idSupervisor");
                     var idAgente = jobject.Value<int>("idAgente");
+
+                    ImageCodecInfo myImageCodecInfo;
+                    System.Drawing.Imaging.Encoder myEncoder;
+                    EncoderParameter myEncoderParameter;
+                    EncoderParameters myEncoderParameters = new EncoderParameters();
+
+                    myImageCodecInfo = GetEncoderInfo("image/jpeg");
+                    myEncoder = System.Drawing.Imaging.Encoder.Quality;
 
                     Console.WriteLine("\nEl id del supervisor es:" +idSupervisor + "\nEl id del Agente es:" +idAgente + "\nEl estatus de monitoreo es:"+ Monitoreando);
 
@@ -422,9 +421,18 @@ namespace LoginForms
                         }
                         string path = appPath + "image.jpeg";
 
-                        screenMonitor scrM = (screenMonitor)Application.OpenForms["screenMonitor"];
-                        PictureBox pic = (PictureBox)scrM.Controls["pictureBox1"];
+
+                        myEncoderParameter = new EncoderParameter(myEncoder, 25L);
+                        myEncoderParameters.Param[0] = myEncoderParameter;
+                        bits.Save(path, myImageCodecInfo, myEncoderParameters);
+
                         pic.Image = bits;
+
+                        if (!Monitoreando)
+                        {
+                            pic.Image = null;
+                        }
+
                     }
                 }
                 else if (jobject.ContainsKey("socketPort")) {
@@ -463,6 +471,19 @@ namespace LoginForms
             {
                 Console.WriteLine("Error[treatNotification]: " + ex.ToString());
             }
+        }
+
+        private static ImageCodecInfo GetEncoderInfo(String mimeType)
+        {
+            int j;
+            ImageCodecInfo[] encoders;
+            encoders = ImageCodecInfo.GetImageEncoders();
+            for (j = 0; j < encoders.Length; ++j)
+            {
+                if (encoders[j].MimeType == mimeType)
+                    return encoders[j];
+            }
+            return null;
         }
 
         #region Estos métodos no tienen ninguna referencias en el código considerar borrarlos

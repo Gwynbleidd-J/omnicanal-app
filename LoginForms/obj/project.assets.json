@@ -3001,20 +3001,25 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\KODE\\.nuget\\packages\\": {}
+    "C:\\Users\\danyp\\.nuget\\packages\\": {},
+    "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\KODE\\Documents\\omnicanal_app\\LoginForms\\LoginForms.csproj",
+      "projectUniqueName": "C:\\Users\\danyp\\OneDrive\\Documentos\\PROYECTOS PROMOESPACIO\\Omnicanal\\omnicanal_app\\LoginForms\\LoginForms.csproj",
       "projectName": "LoginForms",
-      "projectPath": "C:\\Users\\KODE\\Documents\\omnicanal_app\\LoginForms\\LoginForms.csproj",
-      "packagesPath": "C:\\Users\\KODE\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\KODE\\Documents\\omnicanal_app\\LoginForms\\obj\\",
+      "projectPath": "C:\\Users\\danyp\\OneDrive\\Documentos\\PROYECTOS PROMOESPACIO\\Omnicanal\\omnicanal_app\\LoginForms\\LoginForms.csproj",
+      "packagesPath": "C:\\Users\\danyp\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\danyp\\OneDrive\\Documentos\\PROYECTOS PROMOESPACIO\\Omnicanal\\omnicanal_app\\LoginForms\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
+      "fallbackFolders": [
+        "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\KODE\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\danyp\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
