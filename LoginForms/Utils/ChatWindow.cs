@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using LoginForms.Models;
 using System.Reflection;
+using System.Drawing;
+using LoginForms.Properties;
 
 namespace LoginForms.Utils
 {
@@ -22,6 +24,8 @@ namespace LoginForms.Utils
         public List<TabPage> arrTabPage { get; set; } 
         public TabPageChat tbPageChat { get; set; }
         public bool MinThread = false;
+        public bool firstRecoveredChatsLoading = false;
+
         #endregion
         #region Métodos
         public ChatWindow(TabControl tabControlFromForm)
@@ -71,8 +75,11 @@ namespace LoginForms.Utils
                     }
                     tbControlChats.Invoke(new Action(() => threadAddTabPage(chat)));
                 }
-                    
-                  
+                else
+                {
+                    var chat = (Models.Message)temp;
+                    threadAddTabPage(chat);
+                }
             }
             catch (Exception ex)
             {
@@ -96,10 +103,15 @@ namespace LoginForms.Utils
                 tbPageChat.clientPlatformIdentifier = temp.clientPlatformIdentifier;
                 //tbControlChats.Controls.Add(tbPageChat.tbPage);
 
+                Console.WriteLine("\nSe ha creado el siguiente objeto tbPageChat:" +  tbPageChat.ToString());
+
                 tbPageChat.addEmptyControls();
                 //tbPageChat.threadBuildTabPage();
                 tbPageChat.threadBuildTabPage();
                 tbPageChatTemporal = tbPageChat;
+
+                Console.WriteLine("Antes de agregar el tab, la cuenta de controles era:" +tbControlChats.Controls.Count +"\n y el arreglo:" +arrTabPage.Count);
+
                 //tbControlChats.Controls.Add(tbPageChatTemporal);
                 //tbControlChats.TabPages.Add(tbPageChatTemporal.tbPage);
                 tbControlChats.Controls.Add(tbPageChatTemporal.tbPage);
@@ -108,6 +120,10 @@ namespace LoginForms.Utils
 
                 //arrTabPage[nextTabPagePosition] = tbPageChatTemporal;
                 arrTabPageChat.Add(tbPageChatTemporal);
+
+                Console.WriteLine("Despues de agregar el tab, la cuenta de controles es:" + tbControlChats.Controls.Count + "\n y el arreglo:" + arrTabPageChat.Count);
+
+                addImageTab(tbControlChats, tbPageChatTemporal);
                 //nextTabPagePosition++;
                 //tbControlChats.Controls.Add(arrTabPage[nextTabPagePosition]);
 
@@ -122,6 +138,33 @@ namespace LoginForms.Utils
                 Console.WriteLine("Error[threadAddTabPage]: " + ex.Message);    
             }
             //return tbPage;
+        }
+
+        public void addImageTab(TabControl tabControl, TabPageChat tabPageChat) {
+            ImageList iconList = new ImageList();
+            iconList.TransparentColor = Color.White;
+            iconList.ColorDepth = ColorDepth.Depth32Bit;
+            iconList.ImageSize = new Size(20,20);
+
+            var telegram = Resources.telegram;
+            var whatsApp = Resources.whatsapp;
+
+            iconList.Images.Add(telegram);
+            iconList.Images.Add(whatsApp);
+
+            //iconList.Images.Add(Image.FromFile("C:/Users/KODE/Downloads/telegram.png"));
+            //iconList.Images.Add(Image.FromFile("C:/Users/KODE/Downloads/whatsapp.png"));
+            tabControl.ImageList = iconList;
+
+            if (tabPageChat.platformIdentifier == "t")
+            {
+                tabPageChat.tbPage.ImageIndex = 0;
+            }
+            else if (tabPageChat.platformIdentifier == "w")
+            {
+                tabPageChat.tbPage.ImageIndex = 1;
+            }
+        
         }
 
         public void threadAddNewMessages(object temp)
@@ -145,6 +188,11 @@ namespace LoginForms.Utils
                     var obj = (Models.Message)temp;
                     tbControlChats.Invoke(new Action(() => AddNewMessages(obj)));
                 }
+                else
+                {
+                    var obj = (Models.Message)temp;
+                    AddNewMessages(obj);
+                }
                     
             }
             catch (Exception ex)
@@ -166,7 +214,6 @@ namespace LoginForms.Utils
                 tbPageIn.Text = OriginalText;
             }
             tbPageIn.Text = OriginalText;
-
         }
 
         public void AddNewMessages(Models.Message temp)
@@ -178,7 +225,7 @@ namespace LoginForms.Utils
                     if (arrTabPageChat[position].tbPage != null && arrTabPageChat[position].tbPage.Name == "tabPageChat_" + temp.chatId) {
                         arrTabPageChat[position].askForNewMessages();
 
-                        if (tbControlChats.SelectedTab != arrTabPageChat[position].tbPage)
+                        if (tbControlChats.SelectedTab != arrTabPageChat[position].tbPage && firstRecoveredChatsLoading)
                         {
                             Thread NewMessageThread = new Thread(new ParameterizedThreadStart(NewMessageNotificaction));
                             NewMessageThread.Start(arrTabPageChat[position].tbPage);

@@ -12,6 +12,8 @@ using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using Microsoft.Toolkit.Uwp.Notifications;
 using LoginForms.Utils;
+using System.IO;
+using System.Drawing.Imaging;
 
 namespace LoginForms
 {
@@ -33,6 +35,9 @@ namespace LoginForms
         //private ChatWindow chatWindow;
         RestHelper rh = new RestHelper();
         ScreenCapture screen = new ScreenCapture();
+
+        public static bool Monitoreando = false;
+        public static bool conexionPerdidaMonitoreo = false;
 
         //Constructores
         public AsynchronousClient(RichTextBox container, Form whatsapp, Prueba prueba, Form fPrincipal, WebChat webChat)
@@ -75,10 +80,14 @@ namespace LoginForms
             try
             {
                 //Establish the remote endpoint for the socket.
-
+<<<<<<<<< Temporary merge branch 1
                 IPAddress ipAddress = IPAddress.Parse(remoteEndPoint);
+=========
+                IPAddress ipAddress = IPAddress.Parse("192.168.1.103");
+                //IPAddress ipAddress = IPAddress.Parse("192.168.1.145");
+>>>>>>>>> Temporary merge branch 2
                 //IPAddress ipAddress = IPAddress.Parse("201.149.34.171");
-                //IPAddress ipAddress = IPAddress.Parse("192.168.0.8");
+                //IPAddress ipAddress = IPAddress.Parse("192.168.1.145");
                 IPEndPoint remoteEP = new IPEndPoint(ipAddress, port);
                 
                 
@@ -190,7 +199,7 @@ namespace LoginForms
                     socketNotification = Encoding.UTF8.GetString(state.buffer, 0, bytesRead).ToString();
                     Console.WriteLine("Desde string es: " + socketNotification);
 
-                    treatNotification(socketNotification);
+                    treatNotificationAsync(socketNotification);
                 }
                 else
                 {
@@ -268,7 +277,7 @@ namespace LoginForms
             }
         }
 
-        public void treatNotification(string socketNotification)
+        public async Task treatNotificationAsync(string socketNotification)
         {
             try
             {
@@ -303,25 +312,153 @@ namespace LoginForms
                     chat.btnSendMessage.Visible = false;
                     //chat.btnCloseButton.PerformClick();
                 }
+                else if (jobject.ContainsKey("closeTransferChat")) {
+                    Console.WriteLine("\nEl id del chat es: " + jobject.Value<string>("chatId"));
+
+                    TabPageChat chat = prueba.getTabChatByChatId(jobject.Value<string>("chatId"));
+                    chat.removeTabChat();
+
+                } else if (jobject.ContainsKey("openTransferChat")) {
+
+                    Console.WriteLine("La respuesta de la transferencia de chats cayo al supervisor");
+
+                    string chatId = jobject.Value<string>("chatId");
+                    var chatData = await rh.getChatById(chatId);
+                    var cleanData = (JObject)JsonConvert.DeserializeObject(chatData);
+                    var algo = cleanData["data"];
+
+                    Models.Message Object = new Models.Message();
+                    Object.chatId = algo["id"].Value<string>();
+                    Object.platformIdentifier = algo["platformIdentifier"].Value<string>();
+                    Object.clientPlatformIdentifier = algo["clientPlatformIdentifier"].Value<string>();
+
+                    Console.WriteLine("El objeto chat creado es este:" + JsonConvert.SerializeObject(Object).ToString());
+
+                    prueba.treatNotification(Object);
+                }
+                else if (jobject.ContainsKey("startMonitoring"))
+                {
+                    string idSupervisor = jobject.Value<string>("idSupervisor");
+
+                    //*******
+                    //Metodo alternativo para obtener la captura de pantalla del agente
+                    //*******
+
+                    // Determine the size of the "virtual screen", including all monitors.
+                    int screenLeft = SystemInformation.VirtualScreen.Left;
+                    int screenTop = SystemInformation.VirtualScreen.Top;
+                    int screenWidth = SystemInformation.VirtualScreen.Width;
+                    int screenHeight = SystemInformation.VirtualScreen.Height;
+
+                    // Create a bitmap of the appropriate size to receive the screenshot.
+                    using (Bitmap bmp = new Bitmap(screenWidth, screenHeight))
+                    {
+                        // Draw the screenshot into our bitmap.
+                        using (Graphics g = Graphics.FromImage(bmp))
+                        {
+                            g.CopyFromScreen(screenLeft, screenTop, 0, 0, bmp.Size);
+                            await rh.shareScreenshot(bmp, idSupervisor);
+
+                        }
+                    }
+
+                    //******
+                    //Metodo para guardar mapa de bits como imagen y mostrarlo
+                    //******
+
+                    //string appPath = Path.GetDirectoryName(Application.ExecutablePath) + @"\AgentScreenshots\";
+                    //if (Directory.Exists(appPath) == false)
+                    //{
+                    //    Directory.CreateDirectory(appPath);
+                    //}
+                    //string path = appPath + "image.jpeg";
+
+                    //bitmap.Save(path, ImageFormat.Jpeg);
+                    //pictureBox1.ImageLocation = path;
+
+                }
+                else if (jobject.ContainsKey("getMonitoring")) {
+
+                    screenMonitor scrM = (screenMonitor)Application.OpenForms["screenMonitor"];
+                    PictureBox pic = (PictureBox)scrM.Controls["pictureBox1"];
+
+                    var temp = jobject;
+                    var imageTemp = jobject.Value<string>("Image");
+                    var idSupervisor = jobject.Value<int>("idSupervisor");
+                    var idAgente = jobject.Value<int>("idAgente");
+
+                    ImageCodecInfo myImageCodecInfo;
+                    System.Drawing.Imaging.Encoder myEncoder;
+                    EncoderParameter myEncoderParameter;
+                    EncoderParameters myEncoderParameters = new EncoderParameters();
+
+                    myImageCodecInfo = GetEncoderInfo("image/jpeg");
+                    myEncoder = System.Drawing.Imaging.Encoder.Quality;
+
+                    Console.WriteLine("\nEl id del supervisor es:" +idSupervisor + "\nEl id del Agente es:" +idAgente + "\nEl estatus de monitoreo es:"+ Monitoreando);
+
+                    if (Monitoreando)
+                    {
+                        await rh.startMonitoring(idAgente, idSupervisor);
+                    }
+
+                    //*******
+                    //Este metodo obtiene la ruta desde el servidor y la pinta 
+                    //*******
+
+                    //string baseUrl = ConfigurationManager.AppSettings["IpServidor"];
+                    //string webPath = baseUrl + "monitoreo/uploads/" + imageTemp;
+                    //screenMonitor scrM = (screenMonitor)Application.OpenForms["screenMonitor"];
+                    //scrM.setImagePath(webPath);
+
+                    //******
+                    //Este metodo obtiene el nombe de la imagen en el servidor y hace una peticion para obtener toda la imagen
+                    //******
+
+                    var dataTemp = await rh.getMonitoring(imageTemp);
+                    using (var ms = new MemoryStream(dataTemp))
+                    {
+                        Image imagen = Image.FromStream(ms);
+                        Bitmap bits = new Bitmap(imagen);
+
+                        string appPath = Path.GetDirectoryName(Application.ExecutablePath) + @"\AgentScreenshots\";
+                        if (Directory.Exists(appPath) == false)
+                        {
+                            Directory.CreateDirectory(appPath);
+                        }
+                        string path = appPath + "image.jpeg";
+
+
+                        myEncoderParameter = new EncoderParameter(myEncoder, 25L);
+                        myEncoderParameters.Param[0] = myEncoderParameter;
+                        bits.Save(path, myImageCodecInfo, myEncoderParameters);
+
+                        pic.Image = bits;
+
+                        if (!Monitoreando)
+                        {
+                            pic.Image = null;
+                        }
+
+                    }
+                }
                 else if (jobject.ContainsKey("socketPort")) {
                     var port = jobject.Value<string>("socketPort");
-                    Console.WriteLine("\nHola agente, tu puerto asignado por la API es:"+port);
-                    new RestHelper().updateAgentActiveIp(GlobalSocket.currentUser.email, port.ToString());
+                    Console.WriteLine("\nHola agente, tu puerto asignado por la API es:" + port);
+                    var temp= await rh.updateAgentActiveIp(GlobalSocket.currentUser.email, port.ToString());
+
+                    if (conexionPerdidaMonitoreo == true && temp == "OK")
+                    {
+                        screenMonitor scrM = (screenMonitor)Application.OpenForms["screenMonitor"];
+                        screenMonitor.Reconectado = true;
+                        scrM.ReconexionServidor();
+                    }
                 }
                 else
                 {
                     Models.Message notification = JsonConvert.DeserializeObject<Models.Message>(socketNotification);
 
                     Console.WriteLine("notificacion:" + notification);
-                    //if (notification.platformIdentifier != "c")
-                    //{
-                    //    prueba.treatNotification(notification);
-                    //}
-                    //else
-                    //{
-                    //    webChat.treatNotification(notification);
-                    //}
-
                     prueba.treatNotification(notification);
 
                 }
@@ -348,6 +485,19 @@ namespace LoginForms
             {
                 Console.WriteLine("Error[treatNotification]: " + ex.ToString());
             }
+        }
+
+        private static ImageCodecInfo GetEncoderInfo(String mimeType)
+        {
+            int j;
+            ImageCodecInfo[] encoders;
+            encoders = ImageCodecInfo.GetImageEncoders();
+            for (j = 0; j < encoders.Length; ++j)
+            {
+                if (encoders[j].MimeType == mimeType)
+                    return encoders[j];
+            }
+            return null;
         }
 
         #region Estos métodos no tienen ninguna referencias en el código considerar borrarlos

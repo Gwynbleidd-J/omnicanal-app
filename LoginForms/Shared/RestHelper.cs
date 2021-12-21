@@ -13,6 +13,8 @@ using System.IO;
 using System.Windows.Forms;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace LoginForms.Shared
 {
@@ -394,6 +396,124 @@ namespace LoginForms.Shared
 
         }
 
+        public async Task<string> transferChat(string idAgenteAnterior, string idAgenteNuevo, string idChat) {
+            try
+            {
+                var inputData = new Dictionary<string, string>
+                {
+                    { "idAntiguo", idAgenteAnterior},
+                    { "idNuevo", idAgenteNuevo},
+                    { "idChat", idChat},
+                    { "idSupervisor", GlobalSocket.currentUser.ID }
+                };
+
+                var input = new FormUrlEncodedContent(inputData);
+                HttpClient client = new HttpClient();
+                HttpResponseMessage response = await client.PostAsync(baseUrl + "chat/transferChat", input);
+                Console.WriteLine(response);
+                HttpContent content = response.Content;
+                string data = response.StatusCode.ToString();
+
+                if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+                {
+                    return data;
+                }
+                else {
+                    return response.StatusCode.ToString();
+                }
+
+
+            }
+            catch (Exception _e)
+            {
+                throw _e;
+            }
+        }
+
+        public async Task<string> startMonitoring(int idAgente, int idSupervisor) {
+
+            var inputData = new Dictionary<string, string>
+            {
+                {"idAgente", idAgente.ToString() },
+                {"idSupervisor", idSupervisor.ToString() }
+            };
+            var input = new FormUrlEncodedContent(inputData);
+
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync(baseUrl + "record/startMonitoring", input);
+            Console.WriteLine(response);
+            HttpContent content = response.Content;
+            string data = response.StatusCode.ToString();
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            {
+                return data;
+            }
+            else {
+                return response.StatusCode.ToString();
+            }
+        }
+
+        public async Task<string> shareScreenshot(Bitmap bitImage, string idSupervisor) {
+
+            HttpContent stringContent = new StringContent(idSupervisor);
+            ImageConverter converter = new ImageConverter();
+            byte[] BArray = (byte[])converter.ConvertTo(bitImage, typeof(byte[]));
+
+            string idAgente = GlobalSocket.currentUser.ID;
+            HttpContent agentContent = new StringContent(idAgente);
+
+            //HttpContent fileStreamContent = new StreamContent(fileStream);
+            HttpContent bytesContent = new ByteArrayContent(BArray);
+
+            //Setting type of file
+            bytesContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
+
+            using (var client = new HttpClient())
+            using (var formData = new MultipartFormDataContent())
+            {
+
+                // <input type="text" name="filename" />
+                formData.Add(bytesContent, "campo1", "campo1");
+                formData.Add(stringContent, "campo2", idSupervisor);
+                formData.Add(agentContent, "campo3", idAgente);
+
+                var response = await client.PostAsync(baseUrl + "record", formData);
+                HttpContent content = response.Content;
+                var data = await content.ReadAsStringAsync();
+
+                if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+                {
+                    return data;
+                }
+                else
+                {
+                    return response.StatusCode.ToString();
+                }
+            }
+        }
+
+        public async Task<byte[]> getMonitoring(string imageName)
+        {
+
+            var inputData = new Dictionary<string, string> {
+                {"image",imageName }
+            };
+            var input = new FormUrlEncodedContent(inputData);
+
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync(baseUrl + "record/screen/", input);
+            HttpContent content = response.Content;
+            var data = await content.ReadAsByteArrayAsync();
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            {
+                return data;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public async Task<string> getSubstactActiveChat(string userId)
         {
             var inputData = new Dictionary<string, string>
@@ -632,6 +752,29 @@ namespace LoginForms.Shared
             {
                 return response.StatusCode.ToString();
             }
+
+        }
+
+        public async Task<string> getChatById(string chatId){
+
+            var inputData = new Dictionary<string, string>{
+                { "chatId", chatId }
+            };
+            var input = new FormUrlEncodedContent(inputData);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync(baseUrl + "chat/getChatByIdRequest", input);
+            HttpContent content = response.Content;
+            string data = await content.ReadAsStringAsync();
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            {
+                Console.WriteLine("Chat obtenido:" + data);
+                return data;
+            }
+            else
+            {
+                return data;
+            }
+
 
         }
 

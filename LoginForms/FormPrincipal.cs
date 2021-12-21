@@ -29,6 +29,7 @@ namespace LoginForms
         RestHelper rh = new RestHelper();
         Json jsonStatus;
         Login login;
+        screenMonitor ScreenMonitor;
         AsynchronousClient asynchronousClient = new AsynchronousClient();
         public string rolId;
         public FormPrincipal()//string agent
@@ -39,7 +40,6 @@ namespace LoginForms
             whatsApp = new WhatsApp();
             prueba = new Prueba();
             webchat = new WebChat();
-
             //this.IsMdiContainer = true;
             //whatsApp.MdiParent = this;
             //whatsApp.Show();
@@ -49,9 +49,9 @@ namespace LoginForms
             prueba.Parent = pnlChatMessages;
             prueba.ControlBox = false;
 
-            webchat.TopLevel = false;
-            webchat.Parent = pnlChatMessages;
-            webchat.ControlBox = false;
+            //webchat.TopLevel = false;
+            //webchat.Parent = pnlChatMessages;
+            //webchat.ControlBox = false;
             //prueba.Show();
             client = new AsynchronousClient(whatsApp.rtxtResponseMessage, this, prueba, this, webchat);
             //screen = new AsynchronousClientScreen();
@@ -77,7 +77,7 @@ namespace LoginForms
             //timer1_Tick(sender, e);
 
 
-
+            //this.WindowState = FormWindowState.Maximized;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -136,6 +136,8 @@ namespace LoginForms
                         f.Dock = DockStyle.Fill;
                         f.Focus();
                         f.Show();
+                        f.FormBorderStyle = FormBorderStyle.None;
+                        f.BackColor= SystemColors.ButtonHighlight;
                         client.prueba = f as Prueba;
                     };
                     dynamicButton.Click += (s, e) =>
