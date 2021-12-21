@@ -8,20 +8,23 @@ using System.Collections.Generic;
 using System.Text;
 using System.Diagnostics;
 using System.Threading;
+using System.Net.NetworkInformation;
 
 namespace LoginForms
 {
     public partial class screenMonitor : Form
     {
+        AsynchronousClient client = new AsynchronousClient();
         RestHelper rh = new RestHelper();
         bool Iniciado = false;
         bool Monitoreando = false;
         int idAgent = 0;
         string Agent = "";
         int idSupervisor = int.Parse(GlobalSocket.currentUser.ID);
+        public static bool Reconectado = false;
+        
+        static StringBuilder builder = new StringBuilder();
 
-
-        StringBuilder builder = new StringBuilder();
 
         public screenMonitor()
         {
@@ -30,7 +33,59 @@ namespace LoginForms
 
             pictureBox1.MinimumSize = new Size(400, 400);
             panel1.Visible = false;
-            
+
+            NetworkChange.NetworkAvailabilityChanged += new
+             NetworkAvailabilityChangedEventHandler(AddressChangedCallback);
+
+            //Console.WriteLine("Esperando cambios en direccion de red, presione cualquier tecla para salir.");
+            //Console.ReadLine();
+
+        }
+
+        public void AddressChangedCallback(object sender, NetworkAvailabilityEventArgs e)
+        {
+            if (e.IsAvailable == true)
+            {
+                builder.Length = 0;
+                builder.Append("Se ha recuperado la conexion a internet");
+                builder.AppendLine();
+                builder.Append("Reconectando con el servidor...");
+                textBox1.Text = builder.ToString();
+
+                client.Connect();
+
+            }
+            else {
+                builder.Length = 0;
+                builder.Append("Se ha perdido la conexion");
+                textBox1.Text = builder.ToString();
+                AsynchronousClient.conexionPerdidaMonitoreo = true;
+
+                AsynchronousClient.Monitoreando = false;
+                button1.Text = "Comenzar monitoreo";
+                comboBox1.Enabled = true;
+                Monitoreando = false;
+                pictureBox1.Image = null;
+            }
+
+            //NetworkInterface[] adapters = NetworkInterface.GetAllNetworkInterfaces();
+            //foreach (NetworkInterface n in adapters)
+            //{
+            //    Console.WriteLine("\n   {0} is {1}", n.Name, n.OperationalStatus);
+            //}
+        }
+
+        public void ReconexionServidor() {
+            if (Reconectado == true)
+            {
+                Reconectado = false;
+                AsynchronousClient.conexionPerdidaMonitoreo = false;
+
+                builder.Length = 0;
+                builder.Append("Se ha recuperado la conexion a internet");
+                builder.AppendLine();
+                textBox1.Text = builder.ToString();
+            }
         }
 
         private async void GetAllAgentsAsync()

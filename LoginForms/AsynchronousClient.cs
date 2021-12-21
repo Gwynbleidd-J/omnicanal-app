@@ -35,7 +35,9 @@ namespace LoginForms
         //private ChatWindow chatWindow;
         RestHelper rh = new RestHelper();
         ScreenCapture screen = new ScreenCapture();
+
         public static bool Monitoreando = false;
+        public static bool conexionPerdidaMonitoreo = false;
 
         //Constructores
         public AsynchronousClient(RichTextBox container, Form whatsapp, Prueba prueba, Form fPrincipal, WebChat webChat)
@@ -78,7 +80,7 @@ namespace LoginForms
             try
             {
                 //Establish the remote endpoint for the socket.
-                IPAddress ipAddress = IPAddress.Parse("192.168.1.84");
+                IPAddress ipAddress = IPAddress.Parse("192.168.1.103");
                 //IPAddress ipAddress = IPAddress.Parse("201.149.34.171");
                 //IPAddress ipAddress = IPAddress.Parse("192.168.1.145");
                 IPEndPoint remoteEP = new IPEndPoint(ipAddress, port);
@@ -438,7 +440,14 @@ namespace LoginForms
                 else if (jobject.ContainsKey("socketPort")) {
                     var port = jobject.Value<string>("socketPort");
                     Console.WriteLine("\nHola agente, tu puerto asignado por la API es:" + port);
-                    await rh.updateAgentActiveIp(GlobalSocket.currentUser.email, port.ToString());
+                    var temp= await rh.updateAgentActiveIp(GlobalSocket.currentUser.email, port.ToString());
+
+                    if (conexionPerdidaMonitoreo == true && temp == "OK")
+                    {
+                        screenMonitor scrM = (screenMonitor)Application.OpenForms["screenMonitor"];
+                        screenMonitor.Reconectado = true;
+                        scrM.ReconexionServidor();
+                    }
                 }
                 else
                 {

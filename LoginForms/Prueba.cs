@@ -13,6 +13,7 @@ using System.Windows.Forms;
 using LoginForms.Shared;
 using LoginForms.Utils;
 using RestSharp;
+using System.Net.NetworkInformation;
 
 namespace LoginForms
 {
@@ -37,6 +38,7 @@ namespace LoginForms
         public Form frmNumberToSend { get; set; }
         public ChatWindow chatWindowLocal { get; set; }
         public TabPage tbPage { get; set; }
+        AsynchronousClient client = new AsynchronousClient();
 
 
         public Prueba()
@@ -55,18 +57,34 @@ namespace LoginForms
             {
                 string agentId = GlobalSocket.currentUser.ID;
                 recoverActiveChats(agentId);
+
+                NetworkChange.NetworkAvailabilityChanged += new
+                NetworkAvailabilityChangedEventHandler(AddressChangedCallback);
+
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Error[Prueba_Load]: " + ex.ToString());
             }
         }
-        
 
-        /*
-         * Este botón ya no se utiliza, necesito preguntarle a Juan Carlos que pasa con este metodo
-         */
-        public async void btnSendMessage_Click(object sender, EventArgs e)
+        public void AddressChangedCallback(object sender, NetworkAvailabilityEventArgs e)
+        {
+            if (e.IsAvailable == true)
+            {
+                label1.Text = "Se ha recuperado la conexion a internet";
+                client.Connect();
+            }
+            else
+            {
+                label1.Text = "Se ha perdido la conexion a internet";
+            }
+        }
+
+            /*
+             * Este botón ya no se utiliza, necesito preguntarle a Juan Carlos que pasa con este metodo
+             */
+            public async void btnSendMessage_Click(object sender, EventArgs e)
         {
             try
             {
