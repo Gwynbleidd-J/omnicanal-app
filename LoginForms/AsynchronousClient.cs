@@ -75,12 +75,8 @@ namespace LoginForms
             try
             {
                 //Establish the remote endpoint for the socket.
-<<<<<<< HEAD
-                IPAddress ipAddress = IPAddress.Parse("192.168.1.103");
-                //IPAddress ipAddress = IPAddress.Parse("192.168.1.145");
-=======
+
                 IPAddress ipAddress = IPAddress.Parse(remoteEndPoint);
->>>>>>> pruebasJulio
                 //IPAddress ipAddress = IPAddress.Parse("201.149.34.171");
                 //IPAddress ipAddress = IPAddress.Parse("192.168.0.8");
                 IPEndPoint remoteEP = new IPEndPoint(ipAddress, port);
