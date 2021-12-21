@@ -31,6 +31,8 @@ namespace LoginForms
         private Form fPrincipal;
         //private TabControl tbControlContainer;
         //private ChatWindow chatWindow;
+        RestHelper rh = new RestHelper();
+        ScreenCapture screen = new ScreenCapture();
 
         //Constructores
         public AsynchronousClient(RichTextBox container, Form whatsapp, Prueba prueba, Form fPrincipal, WebChat webChat)
@@ -56,9 +58,9 @@ namespace LoginForms
         public AsynchronousClient()
         {
         }
-        
-        public RestHelper rh = new RestHelper();
-        private readonly int port = Convert.ToInt32(ConfigurationManager.AppSettings["serverTCPPort"]);
+
+        private readonly int port = Convert.ToInt32(ConfigurationManager.AppSettings["serverPort"]);
+        private readonly string remoteEndPoint = ConfigurationManager.AppSettings["remoteEndPoint"];
 
         
         // ManualResetEvent instances signal completion.  
@@ -73,9 +75,14 @@ namespace LoginForms
             try
             {
                 //Establish the remote endpoint for the socket.
+<<<<<<< HEAD
                 IPAddress ipAddress = IPAddress.Parse("192.168.1.103");
                 //IPAddress ipAddress = IPAddress.Parse("192.168.1.145");
+=======
+                IPAddress ipAddress = IPAddress.Parse(remoteEndPoint);
+>>>>>>> pruebasJulio
                 //IPAddress ipAddress = IPAddress.Parse("201.149.34.171");
+                //IPAddress ipAddress = IPAddress.Parse("192.168.0.8");
                 IPEndPoint remoteEP = new IPEndPoint(ipAddress, port);
                 
                 
@@ -214,12 +221,13 @@ namespace LoginForms
             // Convert the string data to byte data using ASCII encoding.  
             byte[] byteData = Encoding.ASCII.GetBytes(data);
 
+            //screen.CapturarPantalla();
             // Begin sending the data to the remote device.  
             client.BeginSend(byteData, 0, byteData.Length, 0,
                 new AsyncCallback(SendCallback), client);
         }
 
-        private static void SendCallback(IAsyncResult ar)
+        private void SendCallback(IAsyncResult ar)
         {
             try
             {
@@ -229,8 +237,8 @@ namespace LoginForms
                 // Complete sending the data to the remote device.  
                 int bytesSent = client.EndSend(ar);
                 Console.WriteLine("Sent {0} bytes to server.", bytesSent);
-
-                // Signal that all bytes have been sent.  
+                // Signal that all bytes have been sent.
+                //screen.CapturarPantalla();
                 sendDone.Set();
             }
             catch (Exception e)

@@ -324,6 +324,28 @@ namespace LoginForms.Shared
             }
         }
 
+        public async Task<string> getSupervisorAgents(string rolId)
+        {
+            //var inputData = new Dictionary<string, string>
+            //{
+            //    {"rolID", rolId }
+            //};
+            //var input = new FormUrlEncodedContent(inputData);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.GetAsync(baseUrl + "user/supervisorAgents");
+            Console.WriteLine(response);
+            HttpContent content = response.Content;
+            string data = await content.ReadAsStringAsync();
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            {
+                return data;
+            }
+            else
+            {
+                return response.StatusCode.ToString();
+            }
+        }
+
         public async Task<string> getAgentsDetails(string userId)
         {
             var inputData = new Dictionary<string, string>
@@ -481,7 +503,7 @@ namespace LoginForms.Shared
             if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
             {
                 return data;
-            }
+            } 
             else
             {
                 return response.StatusCode.ToString();
@@ -758,6 +780,53 @@ namespace LoginForms.Shared
             //sacarlo del json
         }
 
+        public async Task<string> SendCall()
+        {
+            var inputData = new Dictionary<string, string>
+            {
+                {"userId", GlobalSocket.currentUser.ID},
+            };
+
+            Console.WriteLine(inputData);
+            var input = new FormUrlEncodedContent(inputData);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync(baseUrl + "call", input);
+            HttpContent content = response.Content;
+            string data = response.StatusCode.ToString();
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            {
+                return data;
+            }
+            else
+            {
+                return response.StatusCode.ToString();
+            }
+        }
+
+        public async Task<string> UpdateNetworkCategoryCalls(string callId, string networkCategoryId)
+        {
+            var inputData = new Dictionary<string, string>
+            {
+                {"callId", callId },
+                {"networkId", networkCategoryId }
+            };
+            var input = new FormUrlEncodedContent(inputData);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync(baseUrl + "call/updateNetworkCall", input);
+            Console.WriteLine(response);
+            HttpContent content = response.Content;
+            string data = response.StatusCode.ToString();
+
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            {
+                return data;
+            }
+            else
+            {
+                return response.StatusCode.ToString();
+            }
+        }
+
         public async Task<string> newEmptyChat(string text, string chatId, string clientPlatformIdentifier, string platformIdentifier, string agentPlatformIdentifier)
         {
             var numberToSend = "";
@@ -926,6 +995,7 @@ namespace LoginForms.Shared
                 : "";
 
         }
+
     }
     public class MsjApi
     {

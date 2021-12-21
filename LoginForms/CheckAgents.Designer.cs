@@ -47,7 +47,7 @@ namespace LoginForms
             this.ClientSize = new System.Drawing.Size(860, 641);
             this.Controls.Add(this.flpAgentInfo);
             this.Name = "CheckAgents";
-            this.Text = "CheckAgents";
+            this.Text = "Agentes";
             this.Load += new System.EventHandler(this.CheckAgents_Load);
             this.ResumeLayout(false);
 
