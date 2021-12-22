@@ -13,6 +13,7 @@ using System.Windows.Forms;
 using LoginForms.Shared;
 using LoginForms.Utils;
 using RestSharp;
+using System.Net.NetworkInformation;
 
 namespace LoginForms
 {
@@ -37,6 +38,7 @@ namespace LoginForms
         public Form frmNumberToSend { get; set; }
         public ChatWindow chatWindowLocal { get; set; }
         public TabPage tbPage { get; set; }
+        AsynchronousClient client = new AsynchronousClient();
 
 
         public Prueba()
@@ -55,18 +57,34 @@ namespace LoginForms
             {
                 string agentId = GlobalSocket.currentUser.ID;
                 recoverActiveChats(agentId);
+
+                NetworkChange.NetworkAvailabilityChanged += new
+                NetworkAvailabilityChangedEventHandler(AddressChangedCallback);
+
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Error[Prueba_Load]: " + ex.ToString());
             }
         }
-        
 
-        /*
-         * Este botón ya no se utiliza, necesito preguntarle a Juan Carlos que pasa con este metodo
-         */
-        public async void btnSendMessage_Click(object sender, EventArgs e)
+        public void AddressChangedCallback(object sender, NetworkAvailabilityEventArgs e)
+        {
+            if (e.IsAvailable == true)
+            {
+                label1.Text = "Se ha recuperado la conexion a internet";
+                client.Connect();
+            }
+            else
+            {
+                label1.Text = "Se ha perdido la conexion a internet";
+            }
+        }
+
+            /*
+             * Este botón ya no se utiliza, necesito preguntarle a Juan Carlos que pasa con este metodo
+             */
+            public async void btnSendMessage_Click(object sender, EventArgs e)
         {
             try
             {
@@ -313,6 +331,21 @@ namespace LoginForms
                 Console.WriteLine("Error[validarNuevoTab]: " + ex.ToString());
             }
         }
+
+        //public void buildExistingTabChat(Models.Message data) {
+        //    try
+        //    {
+        //        //buildNewTabChat(data);
+        //        //buildNewMessagesLabels(data);
+
+        //        treatNotification(data);
+
+        //    }
+        //    catch (Exception _e)
+        //    {
+        //        throw _e;
+        //    }
+        //}
          
         public bool tabChatExits(string chatId)
         {
@@ -338,7 +371,10 @@ namespace LoginForms
             { 
                 //chatWindowLocal.chatGenerals = chatGenerals;
                 Thread tBuildNewTabChat = new Thread(chatWindowLocal.addTabPage);
-                tBuildNewTabChat.Start(chatGenerals);    
+                tBuildNewTabChat.Start(chatGenerals);
+
+                //Comprobar funcionalidad de la siguiente linea
+                tBuildNewTabChat.Join();
             }
             catch (Exception ex)
             {
@@ -354,7 +390,11 @@ namespace LoginForms
                 
                 //chatWindowLocal.chatGenerals = chatGenerals;
                 Thread tBuildNewMessagesLabels = new Thread(chatWindowLocal.threadAddNewMessages);
+                
                 tBuildNewMessagesLabels.Start(chatGenerals);
+
+                //Comprobar funcionalidad de la siguiente linea
+                tBuildNewMessagesLabels.Join();
             }
             catch (Exception ex)
             {
@@ -393,6 +433,8 @@ namespace LoginForms
                     fakeNotification.platformIdentifier = chatGenerals.platformIdentifier;
                     fakeNotification.clientPlatformIdentifier = chatGenerals.clientPlatformIdentifier;
                     treatNotification(fakeNotification);
+
+                    chatWindowLocal.firstRecoveredChatsLoading = true;
 
                     //Thread.Sleep(9000);
                 }
@@ -499,13 +541,15 @@ namespace LoginForms
             {
                 TabPageChat chat = new TabPageChat();
                 string name = "";
+                string searchedName = "tabPageChat_" + chatId;
 
                 for (int position = 0; position < chatWindowLocal.arrTabPageChat.Count; position++)
                 {
                     name = chatWindowLocal.arrTabPageChat[position].tbPage.Name.ToString();
                     var sTabPAge = chatWindowLocal.arrTabPageChat[position];
+                    Console.WriteLine("Comparando "+name +" y " +searchedName);
 
-                    if (sTabPAge != null && name == "tabPageChat_" + chatId)
+                    if (sTabPAge != null && name == searchedName)
                     {
                         chat = chatWindowLocal.arrTabPageChat[position];
                     }

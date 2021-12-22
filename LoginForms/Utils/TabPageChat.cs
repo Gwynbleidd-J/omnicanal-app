@@ -113,12 +113,12 @@ namespace LoginForms.Utils
             try
             {
                 //tbPage = new TabPage();
-                if (platformIdentifier == "w")
-                    tbPage.Text = $"Mensaje desde Whatsapp: {chatId}";
-                else if (platformIdentifier == "t")
-                    tbPage.Text = $"Mensaje desde Telegram: {chatId}";
-                else if (platformIdentifier == "c")
-                    tbPage.Text = $"Mensaje desde Web: {chatId}";
+                //if (platformIdentifier == "w")
+                //    tbPage.Text = $"Mensaje desde Whatsapp: {chatId}";
+                //else if (platformIdentifier == "t")
+                //    tbPage.Text = $"Mensaje desde Telegram: {chatId}";
+                //else if (platformIdentifier == "c")
+                //    tbPage.Text = $"Mensaje desde Web: {chatId}";
 
                 tbPage.Name = $"tabPageChat_{chatId}"; 
                 tbPage.Tag = $"tabPageChat_{chatId}";
@@ -302,6 +302,7 @@ namespace LoginForms.Utils
                 //Implementar el uso de páneles independientes para resolver el espaciado creciente en el panel de mensajes
                 //Label lastLabel = new Label();
                 Json jsonChatMessagestHistoric = JsonConvert.DeserializeObject<Json>(chatMessagestHistoric);
+                Console.WriteLine("\nSe han recuperado "+jsonChatMessagestHistoric.data.messages.Count +" mensajes del chat "+jsonChatMessagestHistoric.data.messages[0].chatId);
 
                 for (int i = jsonChatMessagestHistoric.data.messages.Count - 1; i >= 0; i--)
                 {
