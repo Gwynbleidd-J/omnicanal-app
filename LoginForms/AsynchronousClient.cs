@@ -454,7 +454,13 @@ namespace LoginForms
                     Models.Message notification = JsonConvert.DeserializeObject<Models.Message>(socketNotification);
 
                     Console.WriteLine("notificacion:" + notification);
-                    prueba.treatNotification(notification);
+
+                    //Cuando ocurria una intermitencia en la red y se reconectaba, la instancia de prueba venia nula, por eso el otro metodo
+
+                    //prueba.treatNotification(notification);
+
+                    Prueba Activeprueba = (Prueba)Application.OpenForms["Prueba"];
+                    Activeprueba.treatNotification(notification);
 
                 }
 
