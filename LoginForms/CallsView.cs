@@ -25,6 +25,7 @@ namespace LoginForms
         private int currentlyLine = LINE_BASE;
 
         private PortSIPLib portSIPLib;
+
         //Para poner un tono de llamada cuando llamen al softphone
         //SoundPlayer soundPlayer = new SoundPlayer(@"C:\Users\Gwynbleidd J\Downloads\trip-innocent.wav");
 
@@ -939,6 +940,8 @@ namespace LoginForms
                 ListBoxSIPLog.Items.Add(Text);
             }));
             //EndCallRecord();
+            CallTypification typification = new CallTypification();
+            typification.ShowDialog();
             return 0;
         }
 
@@ -1648,7 +1651,7 @@ namespace LoginForms
                 Checked = true
             };
 
-            CheckBox CheckBoxNeedRegister = new CheckBox
+            CheckBox checkBoxNeedRegister = new CheckBox
             {
                 Checked = true
             };
@@ -2049,6 +2052,8 @@ namespace LoginForms
                 Text += ": Hang up";
                 ListBoxSIPLog.Items.Add(Text);
                 //EndCallRecord();
+                CallTypification typification = new CallTypification();
+                typification.ShowDialog();
             }
             
             //EndCallRecord();

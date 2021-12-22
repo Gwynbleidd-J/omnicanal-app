@@ -780,17 +780,22 @@ namespace LoginForms.Shared
             //sacarlo del json
         }
 
+        //Metodos para llenar la tabla de las llamadas
+
         public async Task<string> SendCall()
         {
+            string dateTime = DateTime.Now.ToString("hh:mm:ss:ff");
+            Console.WriteLine(dateTime);
             var inputData = new Dictionary<string, string>
             {
+                { "startTime", dateTime },
                 {"userId", GlobalSocket.currentUser.ID},
             };
 
             Console.WriteLine(inputData);
             var input = new FormUrlEncodedContent(inputData);
             HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.PostAsync(baseUrl + "call", input);
+            HttpResponseMessage response = await client.PostAsync(baseUrl + "calls", input);
             HttpContent content = response.Content;
             string data = response.StatusCode.ToString();
             if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
@@ -803,16 +808,17 @@ namespace LoginForms.Shared
             }
         }
 
-        public async Task<string> UpdateNetworkCategoryCalls(string callId, string networkCategoryId)
+        public async Task<string> UpdateNetworkCategoryCalls(string networkCategoryId)
         {
+
             var inputData = new Dictionary<string, string>
             {
-                {"callId", callId },
+                {"startTime", "time"},
                 {"networkId", networkCategoryId }
             };
             var input = new FormUrlEncodedContent(inputData);
             HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.PostAsync(baseUrl + "call/updateNetworkCall", input);
+            HttpResponseMessage response = await client.PostAsync(baseUrl + "calls/updateNetworkCall", input);
             Console.WriteLine(response);
             HttpContent content = response.Content;
             string data = response.StatusCode.ToString();
@@ -826,6 +832,8 @@ namespace LoginForms.Shared
                 return response.StatusCode.ToString();
             }
         }
+
+
 
         public async Task<string> newEmptyChat(string text, string chatId, string clientPlatformIdentifier, string platformIdentifier, string agentPlatformIdentifier)
         {
