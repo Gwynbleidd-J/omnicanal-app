@@ -80,13 +80,8 @@ namespace LoginForms
             try
             {
                 //Establish the remote endpoint for the socket.
-<<<<<<<<< Temporary merge branch 1
                 IPAddress ipAddress = IPAddress.Parse(remoteEndPoint);
-=========
-                IPAddress ipAddress = IPAddress.Parse("192.168.1.103");
-                //IPAddress ipAddress = IPAddress.Parse("192.168.1.145");
->>>>>>>>> Temporary merge branch 2
-                //IPAddress ipAddress = IPAddress.Parse("201.149.34.171");
+                //IPAddress ipAddress = IPAddress.Parse("192.168.1.103");
                 //IPAddress ipAddress = IPAddress.Parse("192.168.1.145");
                 IPEndPoint remoteEP = new IPEndPoint(ipAddress, port);
                 
