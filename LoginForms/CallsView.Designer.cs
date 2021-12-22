@@ -30,15 +30,12 @@ namespace LoginForms
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.checkBoxNeedRegister = new System.Windows.Forms.CheckBox();
             this.TextBoxUserDomain = new System.Windows.Forms.TextBox();
             this.Label9 = new System.Windows.Forms.Label();
             this.TextBoxAuthName = new System.Windows.Forms.TextBox();
             this.Label5 = new System.Windows.Forms.Label();
             this.TextBoxDisplayName = new System.Windows.Forms.TextBox();
             this.Label6 = new System.Windows.Forms.Label();
-            this.btnDisconnect = new System.Windows.Forms.Button();
-            this.btnConnect = new System.Windows.Forms.Button();
             this.TextBoxStunPort = new System.Windows.Forms.TextBox();
             this.Label7 = new System.Windows.Forms.Label();
             this.TextBoxStunServer = new System.Windows.Forms.TextBox();
@@ -120,11 +117,10 @@ namespace LoginForms
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.label16 = new System.Windows.Forms.Label();
             this.pnlRed = new System.Windows.Forms.Panel();
-            this.ComboBoxSRTP = new System.Windows.Forms.ComboBox();
-            this.Label23 = new System.Windows.Forms.Label();
-            this.ComboBoxTransport = new System.Windows.Forms.ComboBox();
-            this.Label22 = new System.Windows.Forms.Label();
             this.lblNotification = new System.Windows.Forms.Label();
+            this.checkBoxNeedRegister = new System.Windows.Forms.CheckBox();
+            this.ComboBoxSRTP = new System.Windows.Forms.ComboBox();
+            this.ComboBoxTransport = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TrackBarMicrophone)).BeginInit();
@@ -139,9 +135,7 @@ namespace LoginForms
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.checkBoxNeedRegister);
-            this.groupBox1.Controls.Add(this.Label22);
             this.groupBox1.Controls.Add(this.ComboBoxTransport);
-            this.groupBox1.Controls.Add(this.Label23);
             this.groupBox1.Controls.Add(this.ComboBoxSRTP);
             this.groupBox1.Controls.Add(this.TextBoxUserDomain);
             this.groupBox1.Controls.Add(this.Label9);
@@ -149,8 +143,6 @@ namespace LoginForms
             this.groupBox1.Controls.Add(this.Label5);
             this.groupBox1.Controls.Add(this.TextBoxDisplayName);
             this.groupBox1.Controls.Add(this.Label6);
-            this.groupBox1.Controls.Add(this.btnDisconnect);
-            this.groupBox1.Controls.Add(this.btnConnect);
             this.groupBox1.Controls.Add(this.TextBoxStunPort);
             this.groupBox1.Controls.Add(this.Label7);
             this.groupBox1.Controls.Add(this.TextBoxStunServer);
@@ -168,19 +160,6 @@ namespace LoginForms
             this.groupBox1.Size = new System.Drawing.Size(445, 169);
             this.groupBox1.TabIndex = 39;
             this.groupBox1.TabStop = false;
-            // 
-            // checkBoxNeedRegister
-            // 
-            this.checkBoxNeedRegister.AutoSize = true;
-            this.checkBoxNeedRegister.Checked = true;
-            this.checkBoxNeedRegister.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxNeedRegister.Location = new System.Drawing.Point(278, 119);
-            this.checkBoxNeedRegister.Name = "checkBoxNeedRegister";
-            this.checkBoxNeedRegister.Size = new System.Drawing.Size(109, 17);
-            this.checkBoxNeedRegister.TabIndex = 125;
-            this.checkBoxNeedRegister.Text = "Register to server";
-            this.checkBoxNeedRegister.UseVisualStyleBackColor = true;
-            this.checkBoxNeedRegister.Visible = false;
             // 
             // TextBoxUserDomain
             // 
@@ -232,28 +211,6 @@ namespace LoginForms
             this.Label6.Size = new System.Drawing.Size(72, 13);
             this.Label6.TabIndex = 118;
             this.Label6.Text = "Display Name";
-            // 
-            // btnDisconnect
-            // 
-            this.btnDisconnect.Location = new System.Drawing.Point(358, 140);
-            this.btnDisconnect.Name = "btnDisconnect";
-            this.btnDisconnect.Size = new System.Drawing.Size(75, 22);
-            this.btnDisconnect.TabIndex = 117;
-            this.btnDisconnect.Text = "Offline";
-            this.btnDisconnect.UseVisualStyleBackColor = true;
-            this.btnDisconnect.Visible = false;
-            this.btnDisconnect.Click += new System.EventHandler(this.btnDisconnect_Click);
-            // 
-            // btnConnect
-            // 
-            this.btnConnect.Location = new System.Drawing.Point(277, 141);
-            this.btnConnect.Name = "btnConnect";
-            this.btnConnect.Size = new System.Drawing.Size(75, 22);
-            this.btnConnect.TabIndex = 116;
-            this.btnConnect.Text = "Online";
-            this.btnConnect.UseVisualStyleBackColor = true;
-            this.btnConnect.Visible = false;
-            this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
             // 
             // TextBoxStunPort
             // 
@@ -1101,46 +1058,6 @@ namespace LoginForms
             this.pnlRed.Size = new System.Drawing.Size(44, 17);
             this.pnlRed.TabIndex = 61;
             // 
-            // ComboBoxSRTP
-            // 
-            this.ComboBoxSRTP.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComboBoxSRTP.FormattingEnabled = true;
-            this.ComboBoxSRTP.Location = new System.Drawing.Point(181, 132);
-            this.ComboBoxSRTP.Name = "ComboBoxSRTP";
-            this.ComboBoxSRTP.Size = new System.Drawing.Size(63, 21);
-            this.ComboBoxSRTP.TabIndex = 121;
-            this.ComboBoxSRTP.Visible = false;
-            // 
-            // Label23
-            // 
-            this.Label23.AutoSize = true;
-            this.Label23.Location = new System.Drawing.Point(142, 137);
-            this.Label23.Name = "Label23";
-            this.Label23.Size = new System.Drawing.Size(36, 13);
-            this.Label23.TabIndex = 122;
-            this.Label23.Text = "SRTP";
-            this.Label23.Visible = false;
-            // 
-            // ComboBoxTransport
-            // 
-            this.ComboBoxTransport.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComboBoxTransport.FormattingEnabled = true;
-            this.ComboBoxTransport.Location = new System.Drawing.Point(72, 133);
-            this.ComboBoxTransport.Name = "ComboBoxTransport";
-            this.ComboBoxTransport.Size = new System.Drawing.Size(64, 21);
-            this.ComboBoxTransport.TabIndex = 123;
-            this.ComboBoxTransport.Visible = false;
-            // 
-            // Label22
-            // 
-            this.Label22.AutoSize = true;
-            this.Label22.Location = new System.Drawing.Point(12, 137);
-            this.Label22.Name = "Label22";
-            this.Label22.Size = new System.Drawing.Size(55, 13);
-            this.Label22.TabIndex = 124;
-            this.Label22.Text = "Transport:";
-            this.Label22.Visible = false;
-            // 
             // lblNotification
             // 
             this.lblNotification.AutoSize = true;
@@ -1148,6 +1065,39 @@ namespace LoginForms
             this.lblNotification.Name = "lblNotification";
             this.lblNotification.Size = new System.Drawing.Size(0, 13);
             this.lblNotification.TabIndex = 63;
+            // 
+            // checkBoxNeedRegister
+            // 
+            this.checkBoxNeedRegister.AutoSize = true;
+            this.checkBoxNeedRegister.Checked = true;
+            this.checkBoxNeedRegister.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxNeedRegister.Location = new System.Drawing.Point(278, 119);
+            this.checkBoxNeedRegister.Name = "checkBoxNeedRegister";
+            this.checkBoxNeedRegister.Size = new System.Drawing.Size(109, 17);
+            this.checkBoxNeedRegister.TabIndex = 125;
+            this.checkBoxNeedRegister.Text = "Register to server";
+            this.checkBoxNeedRegister.UseVisualStyleBackColor = true;
+            this.checkBoxNeedRegister.Visible = false;
+            // 
+            // ComboBoxSRTP
+            // 
+            this.ComboBoxSRTP.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComboBoxSRTP.FormattingEnabled = true;
+            this.ComboBoxSRTP.Location = new System.Drawing.Point(6, 143);
+            this.ComboBoxSRTP.Name = "ComboBoxSRTP";
+            this.ComboBoxSRTP.Size = new System.Drawing.Size(63, 21);
+            this.ComboBoxSRTP.TabIndex = 121;
+            this.ComboBoxSRTP.Visible = false;
+            // 
+            // ComboBoxTransport
+            // 
+            this.ComboBoxTransport.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComboBoxTransport.FormattingEnabled = true;
+            this.ComboBoxTransport.Location = new System.Drawing.Point(6, 117);
+            this.ComboBoxTransport.Name = "ComboBoxTransport";
+            this.ComboBoxTransport.Size = new System.Drawing.Size(64, 21);
+            this.ComboBoxTransport.TabIndex = 123;
+            this.ComboBoxTransport.Visible = false;
             // 
             // CallsView
             // 
@@ -1202,8 +1152,6 @@ namespace LoginForms
         internal System.Windows.Forms.Label Label5;
         internal System.Windows.Forms.TextBox TextBoxDisplayName;
         internal System.Windows.Forms.Label Label6;
-        internal System.Windows.Forms.Button btnDisconnect;
-        internal System.Windows.Forms.Button btnConnect;
         internal System.Windows.Forms.TextBox TextBoxStunPort;
         internal System.Windows.Forms.Label Label7;
         internal System.Windows.Forms.TextBox TextBoxStunServer;
@@ -1282,14 +1230,12 @@ namespace LoginForms
         internal System.Windows.Forms.Button btnFilePath;
         internal System.Windows.Forms.Label Label26;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
-        private System.Windows.Forms.CheckBox checkBoxNeedRegister;
         internal System.Windows.Forms.Button btnExitFromConference;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Panel pnlRed;
-        internal System.Windows.Forms.Label Label22;
-        internal System.Windows.Forms.ComboBox ComboBoxTransport;
-        internal System.Windows.Forms.Label Label23;
-        internal System.Windows.Forms.ComboBox ComboBoxSRTP;
         private System.Windows.Forms.Label lblNotification;
+        private System.Windows.Forms.CheckBox checkBoxNeedRegister;
+        internal System.Windows.Forms.ComboBox ComboBoxTransport;
+        internal System.Windows.Forms.ComboBox ComboBoxSRTP;
     }
 }
