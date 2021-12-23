@@ -72,7 +72,7 @@ namespace LoginForms
 
         private async void userLogin()
         {
-            string ipAddress = rh.GetLocalIpAddress();
+            string ipAddress = rh.GetPublicIpAddress();
 
             try
             {
