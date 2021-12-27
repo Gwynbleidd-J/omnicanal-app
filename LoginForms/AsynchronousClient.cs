@@ -29,18 +29,17 @@ namespace LoginForms
         private RichTextBox container;
         private Form whatsapp;
         public Prueba prueba;
-        public WebChat webChat;
         private Form fPrincipal;
         //private TabControl tbControlContainer;
         //private ChatWindow chatWindow;
         RestHelper rh = new RestHelper();
-        ScreenCapture screen = new ScreenCapture();
+        //ScreenCapture screen = new ScreenCapture();
 
         public static bool Monitoreando = false;
         public static bool conexionPerdidaMonitoreo = false;
 
         //Constructores
-        public AsynchronousClient(RichTextBox container, Form whatsapp, Prueba prueba, Form fPrincipal, WebChat webChat)
+        public AsynchronousClient(RichTextBox container, Form whatsapp, Prueba prueba, Form fPrincipal)
         {
             try
             {
@@ -51,9 +50,6 @@ namespace LoginForms
                 //this.tbControlContainer = tabControlFromForm;
                 //inicializarChatWindow();
                 //recoverActiveChats();
-
-                //Se agrega referencia al nuevo form para probar funcionalidad de las construcción dinámica en otra ventana
-                this.webChat = webChat;
             }
             catch (Exception ex)
             {
@@ -80,8 +76,8 @@ namespace LoginForms
             try
             {
                 //Establish the remote endpoint for the socket.
-                IPAddress ipAddress = IPAddress.Parse("192.168.1.103");
-                //IPAddress ipAddress = IPAddress.Parse("201.149.34.171");
+                //IPAddress ipAddress = IPAddress.Parse("192.168.1.103");
+                IPAddress ipAddress = IPAddress.Parse("201.149.34.171");
                 //IPAddress ipAddress = IPAddress.Parse("192.168.1.145");
                 IPEndPoint remoteEP = new IPEndPoint(ipAddress, port);
                 
@@ -221,7 +217,7 @@ namespace LoginForms
             // Convert the string data to byte data using ASCII encoding.  
             byte[] byteData = Encoding.ASCII.GetBytes(data);
 
-            screen.CapturarPantalla();
+            //screen.CapturarPantalla();
             // Begin sending the data to the remote device.  
             client.BeginSend(byteData, 0, byteData.Length, 0,
                 new AsyncCallback(SendCallback), client);
@@ -238,7 +234,7 @@ namespace LoginForms
                 int bytesSent = client.EndSend(ar);
                 Console.WriteLine("Sent {0} bytes to server.", bytesSent);
                 // Signal that all bytes have been sent.
-                screen.CapturarPantalla();
+                //screen.CapturarPantalla();
                 sendDone.Set();
             }
             catch (Exception e)

@@ -23,12 +23,10 @@ namespace LoginForms
     {
         WhatsApp whatsApp;
         Prueba prueba;
-        WebChat webchat;
         AsynchronousClient client;
         RestHelper rh = new RestHelper();
         Json jsonStatus;
         Login login;
-        screenMonitor ScreenMonitor;
         AsynchronousClient asynchronousClient = new AsynchronousClient();
         public string rolId;
         public FormPrincipal()//string agent
@@ -38,7 +36,6 @@ namespace LoginForms
             Control.CheckForIllegalCrossThreadCalls = false;
             whatsApp = new WhatsApp();
             prueba = new Prueba();
-            webchat = new WebChat();
             //this.IsMdiContainer = true;
             //whatsApp.MdiParent = this;
             //whatsApp.Show();
@@ -52,7 +49,7 @@ namespace LoginForms
             //webchat.Parent = pnlChatMessages;
             //webchat.ControlBox = false;
             //prueba.Show();
-            client = new AsynchronousClient(whatsApp.rtxtResponseMessage, this, prueba, this, webchat);
+            client = new AsynchronousClient(whatsApp.rtxtResponseMessage, this, prueba, this);
             //client.inicializarChatWindow();
         }
 
@@ -66,8 +63,6 @@ namespace LoginForms
             comboBoxGetUserStatus();
             setStatusAgent();
             createAgentInformationForm();
-            timer1_Tick(sender, e);
-
 
             //this.WindowState = FormWindowState.Maximized;
         }
@@ -131,18 +126,6 @@ namespace LoginForms
                         f.FormBorderStyle = FormBorderStyle.None;
                         f.BackColor= SystemColors.ButtonHighlight;
                         client.prueba = f as Prueba;
-                    };
-                    dynamicButton.Click += (s, e) =>
-                    {
-                        f.TopLevel = false;
-                        f.Parent = pnlChatMessages;
-                        f.ControlBox = false;
-                        f.BringToFront();
-                        f.Location = new Point(0, 0);
-                        f.Dock = DockStyle.Fill;
-                        f.Focus();
-                        f.Show();
-                        client.webChat = f as WebChat;
                     };
                     flpDynamicButtons.Controls.Add(dynamicButton);
                 }
@@ -242,13 +225,6 @@ namespace LoginForms
             string indidualId = GlobalSocket.currentUser.ID;
             return indidualId;
         }
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            ScreenCapture screenCapture = new ScreenCapture();
-            screenCapture.CapturarPantalla();
-        }
-
 
         //Metodos que no recuerdo para que se utilizan, pero deben de tener una utilidad
         //no los borro ya que despues voy a evaluar si dejarlos o borrarlos.s

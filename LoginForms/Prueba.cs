@@ -90,7 +90,7 @@ namespace LoginForms
             {
                 Button btnSendMessageTemporal = sender as Button;
                 String chatId = btnSendMessageTemporal.Name.Split('_')[1];
-                AsynchronousClient client = new AsynchronousClient(this.richTextBox1, this, this, this, null);
+                AsynchronousClient client = new AsynchronousClient(this.richTextBox1, this, this, this);
 
                 var arr = this.tabControlChats.TabPages;
                 var arreglo = chatWindowLocal.arrTabPageChat;
