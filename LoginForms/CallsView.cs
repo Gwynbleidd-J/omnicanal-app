@@ -1315,17 +1315,25 @@ namespace LoginForms
 
         public Int32 onRecvOptions(StringBuilder optionsMessage)
         {
-            string text = "Received an OPTIONS message: ";
-            text += optionsMessage.ToString();
-            ListBoxSIPLog.Invoke(new MethodInvoker(delegate
+            try
             {
-                //Para detener la llamada cuando se logre la llamada
-                //soundPlayer.Stop();
-                ListBoxSIPLog.Items.Add(Text);
-            }));
-            //MessageBox.Show(text, "Received an OPTIONS message", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            
-            return 0;
+                string text = "Received an OPTIONS message: ";
+                text += optionsMessage.ToString();
+                ListBoxSIPLog.Invoke(new MethodInvoker(delegate
+                {
+                    //Para detener la llamada cuando se logre la llamada
+                    //soundPlayer.Stop();
+                    ListBoxSIPLog.Items.Add(Text);
+                }));
+                //MessageBox.Show(text, "Received an OPTIONS message", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+                return 0;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return 0;
+            }
         }
 
         public Int32 onRecvInfo(StringBuilder infoMessage)

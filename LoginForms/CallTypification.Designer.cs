@@ -61,8 +61,9 @@ namespace LoginForms
             this.txtComments.Location = new System.Drawing.Point(15, 180);
             this.txtComments.Multiline = true;
             this.txtComments.Name = "txtComments";
-            this.txtComments.Size = new System.Drawing.Size(188, 113);
+            this.txtComments.Size = new System.Drawing.Size(279, 121);
             this.txtComments.TabIndex = 2;
+            this.txtComments.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtComments_KeyPress);
             // 
             // label2
             // 
@@ -113,6 +114,7 @@ namespace LoginForms
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cmbNetwork);
             this.Name = "CallTypification";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Tipificación de Llamadas";
             this.ResumeLayout(false);
             this.PerformLayout();
