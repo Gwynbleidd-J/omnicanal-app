@@ -76,8 +76,8 @@ namespace LoginForms
             try
             {
                 //Establish the remote endpoint for the socket.
-                //IPAddress ipAddress = IPAddress.Parse("192.168.1.103");
-                IPAddress ipAddress = IPAddress.Parse("201.149.34.171");
+                IPAddress ipAddress = IPAddress.Parse("192.168.1.103");
+                //IPAddress ipAddress = IPAddress.Parse("201.149.34.171");
                 //IPAddress ipAddress = IPAddress.Parse("192.168.1.145");
                 IPEndPoint remoteEP = new IPEndPoint(ipAddress, port);
                 
@@ -294,15 +294,15 @@ namespace LoginForms
                         toast.Dismissed += (senderT, args) => ToastNotificationManagerCompat.History.Clear();
                     });
                 }
-                else if (jobject.ContainsKey("CloseChat"))
-                {
-                    Console.WriteLine("\nEl id del chat es: " + jobject.Value<string>("chatId"));
-                    TabPageChat chat = prueba.getTabChatByChatId(jobject.Value<string>("chatId"));
-                    MessageBox.Show("El cliente ha abandonado la conversacion, \nPor favor, cierre el chat.");
-                    chat.txtSendMessage.Visible = false;
-                    chat.btnSendMessage.Visible = false;
-                    //chat.btnCloseButton.PerformClick();
-                }
+                //else if (jobject.ContainsKey("CloseChat"))
+                //{
+                //    Console.WriteLine("\nEl id del chat es: " + jobject.Value<string>("chatId"));
+                //    TabPageChat chat = prueba.getTabChatByChatId(jobject.Value<string>("chatId"));
+                //    MessageBox.Show("El cliente ha abandonado la conversacion, \nPor favor, cierre el chat.");
+                //    chat.txtSendMessage.Visible = false;
+                //    chat.btnSendMessage.Visible = false;
+                //    //chat.btnCloseButton.PerformClick();
+                //}
                 else if (jobject.ContainsKey("closeTransferChat")) {
                     Console.WriteLine("\nEl id del chat es: " + jobject.Value<string>("chatId"));
 
@@ -437,6 +437,7 @@ namespace LoginForms
                     var port = jobject.Value<string>("socketPort");
                     Console.WriteLine("\nHola agente, tu puerto asignado por la API es:" + port);
                     var temp= await rh.updateAgentActiveIp(GlobalSocket.currentUser.email, port.ToString());
+                    GlobalSocket.currentUser.activeIp = port;
 
                     if (conexionPerdidaMonitoreo == true && temp == "OK")
                     {
