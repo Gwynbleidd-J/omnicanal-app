@@ -2,13 +2,6 @@
 using LoginForms.Shared;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace LoginForms
@@ -31,6 +24,7 @@ namespace LoginForms
             CallItems classItems = (CallItems)cmbNetwork.SelectedItem;
             valor = classItems.Id;
         }
+        
         private async void ComboBoxGetNetwork()
         {
             try
@@ -61,28 +55,48 @@ namespace LoginForms
 
 
 
-        private async void btnSave_Click(object sender, EventArgs e)
+        private void btnSave_Click(object sender, EventArgs e)
         {
-            try
+            if (!string.IsNullOrEmpty(cmbNetwork.Text) || !string.IsNullOrEmpty(txtScore.Text))
             {
-                if (!string.IsNullOrEmpty(cmbNetwork.Text) || !string.IsNullOrEmpty(txtScore.Text) || !string.IsNullOrEmpty(txtComments.Text))
-                {
-                    await rh.UpdateNetworkCategoryCalls(valor);
-                    //MessageBox.Show("Datos guardados correctamente", "Omnicanal", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    this.Dispose();
-                }
-                else
+                Typification();
+            }
+            else
+            {
+                MessageBox.Show("Llena todos los campos", "Omnicanal", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+
+        }
+
+        private void txtComments_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((int)e.KeyChar == (int)Keys.Enter)
+            {
+                if (cmbNetwork.Text == "" || txtScore.Text == "")
                 {
                     MessageBox.Show("Llena todos los campos", "Omnicanal", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine($"Error[btnAccept] {ex.Message}");
+                else
+                {
+                    Typification();
+                }
+
             }
         }
 
-
+        private async void Typification()
+        {
+            try
+            {
+                await rh.UpdateNetworkCategoryCalls(valor, txtScore.Text, txtComments.Text);
+                //MessageBox.Show("Datos guardados correctamente", "Omnicanal", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                this.Dispose();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error[Typification Method]: {ex.Message}");
+            }
+        }
     }
 
     class CallItems
