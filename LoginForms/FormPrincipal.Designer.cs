@@ -115,8 +115,8 @@ namespace LoginForms
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlChatMessages.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlChatMessages.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.pnlChatMessages.Location = new System.Drawing.Point(244, 5);
-            this.pnlChatMessages.Margin = new System.Windows.Forms.Padding(4);
+            this.pnlChatMessages.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.pnlChatMessages.Location = new System.Drawing.Point(183, 4);
             this.pnlChatMessages.Name = "pnlChatMessages";
             this.pnlChatMessages.Size = new System.Drawing.Size(1055, 786);
             this.pnlChatMessages.TabIndex = 9;
