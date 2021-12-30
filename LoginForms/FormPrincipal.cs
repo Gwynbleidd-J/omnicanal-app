@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.UI.WebControls;
 using System.Windows.Forms;
+using System.Windows.Media;
 using LoginForms.Models;
 using LoginForms.Shared;
 using LoginForms.Utils;
@@ -29,6 +30,11 @@ namespace LoginForms
         Login login;
         AsynchronousClient asynchronousClient = new AsynchronousClient();
         public string rolId;
+
+        double dummy = 50;
+        bool pestañaChatActiva = false;
+        bool pestañaSoftphoneActiva = false;
+
         public FormPrincipal()//string agent
         {
             //agentStatus = agent
@@ -99,6 +105,24 @@ namespace LoginForms
         {
             try
             {
+                tableLayoutPanel4.ColumnCount = GlobalSocket.currentUser.rol.permission.Count + 1;
+                System.Windows.Forms.PictureBox homeImage = new PictureBox();
+                homeImage.Height = 80;
+                homeImage.Width = 135;
+                homeImage.SizeMode = PictureBoxSizeMode.StretchImage;
+                homeImage.Image = Properties.Resources.home;
+                homeImage.Name = "Home";
+                homeImage.Click += (e, s) =>
+                {
+                    var temp1 = (PictureBox)tableLayoutPanel4.Controls["Chats"];
+                    var temp2 = (PictureBox)tableLayoutPanel4.Controls["Softphone"];
+                    temp1.Image = Properties.Resources.chat;
+                    temp2.Image = Properties.Resources.llamadas;
+                    homeImage.Image = Properties.Resources.home_presionado;
+                };
+
+                tableLayoutPanel4.Controls.Add(homeImage,0,0);
+
                 for (int i = 0; i < GlobalSocket.currentUser.rol.permission.Count; i++)
                 {
                     System.Windows.Forms.Button dynamicButton = new System.Windows.Forms.Button();
@@ -106,13 +130,75 @@ namespace LoginForms
                     dynamicButton.Height = 40;
                     dynamicButton.Width = 95;
                     dynamicButton.Text = $"{GlobalSocket.currentUser.rol.permission[i].menu.description}";
+                    var menu = $"{GlobalSocket.currentUser.rol.permission[i].menu.description}";
 
+                    System.Windows.Forms.PictureBox dynamicImage = new PictureBox();
+                    dynamicImage.Height = 80;
+                    dynamicImage.Width = 135;
+                    dynamicImage.SizeMode = PictureBoxSizeMode.StretchImage;
 
                     Assembly asm = Assembly.GetEntryAssembly();
                     Type formtype = asm.GetType(string.Format("{0}.{1}", "LoginForms", GlobalSocket.currentUser.rol.permission[i].menu.name));
 
                     Form f = (Form)Activator.CreateInstance(formtype);
                     //f.Show();
+
+
+                    if (menu == "Chats")
+                    {
+                        dynamicImage.Image = Properties.Resources.chat;
+                        dynamicImage.Name = "Chats";
+                        dynamicImage.Click += (s, e) =>
+                        {
+                            f.TopLevel = false;
+                            f.Parent = pnlChatMessages;
+                            f.ControlBox = false;
+                            f.BringToFront();
+                            f.Location = new Point(0, 0);
+                            f.Dock = DockStyle.Fill;
+                            f.Focus();
+                            f.Show();
+                            f.FormBorderStyle = FormBorderStyle.None;
+                            f.BackColor = ColorTranslator.FromHtml("#e2e0e1");
+                            client.prueba = f as Prueba;
+
+                            var temp1 = (PictureBox)tableLayoutPanel4.Controls["Home"];
+                            var temp2 = (PictureBox)tableLayoutPanel4.Controls["Softphone"];
+                            temp1.Image = Properties.Resources.home;
+                            temp2.Image = Properties.Resources.llamadas;
+                            dynamicImage.Image = Properties.Resources.chat_presionado;
+
+                        };
+
+                    }
+                    else if (menu == "Softphone")
+                    {
+                        dynamicImage.Image = Properties.Resources.llamadas;
+                        dynamicImage.Name = "Softphone";
+                        dynamicImage.Click += (s, e) =>
+                        {
+                            f.TopLevel = false;
+                            f.Parent = pnlChatMessages;
+                            f.ControlBox = false;
+                            f.BringToFront();
+                            f.Location = new Point(0, 0);
+                            f.Dock = DockStyle.Fill;
+                            f.Focus();
+                            f.Show();
+                            f.FormBorderStyle = FormBorderStyle.None;
+                            f.BackColor = ColorTranslator.FromHtml("#e2e0e1");
+                            client.prueba = f as Prueba;
+
+                            var temp1 = (PictureBox)tableLayoutPanel4.Controls["Home"];
+                            var temp2 = (PictureBox)tableLayoutPanel4.Controls["Chats"];
+                            temp1.Image = Properties.Resources.home;
+                            temp2.Image = Properties.Resources.chat;
+                            dynamicImage.Image = Properties.Resources.llamadas_presionado;
+
+                        };
+
+                    }
+
                     dynamicButton.Click += (s, e) =>
                     {
                         f.TopLevel = false;
@@ -128,6 +214,7 @@ namespace LoginForms
                         client.prueba = f as Prueba;
                     };
                     flpDynamicButtons.Controls.Add(dynamicButton);
+                    tableLayoutPanel4.Controls.Add(dynamicImage, i+1,0);
                 }
             }
             catch (Exception ex)
@@ -141,7 +228,7 @@ namespace LoginForms
             Label labelAgentName = new Label
             {
                 Text = $"{GlobalSocket.currentUser.name} {GlobalSocket.currentUser.paternalSurname} {GlobalSocket.currentUser.maternalSurname}",
-                ForeColor = Color.FromArgb(19, 34, 38),
+                ForeColor = System.Drawing.Color.FromArgb(19, 34, 38),
                 Font = new Font("Microsoft Sans Serif", 10),
                 AutoSize = true
             };
@@ -149,7 +236,7 @@ namespace LoginForms
             Label labelAgentRol = new Label
             {
                 Text = $"{GlobalSocket.currentUser.rol.name}",
-                ForeColor = Color.FromArgb(19, 34, 38),
+                ForeColor = System.Drawing.Color.FromArgb(19, 34, 38),
                 Font = new Font("Microsoft Sans Serif", 10),
                 AutoSize = true
             };

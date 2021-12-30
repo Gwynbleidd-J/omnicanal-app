@@ -13,6 +13,7 @@ using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Net.Http.Headers;
 
 namespace LoginForms.Shared
 {
@@ -452,7 +453,8 @@ namespace LoginForms.Shared
             }
         }
 
-        public async Task<string> shareScreenshot(Bitmap bitImage, string idSupervisor) {
+        public async Task<string> shareScreenshot(Bitmap bitImage, string idSupervisor)
+        {
 
             HttpContent stringContent = new StringContent(idSupervisor);
             ImageConverter converter = new ImageConverter();

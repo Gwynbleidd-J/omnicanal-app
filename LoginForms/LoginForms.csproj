@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationRevision>3</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -401,6 +401,48 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cerrar sesion hover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cerrar sesion presionado_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cerrar sesion_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\chat presionado.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\chat.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\home presionado.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\home.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\llamadas presionado.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\llamadas.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\header2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\header.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\boton rectangular.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\recuadro1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

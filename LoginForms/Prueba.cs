@@ -47,7 +47,6 @@ namespace LoginForms
             InitializeComponent();
             chatWindowLocal = new ChatWindow(this.tabControlChats);
             tbPage = new TabPage();
-            
         }
 
 

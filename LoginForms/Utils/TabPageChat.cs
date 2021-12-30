@@ -35,6 +35,9 @@ namespace LoginForms.Utils
         public Button btnCloseButton { get; set; }
 
         //public PanelControl panelControl { get; set; }
+        public TableLayoutPanel tabla { get; set; }
+        public List<Label> labelsAgent = new List<Label>();
+        public System.Windows.Forms.Padding Padding { get; set; }
 
         /// Prueba para tener el botón y textBox de envío de mensajes al mismo nivel del tabPage
         public TextBox txtSendMessage { get; set; } 
@@ -89,6 +92,7 @@ namespace LoginForms.Utils
                 btnSendMessage = new Button();
                 lastLabel = new Label();
                 btnCloseButton = new Button();
+                tabla = new TableLayoutPanel();
 
                 tbPage.Controls.Add(lblLastHeighUsed);
                 tbPage.Controls.Add(lblLastMessageId);
@@ -96,10 +100,11 @@ namespace LoginForms.Utils
                 tbPage.Controls.Add(lblPlatformIdentifier);
                 tbPage.Controls.Add(lblChatId);
                 tbPage.Controls.Add(pnlMessages);
+                tbPage.Controls.Add(tabla);
                 //tbPage.Controls.Add(panelControl.pnlControls);
-                tbPage.Controls.Add(txtSendMessage);
-                tbPage.Controls.Add(btnSendMessage);
-                tbPage.Controls.Add(btnCloseButton);
+                //tbPage.Controls.Add(txtSendMessage);
+                //tbPage.Controls.Add(btnSendMessage);
+                //tbPage.Controls.Add(btnCloseButton);
 
             }
             catch (Exception ex)
@@ -120,10 +125,10 @@ namespace LoginForms.Utils
                 //else if (platformIdentifier == "c")
                 //    tbPage.Text = $"Mensaje desde Web: {chatId}";
 
-                tbPage.Name = $"tabPageChat_{chatId}"; 
+                tbPage.Name = $"tabPageChat_{chatId}";
                 tbPage.Tag = $"tabPageChat_{chatId}";
-                tbPage.Size = new Size(675, 462);                 
-                
+                tbPage.Size = new Size(675, 462);
+
                 //Agregar al textbox para el envío de mensajes
                 lblLastHeighUsed.Name = $"lblLastHeighUsed_{chatId}";
                 lblLastHeighUsed.Tag = $"lblLastHeighUsed_{chatId}";
@@ -158,11 +163,15 @@ namespace LoginForms.Utils
 
                 pnlMessages.Name = $"lblPlatformIdentifier_{chatId}";
                 pnlMessages.Tag = $"lblPlatformIdentifier_{chatId}";
-                pnlMessages.Size = new Size(640, 335); 
-                pnlMessages.Location = new Point(18,8);
+                //pnlMessages.Size = new Size(640, 335);
+                //pnlMessages.MinimumSize = new Size(640, 335);
+                pnlMessages.Location = new Point(18, 18);
                 pnlMessages.BackColor = Color.FromArgb(236, 229, 221);
                 pnlMessages.AutoScroll = true;
                 //tbPage.Controls.Add(pnlMessages);
+                pnlMessages.Size = new Size(tbPage.Size.Width - 40, tbPage.Size.Height - (tbPage.Size.Height / 4));
+                pnlMessages.Anchor = (AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top);
+                pnlMessages.BorderStyle = BorderStyle.FixedSingle;
 
                 //panelControl.chatId = chatId;
                 //panelControl.buildPanel(); 
@@ -173,9 +182,13 @@ namespace LoginForms.Utils
                 txtSendMessage.Name = $"txtSendMessage_{chatId}";
                 txtSendMessage.Tag = $"txtSendMessage_{chatId}";
                 txtSendMessage.Size = new Size(480, 20);
-                txtSendMessage.Location = new Point(10, 432);
+                //txtSendMessage.Location = new Point(10, 432);
+                txtSendMessage.Location = new Point(10, pnlMessages.Size.Height + 10);
                 txtSendMessage.Text = "Buen día, soy su agente a cargo, ¿En qué le puedo ayudar?";
-                txtSendMessage.KeyPress += async (s, e) => {
+                txtSendMessage.Anchor = AnchorStyles.Top;
+                txtSendMessage.Font = new Font("Calibri", 10);
+                txtSendMessage.KeyPress += async (s, e) =>
+                {
                     try
                     {
                         if ((int)e.KeyChar == (int)Keys.Enter)
@@ -193,19 +206,22 @@ namespace LoginForms.Utils
                 btnSendMessage.Tag = $"btnSendMessage_{chatId}";
                 btnSendMessage.Text = "Enviar";
                 btnSendMessage.Size = new Size(82, 23);
-                btnSendMessage.Location = new Point(498, 429);
-                btnSendMessage.Click += async (s, e) => {
+                //btnSendMessage.Location = new Point(498, 429);
+                btnSendMessage.Location = new Point(498, pnlMessages.Size.Height + 10);
+                btnSendMessage.Anchor = AnchorStyles.Top;
+                btnSendMessage.Click += async (s, e) =>
+                {
                     try
                     {
                         if (!string.IsNullOrEmpty(txtSendMessage.Text.ToString()))
                             await sendMessageFromPanelControl();
-                            //if (await sendMessageFromPanelControl())
-                            //    askForNewMessages();
-                                    
-                                    //MessageBox.Show("Mensages nuevos cargados correctamente!");
-                                    //addLabelMessages();
-                                //if(!string.IsNullOrEmpty(resulAskForNewMessages))
-                            
+                        //if (await sendMessageFromPanelControl())
+                        //    askForNewMessages();
+
+                        //MessageBox.Show("Mensages nuevos cargados correctamente!");
+                        //addLabelMessages();
+                        //if(!string.IsNullOrEmpty(resulAskForNewMessages))
+
                     }
                     catch (Exception ex)
                     {
@@ -217,8 +233,10 @@ namespace LoginForms.Utils
                 btnCloseButton.Name = $"btnCloseButton_{chatId}";
                 btnCloseButton.Tag = $"btnCloseButton_{chatId}";
                 btnCloseButton.Text = $"Cerrar Chat";
-                btnCloseButton.Size = new Size(86,23);
-                btnCloseButton.Location = new Point(586, 429);
+                btnCloseButton.Size = new Size(86, 23);
+                //btnCloseButton.Location = new Point(586, 429);
+                btnCloseButton.Location = new Point(586, pnlMessages.Size.Height + 10);
+                btnCloseButton.Anchor = AnchorStyles.Top;
 
                 btnCloseButton.Click += async (s, e) =>
                 {
@@ -228,8 +246,48 @@ namespace LoginForms.Utils
                         networkCategories.ShowDialog();
                         removeTabChat();
 
-                    }    
+                    }
                 };
+
+                tabla.ColumnCount = 5;
+                tabla.RowCount = 1;
+                //tabla.CellBorderStyle = TableLayoutPanelCellBorderStyle.Inset;
+                tabla.Height = (tbPage.Height /8);
+                tabla.Controls.Add(txtSendMessage, 1, 0);
+                tabla.Controls.Add(btnSendMessage, 2, 0);
+                tabla.Controls.Add(btnCloseButton, 3, 0);
+
+                //tabla.ColumnStyles[0].SizeType = SizeType.Percent;
+                //tabla.ColumnStyles[0].Width = 5;
+
+                // Center the Form on the user's screen everytime it requires a Layout.
+                pnlMessages.Layout += (e, s) =>
+                {
+                    tabla.Height = (tbPage.Height / 8);
+                    tabla.Dock = DockStyle.Bottom;
+                    tabla.Location = new Point(0, tbPage.Height - tabla.Height);
+                    pnlMessages.Size = new Size(tbPage.Size.Width - 40, tbPage.Size.Height - (tbPage.Size.Height / 4));
+
+                    if (labelsAgent.Count > 0)
+                    {
+                        foreach (var item in labelsAgent)
+                        {
+                            item.Left = pnlMessages.Width - item.Width - 30;
+                        }
+                    }
+
+
+                    //this.SetBounds((Screen.GetBounds(this).Width / 2) - (this.Width / 2),
+                    //    (Screen.GetBounds(this).Height / 2) - (this.Height / 2),
+                    //    this.Width, this.Height, BoundsSpecified.Location);
+                    //txtSendMessage.Location = new Point(10,tbPage.Size.Height - 60);
+                    //btnSendMessage.Location = new Point(498,pnlMessages.Size.Height - 60);
+                    //btnCloseButton.Location = new Point(586,pnlMessages.Size.Height - 60);
+
+                };
+                    
+                
+
             }
             catch (Exception ex) 
             { 
@@ -237,6 +295,11 @@ namespace LoginForms.Utils
                 //tbPage = null;
             }
             //return tbPage;
+        }
+
+        private void PnlMessages_Layout(object sender, LayoutEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         public async void removeTabChat()
@@ -314,8 +377,10 @@ namespace LoginForms.Utils
                     newLabelMessage.Name = jsonChatMessagestHistoric.data.messages[i].id;
                     //newLabelMessage.BackColor = Color.LightGray;
                     newLabelMessage.Text = jsonChatMessagestHistoric.data.messages[i].text;
+                    newLabelMessage.Font = new Font("Calibri", 10);
+                    newLabelMessage.Padding = new Padding(7);
 
-                    if(lastLabel == null)
+                    if (lastLabel == null)
                         newLabelMessage.Location = new Point(0, 10);//10
                     else
                         newLabelMessage.Location = new Point(0, lastLabel.Location.Y + 40); //30
@@ -333,11 +398,13 @@ namespace LoginForms.Utils
                         newLabelMessage.ForeColor = Color.FromArgb(255, 255, 255);
                     }
                     else
-                    { 
-                        newLabelMessage.Left = newLabelMessage.Width -60;
+                    {
+                        //newLabelMessage.Left = newLabelMessage.Width -60;
+                        newLabelMessage.Left = pnlMessages.Width - newLabelMessage.Width -30;
                         newLabelMessage.TextAlign = ContentAlignment.MiddleRight;
                         newLabelMessage.BackColor = Color.FromArgb(13, 75, 70);
                         newLabelMessage.ForeColor = Color.FromArgb(255, 255, 255);
+                        labelsAgent.Add(newLabelMessage);
                     }
 
                     //lastUsedHeigth = lastUsedHeigth + 20;
@@ -348,9 +415,11 @@ namespace LoginForms.Utils
                     
                     ////Nuevo proceso: Estando al mismo nivel de controles en el tabPage, intentar llegar al panel de mensajes solamente con el nombre del objeto
                     pnlMessages.Controls.Add(newLabelMessage);
-                    pnlMessages.ScrollControlIntoView(newLabelMessage);
+                    //pnlMessages.ScrollControlIntoView(newLabelMessage);
 
                 }
+
+                //pnlMessages.ScrollControlIntoView(pnlMessages.Controls[pnlMessages.Controls.Count - 1]);
 
                 chatMessagestHistoric = "";
                 //tabPageChat_1.Text = "Chat: " + jsonChatMessagestHistoric.data.chat[0].chatId;

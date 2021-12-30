@@ -37,6 +37,9 @@ namespace LoginForms.Utils
                 if (tabControlFromForm != null)
                     tbControlChats = tabControlFromForm;
 
+                //Codigo para eliminar la primera pestaña
+                tbControlChats.TabPages.Remove(tbControlChats.TabPages[0]);
+
                 arrTabPageChat = new List<TabPageChat>();
                 arrTabPage = new List<TabPage>();
                 tbPageChat = new TabPageChat();
