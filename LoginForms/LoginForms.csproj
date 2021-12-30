@@ -444,5 +444,14 @@
   <ItemGroup>
     <None Include="Resources\recuadro1.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\enviar mensaje hover_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\enviar mensaje presionado_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\enviar mensaje_1.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

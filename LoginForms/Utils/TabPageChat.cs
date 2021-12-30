@@ -44,6 +44,9 @@ namespace LoginForms.Utils
         public Button btnSendMessage { get; set; }
         RestHelper restHelper = new RestHelper();
 
+        public PictureBox picSendMessage { get; set; }
+        public PictureBox picCloseChat { get; set; }
+
         #endregion
 
         #region Métodos
@@ -87,12 +90,15 @@ namespace LoginForms.Utils
                 lblChatId = new Label();
                 pnlMessages = new Panel();
                 //panelControl = new PanelControl(); 
-                //Prueba de controles a nivel del tabPage    
+                //Prueba de controles a nivel del tabPage
+                lastLabel = new Label();
                 txtSendMessage = new TextBox(); 
                 btnSendMessage = new Button();
-                lastLabel = new Label();
                 btnCloseButton = new Button();
                 tabla = new TableLayoutPanel();
+
+                picSendMessage = new PictureBox();
+                picCloseChat = new PictureBox();
 
                 tbPage.Controls.Add(lblLastHeighUsed);
                 tbPage.Controls.Add(lblLastMessageId);
@@ -102,6 +108,8 @@ namespace LoginForms.Utils
                 tbPage.Controls.Add(pnlMessages);
                 tbPage.Controls.Add(tabla);
                 //tbPage.Controls.Add(panelControl.pnlControls);
+
+                //Se comentan estos controles pues ahora se agregan a un tableLayoutPanel
                 //tbPage.Controls.Add(txtSendMessage);
                 //tbPage.Controls.Add(btnSendMessage);
                 //tbPage.Controls.Add(btnCloseButton);
@@ -201,14 +209,24 @@ namespace LoginForms.Utils
 
                 };
 
+                picSendMessage.Name = $"btnSendMessage_{chatId}";
+                picSendMessage.Tag = $"btnSendMessage_{chatId}";
+                picSendMessage.Size = new Size(164, 46);
+                picSendMessage.Location = new Point(498, pnlMessages.Size.Height + 10);
+                picSendMessage.BackgroundImageLayout = ImageLayout.Stretch;
+                picSendMessage.BackgroundImage = Properties.Resources.enviar_mensaje_1;
+
                 //Agregar al boton para el envío de mensajes 
                 btnSendMessage.Name = $"btnSendMessage_{chatId}";
                 btnSendMessage.Tag = $"btnSendMessage_{chatId}";
                 btnSendMessage.Text = "Enviar";
+                //btnSendMessage.Size = new Size(82, 23);
                 btnSendMessage.Size = new Size(82, 23);
                 //btnSendMessage.Location = new Point(498, 429);
                 btnSendMessage.Location = new Point(498, pnlMessages.Size.Height + 10);
-                btnSendMessage.Anchor = AnchorStyles.Top;
+                //btnSendMessage.BackgroundImageLayout = ImageLayout.Stretch;
+                //btnSendMessage.BackgroundImage = Properties.Resources.enviar_mensaje_1;
+                btnSendMessage.BackColor = Color.Transparent;
                 btnSendMessage.Click += async (s, e) =>
                 {
                     try
@@ -227,6 +245,12 @@ namespace LoginForms.Utils
                     {
                         Console.WriteLine("Error[btnSendMessage.Click]: " + ex.Message);
                     }
+                };
+                btnSendMessage.MouseHover += (s, e) => {
+                    btnSendMessage.BackgroundImage = Properties.Resources.enviar_mensaje_hover_1;
+                };
+                btnSendMessage.MouseLeave += (s, e) => {
+                    btnSendMessage.BackgroundImage = Properties.Resources.enviar_mensaje_1;
                 };
 
 
@@ -251,11 +275,16 @@ namespace LoginForms.Utils
 
                 tabla.ColumnCount = 5;
                 tabla.RowCount = 1;
-                //tabla.CellBorderStyle = TableLayoutPanelCellBorderStyle.Inset;
+                tabla.CellBorderStyle = TableLayoutPanelCellBorderStyle.Inset;
                 tabla.Height = (tbPage.Height /8);
+
                 tabla.Controls.Add(txtSendMessage, 1, 0);
                 tabla.Controls.Add(btnSendMessage, 2, 0);
                 tabla.Controls.Add(btnCloseButton, 3, 0);
+
+                //tabla.Controls.Add(txtSendMessage, 1, 0);
+                //tabla.Controls.Add(picSendMessage, 2, 0);
+                //tabla.Controls.Add(picCloseChat, 3, 0);
 
                 //tabla.ColumnStyles[0].SizeType = SizeType.Percent;
                 //tabla.ColumnStyles[0].Width = 5;
@@ -394,16 +423,20 @@ namespace LoginForms.Utils
                     { 
                         newLabelMessage.Left = 10;
                         newLabelMessage.TextAlign = ContentAlignment.MiddleLeft;
-                        newLabelMessage.BackColor = Color.FromArgb(66,66,74);
-                        newLabelMessage.ForeColor = Color.FromArgb(255, 255, 255);
+                        //newLabelMessage.BackColor = Color.FromArgb(66,66,74);
+                        newLabelMessage.BackColor = ColorTranslator.FromHtml("#ffffff");
+                        //newLabelMessage.ForeColor = Color.FromArgb(255, 255, 255);#444444
+                        newLabelMessage.ForeColor = ColorTranslator.FromHtml("#444444");
                     }
                     else
                     {
                         //newLabelMessage.Left = newLabelMessage.Width -60;
                         newLabelMessage.Left = pnlMessages.Width - newLabelMessage.Width -30;
                         newLabelMessage.TextAlign = ContentAlignment.MiddleRight;
-                        newLabelMessage.BackColor = Color.FromArgb(13, 75, 70);
-                        newLabelMessage.ForeColor = Color.FromArgb(255, 255, 255);
+                        //newLabelMessage.BackColor = Color.FromArgb(13, 75, 70);
+                        newLabelMessage.BackColor = ColorTranslator.FromHtml("#dcf8c6");
+                        //newLabelMessage.ForeColor = Color.FromArgb(255, 255, 255);
+                        newLabelMessage.ForeColor = ColorTranslator.FromHtml("#444444");
                         labelsAgent.Add(newLabelMessage);
                     }
 
