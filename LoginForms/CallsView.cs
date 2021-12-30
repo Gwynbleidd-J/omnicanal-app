@@ -7,6 +7,7 @@ using System.Media;
 using LoginForms.Shared;
 using System.Net.NetworkInformation;
 using System.Drawing;
+using LoginForms.Properties;
 
 namespace LoginForms
 {
@@ -19,10 +20,99 @@ namespace LoginForms
 
         private Session[] _CallSessions = new Session[MAX_LINES];
 
+        #region Declaración de los elementos gráficos de la aplicación
+        CheckBox checkBoxNeedRegister = new CheckBox
+        {
+            Checked = true
+        };
+
+        ComboBox ComboBoxSRTP = new ComboBox
+        {
+        };
+
+        TextBox TextBoxStunServer = new TextBox
+        {
+        };
+        
+        TextBox TextBoxStunPort = new TextBox 
+        { 
+        };
+
+        CheckBox CheckBoxSDP = new CheckBox
+        {
+            Checked = false
+        };
+
+        CheckBox checkBoxMakeVideo = new CheckBox
+        {
+            Checked = false
+        };
+
+        CheckBox CheckBoxAA = new CheckBox
+        {
+            Checked = true
+        };
+
+        CheckBox CheckBoxConf = new CheckBox
+        {
+            Checked = false
+        };
+
+        CheckBox checkBoxAnswerVideo = new CheckBox
+        {
+            Checked = true
+        };
+
+        ComboBox ComboBoxLines = new ComboBox
+        {
+
+        };
+
+        ComboBox ComboBoxCameras = new ComboBox
+        {
+
+        };
+
+        CheckBox checkBoxPCMU = new CheckBox
+        {
+            Checked = true
+        };
+
+        CheckBox checkBoxPCMA = new CheckBox
+        {
+            Checked = true
+        };
+
+        CheckBox checkBoxG729 = new CheckBox
+        {
+            Checked = true
+        };
+
+        CheckBox checkBoxAEC = new CheckBox
+        {
+            Checked = true
+        };
+
+        #endregion
+
+
         static bool networkIsAvailable = false;
         private bool sIPInited = false;
         private bool sIPLogined = false;
         private int currentlyLine = LINE_BASE;
+
+       
+        string boton2 = Convert.ToString(Resources._2);
+        string boton3 = Convert.ToString(Resources._3);
+        string boton4 = Convert.ToString(Resources._4);
+        string boton5 = Convert.ToString(Resources._5);
+        string boton6 = Convert.ToString(Resources._6);
+        string boton7 = Convert.ToString(Resources._7);
+        string boton8 = Convert.ToString(Resources._8);
+        string boton9 = Convert.ToString(Resources._9);
+        string boton0 = Convert.ToString(Resources._0);
+        string botonAsterisco = Convert.ToString(Resources.asterisco);
+        string botonGato = Convert.ToString(Resources.gato);
 
         private PortSIPLib portSIPLib;
 
@@ -437,6 +527,7 @@ namespace LoginForms
         public CallsView()
         {
             InitializeComponent();
+            BackColor = Color.FromArgb(226, 224, 224);
         }
 
         private void deRegisterFromServer()
@@ -1323,7 +1414,7 @@ namespace LoginForms
                 {
                     //Para detener la llamada cuando se logre la llamada
                     //soundPlayer.Stop();
-                    ListBoxSIPLog.Items.Add(Text);
+                    //ListBoxSIPLog.Items.Add(Text);
                 }));
                 //MessageBox.Show(text, "Received an OPTIONS message", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
@@ -1644,25 +1735,20 @@ namespace LoginForms
 
             ComboBoxLines.SelectedIndex = 0;
 
-            CheckBox CheckBoxSDP = new CheckBox
+
+
+
+
+
+
+
+
+            ComboBox ComboBoxTransport = new ComboBox
             {
-                Checked = false
+                
             };
 
-            CheckBox checkBoxMakeVideo = new CheckBox
-            {
-                Checked = true
-            };
 
-            CheckBox checkBoxAnswerVideo = new CheckBox
-            {
-                Checked = true
-            };
-
-            CheckBox checkBoxNeedRegister = new CheckBox
-            {
-                Checked = true
-            };
 
             Connect();
             CheckNetwork();
@@ -1995,6 +2081,7 @@ namespace LoginForms
             ListBoxSIPLog.Items.Add(Text);
         }
 
+        #region boton para constestar las llamadas entrantes
         private void btnAnswer_Click(object sender, EventArgs e)
         {
             if (sIPInited == false || (checkBoxNeedRegister.Checked && (sIPLogined == false)))
@@ -2032,6 +2119,9 @@ namespace LoginForms
                 ListBoxSIPLog.Items.Add(Text);
             }
         }
+        #endregion
+
+
 
         private void btnHangUp_Click(object sender, EventArgs e)
         {
@@ -2067,6 +2157,7 @@ namespace LoginForms
             //EndCallRecord();
         }
 
+        #region Boton para rechazar una llamaada
         private void btnReject_Click(object sender, EventArgs e)
         {
             if (sIPInited == false || (checkBoxNeedRegister.Checked && (sIPLogined == false)))
@@ -2086,71 +2177,72 @@ namespace LoginForms
                 return;
             }
         }
+        #endregion
 
         #region Metodos Hold y Unhold se comentan ya que posiblemente causen errores en el softphone
 
         private void btnHold_Click(object sender, EventArgs e)
         {
-            //if (sIPInited == false || (checkBoxNeedRegister.Checked && (sIPLogined == false)))
-            //{
-            //    return;
-            //}
+            if (sIPInited == false || (checkBoxNeedRegister.Checked && (sIPLogined == false)))
+            {
+                return;
+            }
 
-            //if (_CallSessions[currentlyLine].getSessionState() == false || _CallSessions[currentlyLine].getHoldState() == true)
-            //{
-            //    return;
-            //}
-
-
-            //string Text;
-            //int rt = portSIPLib.hold(_CallSessions[currentlyLine].getSessionId());
-            //if (rt != 0)
-            //{
-            //    Text = "Line " + currentlyLine.ToString();
-            //    Text = Text + ": hold failure.";
-            //    ListBoxSIPLog.Items.Add(Text);
-
-            //    return;
-            //}
+            if (_CallSessions[currentlyLine].getSessionState() == false || _CallSessions[currentlyLine].getHoldState() == true)
+            {
+                return;
+            }
 
 
-            //_CallSessions[currentlyLine].setHoldState(true);
+            string Text;
+            int rt = portSIPLib.hold(_CallSessions[currentlyLine].getSessionId());
+            if (rt != 0)
+            {
+                Text = "Line " + currentlyLine.ToString();
+                Text = Text + ": hold failure.";
+                ListBoxSIPLog.Items.Add(Text);
 
-            //Text = "Line " + currentlyLine.ToString();
-            //Text = Text + ": hold";
-            //ListBoxSIPLog.Items.Add(Text);
+                return;
+            }
+
+
+            _CallSessions[currentlyLine].setHoldState(true);
+
+            Text = "Line " + currentlyLine.ToString();
+            Text = Text + ": hold";
+            ListBoxSIPLog.Items.Add(Text);
         }
 
         private void btnUnhold_Click(object sender, EventArgs e)
         {
-            //if (sIPInited == false || (checkBoxNeedRegister.Checked && (sIPLogined == false)))
-            //{
-            //    return;
-            //}
+            if (sIPInited == false || (checkBoxNeedRegister.Checked && (sIPLogined == false)))
+            {
+                return;
+            }
 
-            //if (_CallSessions[currentlyLine].getSessionState() == false || _CallSessions[currentlyLine].getHoldState() == false)
-            //{
-            //    return;
-            //}
+            if (_CallSessions[currentlyLine].getSessionState() == false || _CallSessions[currentlyLine].getHoldState() == false)
+            {
+                return;
+            }
 
-            //string Text;
-            //int rt = portSIPLib.unHold(_CallSessions[currentlyLine].getSessionId());
-            //if (rt != 0)
-            //{
-            //    _CallSessions[currentlyLine].setHoldState(false);
+            string Text;
+            int rt = portSIPLib.unHold(_CallSessions[currentlyLine].getSessionId());
+            if (rt != 0)
+            {
+                _CallSessions[currentlyLine].setHoldState(false);
 
-            //    Text = "Line " + currentlyLine.ToString();
-            //    Text = Text + ": Un-Hold Failure.";
-            //    ListBoxSIPLog.Items.Add(Text);
+                Text = "Line " + currentlyLine.ToString();
+                Text = Text + ": Un-Hold Failure.";
+                ListBoxSIPLog.Items.Add(Text);
 
-            //    return;
-            //}
+                return;
+            }
 
-            //_CallSessions[currentlyLine].setHoldState(false);
+            _CallSessions[currentlyLine].setHoldState(false);
 
-            //Text = "Line " + currentlyLine.ToString();
-            //Text = Text + ": Un-Hold";
-            //ListBoxSIPLog.Items.Add(Text);
+            Text = "Line " + currentlyLine.ToString();
+            Text = Text + ": Un-Hold";
+            ListBoxSIPLog.Items.Add(Text);
         }
         #endregion
        
@@ -2196,6 +2288,7 @@ namespace LoginForms
             }
         }
 
+        #region botón para la transferencia asistida
         private void btnForeignTransfer_Click(object sender, EventArgs e)
         {
             if (sIPInited == false || (checkBoxNeedRegister.Checked && (sIPLogined == false)))
@@ -2211,7 +2304,7 @@ namespace LoginForms
 
 
             string referTo = txtTransferTo.Text;
-            if(referTo.Length <= 0)
+            if (referTo.Length <= 0)
             {
                 MessageBox.Show("The transfer numbre is empty", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
@@ -2244,6 +2337,7 @@ namespace LoginForms
                 ListBoxSIPLog.Items.Add(Text);
             }
         }
+        #endregion
 
         private void CheckBoxMute_CheckedChanged(object sender, EventArgs e)
         {
@@ -2270,6 +2364,8 @@ namespace LoginForms
             {
                 portSIPLib.sendDtmf(_CallSessions[currentlyLine].getSessionId(), DTMF_METHOD.DTMF_RFC2833, 1, 160, true);
             }
+
+
         }
 
         private void btn2_Click(object sender, EventArgs e)
@@ -2524,7 +2620,7 @@ namespace LoginForms
             }
         }
 
-        private void Connect()
+        public void Connect()
         {
             if (sIPInited == true)
             {
@@ -2811,8 +2907,171 @@ namespace LoginForms
             Console.WriteLine($"Disponibilidad de la red[Mensaje 2]: {networkIsAvailable}");
         }
 
-        #region Metodo para salir de una conferencia
+        #region Metodos para darle animación a los botones del softphone
+        private void btn1_MouseDown(object sender, MouseEventArgs e)
+        {
+            btn1.BackgroundImage = Properties.Resources._1_presionado;
+        }
 
+        private void btn1_MouseUp(object sender, MouseEventArgs e)
+        {
+            btn1.BackgroundImage = Properties.Resources._1;
+        }
+
+        private void btn2_MouseDown(object sender, MouseEventArgs e)
+        {
+            btn2.BackgroundImage = Properties.Resources._2_presionado;
+        }
+
+        private void btn2_MouseUp(object sender, MouseEventArgs e)
+        {
+            btn2.BackgroundImage = Properties.Resources._2;
+        }
+
+        private void btn3_MouseDown(object sender, MouseEventArgs e)
+        {
+            btn3.BackgroundImage = Properties.Resources._3_presionado;
+        }
+
+        private void btn3_MouseUp(object sender, MouseEventArgs e)
+        {
+            btn3.BackgroundImage = Properties.Resources._3;
+        }
+
+        private void btn4_MouseDown(object sender, MouseEventArgs e)
+        {
+            btn4.BackgroundImage = Properties.Resources._4_presionado;
+        }
+
+        private void btn4_MouseUp(object sender, MouseEventArgs e)
+        {
+            btn4.BackgroundImage = Properties.Resources._4;
+        }
+
+        private void btn5_MouseDown(object sender, MouseEventArgs e)
+        {
+            btn5.BackgroundImage = Properties.Resources._5_presionado;
+        }
+
+        private void btn5_MouseUp(object sender, MouseEventArgs e)
+        {
+            btn5.BackgroundImage = Properties.Resources._5;
+        }
+
+        private void bnt6_MouseDown(object sender, MouseEventArgs e)
+        {
+            bnt6.BackgroundImage = Properties.Resources._6_presionado;
+        }
+
+        private void bnt6_MouseUp(object sender, MouseEventArgs e)
+        {
+            bnt6.BackgroundImage = Properties.Resources._6;
+        }
+
+        private void bnt7_MouseDown(object sender, MouseEventArgs e)
+        {
+            bnt7.BackgroundImage = Properties.Resources._7_presionado;
+        }
+
+        private void bnt7_MouseUp(object sender, MouseEventArgs e)
+        {
+            bnt7.BackgroundImage = Properties.Resources._7;
+        }
+
+        private void bnt8_MouseDown(object sender, MouseEventArgs e)
+        {
+            bnt8.BackgroundImage = Properties.Resources._8_presionado;
+        }
+
+        private void bnt8_MouseUp(object sender, MouseEventArgs e)
+        {
+            bnt8.BackgroundImage = Properties.Resources._8;
+        }
+
+        private void btn9_MouseDown(object sender, MouseEventArgs e)
+        {
+            btn9.BackgroundImage = Properties.Resources._9_presionado;
+        }
+
+        private void btn9_MouseUp(object sender, MouseEventArgs e)
+        {
+            btn9.BackgroundImage = Properties.Resources._9;
+        }
+
+        private void btnAsterisk_MouseDown(object sender, MouseEventArgs e)
+        {
+            btnAsterisk.BackgroundImage = Properties.Resources.asterisco_presionado;
+        }
+
+        private void btnAsterisk_MouseUp(object sender, MouseEventArgs e)
+        {
+            btnAsterisk.BackgroundImage = Properties.Resources.asterisco;
+        }
+
+        private void btn0_MouseDown(object sender, MouseEventArgs e)
+        {
+            btn0.BackgroundImage = Properties.Resources._0_presionado;
+        }
+
+        private void btn0_MouseUp(object sender, MouseEventArgs e)
+        {
+            btn0.BackgroundImage = Properties.Resources._0;
+        }
+
+        private void btnNumeral_MouseDown(object sender, MouseEventArgs e)
+        {
+            btnNumeral.BackgroundImage = Properties.Resources.gato_presionado;
+        }
+
+        private void btnNumeral_MouseUp(object sender, MouseEventArgs e)
+        {
+            btnNumeral.BackgroundImage = Properties.Resources.gato;
+        }
+
+        private void btnUnhold_MouseDown(object sender, MouseEventArgs e)
+        {
+            btnUnhold.BackgroundImage = Properties.Resources.hold_hover;
+        }
+
+        private void btnUnhold_MouseUp(object sender, MouseEventArgs e)
+        {
+            btnUnhold.BackgroundImage = Properties.Resources.hold;
+        }
+
+        private void btnHold_MouseDown(object sender, MouseEventArgs e)
+        {
+            btnHold.BackgroundImage = Properties.Resources.tiempo_presionado;
+        }
+
+        private void btnHold_MouseUp(object sender, MouseEventArgs e)
+        {
+            btnHold.BackgroundImage = Properties.Resources.tiempo;
+        }
+
+        private void btnDial_MouseDown(object sender, MouseEventArgs e)
+        {
+            btnDial.BackgroundImage = Properties.Resources.llamar_presionado;
+        }
+
+        private void btnDial_MouseUp(object sender, MouseEventArgs e)
+        {
+            btnDial.BackgroundImage = Properties.Resources.llamar;
+        }
+
+        private void btnHangUp_MouseDown(object sender, MouseEventArgs e)
+        {
+            btnHangUp.BackgroundImage = Properties.Resources.colgar_presionado;
+        }
+
+
+        private void btnHangUp_MouseUp(object sender, MouseEventArgs e)
+        {
+            btnHangUp.BackgroundImage = Properties.Resources.colgar;
+        }
+
+        #endregion
+
+        #region Metodo para salir de una conferencia
         //Se comenta para ver si pueded tener una utilidad en un futuro.
         private void btnExitFromConference_Click(object sender, EventArgs e)
         {
@@ -2826,6 +3085,51 @@ namespace LoginForms
                 MessageBox.Show("No se pudo desconectar el softphone de la conferencia", "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
+
+        private void btnClearListBox_MouseDown(object sender, MouseEventArgs e)
+        {
+            btnClearListBox.BackgroundImage = Properties.Resources.backspace_hover;
+        }
+
+        private void btnClearListBox_MouseUp(object sender, MouseEventArgs e)
+        {
+            btnClearListBox.BackgroundImage = Properties.Resources.backspace;
+        }
+
+        private void btnStartRecord_MouseDown(object sender, MouseEventArgs e)
+        {
+            btnStartRecord.BackgroundImage = Properties.Resources.grabar_hover;
+        }
+
+        private void btnStartRecord_MouseUp(object sender, MouseEventArgs e)
+        {
+            btnStartRecord.BackgroundImage = Properties.Resources.grabar;
+        }
+
+        private void btnEndRecord_MouseDown(object sender, MouseEventArgs e)
+        {
+            btnEndRecord.BackgroundImage = Properties.Resources.stop_hover;
+        }
+
+        private void btnEndRecord_MouseUp(object sender, MouseEventArgs e)
+        {
+            btnEndRecord.BackgroundImage = Properties.Resources.stop;
+        }
+
+        private void btnTransfer_MouseDown(object sender, MouseEventArgs e)
+        {
+            btnTransfer.BackgroundImage = Properties.Resources.interambiar_presionado;
+        }
+
+        private void btnTransfer_MouseUp(object sender, MouseEventArgs e)
+        {
+            btnTransfer.BackgroundImage = Properties.Resources.intercambiar;
+        }
+
+
+
+
+
         #endregion
 
         //private void btnAttendTransfer_Click(object sender, EventArgs e)

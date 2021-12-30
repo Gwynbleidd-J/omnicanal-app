@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Drawing;
 using System.Net.Sockets;
 using System.Windows.Forms;
 using LoginForms.Models;
@@ -16,12 +17,13 @@ namespace LoginForms
 
         public Login()
         {
+            //BackColor = Color.FromArgb(226, 224, 224);
             InitializeComponent();
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            //Application.Exit();
             #region Llamada al metodo para cerrar el socket desde la aplicacion
             //try
             //{
@@ -40,6 +42,7 @@ namespace LoginForms
             //    Console.WriteLine($"Error [BtnCerrar_Click][Login] {ex.Message}");
             //}
             #endregion
+
         }
 
         private void btnEntrar_Click(object sender, EventArgs e)
@@ -70,10 +73,9 @@ namespace LoginForms
             }
         }
 
-        private async void userLogin()
+        private async void userLogin(IProgress<int> progress = null)
         {
             string ipAddress = rh.GetLocalIpAddress();
-
             try
             {
                 FormPrincipal formPrincipal = new FormPrincipal();
@@ -98,6 +100,21 @@ namespace LoginForms
                 Console.WriteLine($"Error[Login]: {ex}");
                 MessageBox.Show($"Error[Login]: {ex.Message}", $"Omnicanal", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private void btnEntrar_MouseEnter(object sender, EventArgs e)
+        {
+            btnEntrar.BackgroundImage = Properties.Resources.boton_largo_presionado;
+        }
+
+        private void btnEntrar_MouseUp(object sender, MouseEventArgs e)
+        {
+            btnEntrar.BackgroundImage = Properties.Resources.boton_chico;
+        }
+
+        private void Login_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
