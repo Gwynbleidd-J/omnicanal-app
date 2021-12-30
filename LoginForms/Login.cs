@@ -76,6 +76,7 @@ namespace LoginForms
         private async void userLogin(IProgress<int> progress = null)
         {
             string ipAddress = rh.GetLocalIpAddress();
+
             try
             {
                 FormPrincipal formPrincipal = new FormPrincipal();

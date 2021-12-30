@@ -29,18 +29,17 @@ namespace LoginForms
         private RichTextBox container;
         private Form whatsapp;
         public Prueba prueba;
-        public WebChat webChat;
         private Form fPrincipal;
         //private TabControl tbControlContainer;
         //private ChatWindow chatWindow;
         RestHelper rh = new RestHelper();
-        ScreenCapture screen = new ScreenCapture();
+        //ScreenCapture screen = new ScreenCapture();
 
         public static bool Monitoreando = false;
         public static bool conexionPerdidaMonitoreo = false;
 
         //Constructores
-        public AsynchronousClient(RichTextBox container, Form whatsapp, Prueba prueba, Form fPrincipal, WebChat webChat)
+        public AsynchronousClient(RichTextBox container, Form whatsapp, Prueba prueba, Form fPrincipal)
         {
             try
             {
@@ -51,9 +50,6 @@ namespace LoginForms
                 //this.tbControlContainer = tabControlFromForm;
                 //inicializarChatWindow();
                 //recoverActiveChats();
-
-                //Se agrega referencia al nuevo form para probar funcionalidad de las construcción dinámica en otra ventana
-                this.webChat = webChat;
             }
             catch (Exception ex)
             {
@@ -80,8 +76,8 @@ namespace LoginForms
             try
             {
                 //Establish the remote endpoint for the socket.
-                IPAddress ipAddress = IPAddress.Parse(remoteEndPoint);
-                //IPAddress ipAddress = IPAddress.Parse("192.168.1.103");
+                IPAddress ipAddress = IPAddress.Parse("192.168.1.103");
+                //IPAddress ipAddress = IPAddress.Parse("201.149.34.171");
                 //IPAddress ipAddress = IPAddress.Parse("192.168.1.145");
                 IPEndPoint remoteEP = new IPEndPoint(ipAddress, port);
                 
@@ -298,15 +294,15 @@ namespace LoginForms
                         toast.Dismissed += (senderT, args) => ToastNotificationManagerCompat.History.Clear();
                     });
                 }
-                else if (jobject.ContainsKey("CloseChat"))
-                {
-                    Console.WriteLine("\nEl id del chat es: " + jobject.Value<string>("chatId"));
-                    TabPageChat chat = prueba.getTabChatByChatId(jobject.Value<string>("chatId"));
-                    MessageBox.Show("El cliente ha abandonado la conversacion, \nPor favor, cierre el chat.");
-                    chat.txtSendMessage.Visible = false;
-                    chat.btnSendMessage.Visible = false;
-                    //chat.btnCloseButton.PerformClick();
-                }
+                //else if (jobject.ContainsKey("CloseChat"))
+                //{
+                //    Console.WriteLine("\nEl id del chat es: " + jobject.Value<string>("chatId"));
+                //    TabPageChat chat = prueba.getTabChatByChatId(jobject.Value<string>("chatId"));
+                //    MessageBox.Show("El cliente ha abandonado la conversacion, \nPor favor, cierre el chat.");
+                //    chat.txtSendMessage.Visible = false;
+                //    chat.btnSendMessage.Visible = false;
+                //    //chat.btnCloseButton.PerformClick();
+                //}
                 else if (jobject.ContainsKey("closeTransferChat")) {
                     Console.WriteLine("\nEl id del chat es: " + jobject.Value<string>("chatId"));
 
@@ -441,6 +437,7 @@ namespace LoginForms
                     var port = jobject.Value<string>("socketPort");
                     Console.WriteLine("\nHola agente, tu puerto asignado por la API es:" + port);
                     var temp= await rh.updateAgentActiveIp(GlobalSocket.currentUser.email, port.ToString());
+                    GlobalSocket.currentUser.activeIp = port;
 
                     if (conexionPerdidaMonitoreo == true && temp == "OK")
                     {
@@ -454,7 +451,13 @@ namespace LoginForms
                     Models.Message notification = JsonConvert.DeserializeObject<Models.Message>(socketNotification);
 
                     Console.WriteLine("notificacion:" + notification);
-                    prueba.treatNotification(notification);
+
+                    //Cuando ocurria una intermitencia en la red y se reconectaba, la instancia de prueba venia nula, por eso el otro metodo
+
+                    //prueba.treatNotification(notification);
+
+                    Prueba Activeprueba = (Prueba)Application.OpenForms["Prueba"];
+                    Activeprueba.treatNotification(notification);
 
                 }
 
