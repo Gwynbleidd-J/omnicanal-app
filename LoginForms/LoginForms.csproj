@@ -237,6 +237,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="WebChat.resx">
       <DependentUpon>WebChat.cs</DependentUpon>
@@ -315,6 +316,153 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\0.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\asterisco .png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gato.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\colgar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\llamar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\mute.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tiempo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\hold .png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\boton chico .png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\boton largo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\intercambiar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\0_presionado.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1_presionado.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2_presionado.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3_presionado.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\4_presionado.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\5_presionado.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\6_presionado.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\7_presionado.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\8_presionado.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\9_presionado.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\asterisco_presionado.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gato_presionado.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\hold hover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\interambiar presionado.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tiempo presionado.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\colgar presionado.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\llamar presionado.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\grabar hover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\grabar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\backspace hover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\backspace.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\stop hover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\stop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\password.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\entrar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\campo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\boton largo presionado.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
