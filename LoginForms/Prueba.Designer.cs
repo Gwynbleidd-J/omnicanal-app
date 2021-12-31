@@ -33,12 +33,12 @@ namespace LoginForms
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.tabControlChats = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.txtNewTabChat = new System.Windows.Forms.TextBox();
             this.btnBeginChat = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.txtNewTabChat = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.tabControlChats.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -88,10 +88,45 @@ namespace LoginForms
             this.tabPage1.Size = new System.Drawing.Size(878, 553);
             this.tabPage1.TabIndex = 0;
             // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Location = new System.Drawing.Point(739, 473);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(123, 28);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
+            // 
+            // button2
+            // 
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button2.Location = new System.Drawing.Point(610, 473);
+            this.button2.Margin = new System.Windows.Forms.Padding(4);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(121, 28);
+            this.button2.TabIndex = 6;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Visible = false;
+            // 
+            // txtNewTabChat
+            // 
+            this.txtNewTabChat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtNewTabChat.Location = new System.Drawing.Point(4, 479);
+            this.txtNewTabChat.Margin = new System.Windows.Forms.Padding(4);
+            this.txtNewTabChat.Name = "txtNewTabChat";
+            this.txtNewTabChat.Size = new System.Drawing.Size(598, 22);
+            this.txtNewTabChat.TabIndex = 4;
+            this.txtNewTabChat.Visible = false;
+            // 
             // btnBeginChat
             // 
             this.btnBeginChat.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnBeginChat.AutoSize = true;
             this.btnBeginChat.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBeginChat.Location = new System.Drawing.Point(22, 616);
             this.btnBeginChat.Margin = new System.Windows.Forms.Padding(4);
@@ -134,40 +169,6 @@ namespace LoginForms
             this.tableLayoutPanel1.Size = new System.Drawing.Size(932, 666);
             this.tableLayoutPanel1.TabIndex = 9;
             // 
-            // txtNewTabChat
-            // 
-            this.txtNewTabChat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtNewTabChat.Location = new System.Drawing.Point(4, 479);
-            this.txtNewTabChat.Margin = new System.Windows.Forms.Padding(4);
-            this.txtNewTabChat.Name = "txtNewTabChat";
-            this.txtNewTabChat.Size = new System.Drawing.Size(598, 22);
-            this.txtNewTabChat.TabIndex = 4;
-            this.txtNewTabChat.Visible = false;
-            // 
-            // button2
-            // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(610, 473);
-            this.button2.Margin = new System.Windows.Forms.Padding(4);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(121, 28);
-            this.button2.TabIndex = 6;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Visible = false;
-            // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(739, 473);
-            this.button1.Margin = new System.Windows.Forms.Padding(4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(123, 28);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Visible = false;
-            // 
             // Prueba
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -189,6 +190,7 @@ namespace LoginForms
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

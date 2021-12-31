@@ -132,6 +132,12 @@
     <Compile Include="CheckAgents.Designer.cs">
       <DependentUpon>CheckAgents.cs</DependentUpon>
     </Compile>
+    <Compile Include="DashboardAgente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DashboardAgente.Designer.cs">
+      <DependentUpon>DashboardAgente.cs</DependentUpon>
+    </Compile>
     <Compile Include="Encrypt.cs" />
     <Compile Include="FormPrincipal.cs">
       <SubType>Form</SubType>
@@ -252,6 +258,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CheckAgents.resx">
       <DependentUpon>CheckAgents.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DashboardAgente.resx">
+      <DependentUpon>DashboardAgente.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormPrincipal.resx">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
@@ -604,6 +613,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="obj\Debug\TempPE\Properties.Resources.Designer.cs.dll" />
+    <None Include="Resources\telegram.png" />
     <None Include="Resources\whatsapp .png" />
   </ItemGroup>
   <ItemGroup>

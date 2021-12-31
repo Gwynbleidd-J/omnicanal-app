@@ -56,6 +56,7 @@ namespace LoginForms
             //prueba.Show();
             client = new AsynchronousClient(whatsApp.rtxtResponseMessage, this, prueba, this);
             //client.inicializarChatWindow();
+            this.BackColor = ColorTranslator.FromHtml("#e2e0e0");
         }
 
 
@@ -104,23 +105,8 @@ namespace LoginForms
         {
             try
             {
-                tableLayoutPanel4.ColumnCount = GlobalSocket.currentUser.rol.permission.Count + 1;
-                System.Windows.Forms.PictureBox homeImage = new PictureBox();
-                homeImage.Height = 80;
-                homeImage.Width = 135;
-                homeImage.SizeMode = PictureBoxSizeMode.StretchImage;
-                homeImage.Image = Properties.Resources.home;
-                homeImage.Name = "Home";
-                homeImage.Click += (e, s) =>
-                {
-                    var temp1 = (PictureBox)tableLayoutPanel4.Controls["Chats"];
-                    var temp2 = (PictureBox)tableLayoutPanel4.Controls["Softphone"];
-                    temp1.Image = Properties.Resources.chat;
-                    temp2.Image = Properties.Resources.llamadas;
-                    homeImage.Image = Properties.Resources.home_presionado;
-                };
-
-                tableLayoutPanel4.Controls.Add(homeImage,0,0);
+                tableLayoutPanel4.ColumnCount = GlobalSocket.currentUser.rol.permission.Count;
+                //tableLayoutPanel4.CellBorderStyle = TableLayoutPanelCellBorderStyle.Inset;
 
                 for (int i = 0; i < GlobalSocket.currentUser.rol.permission.Count; i++)
                 {
@@ -197,6 +183,35 @@ namespace LoginForms
                         };
 
                     }
+                    else if (menu == "Panalla inicial agente")
+                    {
+                        dynamicImage.SizeMode = PictureBoxSizeMode.StretchImage;
+                        dynamicImage.Image = Properties.Resources.home;
+                        dynamicImage.Name = "Home";
+
+                        dynamicImage.Click += (s, e) =>
+                        {
+                            f.TopLevel = false;
+                            f.Parent = pnlChatMessages;
+                            f.ControlBox = false;
+                            f.BringToFront();
+                            f.Location = new Point(0, 0);
+                            f.Dock = DockStyle.Fill;
+                            f.Focus();
+                            f.Show();
+                            f.FormBorderStyle = FormBorderStyle.None;
+                            f.BackColor = ColorTranslator.FromHtml("#e2e0e1");
+                            client.prueba = f as Prueba;
+
+                            var temp1 = (PictureBox)tableLayoutPanel4.Controls["Chats"];
+                            var temp2 = (PictureBox)tableLayoutPanel4.Controls["Softphone"];
+                            temp1.Image = Properties.Resources.chat;
+                            temp2.Image = Properties.Resources.llamadas;
+                            dynamicImage.Image = Properties.Resources.home_presionado;
+
+                        };
+
+                    }
 
                     dynamicButton.Click += (s, e) =>
                     {
@@ -213,13 +228,39 @@ namespace LoginForms
                         client.prueba = f as Prueba;
                     };
                     flpDynamicButtons.Controls.Add(dynamicButton);
-                    tableLayoutPanel4.Controls.Add(dynamicImage, i+1,0);
+
+                    dynamicImage.Anchor = AnchorStyles.None;
+                    tableLayoutPanel4.Controls.Add(dynamicImage, i,0);
+
+                    var tempHome = (PictureBox)tableLayoutPanel4.Controls["Home"];
+                    //metodoHome(f, tempHome);
+
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"[DynamicButtons]Error:  {ex.Message}");
             }
+        }
+
+        public void metodoHome(Form f, PictureBox dynamicImage) {
+            f.TopLevel = false;
+            f.Parent = pnlChatMessages;
+            f.ControlBox = false;
+            f.BringToFront();
+            f.Location = new Point(0, 0);
+            f.Dock = DockStyle.Fill;
+            f.Focus();
+            f.Show();
+            f.FormBorderStyle = FormBorderStyle.None;
+            f.BackColor = ColorTranslator.FromHtml("#e2e0e1");
+            client.prueba = f as Prueba;
+
+            var temp1 = (PictureBox)tableLayoutPanel4.Controls["Chats"];
+            var temp2 = (PictureBox)tableLayoutPanel4.Controls["Softphone"];
+            temp1.Image = Properties.Resources.chat;
+            temp2.Image = Properties.Resources.llamadas;
+            dynamicImage.Image = Properties.Resources.home_presionado;
         }
 
         private void labelAgentStatus()
@@ -310,6 +351,44 @@ namespace LoginForms
         {
             string indidualId = GlobalSocket.currentUser.ID;
             return indidualId;
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            pictureBox1.Image = Properties.Resources.cerrar_sesion_presionado_1;
+
+            login = new Login();
+            //asynchronousClient = new AsynchronousClient();
+            string userToken = GlobalSocket.currentUser.token;
+            userToken = "";
+
+            if (string.IsNullOrEmpty(userToken))
+            {
+                asynchronousClient.CloseSocketConnection();
+                MessageBox.Show("usuario cerró sesión", "Omnicanal", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Dispose();
+                login.Show();
+            }
+        }
+
+        //private void pictureBox1_MouseHover(object sender, EventArgs e)
+        //{
+        //    pictureBox1.Image = Properties.Resources.cerrar_sesion_hover;
+        //}
+
+        //private void pictureBox1_MouseLeave(object sender, EventArgs e)
+        //{
+        //    pictureBox1.Image = Properties.Resources.cerrar_sesion_1;
+        //}
+
+        private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
+        {
+            pictureBox1.Image = Properties.Resources.cerrar_sesion_1;
+        }
+
+        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
+        {
+            pictureBox1.Image = Properties.Resources.cerrar_sesion_presionado_1;
         }
 
         //Metodos que no recuerdo para que se utilizan, pero deben de tener una utilidad

@@ -177,7 +177,7 @@ namespace LoginForms.Utils
                 pnlMessages.BackColor = Color.FromArgb(236, 229, 221);
                 pnlMessages.AutoScroll = true;
                 //tbPage.Controls.Add(pnlMessages);
-                pnlMessages.Size = new Size(tbPage.Size.Width - 40, tbPage.Size.Height - (tbPage.Size.Height / 4));
+                pnlMessages.Size = new Size(tbPage.Size.Width - 40, tbPage.Size.Height - (tbPage.Size.Height / 4) + 30);
                 pnlMessages.Anchor = (AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top);
                 pnlMessages.BorderStyle = BorderStyle.FixedSingle;
 
@@ -191,7 +191,7 @@ namespace LoginForms.Utils
                 txtSendMessage.Tag = $"txtSendMessage_{chatId}";
                 txtSendMessage.Size = new Size(480, 20);
                 //txtSendMessage.Location = new Point(10, 432);
-                txtSendMessage.Location = new Point(10, pnlMessages.Size.Height + 10);
+                txtSendMessage.Location = new Point(20, pnlMessages.Size.Height + 10);
                 txtSendMessage.Text = "Buen día, soy su agente a cargo, ¿En qué le puedo ayudar?";
                 txtSendMessage.Anchor = AnchorStyles.Top;
                 txtSendMessage.Font = new Font("Calibri", 10);
@@ -212,7 +212,7 @@ namespace LoginForms.Utils
                 picSendMessage.Name = $"btnSendMessage_{chatId}";
                 picSendMessage.Tag = $"btnSendMessage_{chatId}";
                 picSendMessage.Size = new Size(164, 46);
-                picSendMessage.Location = new Point(498, pnlMessages.Size.Height + 10);
+                picSendMessage.Location = new Point(508, pnlMessages.Size.Height + 10);
                 picSendMessage.BackgroundImageLayout = ImageLayout.Stretch;
                 picSendMessage.BackgroundImage = Properties.Resources.enviar_mensaje_1;
 
@@ -259,7 +259,7 @@ namespace LoginForms.Utils
                 btnCloseButton.Text = $"Cerrar Chat";
                 btnCloseButton.Size = new Size(86, 23);
                 //btnCloseButton.Location = new Point(586, 429);
-                btnCloseButton.Location = new Point(586, pnlMessages.Size.Height + 10);
+                btnCloseButton.Location = new Point(596, pnlMessages.Size.Height + 10);
                 btnCloseButton.Anchor = AnchorStyles.Top;
 
                 btnCloseButton.Click += async (s, e) =>
@@ -274,13 +274,14 @@ namespace LoginForms.Utils
                 };
 
                 tabla.ColumnCount = 5;
-                tabla.RowCount = 1;
-                tabla.CellBorderStyle = TableLayoutPanelCellBorderStyle.Inset;
+                tabla.RowCount = 2;
+                //tabla.CellBorderStyle = TableLayoutPanelCellBorderStyle.Inset;
                 tabla.Height = (tbPage.Height /8);
 
                 tabla.Controls.Add(txtSendMessage, 1, 0);
                 tabla.Controls.Add(btnSendMessage, 2, 0);
                 tabla.Controls.Add(btnCloseButton, 3, 0);
+                tabla.Padding = new Padding(15);
 
                 //tabla.Controls.Add(txtSendMessage, 1, 0);
                 //tabla.Controls.Add(picSendMessage, 2, 0);
@@ -295,7 +296,7 @@ namespace LoginForms.Utils
                     tabla.Height = (tbPage.Height / 8);
                     tabla.Dock = DockStyle.Bottom;
                     tabla.Location = new Point(0, tbPage.Height - tabla.Height);
-                    pnlMessages.Size = new Size(tbPage.Size.Width - 40, tbPage.Size.Height - (tbPage.Size.Height / 4));
+                    pnlMessages.Size = new Size(tbPage.Size.Width - 40, tbPage.Size.Height - (tbPage.Size.Height / 4) + 30);
 
                     if (labelsAgent.Count > 0)
                     {

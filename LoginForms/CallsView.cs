@@ -20,6 +20,8 @@ namespace LoginForms
 
         private Session[] _CallSessions = new Session[MAX_LINES];
 
+        //Quitar bordes desde la carga para evitar el parpadeo
+
         #region Declaración de los elementos gráficos de la aplicación
         CheckBox checkBoxNeedRegister = new CheckBox
         {
@@ -528,6 +530,7 @@ namespace LoginForms
         {
             InitializeComponent();
             BackColor = Color.FromArgb(226, 224, 224);
+            this.FormBorderStyle = FormBorderStyle.None;
         }
 
         private void deRegisterFromServer()

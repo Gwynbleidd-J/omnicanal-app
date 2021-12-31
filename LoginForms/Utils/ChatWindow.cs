@@ -147,7 +147,7 @@ namespace LoginForms.Utils
             ImageList iconList = new ImageList();
             iconList.TransparentColor = Color.White;
             iconList.ColorDepth = ColorDepth.Depth32Bit;
-            iconList.ImageSize = new Size(20,20);
+            iconList.ImageSize = new Size(40,40);
 
             var telegram = Resources.telegram;
             var whatsApp = Resources.whatsapp;

@@ -19,6 +19,7 @@ namespace LoginForms
         {
             //BackColor = Color.FromArgb(226, 224, 224);
             InitializeComponent();
+            //this.FormBorderStyle = FormBorderStyle.None;
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)

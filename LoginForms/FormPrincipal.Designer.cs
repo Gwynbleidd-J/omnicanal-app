@@ -37,21 +37,24 @@ namespace LoginForms
             this.mainMenu1 = new System.Windows.Forms.MainMenu(this.components);
             this.flpDynamicButtons = new System.Windows.Forms.FlowLayoutPanel();
             this.pnlChatMessages = new System.Windows.Forms.Panel();
+            this.btnCloseSesion = new System.Windows.Forms.Button();
             this.flpAgentStatus = new System.Windows.Forms.FlowLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbUserStatus = new System.Windows.Forms.ComboBox();
-            this.btnCloseSesion = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.flpDynamicButtons.SuspendLayout();
+            this.pnlChatMessages.SuspendLayout();
             this.flpAgentStatus.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             this.SuspendLayout();
@@ -113,10 +116,10 @@ namespace LoginForms
             this.flpDynamicButtons.Controls.Add(this.button1);
             this.flpDynamicButtons.Controls.Add(this.btnTelegram);
             this.flpDynamicButtons.Controls.Add(this.btnLlamadas);
-            this.flpDynamicButtons.Location = new System.Drawing.Point(1620, 4);
+            this.flpDynamicButtons.Location = new System.Drawing.Point(1715, 4);
             this.flpDynamicButtons.Margin = new System.Windows.Forms.Padding(4);
             this.flpDynamicButtons.Name = "flpDynamicButtons";
-            this.flpDynamicButtons.Size = new System.Drawing.Size(149, 92);
+            this.flpDynamicButtons.Size = new System.Drawing.Size(149, 76);
             this.flpDynamicButtons.TabIndex = 8;
             this.flpDynamicButtons.Visible = false;
             // 
@@ -126,12 +129,28 @@ namespace LoginForms
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlChatMessages.BackColor = System.Drawing.Color.Transparent;
+            this.pnlChatMessages.Controls.Add(this.btnCloseSesion);
             this.pnlChatMessages.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.pnlChatMessages.ForeColor = System.Drawing.SystemColors.ControlText;
             this.pnlChatMessages.Location = new System.Drawing.Point(193, 3);
             this.pnlChatMessages.Name = "pnlChatMessages";
             this.pnlChatMessages.Size = new System.Drawing.Size(1515, 772);
             this.pnlChatMessages.TabIndex = 9;
+            // 
+            // btnCloseSesion
+            // 
+            this.btnCloseSesion.BackgroundImage = global::LoginForms.Properties.Resources.cerrar_sesion_1;
+            this.btnCloseSesion.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnCloseSesion.FlatAppearance.BorderSize = 0;
+            this.btnCloseSesion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCloseSesion.Location = new System.Drawing.Point(1187, 38);
+            this.btnCloseSesion.Margin = new System.Windows.Forms.Padding(4);
+            this.btnCloseSesion.Name = "btnCloseSesion";
+            this.btnCloseSesion.Size = new System.Drawing.Size(256, 59);
+            this.btnCloseSesion.TabIndex = 11;
+            this.btnCloseSesion.UseVisualStyleBackColor = true;
+            this.btnCloseSesion.Visible = false;
+            this.btnCloseSesion.Click += new System.EventHandler(this.btnCloseSesion_Click);
             // 
             // flpAgentStatus
             // 
@@ -141,16 +160,16 @@ namespace LoginForms
             this.flpAgentStatus.BackColor = System.Drawing.Color.Transparent;
             this.flpAgentStatus.Controls.Add(this.label1);
             this.flpAgentStatus.Controls.Add(this.cmbUserStatus);
-            this.flpAgentStatus.Location = new System.Drawing.Point(98, 33);
+            this.flpAgentStatus.Location = new System.Drawing.Point(79, 33);
             this.flpAgentStatus.Margin = new System.Windows.Forms.Padding(4);
             this.flpAgentStatus.Name = "flpAgentStatus";
-            this.flpAgentStatus.Size = new System.Drawing.Size(321, 96);
+            this.flpAgentStatus.Size = new System.Drawing.Size(256, 96);
             this.flpAgentStatus.TabIndex = 10;
             // 
             // label1
             // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Left;
             this.label1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Snow;
             this.label1.Location = new System.Drawing.Point(4, 0);
@@ -162,7 +181,7 @@ namespace LoginForms
             // 
             // cmbUserStatus
             // 
-            this.cmbUserStatus.Dock = System.Windows.Forms.DockStyle.Right;
+            this.cmbUserStatus.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.cmbUserStatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmbUserStatus.Font = new System.Drawing.Font("Calibri", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbUserStatus.FormattingEnabled = true;
@@ -173,26 +192,10 @@ namespace LoginForms
             this.cmbUserStatus.TabIndex = 0;
             this.cmbUserStatus.SelectedIndexChanged += new System.EventHandler(this.cmbUserStatus_SelectedIndexChanged);
             // 
-            // btnCloseSesion
-            // 
-            this.btnCloseSesion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCloseSesion.BackgroundImage = global::LoginForms.Properties.Resources.cerrar_sesion_1;
-            this.btnCloseSesion.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnCloseSesion.FlatAppearance.BorderSize = 0;
-            this.btnCloseSesion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCloseSesion.Location = new System.Drawing.Point(4, 4);
-            this.btnCloseSesion.Margin = new System.Windows.Forms.Padding(4);
-            this.btnCloseSesion.Name = "btnCloseSesion";
-            this.btnCloseSesion.Size = new System.Drawing.Size(277, 59);
-            this.btnCloseSesion.TabIndex = 11;
-            this.btnCloseSesion.UseVisualStyleBackColor = true;
-            this.btnCloseSesion.Click += new System.EventHandler(this.btnCloseSesion_Click);
-            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Transparent;
-            this.panel1.BackgroundImage = global::LoginForms.Properties.Resources.header;
+            this.panel1.BackgroundImage = global::LoginForms.Properties.Resources.header2;
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.panel1.Controls.Add(this.tableLayoutPanel2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -204,34 +207,50 @@ namespace LoginForms
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
             this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel3, 1, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 118F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(1902, 155);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // tableLayoutPanel3
             // 
-            this.tableLayoutPanel3.ColumnCount = 3;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
+            this.tableLayoutPanel3.ColumnCount = 5;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel3.Controls.Add(this.flpAgentStatus, 1, 1);
+            this.tableLayoutPanel3.Controls.Add(this.pictureBox1, 3, 1);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(1429, 3);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(1144, 3);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 3;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 70F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(470, 149);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(755, 149);
             this.tableLayoutPanel3.TabIndex = 0;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pictureBox1.Image = global::LoginForms.Properties.Resources.cerrar_sesion_1;
+            this.pictureBox1.Location = new System.Drawing.Point(417, 32);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(258, 59);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
+            this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
             // 
             // tableLayoutPanel1
             // 
@@ -243,8 +262,6 @@ namespace LoginForms
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel4, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.flpDynamicButtons, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.btnCloseSesion, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 933);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -255,16 +272,18 @@ namespace LoginForms
             // 
             // tableLayoutPanel4
             // 
-            this.tableLayoutPanel4.ColumnCount = 1;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel4.ColumnCount = 3;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel4.Location = new System.Drawing.Point(288, 3);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.Padding = new System.Windows.Forms.Padding(0, 0, 0, 10);
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 84F));
             this.tableLayoutPanel4.Size = new System.Drawing.Size(1325, 94);
             this.tableLayoutPanel4.TabIndex = 12;
             // 
@@ -275,6 +294,7 @@ namespace LoginForms
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel5.Controls.Add(this.flpDynamicButtons, 2, 0);
             this.tableLayoutPanel5.Controls.Add(this.pnlChatMessages, 1, 0);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 155);
@@ -289,7 +309,6 @@ namespace LoginForms
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.BackgroundImage = global::LoginForms.Properties.Resources.back;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1902, 1033);
             this.Controls.Add(this.tableLayoutPanel5);
@@ -298,17 +317,19 @@ namespace LoginForms
             this.DoubleBuffered = true;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Menu = this.mainMenu1;
-            this.MinimumSize = new System.Drawing.Size(1020, 768);
+            this.MinimumSize = new System.Drawing.Size(1918, 1028);
             this.Name = "FormPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Plataforma Omnicanal";
             this.Load += new System.EventHandler(this.FormPrincipal_Load);
             this.flpDynamicButtons.ResumeLayout(false);
+            this.pnlChatMessages.ResumeLayout(false);
             this.flpAgentStatus.ResumeLayout(false);
             this.flpAgentStatus.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -332,5 +353,6 @@ namespace LoginForms
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
