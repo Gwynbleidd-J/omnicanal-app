@@ -36,10 +36,9 @@ namespace LoginForms
             // 
             // btnAccept
             // 
-            this.btnAccept.Location = new System.Drawing.Point(135, 134);
-            this.btnAccept.Margin = new System.Windows.Forms.Padding(4);
+            this.btnAccept.Location = new System.Drawing.Point(101, 109);
             this.btnAccept.Name = "btnAccept";
-            this.btnAccept.Size = new System.Drawing.Size(100, 28);
+            this.btnAccept.Size = new System.Drawing.Size(75, 23);
             this.btnAccept.TabIndex = 1;
             this.btnAccept.Text = "Aceptar";
             this.btnAccept.UseVisualStyleBackColor = true;
@@ -48,10 +47,9 @@ namespace LoginForms
             // cmbNetwork
             // 
             this.cmbNetwork.FormattingEnabled = true;
-            this.cmbNetwork.Location = new System.Drawing.Point(107, 90);
-            this.cmbNetwork.Margin = new System.Windows.Forms.Padding(4);
+            this.cmbNetwork.Location = new System.Drawing.Point(80, 73);
             this.cmbNetwork.Name = "cmbNetwork";
-            this.cmbNetwork.Size = new System.Drawing.Size(160, 24);
+            this.cmbNetwork.Size = new System.Drawing.Size(121, 21);
             this.cmbNetwork.TabIndex = 2;
             this.cmbNetwork.Text = "Selecciona Una Sucursal";
             this.cmbNetwork.SelectedIndexChanged += new System.EventHandler(this.cmbNetwork_SelectedIndexChanged);
@@ -59,23 +57,21 @@ namespace LoginForms
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(68, 42);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(51, 34);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(246, 34);
+            this.label1.Size = new System.Drawing.Size(185, 26);
             this.label1.TabIndex = 3;
             this.label1.Text = "Tú chat con la sucursal ha terminado.\r\nSelecciona el nombre de la sucursal.";
             // 
             // NetworkCategories
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(389, 218);
+            this.ClientSize = new System.Drawing.Size(292, 177);
             this.ControlBox = false;
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cmbNetwork);
             this.Controls.Add(this.btnAccept);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "NetworkCategories";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "NetworkCategories";

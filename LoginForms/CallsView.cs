@@ -4,23 +4,118 @@ using System.Runtime.InteropServices;
 using PortSIP;
 using System.Text;
 using System.Media;
+using LoginForms.Shared;
+using System.Net.NetworkInformation;
+using System.Drawing;
+using LoginForms.Properties;
 
 namespace LoginForms
 {
     public partial class CallsView : Form, SIPCallbackEvents
     {
-
+        RestHelper rh = new RestHelper();
         //En el método onInviteRinging se pondría un tono de llamada si así lo quisieran
         private const int MAX_LINES = 2; // Maximum lines
         private const int LINE_BASE = 1;
 
         private Session[] _CallSessions = new Session[MAX_LINES];
 
+        #region Declaración de los elementos gráficos de la aplicación
+        CheckBox checkBoxNeedRegister = new CheckBox
+        {
+            Checked = true
+        };
+
+        ComboBox ComboBoxSRTP = new ComboBox
+        {
+        };
+
+        TextBox TextBoxStunServer = new TextBox
+        {
+        };
+        
+        TextBox TextBoxStunPort = new TextBox 
+        { 
+        };
+
+        CheckBox CheckBoxSDP = new CheckBox
+        {
+            Checked = false
+        };
+
+        CheckBox checkBoxMakeVideo = new CheckBox
+        {
+            Checked = false
+        };
+
+        CheckBox CheckBoxAA = new CheckBox
+        {
+            Checked = true
+        };
+
+        CheckBox CheckBoxConf = new CheckBox
+        {
+            Checked = false
+        };
+
+        CheckBox checkBoxAnswerVideo = new CheckBox
+        {
+            Checked = true
+        };
+
+        ComboBox ComboBoxLines = new ComboBox
+        {
+
+        };
+
+        ComboBox ComboBoxCameras = new ComboBox
+        {
+
+        };
+
+        CheckBox checkBoxPCMU = new CheckBox
+        {
+            Checked = true
+        };
+
+        CheckBox checkBoxPCMA = new CheckBox
+        {
+            Checked = true
+        };
+
+        CheckBox checkBoxG729 = new CheckBox
+        {
+            Checked = true
+        };
+
+        CheckBox checkBoxAEC = new CheckBox
+        {
+            Checked = true
+        };
+
+        #endregion
+
+
+        static bool networkIsAvailable = false;
         private bool sIPInited = false;
         private bool sIPLogined = false;
         private int currentlyLine = LINE_BASE;
 
+       
+        string boton2 = Convert.ToString(Resources._2);
+        string boton3 = Convert.ToString(Resources._3);
+        string boton4 = Convert.ToString(Resources._4);
+        string boton5 = Convert.ToString(Resources._5);
+        string boton6 = Convert.ToString(Resources._6);
+        string boton7 = Convert.ToString(Resources._7);
+        string boton8 = Convert.ToString(Resources._8);
+        string boton9 = Convert.ToString(Resources._9);
+        string boton0 = Convert.ToString(Resources._0);
+        string botonAsterisco = Convert.ToString(Resources.asterisco);
+        string botonGato = Convert.ToString(Resources.gato);
+
         private PortSIPLib portSIPLib;
+
         //Para poner un tono de llamada cuando llamen al softphone
         //SoundPlayer soundPlayer = new SoundPlayer(@"C:\Users\Gwynbleidd J\Downloads\trip-innocent.wav");
 
@@ -432,6 +527,7 @@ namespace LoginForms
         public CallsView()
         {
             InitializeComponent();
+            BackColor = Color.FromArgb(226, 224, 224);
         }
 
         private void deRegisterFromServer()
@@ -532,7 +628,7 @@ namespace LoginForms
             ListBoxSIPLog.Invoke(new MethodInvoker(delegate
             {
                 ListBoxSIPLog.Items.Add("Registration succeeded");
-                ListBoxSIPLog.Items.Add(statusCode);
+                //ListBoxSIPLog.Items.Add(statusCode);
                 //ListBoxSIPLog.Items.Add(sipMessage);
             }));
 
@@ -545,7 +641,7 @@ namespace LoginForms
             ListBoxSIPLog.Invoke(new MethodInvoker(delegate
             {
                 ListBoxSIPLog.Items.Add("Registration failure");
-                ListBoxSIPLog.Items.Add(statusCode);
+                //ListBoxSIPLog.Items.Add(statusCode);
                 //ListBoxSIPLog.Items.Add(sipMessage);
             }));
 
@@ -631,7 +727,9 @@ namespace LoginForms
                 {
                     ListBoxSIPLog.Items.Add(Text);
                 }));
+                rh.SendCall();
                 //StartCallRecord();
+
                 return 0;
             }
 
@@ -641,8 +739,6 @@ namespace LoginForms
             Text += "<";
             Text += caller;
             Text += ">";
-
-
             ListBoxSIPLog.Invoke(new MethodInvoker(delegate
             {
                 //cuando se reciba una llamada que suene un tono
@@ -757,7 +853,7 @@ namespace LoginForms
 
             string Text = "Line " + i.ToString();
             Text += ": Call established";
-
+            rh.SendCall();
             ListBoxSIPLog.Invoke(new MethodInvoker(delegate
             {
 
@@ -772,8 +868,7 @@ namespace LoginForms
                 _CallSessions[i].setReferCall(false, 0);
             }
             //Start Call Record
-           //StartCallRecord();
-
+            //StartCallRecord();
             return 0;
         }
 
@@ -936,6 +1031,8 @@ namespace LoginForms
                 ListBoxSIPLog.Items.Add(Text);
             }));
             //EndCallRecord();
+            CallTypification typification = new CallTypification();
+            typification.ShowDialog();
             return 0;
         }
 
@@ -1309,17 +1406,25 @@ namespace LoginForms
 
         public Int32 onRecvOptions(StringBuilder optionsMessage)
         {
-            string text = "Received an OPTIONS message: ";
-            text += optionsMessage.ToString();
-            ListBoxSIPLog.Invoke(new MethodInvoker(delegate
+            try
             {
-                //Para detener la llamada cuando se logre la llamada
-                //soundPlayer.Stop();
-                ListBoxSIPLog.Items.Add(Text);
-            }));
-            //MessageBox.Show(text, "Received an OPTIONS message", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            
-            return 0;
+                string text = "Received an OPTIONS message: ";
+                text += optionsMessage.ToString();
+                ListBoxSIPLog.Invoke(new MethodInvoker(delegate
+                {
+                    //Para detener la llamada cuando se logre la llamada
+                    //soundPlayer.Stop();
+                    //ListBoxSIPLog.Items.Add(Text);
+                }));
+                //MessageBox.Show(text, "Received an OPTIONS message", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+                return 0;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return 0;
+            }
         }
 
         public Int32 onRecvInfo(StringBuilder infoMessage)
@@ -1630,25 +1735,23 @@ namespace LoginForms
 
             ComboBoxLines.SelectedIndex = 0;
 
-            CheckBox CheckBoxSDP = new CheckBox
+
+
+
+
+
+
+
+
+            ComboBox ComboBoxTransport = new ComboBox
             {
-                Checked = false
+                
             };
 
-            CheckBox checkBoxMakeVideo = new CheckBox
-            {
-                Checked = true
-            };
 
-            CheckBox checkBoxAnswerVideo = new CheckBox
-            {
-                Checked = true
-            };
 
-            CheckBox CheckBoxNeedRegister = new CheckBox
-            {
-                Checked = true
-            };
+            Connect();
+            CheckNetwork();
         }
 
         private void CallsView_FormClosing(object sender, FormClosingEventArgs e)
@@ -1678,233 +1781,233 @@ namespace LoginForms
 
         private void btnConnect_Click(object sender, EventArgs e)
         {
-            if (sIPInited == true)
-            {
-                MessageBox.Show("You are already logged in.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return;
-            }
-
-            //if (TextBoxUserName.Text.Length <= 0)
+            //if (sIPInited == true)
             //{
-            //    MessageBox.Show("The user name does not allows empty.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //    MessageBox.Show("You are already logged in.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             //    return;
             //}
 
-            //if (TextBoxPassword.Text.Length <= 0)
+            ////if (TextBoxUserName.Text.Length <= 0)
+            ////{
+            ////    MessageBox.Show("The user name does not allows empty.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            ////    return;
+            ////}
+
+            ////if (TextBoxPassword.Text.Length <= 0)
+            ////{
+            ////    MessageBox.Show("The password does not allows empty.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            ////    return;
+            ////}
+
+            ////if (TextBoxServer.Text.Length <= 0)
+            ////{
+            ////    MessageBox.Show("The SIP server does not allows empty.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            ////    return;
+            ////}
+
+            //int SIPServerPort = 0;
+            //if (TextBoxServerPort.Text.Length > 0)
             //{
-            //    MessageBox.Show("The password does not allows empty.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            //    return;
-            //}
-
-            //if (TextBoxServer.Text.Length <= 0)
-            //{
-            //    MessageBox.Show("The SIP server does not allows empty.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            //    return;
-            //}
-
-            int SIPServerPort = 0;
-            if (TextBoxServerPort.Text.Length > 0)
-            {
-                SIPServerPort = int.Parse(TextBoxServerPort.Text);
-                if (SIPServerPort > 65535 || SIPServerPort <= 0)
-                {
-                    MessageBox.Show("The SIP server port is out of range.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-
-                    return;
-                }
-            }
-
-            int StunServerPort = 0;
-            if (TextBoxStunPort.Text.Length > 0)
-            {
-                StunServerPort = int.Parse(TextBoxStunPort.Text);
-                if (StunServerPort > 65535 || StunServerPort <= 0)
-                {
-                    MessageBox.Show("The Stun server port is out of range.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-
-                    return;
-                }
-            }
-
-            Random rd = new Random();
-            int LocalSIPPort = rd.Next(1000, 5000) + 4000; // Generate the random port for SIP
-
-            TRANSPORT_TYPE transportType = TRANSPORT_TYPE.TRANSPORT_TLS;
-            //switch (ComboBoxTransport.SelectedIndex)
-            //{
-            //    case 0:
-            //        transportType = TRANSPORT_TYPE.TRANSPORT_UDP;
-            //        break;
-
-            //    case 1:
-            //        transportType = TRANSPORT_TYPE.TRANSPORT_TLS;
-
-            //        break;
-
-            //    case 2:
-            //        transportType = TRANSPORT_TYPE.TRANSPORT_TCP;
-            //        break;
-
-            //    case 3:
-            //        transportType = TRANSPORT_TYPE.TRANSPORT_PERS;
-            //        break;
-            //    default:
-            //        MessageBox.Show("The transport is wrong.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //    SIPServerPort = int.Parse(TextBoxServerPort.Text);
+            //    if (SIPServerPort > 65535 || SIPServerPort <= 0)
+            //    {
+            //        MessageBox.Show("The SIP server port is out of range.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
             //        return;
+            //    }
             //}
 
+            //int StunServerPort = 0;
+            //if (TextBoxStunPort.Text.Length > 0)
+            //{
+            //    StunServerPort = int.Parse(TextBoxStunPort.Text);
+            //    if (StunServerPort > 65535 || StunServerPort <= 0)
+            //    {
+            //        MessageBox.Show("The Stun server port is out of range.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+            //        return;
+            //    }
+            //}
+
+            //Random rd = new Random();
+            //int LocalSIPPort = rd.Next(1000, 5000) + 4000; // Generate the random port for SIP
+
+            //TRANSPORT_TYPE transportType = TRANSPORT_TYPE.TRANSPORT_TLS;
+            ////switch (ComboBoxTransport.SelectedIndex)
+            ////{
+            ////    case 0:
+            ////        transportType = TRANSPORT_TYPE.TRANSPORT_UDP;
+            ////        break;
+
+            ////    case 1:
+            ////        transportType = TRANSPORT_TYPE.TRANSPORT_TLS;
+
+            ////        break;
+
+            ////    case 2:
+            ////        transportType = TRANSPORT_TYPE.TRANSPORT_TCP;
+            ////        break;
+
+            ////    case 3:
+            ////        transportType = TRANSPORT_TYPE.TRANSPORT_PERS;
+            ////        break;
+            ////    default:
+            ////        MessageBox.Show("The transport is wrong.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+            ////        return;
+            ////}
 
 
-            //
-            // Create the class instance of PortSIP VoIP SDK, you can create more than one instances and 
-            // each instance register to a SIP server to support multiples accounts & providers.
-            // for example:
-            /*
-            _sdkLib1 = new PortSIPLib(from1);
-            _sdkLib2 = new PortSIPLib(from2);
-            _sdkLib3 = new PortSIPLib(from3);
-            */
+
+            ////
+            //// Create the class instance of PortSIP VoIP SDK, you can create more than one instances and 
+            //// each instance register to a SIP server to support multiples accounts & providers.
+            //// for example:
+            ///*
+            //_sdkLib1 = new PortSIPLib(from1);
+            //_sdkLib2 = new PortSIPLib(from2);
+            //_sdkLib3 = new PortSIPLib(from3);
+            //*/
 
 
-            portSIPLib = new PortSIPLib(this);
+            //portSIPLib = new PortSIPLib(this);
 
-            //
-            // Create and set the SIP callback handers, this MUST called before
-            // _sdkLib.initialize();
-            //
+            ////
+            //// Create and set the SIP callback handers, this MUST called before
+            //// _sdkLib.initialize();
+            ////
 
-            portSIPLib.createCallbackHandlers();
+            //portSIPLib.createCallbackHandlers();
 
-            string logFilePath = ""; // The log file path, you can change it - the folder MUST exists
-            string agent = "PortSIP VoIP SDK";
-            string stunServer = TextBoxStunServer.Text;
+            //string logFilePath = ""; // The log file path, you can change it - the folder MUST exists
+            //string agent = "PortSIP VoIP SDK";
+            //string stunServer = TextBoxStunServer.Text;
 
-            // Initialize the SDK
-            int rt = portSIPLib.initialize(transportType,
-                 // Use 0.0.0.0 for local IP then the SDK will choose an available local IP automatically.
-                 // You also can specify a certain local IP to instead of "0.0.0.0", more details please read the SDK User Manual
-                 "0.0.0.0",
-                 LocalSIPPort,
-                 PORTSIP_LOG_LEVEL.PORTSIP_LOG_NONE,
-                 logFilePath,
-                 MAX_LINES,
-                 agent,
-                 0,
-                 0,
-                 "/",
-                 "",
-                  false);
+            //// Initialize the SDK
+            //int rt = portSIPLib.initialize(transportType,
+            //     // Use 0.0.0.0 for local IP then the SDK will choose an available local IP automatically.
+            //     // You also can specify a certain local IP to instead of "0.0.0.0", more details please read the SDK User Manual
+            //     "0.0.0.0",
+            //     LocalSIPPort,
+            //     PORTSIP_LOG_LEVEL.PORTSIP_LOG_NONE,
+            //     logFilePath,
+            //     MAX_LINES,
+            //     agent,
+            //     0,
+            //     0,
+            //     "/",
+            //     "",
+            //      false);
 
 
-            if (rt != 0)
-            {
-                portSIPLib.releaseCallbackHandlers();
-                MessageBox.Show("Initialize failure.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return;
-            }
+            //if (rt != 0)
+            //{
+            //    portSIPLib.releaseCallbackHandlers();
+            //    MessageBox.Show("Initialize failure.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //    return;
+            //}
 
-            ListBoxSIPLog.Items.Add("Initialized.");
-            sIPInited = true;
+            //ListBoxSIPLog.Items.Add("Initialized.");
+            //sIPInited = true;
 
-            loadDevices();
-            //initScreenSharing();
+            //loadDevices();
+            ////initScreenSharing();
 
-            #region La informacion se tiene que introducir manualmente por el usuario
-            //string userName = TextBoxUserName.Text;
-            //string password = TextBoxPassword.Text;
-            //string sipDomain = TextBoxUserDomain.Text;
-            //string displayName = TextBoxDisplayName.Text;
-            //string authName = TextBoxAuthName.Text;
-            //string sipServer = TextBoxServer.Text;
-            #endregion
+            //#region La informacion se tiene que introducir manualmente por el usuario
+            ////string userName = TextBoxUserName.Text;
+            ////string password = TextBoxPassword.Text;
+            ////string sipDomain = TextBoxUserDomain.Text;
+            ////string displayName = TextBoxDisplayName.Text;
+            ////string authName = TextBoxAuthName.Text;
+            ////string sipServer = TextBoxServer.Text;
+            //#endregion
 
-            #region La informacion del usuario viene desde el JSON que se genera en el login
-            string userName = GlobalSocket.currentUser.credentials.userName;
-            string password = GlobalSocket.currentUser.credentials.password;
-            string sipDomain = GlobalSocket.currentUser.credentials.domain;
-            string displayName = GlobalSocket.currentUser.credentials.displayName;
-            string authName = GlobalSocket.currentUser.credentials.authName;
-            string sipServer = GlobalSocket.currentUser.credentials.server;
-            string sipServerPort = GlobalSocket.currentUser.credentials.port;
+            //#region La informacion del usuario viene desde el JSON que se genera en el login
+            //string userName = GlobalSocket.currentUser.credentials.userName;
+            //string password = GlobalSocket.currentUser.credentials.password;
+            //string sipDomain = GlobalSocket.currentUser.credentials.domain;
+            //string displayName = GlobalSocket.currentUser.credentials.displayName;
+            //string authName = GlobalSocket.currentUser.credentials.authName;
+            //string sipServer = GlobalSocket.currentUser.credentials.server;
+            //string sipServerPort = GlobalSocket.currentUser.credentials.port;
 
-            TextBoxUserName.Text = userName;
-            TextBoxPassword.Text = password;
-            TextBoxDisplayName.Text = displayName;
-            TextBoxAuthName.Text = authName;
-            TextBoxUserDomain.Text = sipDomain;
-            TextBoxServer.Text = sipServer;
-            TextBoxServerPort.Text = sipServerPort;
-            SIPServerPort = int.Parse(TextBoxServerPort.Text);
-            #endregion
+            //TextBoxUserName.Text = userName;
+            //TextBoxPassword.Text = password;
+            //TextBoxDisplayName.Text = displayName;
+            //TextBoxAuthName.Text = authName;
+            //TextBoxUserDomain.Text = sipDomain;
+            //TextBoxServer.Text = sipServer;
+            //TextBoxServerPort.Text = sipServerPort;
+            //SIPServerPort = int.Parse(TextBoxServerPort.Text);
+            //#endregion
 
-            int outboundServerPort = 0;
-            string outboundServer = "";
+            //int outboundServerPort = 0;
+            //string outboundServer = "";
 
-            // Set the SIP user information
-            rt = portSIPLib.setUser(userName, displayName, authName, password, sipDomain, sipServer, SIPServerPort, stunServer, StunServerPort, outboundServer, outboundServerPort);
-            if (rt != 0)
-            {
-                portSIPLib.unInitialize();
-                portSIPLib.releaseCallbackHandlers();
-                sIPInited = false;
+            //// Set the SIP user information
+            //rt = portSIPLib.setUser(userName, displayName, authName, password, sipDomain, sipServer, SIPServerPort, stunServer, StunServerPort, outboundServer, outboundServerPort);
+            //if (rt != 0)
+            //{
+            //    portSIPLib.unInitialize();
+            //    portSIPLib.releaseCallbackHandlers();
+            //    sIPInited = false;
 
-                ListBoxSIPLog.Items.Clear();
+            //    ListBoxSIPLog.Items.Clear();
 
-                MessageBox.Show("setUser failure.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return;
-            }
+            //    MessageBox.Show("setUser failure.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //    return;
+            //}
 
-            ListBoxSIPLog.Items.Add("Succeeded set user information.");
+            //ListBoxSIPLog.Items.Add("Succeeded set user information.");
 
-            // Example: set the codec parameter for AMR-WB
-            /*
+            //// Example: set the codec parameter for AMR-WB
+            ///*
              
-             _sdkLib.setAudioCodecParameter(AUDIOCODEC_TYPE.AUDIOCODEC_AMRWB, "mode-set=0; octet-align=0; robust-sorting=0");
+            // _sdkLib.setAudioCodecParameter(AUDIOCODEC_TYPE.AUDIOCODEC_AMRWB, "mode-set=0; octet-align=0; robust-sorting=0");
              
-            */
+            //*/
 
-            SetSRTPType();
+            //SetSRTPType();
 
-            string licenseKey = "PORTSIP_TEST_LICENSE";
-            rt = portSIPLib.setLicenseKey(licenseKey);
-            if (rt == PortSIP_Errors.ECoreTrialVersionLicenseKey)
-            {
-                MessageBox.Show("This sample was built base on evaluation PortSIP VoIP SDK, which allows only three minutes conversation. The conversation will be cut off automatically after three minutes, then you can't hearing anything. Feel free contact us at: sales@portsip.com to purchase the official version.");
-            }
-            else if (rt == PortSIP_Errors.ECoreWrongLicenseKey)
-            {
-                MessageBox.Show("The wrong license key was detected, please check with sales@portsip.com or support@portsip.com");
-            }
+            //string licenseKey = "PORTSIP_TEST_LICENSE";
+            //rt = portSIPLib.setLicenseKey(licenseKey);
+            //if (rt == PortSIP_Errors.ECoreTrialVersionLicenseKey)
+            //{
+            //    MessageBox.Show("This sample was built base on evaluation PortSIP VoIP SDK, which allows only three minutes conversation. The conversation will be cut off automatically after three minutes, then you can't hearing anything. Feel free contact us at: sales@portsip.com to purchase the official version.");
+            //}
+            //else if (rt == PortSIP_Errors.ECoreWrongLicenseKey)
+            //{
+            //    MessageBox.Show("The wrong license key was detected, please check with sales@portsip.com or support@portsip.com");
+            //}
 
-            //SetVideoResolution();
-            //SetVideoQuality();
+            ////SetVideoResolution();
+            ////SetVideoQuality();
 
-            //UpdateAudioCodecs();
-            InitDefaultAudioCodecs();
-            //UpdateVideoCodecs();
+            ////UpdateAudioCodecs();
+            //InitDefaultAudioCodecs();
+            ////UpdateVideoCodecs();
 
-            InitSettings();
-            //updatePrackSetting();
+            //InitSettings();
+            ////updatePrackSetting();
 
-            if (checkBoxNeedRegister.Checked == true)
-            {
-                rt = portSIPLib.registerServer(120, 0);
-                if (rt != 0)
-                {
-                    portSIPLib.removeUser();
-                    sIPInited = false;
-                    portSIPLib.unInitialize();
-                    portSIPLib.releaseCallbackHandlers();
+            //if (checkBoxNeedRegister.Checked == true)
+            //{
+            //    rt = portSIPLib.registerServer(120, 0);
+            //    if (rt != 0)
+            //    {
+            //        portSIPLib.removeUser();
+            //        sIPInited = false;
+            //        portSIPLib.unInitialize();
+            //        portSIPLib.releaseCallbackHandlers();
 
-                    ListBoxSIPLog.Items.Clear();
+            //        ListBoxSIPLog.Items.Clear();
 
-                    MessageBox.Show("register to server failed.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
+            //        MessageBox.Show("register to server failed.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //    }
 
 
-                ListBoxSIPLog.Items.Add("Registering...");
-            }
+            //    ListBoxSIPLog.Items.Add("Registering...");
+            //}
         }
         
         private void btnDisconnect_Click(object sender, EventArgs e)
@@ -1978,6 +2081,7 @@ namespace LoginForms
             ListBoxSIPLog.Items.Add(Text);
         }
 
+        #region boton para constestar las llamadas entrantes
         private void btnAnswer_Click(object sender, EventArgs e)
         {
             if (sIPInited == false || (checkBoxNeedRegister.Checked && (sIPLogined == false)))
@@ -2015,6 +2119,9 @@ namespace LoginForms
                 ListBoxSIPLog.Items.Add(Text);
             }
         }
+        #endregion
+
+
 
         private void btnHangUp_Click(object sender, EventArgs e)
         {
@@ -2043,11 +2150,14 @@ namespace LoginForms
                 Text += ": Hang up";
                 ListBoxSIPLog.Items.Add(Text);
                 //EndCallRecord();
+                CallTypification typification = new CallTypification();
+                typification.ShowDialog();
             }
             
             //EndCallRecord();
         }
 
+        #region Boton para rechazar una llamaada
         private void btnReject_Click(object sender, EventArgs e)
         {
             if (sIPInited == false || (checkBoxNeedRegister.Checked && (sIPLogined == false)))
@@ -2067,71 +2177,72 @@ namespace LoginForms
                 return;
             }
         }
+        #endregion
 
         #region Metodos Hold y Unhold se comentan ya que posiblemente causen errores en el softphone
 
         private void btnHold_Click(object sender, EventArgs e)
         {
-            //if (sIPInited == false || (checkBoxNeedRegister.Checked && (sIPLogined == false)))
-            //{
-            //    return;
-            //}
+            if (sIPInited == false || (checkBoxNeedRegister.Checked && (sIPLogined == false)))
+            {
+                return;
+            }
 
-            //if (_CallSessions[currentlyLine].getSessionState() == false || _CallSessions[currentlyLine].getHoldState() == true)
-            //{
-            //    return;
-            //}
-
-
-            //string Text;
-            //int rt = portSIPLib.hold(_CallSessions[currentlyLine].getSessionId());
-            //if (rt != 0)
-            //{
-            //    Text = "Line " + currentlyLine.ToString();
-            //    Text = Text + ": hold failure.";
-            //    ListBoxSIPLog.Items.Add(Text);
-
-            //    return;
-            //}
+            if (_CallSessions[currentlyLine].getSessionState() == false || _CallSessions[currentlyLine].getHoldState() == true)
+            {
+                return;
+            }
 
 
-            //_CallSessions[currentlyLine].setHoldState(true);
+            string Text;
+            int rt = portSIPLib.hold(_CallSessions[currentlyLine].getSessionId());
+            if (rt != 0)
+            {
+                Text = "Line " + currentlyLine.ToString();
+                Text = Text + ": hold failure.";
+                ListBoxSIPLog.Items.Add(Text);
 
-            //Text = "Line " + currentlyLine.ToString();
-            //Text = Text + ": hold";
-            //ListBoxSIPLog.Items.Add(Text);
+                return;
+            }
+
+
+            _CallSessions[currentlyLine].setHoldState(true);
+
+            Text = "Line " + currentlyLine.ToString();
+            Text = Text + ": hold";
+            ListBoxSIPLog.Items.Add(Text);
         }
 
         private void btnUnhold_Click(object sender, EventArgs e)
         {
-            //if (sIPInited == false || (checkBoxNeedRegister.Checked && (sIPLogined == false)))
-            //{
-            //    return;
-            //}
+            if (sIPInited == false || (checkBoxNeedRegister.Checked && (sIPLogined == false)))
+            {
+                return;
+            }
 
-            //if (_CallSessions[currentlyLine].getSessionState() == false || _CallSessions[currentlyLine].getHoldState() == false)
-            //{
-            //    return;
-            //}
+            if (_CallSessions[currentlyLine].getSessionState() == false || _CallSessions[currentlyLine].getHoldState() == false)
+            {
+                return;
+            }
 
-            //string Text;
-            //int rt = portSIPLib.unHold(_CallSessions[currentlyLine].getSessionId());
-            //if (rt != 0)
-            //{
-            //    _CallSessions[currentlyLine].setHoldState(false);
+            string Text;
+            int rt = portSIPLib.unHold(_CallSessions[currentlyLine].getSessionId());
+            if (rt != 0)
+            {
+                _CallSessions[currentlyLine].setHoldState(false);
 
-            //    Text = "Line " + currentlyLine.ToString();
-            //    Text = Text + ": Un-Hold Failure.";
-            //    ListBoxSIPLog.Items.Add(Text);
+                Text = "Line " + currentlyLine.ToString();
+                Text = Text + ": Un-Hold Failure.";
+                ListBoxSIPLog.Items.Add(Text);
 
-            //    return;
-            //}
+                return;
+            }
 
-            //_CallSessions[currentlyLine].setHoldState(false);
+            _CallSessions[currentlyLine].setHoldState(false);
 
-            //Text = "Line " + currentlyLine.ToString();
-            //Text = Text + ": Un-Hold";
-            //ListBoxSIPLog.Items.Add(Text);
+            Text = "Line " + currentlyLine.ToString();
+            Text = Text + ": Un-Hold";
+            ListBoxSIPLog.Items.Add(Text);
         }
         #endregion
        
@@ -2177,6 +2288,7 @@ namespace LoginForms
             }
         }
 
+        #region botón para la transferencia asistida
         private void btnForeignTransfer_Click(object sender, EventArgs e)
         {
             if (sIPInited == false || (checkBoxNeedRegister.Checked && (sIPLogined == false)))
@@ -2192,7 +2304,7 @@ namespace LoginForms
 
 
             string referTo = txtTransferTo.Text;
-            if(referTo.Length <= 0)
+            if (referTo.Length <= 0)
             {
                 MessageBox.Show("The transfer numbre is empty", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
@@ -2225,6 +2337,7 @@ namespace LoginForms
                 ListBoxSIPLog.Items.Add(Text);
             }
         }
+        #endregion
 
         private void CheckBoxMute_CheckedChanged(object sender, EventArgs e)
         {
@@ -2251,6 +2364,8 @@ namespace LoginForms
             {
                 portSIPLib.sendDtmf(_CallSessions[currentlyLine].getSessionId(), DTMF_METHOD.DTMF_RFC2833, 1, 160, true);
             }
+
+
         }
 
         private void btn2_Click(object sender, EventArgs e)
@@ -2505,8 +2620,458 @@ namespace LoginForms
             }
         }
 
-        #region Metodo para salir de una conferencia
+        public void Connect()
+        {
+            if (sIPInited == true)
+            {
+                MessageBox.Show("You are already logged in.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
 
+            //if (TextBoxUserName.Text.Length <= 0)
+            //{
+            //    MessageBox.Show("The user name does not allows empty.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //    return;
+            //}
+
+            //if (TextBoxPassword.Text.Length <= 0)
+            //{
+            //    MessageBox.Show("The password does not allows empty.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //    return;
+            //}
+
+            //if (TextBoxServer.Text.Length <= 0)
+            //{
+            //    MessageBox.Show("The SIP server does not allows empty.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //    return;
+            //}
+
+            int SIPServerPort = 0;
+            if (TextBoxServerPort.Text.Length > 0)
+            {
+                SIPServerPort = int.Parse(TextBoxServerPort.Text);
+                if (SIPServerPort > 65535 || SIPServerPort <= 0)
+                {
+                    MessageBox.Show("The SIP server port is out of range.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+                    return;
+                }
+            }
+
+            int StunServerPort = 0;
+            if (TextBoxStunPort.Text.Length > 0)
+            {
+                StunServerPort = int.Parse(TextBoxStunPort.Text);
+                if (StunServerPort > 65535 || StunServerPort <= 0)
+                {
+                    MessageBox.Show("The Stun server port is out of range.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+                    return;
+                }
+            }
+
+            Random rd = new Random();
+            int LocalSIPPort = rd.Next(1000, 5000) + 4000; // Generate the random port for SIP
+
+            TRANSPORT_TYPE transportType = TRANSPORT_TYPE.TRANSPORT_TLS;
+            //switch (ComboBoxTransport.SelectedIndex)
+            //{
+            //    case 0:
+            //        transportType = TRANSPORT_TYPE.TRANSPORT_UDP;
+            //        break;
+
+            //    case 1:
+            //        transportType = TRANSPORT_TYPE.TRANSPORT_TLS;
+
+            //        break;
+
+            //    case 2:
+            //        transportType = TRANSPORT_TYPE.TRANSPORT_TCP;
+            //        break;
+
+            //    case 3:
+            //        transportType = TRANSPORT_TYPE.TRANSPORT_PERS;
+            //        break;
+            //    default:
+            //        MessageBox.Show("The transport is wrong.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+            //        return;
+            //}
+
+
+
+            //
+            // Create the class instance of PortSIP VoIP SDK, you can create more than one instances and 
+            // each instance register to a SIP server to support multiples accounts & providers.
+            // for example:
+            /*
+            _sdkLib1 = new PortSIPLib(from1);
+            _sdkLib2 = new PortSIPLib(from2);
+            _sdkLib3 = new PortSIPLib(from3);
+            */
+
+
+            portSIPLib = new PortSIPLib(this);
+
+            //
+            // Create and set the SIP callback handers, this MUST called before
+            // _sdkLib.initialize();
+            //
+
+            portSIPLib.createCallbackHandlers();
+
+            string logFilePath = ""; // The log file path, you can change it - the folder MUST exists
+            string agent = "PortSIP VoIP SDK";
+            string stunServer = TextBoxStunServer.Text;
+
+            // Initialize the SDK
+            int rt = portSIPLib.initialize(transportType,
+                 // Use 0.0.0.0 for local IP then the SDK will choose an available local IP automatically.
+                 // You also can specify a certain local IP to instead of "0.0.0.0", more details please read the SDK User Manual
+                 "0.0.0.0",
+                 LocalSIPPort,
+                 PORTSIP_LOG_LEVEL.PORTSIP_LOG_NONE,
+                 logFilePath,
+                 MAX_LINES,
+                 agent,
+                 0,
+                 0,
+                 "/",
+                 "",
+                  false);
+
+
+            if (rt != 0)
+            {
+                portSIPLib.releaseCallbackHandlers();
+                MessageBox.Show("Initialize failure.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            ListBoxSIPLog.Items.Add("Initialized.");
+            sIPInited = true;
+
+            loadDevices();
+            //initScreenSharing();
+
+            #region La informacion se tiene que introducir manualmente por el usuario
+            //string userName = TextBoxUserName.Text;
+            //string password = TextBoxPassword.Text;
+            //string sipDomain = TextBoxUserDomain.Text;
+            //string displayName = TextBoxDisplayName.Text;
+            //string authName = TextBoxAuthName.Text;
+            //string sipServer = TextBoxServer.Text;
+            #endregion
+
+            #region La informacion del usuario viene desde el JSON que se genera en el login
+            string userName = GlobalSocket.currentUser.credentials.userName;
+            string password = GlobalSocket.currentUser.credentials.password;
+            string sipDomain = GlobalSocket.currentUser.credentials.domain;
+            string displayName = GlobalSocket.currentUser.credentials.displayName;
+            string authName = GlobalSocket.currentUser.credentials.authName;
+            string sipServer = GlobalSocket.currentUser.credentials.server;
+            string sipServerPort = GlobalSocket.currentUser.credentials.port;
+
+            TextBoxUserName.Text = userName;
+            TextBoxPassword.Text = password;
+            TextBoxDisplayName.Text = displayName;
+            TextBoxAuthName.Text = authName;
+            TextBoxUserDomain.Text = sipDomain;
+            TextBoxServer.Text = sipServer;
+            TextBoxServerPort.Text = sipServerPort;
+            SIPServerPort = int.Parse(TextBoxServerPort.Text);
+            #endregion
+
+            int outboundServerPort = 0;
+            string outboundServer = "";
+
+            // Set the SIP user information
+            rt = portSIPLib.setUser(userName, displayName, authName, password, sipDomain, sipServer, SIPServerPort, stunServer, StunServerPort, outboundServer, outboundServerPort);
+            if (rt != 0)
+            {
+                portSIPLib.unInitialize();
+                portSIPLib.releaseCallbackHandlers();
+                sIPInited = false;
+
+                ListBoxSIPLog.Items.Clear();
+
+                MessageBox.Show("setUser failure.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            ListBoxSIPLog.Items.Add("Succeeded set user information.");
+
+            // Example: set the codec parameter for AMR-WB
+            /*
+             
+             _sdkLib.setAudioCodecParameter(AUDIOCODEC_TYPE.AUDIOCODEC_AMRWB, "mode-set=0; octet-align=0; robust-sorting=0");
+             
+            */
+
+            SetSRTPType();
+
+            string licenseKey = "PORTSIP_TEST_LICENSE";
+            rt = portSIPLib.setLicenseKey(licenseKey);
+            if (rt == PortSIP_Errors.ECoreTrialVersionLicenseKey)
+            {
+                MessageBox.Show("This sample was built base on evaluation PortSIP VoIP SDK, which allows only three minutes conversation. The conversation will be cut off automatically after three minutes, then you can't hearing anything. Feel free contact us at: sales@portsip.com to purchase the official version.");
+            }
+            else if (rt == PortSIP_Errors.ECoreWrongLicenseKey)
+            {
+                MessageBox.Show("The wrong license key was detected, please check with sales@portsip.com or support@portsip.com");
+            }
+
+            //SetVideoResolution();
+            //SetVideoQuality();
+
+            //UpdateAudioCodecs();
+            InitDefaultAudioCodecs();
+            //UpdateVideoCodecs();
+
+            InitSettings();
+            //updatePrackSetting();
+
+            if (checkBoxNeedRegister.Checked == true)
+            {
+                rt = portSIPLib.registerServer(120, 0);
+                if (rt != 0)
+                {
+                    portSIPLib.removeUser();
+                    sIPInited = false;
+                    portSIPLib.unInitialize();
+                    portSIPLib.releaseCallbackHandlers();
+
+                    ListBoxSIPLog.Items.Clear();
+
+                    MessageBox.Show("register to server failed.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+
+
+                ListBoxSIPLog.Items.Add("Registering...");
+            }
+        }
+
+        private void Disconnect()
+        {
+            if (sIPInited == false)
+            {
+                return;
+            }
+            deRegisterFromServer();
+            ListBoxSIPLog.Items.Add("Softphone Disconect");
+        }
+
+
+        
+        public void CheckNetwork()
+        {
+            networkIsAvailable = false;
+            NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
+            foreach (NetworkInterface nic in nics)
+            {
+                if ((nic.NetworkInterfaceType != NetworkInterfaceType.Loopback && nic.NetworkInterfaceType != NetworkInterfaceType.Tunnel)
+                    && nic.OperationalStatus == OperationalStatus.Up)
+                {
+                    networkIsAvailable = true;
+                }
+            }
+            if (networkIsAvailable != false)
+            {
+                pnlRed.BackColor = Color.Green;
+                lblNotification.Text = "Softphone Online";
+            }
+            else
+            {
+                pnlRed.BackColor = Color.Red;
+            }
+            Console.WriteLine($"Disponibilidad de la red[Mensaje 1]: {networkIsAvailable}");
+            NetworkChange.NetworkAvailabilityChanged += new NetworkAvailabilityChangedEventHandler(NetworkChange_NetworkAvailabilityChanged);
+        }
+
+        public void NetworkChange_NetworkAvailabilityChanged(object sender, NetworkAvailabilityEventArgs e)
+        {
+            networkIsAvailable = e.IsAvailable;
+            if (!networkIsAvailable)
+            {
+                pnlRed.BackColor = Color.Red;
+                lblNotification.Text = "Softphone desconectado, revisa la conexión a Internet";
+            }
+            else
+            {
+                Disconnect();
+                Connect();
+                pnlRed.BackColor = Color.Green;
+                lblNotification.Text = "Softphone Online";
+
+            }
+            Console.WriteLine($"Disponibilidad de la red[Mensaje 2]: {networkIsAvailable}");
+        }
+
+        #region Metodos para darle animación a los botones del softphone
+        private void btn1_MouseDown(object sender, MouseEventArgs e)
+        {
+            btn1.BackgroundImage = Properties.Resources._1_presionado;
+        }
+
+        private void btn1_MouseUp(object sender, MouseEventArgs e)
+        {
+            btn1.BackgroundImage = Properties.Resources._1;
+        }
+
+        private void btn2_MouseDown(object sender, MouseEventArgs e)
+        {
+            btn2.BackgroundImage = Properties.Resources._2_presionado;
+        }
+
+        private void btn2_MouseUp(object sender, MouseEventArgs e)
+        {
+            btn2.BackgroundImage = Properties.Resources._2;
+        }
+
+        private void btn3_MouseDown(object sender, MouseEventArgs e)
+        {
+            btn3.BackgroundImage = Properties.Resources._3_presionado;
+        }
+
+        private void btn3_MouseUp(object sender, MouseEventArgs e)
+        {
+            btn3.BackgroundImage = Properties.Resources._3;
+        }
+
+        private void btn4_MouseDown(object sender, MouseEventArgs e)
+        {
+            btn4.BackgroundImage = Properties.Resources._4_presionado;
+        }
+
+        private void btn4_MouseUp(object sender, MouseEventArgs e)
+        {
+            btn4.BackgroundImage = Properties.Resources._4;
+        }
+
+        private void btn5_MouseDown(object sender, MouseEventArgs e)
+        {
+            btn5.BackgroundImage = Properties.Resources._5_presionado;
+        }
+
+        private void btn5_MouseUp(object sender, MouseEventArgs e)
+        {
+            btn5.BackgroundImage = Properties.Resources._5;
+        }
+
+        private void bnt6_MouseDown(object sender, MouseEventArgs e)
+        {
+            bnt6.BackgroundImage = Properties.Resources._6_presionado;
+        }
+
+        private void bnt6_MouseUp(object sender, MouseEventArgs e)
+        {
+            bnt6.BackgroundImage = Properties.Resources._6;
+        }
+
+        private void bnt7_MouseDown(object sender, MouseEventArgs e)
+        {
+            bnt7.BackgroundImage = Properties.Resources._7_presionado;
+        }
+
+        private void bnt7_MouseUp(object sender, MouseEventArgs e)
+        {
+            bnt7.BackgroundImage = Properties.Resources._7;
+        }
+
+        private void bnt8_MouseDown(object sender, MouseEventArgs e)
+        {
+            bnt8.BackgroundImage = Properties.Resources._8_presionado;
+        }
+
+        private void bnt8_MouseUp(object sender, MouseEventArgs e)
+        {
+            bnt8.BackgroundImage = Properties.Resources._8;
+        }
+
+        private void btn9_MouseDown(object sender, MouseEventArgs e)
+        {
+            btn9.BackgroundImage = Properties.Resources._9_presionado;
+        }
+
+        private void btn9_MouseUp(object sender, MouseEventArgs e)
+        {
+            btn9.BackgroundImage = Properties.Resources._9;
+        }
+
+        private void btnAsterisk_MouseDown(object sender, MouseEventArgs e)
+        {
+            btnAsterisk.BackgroundImage = Properties.Resources.asterisco_presionado;
+        }
+
+        private void btnAsterisk_MouseUp(object sender, MouseEventArgs e)
+        {
+            btnAsterisk.BackgroundImage = Properties.Resources.asterisco;
+        }
+
+        private void btn0_MouseDown(object sender, MouseEventArgs e)
+        {
+            btn0.BackgroundImage = Properties.Resources._0_presionado;
+        }
+
+        private void btn0_MouseUp(object sender, MouseEventArgs e)
+        {
+            btn0.BackgroundImage = Properties.Resources._0;
+        }
+
+        private void btnNumeral_MouseDown(object sender, MouseEventArgs e)
+        {
+            btnNumeral.BackgroundImage = Properties.Resources.gato_presionado;
+        }
+
+        private void btnNumeral_MouseUp(object sender, MouseEventArgs e)
+        {
+            btnNumeral.BackgroundImage = Properties.Resources.gato;
+        }
+
+        private void btnUnhold_MouseDown(object sender, MouseEventArgs e)
+        {
+            btnUnhold.BackgroundImage = Properties.Resources.hold_hover;
+        }
+
+        private void btnUnhold_MouseUp(object sender, MouseEventArgs e)
+        {
+            btnUnhold.BackgroundImage = Properties.Resources.hold;
+        }
+
+        private void btnHold_MouseDown(object sender, MouseEventArgs e)
+        {
+            btnHold.BackgroundImage = Properties.Resources.tiempo_presionado;
+        }
+
+        private void btnHold_MouseUp(object sender, MouseEventArgs e)
+        {
+            btnHold.BackgroundImage = Properties.Resources.tiempo;
+        }
+
+        private void btnDial_MouseDown(object sender, MouseEventArgs e)
+        {
+            btnDial.BackgroundImage = Properties.Resources.llamar_presionado;
+        }
+
+        private void btnDial_MouseUp(object sender, MouseEventArgs e)
+        {
+            btnDial.BackgroundImage = Properties.Resources.llamar;
+        }
+
+        private void btnHangUp_MouseDown(object sender, MouseEventArgs e)
+        {
+            btnHangUp.BackgroundImage = Properties.Resources.colgar_presionado;
+        }
+
+
+        private void btnHangUp_MouseUp(object sender, MouseEventArgs e)
+        {
+            btnHangUp.BackgroundImage = Properties.Resources.colgar;
+        }
+
+        #endregion
+
+        #region Metodo para salir de una conferencia
         //Se comenta para ver si pueded tener una utilidad en un futuro.
         private void btnExitFromConference_Click(object sender, EventArgs e)
         {
@@ -2520,6 +3085,51 @@ namespace LoginForms
                 MessageBox.Show("No se pudo desconectar el softphone de la conferencia", "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
+
+        private void btnClearListBox_MouseDown(object sender, MouseEventArgs e)
+        {
+            btnClearListBox.BackgroundImage = Properties.Resources.backspace_hover;
+        }
+
+        private void btnClearListBox_MouseUp(object sender, MouseEventArgs e)
+        {
+            btnClearListBox.BackgroundImage = Properties.Resources.backspace;
+        }
+
+        private void btnStartRecord_MouseDown(object sender, MouseEventArgs e)
+        {
+            btnStartRecord.BackgroundImage = Properties.Resources.grabar_hover;
+        }
+
+        private void btnStartRecord_MouseUp(object sender, MouseEventArgs e)
+        {
+            btnStartRecord.BackgroundImage = Properties.Resources.grabar;
+        }
+
+        private void btnEndRecord_MouseDown(object sender, MouseEventArgs e)
+        {
+            btnEndRecord.BackgroundImage = Properties.Resources.stop_hover;
+        }
+
+        private void btnEndRecord_MouseUp(object sender, MouseEventArgs e)
+        {
+            btnEndRecord.BackgroundImage = Properties.Resources.stop;
+        }
+
+        private void btnTransfer_MouseDown(object sender, MouseEventArgs e)
+        {
+            btnTransfer.BackgroundImage = Properties.Resources.interambiar_presionado;
+        }
+
+        private void btnTransfer_MouseUp(object sender, MouseEventArgs e)
+        {
+            btnTransfer.BackgroundImage = Properties.Resources.intercambiar;
+        }
+
+
+
+
+
         #endregion
 
         //private void btnAttendTransfer_Click(object sender, EventArgs e)

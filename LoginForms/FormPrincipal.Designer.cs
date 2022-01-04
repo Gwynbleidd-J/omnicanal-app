@@ -105,6 +105,7 @@ namespace LoginForms
             // 
             this.pnlChatMessages.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlChatMessages.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.pnlChatMessages.ForeColor = System.Drawing.SystemColors.ControlText;
             this.pnlChatMessages.Location = new System.Drawing.Point(183, 4);
             this.pnlChatMessages.Name = "pnlChatMessages";
             this.pnlChatMessages.Size = new System.Drawing.Size(792, 639);

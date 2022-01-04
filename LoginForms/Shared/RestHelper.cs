@@ -1,12 +1,10 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using LoginForms.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Configuration;
 using System.Net;
 using System.IO;
@@ -26,6 +24,7 @@ namespace LoginForms.Shared
          */
 
         private static readonly string baseUrl = ConfigurationManager.AppSettings["IpServidor"];
+        private static string date;
         /*
          * Lo mismo preguntar a Juan Carlos que pasa también con este método
          */
@@ -710,6 +709,84 @@ namespace LoginForms.Shared
             //sacarlo del json
         }
 
+        //Metodos para llenar la tabla de las llamadas
+
+
+
+        //private string StartTime()
+        //{
+        //    string date = DateTime.Now.ToString("HH:mm:ss:ff");
+        //    return date;
+        //}
+
+
+
+        public async Task<string> SendCall()
+        {
+            date = DateTime.Now.ToString("HH:mm:ss:ff");
+            var inputData = new Dictionary<string, string>
+            {
+                {"startTime", date},
+                {"userId", GlobalSocket.currentUser.ID },
+            };
+
+            Console.WriteLine(inputData);
+            var input = new FormUrlEncodedContent(inputData);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync(baseUrl + "calls", input);
+            HttpContent content = response.Content;
+            string data = response.StatusCode.ToString();
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            {
+                return data;
+            }
+            else
+            {
+                return response.StatusCode.ToString();
+            }
+        }
+
+        public async Task<string> UpdateNetworkCategoryCalls(string networkCategoryId, string score, string comments)
+        {
+            //Console.WriteLine($"Inicio de llamada:{startTime}");
+            string endingTime = DateTime.Now.ToString("HH:mm:ss:ff");
+            Console.WriteLine($"Inicio de la llamada:{date}");
+            Console.WriteLine($"Termino de la llamada:{endingTime}");
+            var inputData = new Dictionary<string, string>
+            {
+                {"startTime", date },
+                {"endingTime", endingTime},
+                {"networkCategoryId", networkCategoryId },
+                {"score", score },
+                {"comments", comments },
+                //{"userId", GlobalSocket.currentUser.ID}
+            };
+            var input = new FormUrlEncodedContent(inputData);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync(baseUrl + "calls/updateNetworkCall", input);
+            Console.WriteLine(response);
+            HttpContent content = response.Content;
+            string data = response.StatusCode.ToString();
+
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            {
+                return data;
+            }
+            else
+            {
+                return response.StatusCode.ToString();
+            }
+        }
+
+
+
+
+
+
+
+
+
+
         public async Task<string> newEmptyChat(string text, string chatId, string clientPlatformIdentifier, string platformIdentifier, string agentPlatformIdentifier)
         {
             var numberToSend = "";
@@ -878,6 +955,7 @@ namespace LoginForms.Shared
                 : "";
 
         }
+
     }
     public class MsjApi
     {

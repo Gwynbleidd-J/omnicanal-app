@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -7,7 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Net.Sockets;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Windows.Storage;
@@ -16,11 +17,10 @@ namespace LoginForms
 {
     public class ScreenCapture
     {
-        public void CapturarPantalla()
+        public void capturaPantalla()
         {
-            //Set A rectangle with the height and width of the screen
-
             Rectangle resolution = Screen.PrimaryScreen.Bounds;
+
 
             Bitmap memoryImage;
             memoryImage = new Bitmap(resolution.Width, resolution.Height);
@@ -28,49 +28,55 @@ namespace LoginForms
             Graphics memoryGraphics = Graphics.FromImage(memoryImage);
             memoryGraphics.CopyFromScreen(0, 0, 0, 0, s);
 
-            string fileName;
-            //string path;
-            var name = "capturita";
+            string fileName = "";
+
             try
             {
-                ToBase64String(memoryImage, ImageFormat.Png);
-                //GetFileArray(memoryGraphics);
-                fileName = name + "_capture.png";
+                fileName = "_capture.png";
 
                 if (memoryImage.Width >= 3840)
                     Save(memoryImage, 5760, 1080, 75, fileName);
                 else
                     Save(memoryImage, 1920, 1080, 75, fileName);
+
                 sendFileHttp(fileName);
+                //sendFile();
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                Console.WriteLine(ex.Message.ToString());
             }
 
             memoryImage.Dispose();
             memoryGraphics.Dispose();
         }
 
-        private static string ToBase64String(Bitmap bitmap, ImageFormat image)
+
+        public static void sendFile()
         {
-            string base64String = string.Empty;
-            MemoryStream memoryStream = new MemoryStream();
-            bitmap.Save(memoryStream, image);
+            var url = "http://localhost:3001/api/prueba";
+            string boundaryString = "AaB03x";
+            var httpRequest = (HttpWebRequest)WebRequest.Create(url);
+            httpRequest.Method = "POST";
 
-            memoryStream.Position = 0;
-            byte[] byteBuffer = memoryStream.ToArray();
+            httpRequest.ContentType = "multipart/form-data, boundary=" + boundaryString;
+            var data = "key1=value1&key2=value2";
 
-            memoryStream.Close();
+            using (var streamWriter = new StreamWriter(httpRequest.GetRequestStream()))
+            {
+                streamWriter.Write(data);
+            }
 
-            base64String = Convert.ToBase64String(byteBuffer);
-            byteBuffer = null;
-            Console.WriteLine(base64String);;
-            return base64String;
+            var httpResponse = (HttpWebResponse)httpRequest.GetResponse();
+            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            {
+                var result = streamReader.ReadToEnd();
+            }
+
+            Console.WriteLine(httpResponse.StatusCode);
         }
 
-
-
+        #region Metodos que solo se utilizan cuando se guarda la imagen en local
         public static void Save(Bitmap image, int maxWidth, int maxHeight, int quality, string filePath)
         {
             // Get the image's original width and height
@@ -87,7 +93,7 @@ namespace LoginForms
             int newHeight = (int)(originalHeight * ratio);
 
             // Convert other formats (including CMYK) to RGB.
-            Bitmap newImage = new Bitmap(newWidth, newHeight, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
+            Bitmap newImage = new Bitmap(newWidth, newHeight, PixelFormat.Format24bppRgb);
 
             // Draws the image in the specified size with quality mode set to HighQuality
             using (Graphics graphics = Graphics.FromImage(newImage))
@@ -102,7 +108,7 @@ namespace LoginForms
             ImageCodecInfo imageCodecInfo = GetEncoderInfo(ImageFormat.Jpeg);
 
             // Create an Encoder object for the Quality parameter.
-            Encoder encoder = Encoder.Quality;
+            System.Drawing.Imaging.Encoder encoder = System.Drawing.Imaging.Encoder.Quality;
 
             // Create an EncoderParameters object. 
             EncoderParameters encoderParameters = new EncoderParameters(1);
@@ -112,6 +118,11 @@ namespace LoginForms
             encoderParameters.Param[0] = encoderParameter;
             newImage.Save(filePath, imageCodecInfo, encoderParameters);
             newImage.Dispose();
+        }
+
+        private static ImageCodecInfo GetEncoderInfo(ImageFormat format)
+        {
+            return ImageCodecInfo.GetImageDecoders().SingleOrDefault(c => c.FormatID == format.Guid);
         }
 
         private static void sendFileHttp(string filePath)
@@ -134,8 +145,6 @@ namespace LoginForms
             StreamWriter streamWriter = new StreamWriter(memoryStream);
 
             // Incluir el parametro nombre con el nombre del archivo en el destino
-            streamWriter.Write("\r\n--" + boundaryString + "\r\n");
-            streamWriter.Write("Content-Disposition: form-data; name=\"{0}\"\r\n\r\n{1}", "nombre", DateTime.Now.ToString("yyyyMMdd") + "_" + Path.GetFileNameWithoutExtension(filePath));
 
             // Incluir el parametro ruta con la ruta a la que llegara en el servidor
             streamWriter.Write("\r\n--" + boundaryString + "\r\n");
@@ -163,14 +172,14 @@ namespace LoginForms
             while ((bytesRead = fileStream.Read(buffer, 0, buffer.Length)) != 0) memoryStream.Write(buffer, 0, bytesRead);
 
             fileStream.Close();
-
+             
             // Cerrar el contenido con el separador y hacer flush final
             streamWriter.Write("\r\n--" + boundaryString + "--\r\n");
             streamWriter.Flush();
 
             // Asignar al header el tamano del contenido del cuerpo de la peticion
             httpWebRequest.ContentLength = memoryStream.Length;
-            Console.WriteLine(httpWebRequest.GetRequestStream());
+            Console.WriteLine(httpWebRequest.Method);
 
             // Volcar el contenido del MemoryStream al strea de la peticion
             using (Stream s = httpWebRequest.GetRequestStream())
@@ -183,118 +192,12 @@ namespace LoginForms
             StreamReader responseReader = new StreamReader(response.GetResponseStream());
             string replyFromServer = responseReader.ReadToEnd();
 
+            //logger.info("Respuesta: " + replyFromServer);
+
             memoryStream.Close();
         }
 
-        #region Metodos tentativos para el uso en está clase
-        private async Task<string> UploadImage(StorageFile file)
-        {
-            HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("http://your.url.com/");
-            MultipartFormDataContent form = new MultipartFormDataContent();
-            HttpContent content = new StringContent("fileToUpload");
-            form.Add(content, "fileToUpload");
-            var stream = await file.OpenStreamForReadAsync();
-            content = new StreamContent(stream);
-            content.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
-            {
-                Name = "fileToUpload",
-                FileName = file.Name
-            };
-            form.Add(content);
-            var response = await client.PostAsync("upload.php", form);
-            return response.Content.ReadAsStringAsync().Result;
-        }
-
-        #region Métodos para guardar la imagen en el equipo local
-
-
-
-        private static ImageCodecInfo GetEncoderInfo(ImageFormat format)
-        {
-            return ImageCodecInfo.GetImageDecoders().SingleOrDefault(c => c.FormatID == format.Guid);
-        }
         #endregion
-
-        #region Otros Metodos que se intentaran usar para enviar información al servidor.
-        private byte[] GetFileArray(string filename)
-        {
-            FileStream fileStream = new FileStream(filename, FileMode.OpenOrCreate, FileAccess.Read);
-
-            byte[] FileByArrayData = new byte[filename.Length];
-            fileStream.Read(FileByArrayData, 0, System.Convert.ToInt32(filename.Length));
-
-            fileStream.Close();
-
-            return FileByArrayData;
-        }
-
-        public string UploadVideoFile(string URL, byte[] VideoFileData)
-        {
-            string Response = null;
-            HttpWebRequest WebReq = null;
-            HttpWebResponse WebRes = null;
-            StreamReader StreamResponseReader = null;
-            Stream requestStream = null;
-            try
-            {
-                WebReq = (HttpWebRequest)WebRequest.Create(URL);
-                WebReq.Method = "POST";
-                WebReq.Accept = "*/*";
-                WebReq.Timeout = 50000;
-                WebReq.KeepAlive = false;
-                WebReq.AllowAutoRedirect = false;
-                WebReq.AllowWriteStreamBuffering = true;
-                WebReq.ContentType = "binary/octet-stream";
-                WebReq.ContentLength = VideoFileData.Length;
-
-                requestStream = WebReq.GetRequestStream();
-                requestStream.Write(VideoFileData, 0, VideoFileData.Length);
-                requestStream.Close();
-
-                WebRes = (HttpWebResponse)WebReq.GetResponse();
-                StreamResponseReader = new StreamReader(WebRes.GetResponseStream(), System.Text.Encoding.UTF8);
-                Response = StreamResponseReader.ReadToEnd();
-            }
-
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            finally
-            {
-                if (WebReq != null)
-                {
-                    WebReq.Abort();
-                    WebReq = null;
-                }
-
-                if (WebRes != null)
-                {
-                    WebRes.Close();
-                    WebRes = null;
-                }
-
-                if (StreamResponseReader != null)
-                {
-                    StreamResponseReader.Close();
-                    StreamResponseReader = null;
-                }
-
-                if (requestStream != null)
-                {
-                    requestStream = null;
-                }
-            }
-
-            return Response;
-        }
-        #endregion
-
- 
-
-        #endregion
-
     }
-
 }
+
