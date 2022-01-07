@@ -119,7 +119,7 @@ namespace LoginForms
             this.flpDynamicButtons.Location = new System.Drawing.Point(1715, 4);
             this.flpDynamicButtons.Margin = new System.Windows.Forms.Padding(4);
             this.flpDynamicButtons.Name = "flpDynamicButtons";
-            this.flpDynamicButtons.Size = new System.Drawing.Size(149, 76);
+            this.flpDynamicButtons.Size = new System.Drawing.Size(183, 540);
             this.flpDynamicButtons.TabIndex = 8;
             this.flpDynamicButtons.Visible = false;
             // 
@@ -317,7 +317,7 @@ namespace LoginForms
             this.DoubleBuffered = true;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Menu = this.mainMenu1;
-            this.MinimumSize = new System.Drawing.Size(1918, 1028);
+            this.MinimumSize = new System.Drawing.Size(1918, 1018);
             this.Name = "FormPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Plataforma Omnicanal";

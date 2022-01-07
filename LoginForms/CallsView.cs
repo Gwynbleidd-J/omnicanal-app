@@ -2916,6 +2916,12 @@ namespace LoginForms
             btn1.BackgroundImage = Properties.Resources._1_presionado;
         }
 
+        //esto es lo nuevo de que le agregue
+        //ahora hay que ver que se conecte al PBX
+        //tienes abierto visual code?
+        //SII
+
+
         private void btn1_MouseUp(object sender, MouseEventArgs e)
         {
             btn1.BackgroundImage = Properties.Resources._1;

@@ -210,8 +210,12 @@ namespace LoginForms
                             dynamicImage.Image = Properties.Resources.home_presionado;
 
                         };
-
                     }
+
+                    dynamicImage.Anchor = AnchorStyles.None;
+                    tableLayoutPanel4.Controls.Add(dynamicImage, i, 0);
+
+                    var tempHome = (PictureBox)tableLayoutPanel4.Controls["Home"];
 
                     dynamicButton.Click += (s, e) =>
                     {
@@ -229,11 +233,18 @@ namespace LoginForms
                     };
                     flpDynamicButtons.Controls.Add(dynamicButton);
 
-                    dynamicImage.Anchor = AnchorStyles.None;
-                    tableLayoutPanel4.Controls.Add(dynamicImage, i,0);
+                    if (GlobalSocket.currentUser.rol.Id == 1)
+                    {
+                        flpDynamicButtons.Visible = false;
+                        tableLayoutPanel4.Visible = true;
+                    }
+                    else
+                    {
+                        flpDynamicButtons.Visible = true;
+                        tableLayoutPanel4.Visible = false;
+                    }
 
-                    var tempHome = (PictureBox)tableLayoutPanel4.Controls["Home"];
-                    //metodoHome(f, tempHome);
+
 
                 }
             }
@@ -241,26 +252,6 @@ namespace LoginForms
             {
                 Console.WriteLine($"[DynamicButtons]Error:  {ex.Message}");
             }
-        }
-
-        public void metodoHome(Form f, PictureBox dynamicImage) {
-            f.TopLevel = false;
-            f.Parent = pnlChatMessages;
-            f.ControlBox = false;
-            f.BringToFront();
-            f.Location = new Point(0, 0);
-            f.Dock = DockStyle.Fill;
-            f.Focus();
-            f.Show();
-            f.FormBorderStyle = FormBorderStyle.None;
-            f.BackColor = ColorTranslator.FromHtml("#e2e0e1");
-            client.prueba = f as Prueba;
-
-            var temp1 = (PictureBox)tableLayoutPanel4.Controls["Chats"];
-            var temp2 = (PictureBox)tableLayoutPanel4.Controls["Softphone"];
-            temp1.Image = Properties.Resources.chat;
-            temp2.Image = Properties.Resources.llamadas;
-            dynamicImage.Image = Properties.Resources.home_presionado;
         }
 
         private void labelAgentStatus()
