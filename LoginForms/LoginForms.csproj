@@ -57,11 +57,15 @@
     <ManifestKeyFile>LoginForms_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <GenerateManifests>true</GenerateManifests>
+    <GenerateManifests>false</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>false</SignManifests>
   </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -183,7 +187,6 @@
     <Compile Include="NetworkCategories.Designer.cs">
       <DependentUpon>NetworkCategories.cs</DependentUpon>
     </Compile>
-    <Compile Include="obj\Debug\.NETFramework,Version=v4.6.1.AssemblyAttributes.cs" />
     <Compile Include="PortSIP\PortSIPLib.cs" />
     <Compile Include="PortSIP\PortSIPNativeMethods.cs" />
     <Compile Include="PortSIP\PortSIPTypes.cs" />
@@ -274,21 +277,6 @@
     <EmbeddedResource Include="NetworkCategories.resx">
       <DependentUpon>NetworkCategories.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="obj\Debug\LoginForms.AgentInformation.resources" />
-    <EmbeddedResource Include="obj\Debug\LoginForms.CallsView.resources" />
-    <EmbeddedResource Include="obj\Debug\LoginForms.CallTypification.resources" />
-    <EmbeddedResource Include="obj\Debug\LoginForms.ChangeAgentStatus.resources" />
-    <EmbeddedResource Include="obj\Debug\LoginForms.ChangeMaxActiveChats.resources" />
-    <EmbeddedResource Include="obj\Debug\LoginForms.ChangeParameters.resources" />
-    <EmbeddedResource Include="obj\Debug\LoginForms.CheckAgents.resources" />
-    <EmbeddedResource Include="obj\Debug\LoginForms.FormPrincipal.resources" />
-    <EmbeddedResource Include="obj\Debug\LoginForms.MisAgentes.resources" />
-    <EmbeddedResource Include="obj\Debug\LoginForms.NetworkCategories.resources" />
-    <EmbeddedResource Include="obj\Debug\LoginForms.Prueba.resources" />
-    <EmbeddedResource Include="obj\Debug\LoginForms.Telegram.resources" />
-    <EmbeddedResource Include="obj\Debug\LoginForms.UserSignUp.resources" />
-    <EmbeddedResource Include="obj\Debug\LoginForms.WebChat.resources" />
-    <EmbeddedResource Include="obj\Debug\LoginForms.WhatsApp.resources" />
     <EmbeddedResource Include="Prueba.resx">
       <DependentUpon>Prueba.cs</DependentUpon>
     </EmbeddedResource>
@@ -317,15 +305,6 @@
     <EmbeddedResource Include="WhatsApp.resx">
       <DependentUpon>WhatsApp.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="LoginForms_TemporaryKey.pfx" />
-    <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
-    <None Include="obj\Debug\LoginForms.csproj.AssemblyReference.cache" />
-    <None Include="obj\Debug\LoginForms.exe.config" />
-    <None Include="obj\LoginForms.csproj.nuget.dgspec.json" />
-    <None Include="obj\LoginForms.csproj.nuget.g.props" />
-    <None Include="obj\LoginForms.csproj.nuget.g.targets" />
-    <None Include="obj\project.assets.json" />
-    <None Include="obj\project.nuget.cache" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -612,12 +591,9 @@
     <None Include="Resources\enviar mensaje_1.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="obj\Debug\TempPE\Properties.Resources.Designer.cs.dll" />
     <None Include="Resources\telegram.png" />
     <None Include="Resources\whatsapp .png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="bin\Debug\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
