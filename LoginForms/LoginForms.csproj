@@ -94,12 +94,6 @@
       <DependentUpon>AgentInformation.cs</DependentUpon>
     </Compile>
     <Compile Include="AsynchronousClient.cs" />
-    <Compile Include="CallsView.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="CallsView.Designer.cs">
-      <DependentUpon>CallsView.cs</DependentUpon>
-    </Compile>
     <Compile Include="CallTypification.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -206,6 +200,12 @@
     <Compile Include="screenMonitor.Designer.cs">
       <DependentUpon>screenMonitor.cs</DependentUpon>
     </Compile>
+    <Compile Include="CallsView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CallsView.Designer.cs">
+      <DependentUpon>CallsView.cs</DependentUpon>
+    </Compile>
     <Compile Include="StateObject.cs" />
     <Compile Include="Telegram.cs">
       <SubType>Form</SubType>
@@ -240,9 +240,6 @@
     </Compile>
     <EmbeddedResource Include="AgentInformation.resx">
       <DependentUpon>AgentInformation.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CallsView.resx">
-      <DependentUpon>CallsView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CallTypification.resx">
       <DependentUpon>CallTypification.cs</DependentUpon>
@@ -282,6 +279,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="screenMonitor.resx">
       <DependentUpon>screenMonitor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CallsView.resx">
+      <DependentUpon>CallsView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Telegram.resx">
       <DependentUpon>Telegram.cs</DependentUpon>
@@ -594,6 +594,8 @@
     <None Include="Resources\telegram.png" />
     <None Include="Resources\whatsapp .png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\reconnect.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
