@@ -779,6 +779,31 @@ namespace LoginForms.Shared
 
         }
 
+
+        public async Task<string> getLastChatByUserId(string userId)
+        {
+
+            var inputData = new Dictionary<string, string>{
+                { "userId", userId }
+            };
+            var input = new FormUrlEncodedContent(inputData);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync(baseUrl + "chat/getLastChatByUserId", input);
+            HttpContent content = response.Content;
+            string data = await content.ReadAsStringAsync();
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            {
+                Console.WriteLine("Chat obtenido:" + data);
+                return data;
+            }
+            else
+            {
+                return data;
+            }
+
+
+        }
+
         public async Task<string> validateTransferAgent(string userId) {
 
             var inputData = new Dictionary<string, string>
