@@ -35,7 +35,7 @@ namespace LoginForms
             // flpAgentInformation
             // 
             this.flpAgentInformation.Location = new System.Drawing.Point(16, 15);
-            this.flpAgentInformation.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.flpAgentInformation.Margin = new System.Windows.Forms.Padding(4);
             this.flpAgentInformation.Name = "flpAgentInformation";
             this.flpAgentInformation.Size = new System.Drawing.Size(599, 362);
             this.flpAgentInformation.TabIndex = 0;
@@ -46,7 +46,7 @@ namespace LoginForms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(629, 388);
             this.Controls.Add(this.flpAgentInformation);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "AgentInformation";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Información Agente";

@@ -1,6 +1,7 @@
 ﻿using LoginForms.Models;
 using LoginForms.Shared;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -38,6 +39,7 @@ namespace LoginForms
             if(GlobalSocket.currentUser.rol.Id.ToString() == "3")
             {
                 agentsInformation(GlobalSocket.currentUser.ID);
+                dataGridView1.Visible = false;
             }
             else
             {
@@ -165,48 +167,86 @@ namespace LoginForms
 
         private async void SupervisorAgents(string id)
         {
-            string supervisorAgents = await rh.getSupervisorAgents(id);
-            Json jsonSupervisorAgents = JsonConvert.DeserializeObject<Json>(supervisorAgents);
-            for (int i = 0; i< jsonSupervisorAgents.data.users.Count; i ++)
+            try
             {
-                FlowLayoutPanel panelAgentInformation = new FlowLayoutPanel
-                {
-                    BackColor = Color.FromArgb(145, 153, 179),
-                    BorderStyle = BorderStyle.FixedSingle,
-                    FlowDirection = FlowDirection.TopDown,
-                    Size = new Size(320, 200)
-                };
-                flpAgentInfo.Controls.Add(panelAgentInformation);
+                string supervisorAgents = await rh.getSupervisorAgents(id);
+                //Json jsonSupervisorAgents = JsonConvert.DeserializeObject<Json>(supervisorAgents);
+                var cleanData = (JObject)JsonConvert.DeserializeObject(supervisorAgents);
+                var algo = cleanData["data"].Children();
 
-                LinkLabel labelAgentName = new LinkLabel
+                foreach (var item in algo)
                 {
-                    Text = $"Nombre Agente: {jsonSupervisorAgents.data.users[i].name} {jsonSupervisorAgents.data.users[i].paternalSurname} {jsonSupervisorAgents.data.users[i].maternalSurname}",
-                    LinkColor = Color.FromArgb(19, 34, 38),
-                    VisitedLinkColor = Color.FromArgb(19, 34, 38),
-                    ActiveLinkColor = Color.FromArgb(255, 255, 255),
-                    Font = new Font("Microsoft Sans Serif", 11),
-                    AutoSize = true,
-                    LinkBehavior = LinkBehavior.NeverUnderline
-                };
+                    var ID = item["ID"].Value<string>();
+                    var nombre = item["name"].Value<string>();
+                    var activeChats = item["activeChats"].Value<string>();
+                    var correo = item["email"].Value<string>();
+                    var chatsMaximos = item["maxActiveChats"].Value<string>();
 
-                Label labelActiveChats = new Label
-                {
-                    Text = $"Chats Activos: {jsonSupervisorAgents.data.users[i].activeChats}",
-                    ForeColor = Color.FromArgb(19, 34, 38),
-                    Font = new Font("Microsoft Sans Serif", 11),
-                    AutoSize = true
-                };
+                    var fechaUltimoChat = await rh.getLastChatByUserId(ID);
 
-                Label labelEmail = new Label
-                {
-                    Text = $"Email: {jsonSupervisorAgents.data.users[i].email}",
-                    ForeColor = Color.FromArgb(19, 34, 38),
-                    Font = new Font("Microsoft Sans Serif", 11),
-                    AutoSize = true
-                };
 
-                panelAgentInformation.Controls.AddRange(new Control[] { labelAgentName,labelActiveChats,labelEmail });
+                    dataGridView1.Rows.Add(nombre, activeChats, chatsMaximos, correo);
+                }
             }
+            catch (Exception _e)
+            {
+                throw _e;
+            }
+
+            //for (int i = 0; i< jsonSupervisorAgents.data.users.Count; i ++)
+            //{
+
+            //    var nombre = jsonSupervisorAgents.data.users[i].name + " "  +
+            //        jsonSupervisorAgents.data.users[i].paternalSurname + " "+
+            //        jsonSupervisorAgents.data.users[i].maternalSurname;
+
+            //    var activeChats = jsonSupervisorAgents.data.users[i].activeChats;
+
+            //    var correo = jsonSupervisorAgents.data.users[i].email;
+
+            //    var chatsMaximos = jsonSupervisorAgents.data.users[i].ac;
+
+            //    dataGridView1.Rows.Add(nombre, activeChats, correo);
+
+            //    FlowLayoutPanel panelAgentInformation = new FlowLayoutPanel
+            //    {
+            //        BackColor = Color.FromArgb(145, 153, 179),
+            //        BorderStyle = BorderStyle.FixedSingle,
+            //        FlowDirection = FlowDirection.TopDown,
+            //        Size = new Size(320, 200)
+            //    };
+            //    flpAgentInfo.Controls.Add(panelAgentInformation);
+
+            //    LinkLabel labelAgentName = new LinkLabel
+            //    {
+            //        Text = $"Nombre Agente: {jsonSupervisorAgents.data.users[i].name} {jsonSupervisorAgents.data.users[i].paternalSurname} {jsonSupervisorAgents.data.users[i].maternalSurname}",
+            //        LinkColor = Color.FromArgb(19, 34, 38),
+            //        VisitedLinkColor = Color.FromArgb(19, 34, 38),
+            //        ActiveLinkColor = Color.FromArgb(255, 255, 255),
+            //        Font = new Font("Microsoft Sans Serif", 11),
+            //        AutoSize = true,
+            //        LinkBehavior = LinkBehavior.NeverUnderline
+            //    };
+
+            //    Label labelActiveChats = new Label
+            //    {
+            //        Text = $"Chats Activos: {jsonSupervisorAgents.data.users[i].activeChats}",
+            //        ForeColor = Color.FromArgb(19, 34, 38),
+            //        Font = new Font("Microsoft Sans Serif", 11),
+            //        AutoSize = true
+            //    };
+
+            //    Label labelEmail = new Label
+            //    {
+            //        Text = $"Email: {jsonSupervisorAgents.data.users[i].email}",
+            //        ForeColor = Color.FromArgb(19, 34, 38),
+            //        Font = new Font("Microsoft Sans Serif", 11),
+            //        AutoSize = true
+            //    };
+
+            //    panelAgentInformation.Controls.AddRange(new Control[] { labelAgentName, labelActiveChats, labelEmail });
+
+            //}
         }
 
     }
