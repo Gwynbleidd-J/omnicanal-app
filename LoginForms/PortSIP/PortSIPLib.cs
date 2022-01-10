@@ -1620,7 +1620,7 @@ namespace PortSIP
 	    * otherwise returns a specific error code that is less than 0.
         *  @remark
             The scenario is:<br>
-        *   1. User 101 subscribed the user 100's call status: sendSubscription(mSipLib, "100", "dialog");
+        *   1. User 101 subscribed the user 100's call status: sendSubscription("100", "dialog");
         *   2. When 100 hold a call or 100 is ringing, onDialogStateUpdated callback will be triggered,
         *   and 101 will receive this callback. Now 101 can use pickupBLFCall function to pick the call rather than 
         *   100 to talk with caller.
@@ -2711,7 +2711,7 @@ namespace PortSIP
           *   int32 mwiSubId = sendSubscription("sip:101@test.com", "message-summary");
           *   
           *   Example 2, to monitor a user/extension call status, 
-          *   You can use code: sendSubscription(mSipLib, "100", "dialog");
+          *   You can use code: sendSubscription("100", "dialog");
           *   Extension 100 refers to the user/extension to be monitored. Once being monitored, when extension 100 hold a call or is ringing, the
           *    onDialogStateUpdated callback will be triggered.
           */

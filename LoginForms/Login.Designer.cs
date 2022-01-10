@@ -40,31 +40,26 @@ namespace LoginForms
             // txtUserName
             // 
             this.txtUserName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtUserName.Location = new System.Drawing.Point(143, 58);
-            this.txtUserName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtUserName.Location = new System.Drawing.Point(107, 47);
             this.txtUserName.Name = "txtUserName";
-            this.txtUserName.Size = new System.Drawing.Size(304, 26);
+            this.txtUserName.Size = new System.Drawing.Size(229, 22);
             this.txtUserName.TabIndex = 2;
-            this.txtUserName.Text = "julio@falso.com";
             // 
             // txtPassword
             // 
             this.txtPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPassword.Location = new System.Drawing.Point(143, 132);
-            this.txtPassword.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtPassword.Location = new System.Drawing.Point(107, 107);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
-            this.txtPassword.Size = new System.Drawing.Size(304, 29);
+            this.txtPassword.Size = new System.Drawing.Size(229, 24);
             this.txtPassword.TabIndex = 3;
-            this.txtPassword.Text = "12345";
             this.txtPassword.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPassword_KeyPress);
             // 
             // btnCerrar
             // 
-            this.btnCerrar.Location = new System.Drawing.Point(404, 1);
-            this.btnCerrar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCerrar.Location = new System.Drawing.Point(303, 1);
             this.btnCerrar.Name = "btnCerrar";
-            this.btnCerrar.Size = new System.Drawing.Size(100, 28);
+            this.btnCerrar.Size = new System.Drawing.Size(75, 23);
             this.btnCerrar.TabIndex = 5;
             this.btnCerrar.Text = "Cerrar";
             this.btnCerrar.UseVisualStyleBackColor = true;
@@ -76,10 +71,9 @@ namespace LoginForms
             this.panel2.BackColor = System.Drawing.Color.Transparent;
             this.panel2.BackgroundImage = global::LoginForms.Properties.Resources.password;
             this.panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel2.Location = new System.Drawing.Point(90, 123);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel2.Location = new System.Drawing.Point(68, 100);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(34, 38);
+            this.panel2.Size = new System.Drawing.Size(26, 31);
             this.panel2.TabIndex = 7;
             // 
             // panel1
@@ -87,10 +81,9 @@ namespace LoginForms
             this.panel1.BackColor = System.Drawing.Color.Transparent;
             this.panel1.BackgroundImage = global::LoginForms.Properties.Resources.user;
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel1.Location = new System.Drawing.Point(90, 49);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Location = new System.Drawing.Point(68, 40);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(34, 38);
+            this.panel1.Size = new System.Drawing.Size(26, 31);
             this.panel1.TabIndex = 6;
             // 
             // btnEntrar
@@ -100,13 +93,12 @@ namespace LoginForms
             this.btnEntrar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnEntrar.FlatAppearance.BorderSize = 0;
             this.btnEntrar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.btnEntrar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkGray;
+            this.btnEntrar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnEntrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEntrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEntrar.Location = new System.Drawing.Point(143, 200);
-            this.btnEntrar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnEntrar.Location = new System.Drawing.Point(107, 162);
             this.btnEntrar.Name = "btnEntrar";
-            this.btnEntrar.Size = new System.Drawing.Size(257, 32);
+            this.btnEntrar.Size = new System.Drawing.Size(193, 26);
             this.btnEntrar.TabIndex = 4;
             this.btnEntrar.Text = "Entrar";
             this.btnEntrar.UseVisualStyleBackColor = false;
@@ -116,10 +108,10 @@ namespace LoginForms
             // 
             // Login
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::LoginForms.Properties.Resources.back;
-            this.ClientSize = new System.Drawing.Size(520, 271);
+            this.ClientSize = new System.Drawing.Size(390, 220);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnCerrar);
@@ -127,7 +119,6 @@ namespace LoginForms
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.txtUserName);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Login";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login Usuario";
