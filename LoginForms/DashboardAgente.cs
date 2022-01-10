@@ -71,7 +71,7 @@ namespace LoginForms
             };
             //solidGauge2.FromColor = Colors.Blue;
             //solidGauge2.ToColor = Colors.Black;
-            solidGauge2.LabelFormatter = val => "$" + val.ToString();
+            solidGauge2.LabelFormatter = val => "%" + val.ToString();
             //solidGauge2.HighFontSize = 14;
 
 
@@ -88,7 +88,7 @@ namespace LoginForms
                 }
             };
             solidGauge3.Base.GaugeActiveFill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(240, 53, 13));
-            solidGauge3.LabelFormatter = val => "$" + val.ToString();
+            solidGauge3.LabelFormatter = val => "%" + val.ToString();
             solidGauge3.HighFontSize = 14;
 
 
@@ -105,7 +105,7 @@ namespace LoginForms
                     new RotateTransform(90),
                 }
             };
-            solidGauge4.LabelFormatter = val => "$" + val.ToString();
+            solidGauge4.LabelFormatter = val => "%" + val.ToString();
             solidGauge4.HighFontSize = 12;
 
         }

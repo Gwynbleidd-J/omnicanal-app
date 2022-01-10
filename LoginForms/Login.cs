@@ -87,6 +87,7 @@ namespace LoginForms
                 Json jsonUser = JsonConvert.DeserializeObject<Json>(jsonLogin);
                 User user = rh.GetUser(jsonLogin);
                 //string agentStatus = GlobalSocket.currentUser.status.id;
+
                 GlobalSocket.currentUser = jsonUser.data.user;
                 GlobalSocket.currentUser.activeIp = ipAddress;
                 GlobalSocket.currentUser.token = user.token;
