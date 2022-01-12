@@ -57,6 +57,7 @@ namespace LoginForms
             client = new AsynchronousClient(whatsApp.rtxtResponseMessage, this, prueba, this);
             //client.inicializarChatWindow();
             this.BackColor = ColorTranslator.FromHtml("#e2e0e0");
+            tableLayoutPanel2.BackColor = ColorTranslator.FromHtml("#1a1a26");
         }
 
 
@@ -105,7 +106,7 @@ namespace LoginForms
         {
             try
             {
-                tableLayoutPanel4.ColumnCount = GlobalSocket.currentUser.rol.permission.Count;
+                tableLayoutPanel8.ColumnCount = GlobalSocket.currentUser.rol.permission.Count;
                 //tableLayoutPanel4.CellBorderStyle = TableLayoutPanelCellBorderStyle.Inset;
 
                 for (int i = 0; i < GlobalSocket.currentUser.rol.permission.Count; i++)
@@ -118,9 +119,8 @@ namespace LoginForms
                     var menu = $"{GlobalSocket.currentUser.rol.permission[i].menu.description}";
 
                     System.Windows.Forms.PictureBox dynamicImage = new PictureBox();
-                    dynamicImage.Height = 80;
-                    dynamicImage.Width = 135;
-                    dynamicImage.SizeMode = PictureBoxSizeMode.StretchImage;
+                    dynamicImage.Size = new Size(Width, tableLayoutPanel8.Height);
+                    dynamicImage.SizeMode = PictureBoxSizeMode.Zoom;
 
                     Assembly asm = Assembly.GetEntryAssembly();
                     Type formtype = asm.GetType(string.Format("{0}.{1}", "LoginForms", GlobalSocket.currentUser.rol.permission[i].menu.name));
@@ -147,8 +147,8 @@ namespace LoginForms
                             f.BackColor = ColorTranslator.FromHtml("#e2e0e1");
                             client.prueba = f as Prueba;
 
-                            var temp1 = (PictureBox)tableLayoutPanel4.Controls["Home"];
-                            var temp2 = (PictureBox)tableLayoutPanel4.Controls["Softphone"];
+                            var temp1 = (PictureBox)tableLayoutPanel8.Controls["Home"];
+                            var temp2 = (PictureBox)tableLayoutPanel8.Controls["Softphone"];
                             temp1.Image = Properties.Resources.home;
                             temp2.Image = Properties.Resources.llamadas;
                             dynamicImage.Image = Properties.Resources.chat_presionado;
@@ -174,8 +174,8 @@ namespace LoginForms
                             f.BackColor = ColorTranslator.FromHtml("#e2e0e1");
                             client.prueba = f as Prueba;
 
-                            var temp1 = (PictureBox)tableLayoutPanel4.Controls["Home"];
-                            var temp2 = (PictureBox)tableLayoutPanel4.Controls["Chats"];
+                            var temp1 = (PictureBox)tableLayoutPanel8.Controls["Home"];
+                            var temp2 = (PictureBox)tableLayoutPanel8.Controls["Chats"];
                             temp1.Image = Properties.Resources.home;
                             temp2.Image = Properties.Resources.chat;
                             dynamicImage.Image = Properties.Resources.llamadas_presionado;
@@ -185,7 +185,7 @@ namespace LoginForms
                     }
                     else if (menu == "Panalla inicial agente")
                     {
-                        dynamicImage.SizeMode = PictureBoxSizeMode.StretchImage;
+                        dynamicImage.SizeMode = PictureBoxSizeMode.Zoom;
                         dynamicImage.Image = Properties.Resources.home;
                         dynamicImage.Name = "Home";
 
@@ -203,8 +203,8 @@ namespace LoginForms
                             f.BackColor = ColorTranslator.FromHtml("#e2e0e1");
                             client.prueba = f as Prueba;
 
-                            var temp1 = (PictureBox)tableLayoutPanel4.Controls["Chats"];
-                            var temp2 = (PictureBox)tableLayoutPanel4.Controls["Softphone"];
+                            var temp1 = (PictureBox)tableLayoutPanel8.Controls["Chats"];
+                            var temp2 = (PictureBox)tableLayoutPanel8.Controls["Softphone"];
                             temp1.Image = Properties.Resources.chat;
                             temp2.Image = Properties.Resources.llamadas;
                             dynamicImage.Image = Properties.Resources.home_presionado;
@@ -212,10 +212,11 @@ namespace LoginForms
                         };
                     }
 
-                    dynamicImage.Anchor = AnchorStyles.None;
-                    tableLayoutPanel4.Controls.Add(dynamicImage, i, 0);
+                    tableLayoutPanel8.Controls.Add(dynamicImage, i, 0);
+                    dynamicImage.Anchor = (AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top | AnchorStyles.Bottom);
+                    dynamicImage.Dock = DockStyle.Fill;
 
-                    var tempHome = (PictureBox)tableLayoutPanel4.Controls["Home"];
+                    var tempHome = (PictureBox)tableLayoutPanel8.Controls["Home"];
 
                     dynamicButton.Click += (s, e) =>
                     {
@@ -236,12 +237,12 @@ namespace LoginForms
                     if (GlobalSocket.currentUser.rol.Id == 1)
                     {
                         flpDynamicButtons.Visible = false;
-                        tableLayoutPanel4.Visible = true;
+                        tableLayoutPanel8.Visible = true;
                     }
                     else
                     {
                         flpDynamicButtons.Visible = true;
-                        tableLayoutPanel4.Visible = false;
+                        tableLayoutPanel8.Visible = false;
                     }
 
 
@@ -259,18 +260,22 @@ namespace LoginForms
             Label labelAgentName = new Label
             {
                 Text = $"{GlobalSocket.currentUser.name} {GlobalSocket.currentUser.paternalSurname} {GlobalSocket.currentUser.maternalSurname}",
-                ForeColor = System.Drawing.Color.FromArgb(19, 34, 38),
-                Font = new Font("Microsoft Sans Serif", 10),
-                AutoSize = true
+                ForeColor = System.Drawing.Color.FromArgb(255, 255, 255),
+                Font = new Font("Calibri", 12),
+                AutoSize = true,
+                Anchor = (AnchorStyles.None),
+                TextAlign = ContentAlignment.TopCenter
             };
 
             Label labelAgentRol = new Label
             {
                 Text = $"{GlobalSocket.currentUser.rol.name}",
-                ForeColor = System.Drawing.Color.FromArgb(19, 34, 38),
-                Font = new Font("Microsoft Sans Serif", 10),
-                AutoSize = true
-            };
+                ForeColor = System.Drawing.Color.FromArgb(255, 255, 255),
+                Font = new Font("Calibri", 12, FontStyle.Bold),
+                //AutoSize = true,
+                TextAlign = ContentAlignment.TopCenter,
+                Size = new Size(flpAgentStatus.Width, Height)
+        };
 
             flpAgentStatus.Controls.AddRange(new Control[] { labelAgentName, labelAgentRol});
         }

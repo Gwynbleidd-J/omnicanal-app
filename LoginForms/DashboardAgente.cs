@@ -1,4 +1,9 @@
-﻿using System;
+﻿using LiveCharts;
+using LiveCharts.Wpf;
+using LoginForms.Shared;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,9 +23,110 @@ namespace LoginForms
         {
             InitializeComponent();
             SetSolidGauge();
+            getChatsAsync();
         }
 
+        RestHelper rh = new RestHelper();
         double dummy = 50;
+
+        public async Task getChatsAsync()
+        {
+            try
+            {
+                var userId = GlobalSocket.currentUser.ID;
+                var data = await rh.getUserChats(userId);
+                var cleanData = (JObject)JsonConvert.DeserializeObject(data);
+                var algo = cleanData["data"].Children();
+
+                var contadorChats = 0;
+                bool whatsApp = false;
+                bool telegram = false;
+                bool chatWeb = false;
+
+                foreach (var item in algo)
+                {
+                    if (item["platformIdentifier"].Value<string>() == "w") { whatsApp = true; }
+                    if (item["platformIdentifier"].Value<string>() == "t") { telegram = true; }
+                    if (item["platformIdentifier"].Value<string>() == "c") { chatWeb = true; }
+
+
+
+                    pieChats.Series = new SeriesCollection{
+                        new PieSeries
+                        {
+                            Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 0)),
+                            StrokeThickness = 0,
+                            Title = "Maria",
+                            Values = new ChartValues<double> {3},
+                            PushOut = 15,
+                            DataLabels = true,
+                            FontWeight = FontWeights.Light,
+                            FontSize = double.Parse("14")
+                        }
+                    };
+
+                    contadorChats++;
+                }
+
+                lblChatsTotales.Text = contadorChats.ToString();
+
+
+                Func<ChartPoint, string> labelPoint = chartPoint =>
+                string.Format("{0} ({1:P})", chartPoint.Y, chartPoint.Participation);
+
+                pieChats.Series = new SeriesCollection
+            {
+                new PieSeries
+                {
+                    Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 0)),
+                    StrokeThickness = 0,
+                    Title = "Maria",
+                    Values = new ChartValues<double> {3},
+                    PushOut = 15,
+                    DataLabels = true,
+                    LabelPoint = labelPoint,
+                    FontWeight = FontWeights.Light,
+                    FontSize = double.Parse("14")
+            },
+                new PieSeries
+                {
+                    Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 0)),
+                    StrokeThickness = 0,
+                    Title = "Charles",
+                    Values = new ChartValues<double> {4},
+                    DataLabels = true,
+                    //LabelPoint = labelPoint
+                },
+                new PieSeries
+                {
+                    Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 0)),
+                    StrokeThickness = 0,
+                    Title = "Frida",
+                    Values = new ChartValues<double> {6},
+                    DataLabels = true,
+                    //LabelPoint = labelPoint
+                },
+                new PieSeries
+                {
+                    Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 0)),
+                    StrokeThickness = 0,
+                    Title = "Frederic",
+                    Values = new ChartValues<double> {2},
+                    DataLabels = true,
+                    //LabelPoint = labelPoint
+                }
+            };
+
+                pieChats.LegendLocation = LegendLocation.Bottom;
+
+            }
+            catch (Exception _e)
+            {
+                throw _e;
+            }
+
+
+        }
 
 
         public void SetSolidGauge()

@@ -126,8 +126,9 @@ namespace LoginForms.Utils
             try
             {
                 //tbPage = new TabPage();
-                //if (platformIdentifier == "w")
-                //    tbPage.Text = $"Mensaje desde Whatsapp: {chatId}";
+                if (platformIdentifier == "w")
+                    //tbPage.Text = $"Mensaje desde Whatsapp: {chatId}";
+                    tbPage.Text = clientPlatformIdentifier;
                 //else if (platformIdentifier == "t")
                 //    tbPage.Text = $"Mensaje desde Telegram: {chatId}";
                 //else if (platformIdentifier == "c")

@@ -348,6 +348,27 @@ namespace LoginForms.Shared
             }
         }
 
+        public async Task<string> getUserChats(string userId) {
+            var inputData = new Dictionary<string, string>
+            {
+                {"userId", userId }
+            };
+            var input = new FormUrlEncodedContent(inputData);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync(baseUrl + "chat/getUserChats", input);
+            Console.WriteLine("Respuesta de RestHelper.getUserChats:" +response);
+            HttpContent content = response.Content;
+            string data = await content.ReadAsStringAsync();
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            {
+                return data;
+            }
+            else {
+                return response.StatusCode.ToString();
+            }
+
+        }
+
         public async Task<string> getAgentsDetails(string userId)
         {
             var inputData = new Dictionary<string, string>
@@ -932,7 +953,7 @@ namespace LoginForms.Shared
             if (platformIdentifier == "c")
             {
                 string socketData = JsonConvert.SerializeObject(inputData);
-                Console.WriteLine("\n\nSe intentara enviar por socket la data directamente al servidor a continuacion:\n");
+                Console.WriteLine("\n\nSe intentara enviar por socket la data directamente al servidor a continuacion:\n " +socketData);
                 new AsynchronousClient().Send(GlobalSocket.GlobalVarible, socketData);
             }
 

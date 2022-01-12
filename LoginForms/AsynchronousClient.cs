@@ -272,6 +272,7 @@ namespace LoginForms
         {
             try
             {
+                Console.WriteLine("\n************** \nSe recibe lo siguiente:" +socketNotification);
                 var jobject = JsonConvert.DeserializeObject<JObject>(socketNotification);
 
                 if (jobject.ContainsKey("Agent"))

@@ -56,6 +56,7 @@ namespace LoginForms
             {
                 string agentId = GlobalSocket.currentUser.ID;
                 recoverActiveChats(agentId);
+                chatWindowLocal.firstRecoveredChatsLoading = true;
 
                 NetworkChange.NetworkAvailabilityChanged += new
                 NetworkAvailabilityChangedEventHandler(AddressChangedCallback);
@@ -432,8 +433,6 @@ namespace LoginForms
                     fakeNotification.platformIdentifier = chatGenerals.platformIdentifier;
                     fakeNotification.clientPlatformIdentifier = chatGenerals.clientPlatformIdentifier;
                     treatNotification(fakeNotification);
-
-                    chatWindowLocal.firstRecoveredChatsLoading = true;
 
                     //Thread.Sleep(9000);
                 }

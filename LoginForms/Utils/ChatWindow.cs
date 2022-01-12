@@ -230,6 +230,7 @@ namespace LoginForms.Utils
 
                         if (tbControlChats.SelectedTab != arrTabPageChat[position].tbPage && firstRecoveredChatsLoading)
                         {
+                            Console.WriteLine("****************** \n Llego mensaje nuevo a pestaña oculta");
                             Thread NewMessageThread = new Thread(new ParameterizedThreadStart(NewMessageNotificaction));
                             NewMessageThread.Start(arrTabPageChat[position].tbPage);
                         }

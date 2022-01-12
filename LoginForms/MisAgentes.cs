@@ -182,7 +182,7 @@ namespace LoginForms
                     var correo = item["email"].Value<string>();
                     var chatsMaximos = item["maxActiveChats"].Value<string>();
 
-                    var fechaUltimoChat = await rh.getLastChatByUserId(ID);
+                    //var fechaUltimoChat = await rh.getLastChatByUserId(ID);
 
 
                     dataGridView1.Rows.Add(nombre, activeChats, chatsMaximos, correo);

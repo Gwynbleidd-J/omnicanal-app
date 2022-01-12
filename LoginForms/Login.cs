@@ -84,12 +84,14 @@ namespace LoginForms
                 var jsonLogin = await rh.Login(txtUserName.Text, txtPassword.Text, ipAddress);
                 //Se deshabilita la actualizacion de ip aqui pues se utilizara el puerto que mande la api como ip
                 //var jsonUpdateAgentActiveIp = await rh.updateAgentActiveIp(txtUserName.Text, ipAddress);
+                
                 Json jsonUser = JsonConvert.DeserializeObject<Json>(jsonLogin);
                 User user = rh.GetUser(jsonLogin);
                 //string agentStatus = GlobalSocket.currentUser.status.id;
 
                 GlobalSocket.currentUser = jsonUser.data.user;
-                GlobalSocket.currentUser.activeIp = ipAddress;
+                //GlobalSocket.currentUser.activeIp = ipAddress;
+                GlobalSocket.currentUser.activeIp = "0";
                 GlobalSocket.currentUser.token = user.token;
                 //sIPAccount = new SIPAccount(requiredRegister, displayName, userName, registerName, password, domain, port, proxy);
 
