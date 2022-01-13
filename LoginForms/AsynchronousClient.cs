@@ -440,6 +440,13 @@ namespace LoginForms
                     var temp= await rh.updateAgentActiveIp(GlobalSocket.currentUser.email, port.ToString());
                     GlobalSocket.currentUser.activeIp = port;
 
+                    FormPrincipal ActivePrincipal = (FormPrincipal)Application.OpenForms["FormPrincipal"];
+                    TableLayoutPanel tempPanel1= (TableLayoutPanel)ActivePrincipal.Controls["tableLayoutPanel7"];
+                    TableLayoutPanel tempPanel2 = (TableLayoutPanel)tempPanel1.Controls["tableLayoutPanel1"];
+                    TableLayoutPanel tempPanel = (TableLayoutPanel)tempPanel2.Controls["tableDebug"];
+                    Label tempLabel = (Label)tempPanel.Controls["lblSocket"];
+                    tempLabel.Text = "Socket:" +port;
+
                     if (conexionPerdidaMonitoreo == true && temp == "OK")
                     {
                         screenMonitor scrM = (screenMonitor)Application.OpenForms["screenMonitor"];
@@ -454,7 +461,6 @@ namespace LoginForms
                     Console.WriteLine("notificacion:" + notification);
 
                     //Cuando ocurria una intermitencia en la red y se reconectaba, la instancia de prueba venia nula, por eso el otro metodo
-
                     //prueba.treatNotification(notification);
 
                     Prueba Activeprueba = (Prueba)Application.OpenForms["Prueba"];

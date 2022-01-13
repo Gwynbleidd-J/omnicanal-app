@@ -39,31 +39,19 @@ namespace LoginForms
                 var algo = cleanData["data"].Children();
 
                 var contadorChats = 0;
-                bool whatsApp = false;
-                bool telegram = false;
-                bool chatWeb = false;
+                int whatsApp = 0;
+                int telegram = 0;
+                int chatWeb = 0;
+
+                bool dataWhatsApp = false;
+                bool dataTelegram = false;
+                bool dataChatWeb = false;
 
                 foreach (var item in algo)
                 {
-                    if (item["platformIdentifier"].Value<string>() == "w") { whatsApp = true; }
-                    if (item["platformIdentifier"].Value<string>() == "t") { telegram = true; }
-                    if (item["platformIdentifier"].Value<string>() == "c") { chatWeb = true; }
-
-
-
-                    pieChats.Series = new SeriesCollection{
-                        new PieSeries
-                        {
-                            Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 0)),
-                            StrokeThickness = 0,
-                            Title = "Maria",
-                            Values = new ChartValues<double> {3},
-                            PushOut = 15,
-                            DataLabels = true,
-                            FontWeight = FontWeights.Light,
-                            FontSize = double.Parse("14")
-                        }
-                    };
+                    if (item["platformIdentifier"].Value<string>() == "w") { whatsApp++; dataWhatsApp = true; }
+                    if (item["platformIdentifier"].Value<string>() == "t") { telegram++; dataTelegram = true; }
+                    if (item["platformIdentifier"].Value<string>() == "c") { chatWeb++; dataChatWeb = true; }
 
                     contadorChats++;
                 }
@@ -78,42 +66,37 @@ namespace LoginForms
             {
                 new PieSeries
                 {
-                    Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 0)),
+                    //Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 0)),
                     StrokeThickness = 0,
-                    Title = "Maria",
-                    Values = new ChartValues<double> {3},
-                    PushOut = 15,
-                    DataLabels = true,
+                    Title = "WhatsApp",
+                    Values = new ChartValues<double> {whatsApp},
+                    PushOut = 5,
+                    DataLabels = dataWhatsApp,
                     LabelPoint = labelPoint,
-                    FontWeight = FontWeights.Light,
+                    FontWeight = FontWeights.Normal,
                     FontSize = double.Parse("14")
-            },
-                new PieSeries
-                {
-                    Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 0)),
-                    StrokeThickness = 0,
-                    Title = "Charles",
-                    Values = new ChartValues<double> {4},
-                    DataLabels = true,
-                    //LabelPoint = labelPoint
                 },
                 new PieSeries
                 {
-                    Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 0)),
+                    //Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 0)),
                     StrokeThickness = 0,
-                    Title = "Frida",
-                    Values = new ChartValues<double> {6},
-                    DataLabels = true,
-                    //LabelPoint = labelPoint
+                    PushOut = 5,
+                    Title = "Telegram",
+                    Values = new ChartValues<double> {telegram},
+                    DataLabels = dataTelegram,
+                    FontWeight = FontWeights.Normal,
+                    LabelPoint = labelPoint
                 },
                 new PieSeries
                 {
-                    Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 0)),
+                    //Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 0)),
                     StrokeThickness = 0,
-                    Title = "Frederic",
-                    Values = new ChartValues<double> {2},
-                    DataLabels = true,
-                    //LabelPoint = labelPoint
+                    PushOut = 5,
+                    Title = "Chat Web",
+                    Values = new ChartValues<double> {chatWeb},
+                    DataLabels = dataChatWeb,
+                    FontWeight = FontWeights.Normal,
+                    LabelPoint = labelPoint
                 }
             };
 

@@ -262,9 +262,8 @@ namespace LoginForms
                 Text = $"{GlobalSocket.currentUser.name} {GlobalSocket.currentUser.paternalSurname} {GlobalSocket.currentUser.maternalSurname}",
                 ForeColor = System.Drawing.Color.FromArgb(255, 255, 255),
                 Font = new Font("Calibri", 12),
-                AutoSize = true,
-                Anchor = (AnchorStyles.None),
-                TextAlign = ContentAlignment.TopCenter
+                //AutoSize = true,
+                TextAlign = ContentAlignment.TopCenter,
             };
 
             Label labelAgentRol = new Label
@@ -274,10 +273,13 @@ namespace LoginForms
                 Font = new Font("Calibri", 12, FontStyle.Bold),
                 //AutoSize = true,
                 TextAlign = ContentAlignment.TopCenter,
-                Size = new Size(flpAgentStatus.Width, Height)
-        };
+            };
 
             flpAgentStatus.Controls.AddRange(new Control[] { labelAgentName, labelAgentRol});
+            labelAgentName.Width = flpAgentStatus.Width;
+            labelAgentRol.Size = new Size(flpAgentStatus.Width, Height/2);
+            
+
         }
 
         private void setStatusAgent()
@@ -385,6 +387,11 @@ namespace LoginForms
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
             pictureBox1.Image = Properties.Resources.cerrar_sesion_presionado_1;
+        }
+
+        private void btnReconexion_Click(object sender, EventArgs e)
+        {
+            client.Connect();
         }
 
         //Metodos que no recuerdo para que se utilizan, pero deben de tener una utilidad
