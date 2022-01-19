@@ -202,23 +202,32 @@ namespace LoginForms
                     var callsData = (JObject)JsonConvert.DeserializeObject(datosCalls);
                     var tempCalls = callsData["data"].Children();
 
-                    int ContadorLlamadas = 0;
-                    int LlamadasActivas = 0;
+                    int ContadorLlamadasCerradas = 0;
+                    int contadorLlamadasEntrantes = 0;
+                    int contadorLlamadasActivas = 0;
 
                     foreach (var itemCall in tempCalls)
                     {
-                        var estatusLlamada = itemCall["tipoLlamada"].Value<int>();
-                        if (estatusLlamada == 0)
+                        var tipoLlamada = itemCall["tipoLlamada"].Value<int>();
+                        var statusLlamada = itemCall["statusId"].Value<int>();
+
+                        if (tipoLlamada == 0)
                         {
-                            ContadorLlamadas++;
+                            ContadorLlamadasCerradas++;
                         }
-                        else if (estatusLlamada == 1) {
-                            LlamadasActivas++;
+                        else if (tipoLlamada == 1) {
+                            contadorLlamadasEntrantes++;
                         }
+
+                        if (statusLlamada == 2)
+                        {
+                            contadorLlamadasActivas++;
+                        }
+
                     }
                     //++++++++++++++++++
 
-                    dataGridView1.Rows.Add(nombre, chatsActivos,chatsCerrados, chatsMaximos,LlamadasActivas, ContadorLlamadas, correo);
+                    dataGridView1.Rows.Add(nombre, chatsActivos,chatsCerrados, chatsMaximos, contadorLlamadasEntrantes, ContadorLlamadasCerradas, contadorLlamadasActivas, correo);
                 }
 
                 dataGridView1.Refresh();

@@ -601,5 +601,8 @@
   <ItemGroup>
     <None Include="Resources\reconnect.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\recargar.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

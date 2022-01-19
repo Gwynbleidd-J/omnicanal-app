@@ -55,7 +55,10 @@ namespace LoginForms
             //prueba.Show();
             client = new AsynchronousClient(whatsApp.rtxtResponseMessage, this, prueba, this);
             //client.inicializarChatWindow();
-            this.BackColor = ColorTranslator.FromHtml("#e2e0e0");
+            //this.BackColor = ColorTranslator.FromHtml("#e2e0e0");
+            this.BackColor = ColorTranslator.FromHtml("#d6d2d2");
+
+            
             tableLayoutPanel2.BackColor = ColorTranslator.FromHtml("#1a1a26");
         }
 
