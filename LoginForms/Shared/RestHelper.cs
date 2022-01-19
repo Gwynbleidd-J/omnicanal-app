@@ -351,6 +351,35 @@ namespace LoginForms.Shared
             }
         }
 
+        public async Task<string> obtenerDatosChatDiarios(string userId)
+        {
+            try
+            {
+                var inputData = new Dictionary<string, string> {
+                    {"userId", userId }
+                };
+                var input = new FormUrlEncodedContent(inputData);
+                HttpClient client = new HttpClient();
+                HttpResponseMessage response = await client.PostAsync(baseUrl + "chat/obtenerDatosChatDiarios", input);
+                Console.WriteLine(response);
+                HttpContent content = response.Content;
+                string data = await content.ReadAsStringAsync();
+                if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+                {
+                    return data;
+                }
+                else
+                {
+                    return response.StatusCode.ToString();
+                }
+
+            }
+            catch (Exception _e)
+            {
+                throw _e;
+            }
+        }
+
         public async Task<string> getUserChats(string userId) {
             var inputData = new Dictionary<string, string>
             {

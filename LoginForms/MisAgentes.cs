@@ -182,10 +182,14 @@ namespace LoginForms
                     var correo = item["email"].Value<string>();
                     var chatsMaximos = item["maxActiveChats"].Value<string>();
 
-                    //var fechaUltimoChat = await rh.getLastChatByUserId(ID);
+                    string datosChats = await rh.obtenerDatosChatDiarios(ID.ToString());
+                    var chatsData = (JObject)JsonConvert.DeserializeObject(datosChats);
+                    var temp = chatsData["data"];
 
+                    var chatsCerrados = temp["chatsCerrados"].Value<int>();
+                    var chatsActivos = temp["chatsActivos"].Value<int>();
 
-                    dataGridView1.Rows.Add(nombre, activeChats, chatsMaximos, correo);
+                    dataGridView1.Rows.Add(nombre, chatsActivos,chatsCerrados, chatsMaximos, correo);
                 }
             }
             catch (Exception _e)
