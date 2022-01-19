@@ -40,9 +40,11 @@ namespace LoginForms
             {
                 agentsInformation(GlobalSocket.currentUser.ID);
                 dataGridView1.Visible = false;
+                tableLayoutPanel1.Visible = false;
             }
             else
             {
+                flpAgentInfo.Visible = false;
                 SupervisorAgents(rolId);
             }
         }
@@ -169,6 +171,9 @@ namespace LoginForms
         {
             try
             {
+
+                dataGridView1.Rows.Clear();
+
                 string supervisorAgents = await rh.getSupervisorAgents(id);
                 //Json jsonSupervisorAgents = JsonConvert.DeserializeObject<Json>(supervisorAgents);
                 var cleanData = (JObject)JsonConvert.DeserializeObject(supervisorAgents);
@@ -182,15 +187,42 @@ namespace LoginForms
                     var correo = item["email"].Value<string>();
                     var chatsMaximos = item["maxActiveChats"].Value<string>();
 
+                    //Esto es para obtener los datos de chat diarios
                     string datosChats = await rh.obtenerDatosChatDiarios(ID.ToString());
                     var chatsData = (JObject)JsonConvert.DeserializeObject(datosChats);
                     var temp = chatsData["data"];
 
                     var chatsCerrados = temp["chatsCerrados"].Value<int>();
                     var chatsActivos = temp["chatsActivos"].Value<int>();
+                    //+++++++++++++++
 
-                    dataGridView1.Rows.Add(nombre, chatsActivos,chatsCerrados, chatsMaximos, correo);
+
+                    //Esto es para obtener los datos de llamada diarios
+                    string datosCalls = await rh.getTotalCalls(ID.ToString());
+                    var callsData = (JObject)JsonConvert.DeserializeObject(datosCalls);
+                    var tempCalls = callsData["data"].Children();
+
+                    int ContadorLlamadas = 0;
+                    int LlamadasActivas = 0;
+
+                    foreach (var itemCall in tempCalls)
+                    {
+                        var estatusLlamada = itemCall["tipoLlamada"].Value<int>();
+                        if (estatusLlamada == 0)
+                        {
+                            ContadorLlamadas++;
+                        }
+                        else if (estatusLlamada == 1) {
+                            LlamadasActivas++;
+                        }
+                    }
+                    //++++++++++++++++++
+
+                    dataGridView1.Rows.Add(nombre, chatsActivos,chatsCerrados, chatsMaximos,LlamadasActivas, ContadorLlamadas, correo);
                 }
+
+                dataGridView1.Refresh();
+
             }
             catch (Exception _e)
             {
@@ -253,6 +285,10 @@ namespace LoginForms
             //}
         }
 
+        private void btnRecargar_Click(object sender, EventArgs e)
+        {
+            SupervisorAgents(rolId);
+        }
     }
 }
 
