@@ -1886,7 +1886,7 @@ namespace LoginForms
                 ListBoxSIPLog.Items.Add(Text);
             }));
 
-
+            
             if (_CallSessions[index].isReferCall())
             {
                 // Take off the origin call from HOLD if the refer call is failure

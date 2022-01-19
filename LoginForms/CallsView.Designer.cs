@@ -116,11 +116,11 @@ namespace LoginForms
             this.lblRecordEstatus = new System.Windows.Forms.Label();
             this.timerCallsView = new System.Windows.Forms.Timer(this.components);
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.label21 = new System.Windows.Forms.Label();
             this.checkBoxANS = new System.Windows.Forms.CheckBox();
             this.checkBoxAGC = new System.Windows.Forms.CheckBox();
             this.checkBoxCNG = new System.Windows.Forms.CheckBox();
             this.checkBoxAEC = new System.Windows.Forms.CheckBox();
-            this.label21 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -425,6 +425,7 @@ namespace LoginForms
             this.btnEndRecord.TabIndex = 121;
             this.btnEndRecord.Text = "Detener Grabación";
             this.btnEndRecord.UseVisualStyleBackColor = true;
+            this.btnEndRecord.Visible = false;
             this.btnEndRecord.Click += new System.EventHandler(this.btnEndRecord_Click);
             // 
             // btnBeginRecord
@@ -1148,6 +1149,15 @@ namespace LoginForms
             this.groupBox7.TabIndex = 56;
             this.groupBox7.TabStop = false;
             // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(6, 11);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(82, 13);
+            this.label21.TabIndex = 73;
+            this.label21.Text = "Audio Llamadas";
+            // 
             // checkBoxANS
             // 
             this.checkBoxANS.AutoSize = true;
@@ -1193,15 +1203,6 @@ namespace LoginForms
             this.checkBoxAEC.Text = "AEC";
             this.checkBoxAEC.UseVisualStyleBackColor = true;
             this.checkBoxAEC.CheckedChanged += new System.EventHandler(this.checkBoxAEC_CheckedChanged);
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(6, 11);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(82, 13);
-            this.label21.TabIndex = 73;
-            this.label21.Text = "Audio Llamadas";
             // 
             // CallsView
             // 

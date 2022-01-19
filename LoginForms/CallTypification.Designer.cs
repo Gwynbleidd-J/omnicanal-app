@@ -35,7 +35,6 @@ namespace LoginForms
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
-            this.txtScore = new System.Windows.Forms.TextBox();
             this.cmbScore = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
@@ -94,14 +93,6 @@ namespace LoginForms
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // txtScore
-            // 
-            this.txtScore.Location = new System.Drawing.Point(152, 146);
-            this.txtScore.Name = "txtScore";
-            this.txtScore.Size = new System.Drawing.Size(121, 20);
-            this.txtScore.TabIndex = 5;
-            this.txtScore.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtScore_KeyPress);
-            // 
             // cmbScore
             // 
             this.cmbScore.FormattingEnabled = true;
@@ -129,7 +120,6 @@ namespace LoginForms
             this.ClientSize = new System.Drawing.Size(306, 405);
             this.Controls.Add(this.cmbScore);
             this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.txtScore);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtComments);
@@ -151,7 +141,6 @@ namespace LoginForms
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.TextBox txtScore;
         private System.Windows.Forms.ComboBox cmbScore;
     }
 }
