@@ -14,6 +14,7 @@ using Microsoft.Toolkit.Uwp.Notifications;
 using LoginForms.Utils;
 using System.IO;
 using System.Drawing.Imaging;
+using System.Runtime.InteropServices;
 
 namespace LoginForms
 {
@@ -24,7 +25,7 @@ namespace LoginForms
      * Solo le agregaran métodos a la clase.
      * El código comentado es el código original.
      */
-    class AsynchronousClient
+    public class AsynchronousClient
     {
         private RichTextBox container;
         private Form whatsapp;
@@ -81,11 +82,17 @@ namespace LoginForms
                 //IPAddress ipAddress = IPAddress.Parse("192.168.1.145");
                 IPEndPoint remoteEP = new IPEndPoint(ipAddress, port);
                 
+
                 
                 // Create a TCP/IP socket.  
                 GlobalSocket.GlobalVarible = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+                GlobalSocket.GlobalVarible.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.KeepAlive, true);
+                //SetupkeepAlive(GlobalSocket.GlobalVarible);
+                
+                //GlobalSocket.GlobalVarible.SetSocketOption(SocketOptionLevel.Tcp, SocketOptionName.tc)
                 //Connect to the remote endpoint
                 GlobalSocket.GlobalVarible.BeginConnect(remoteEP, new AsyncCallback(ConnectCallback), GlobalSocket.GlobalVarible);
+                
                 connectDone.WaitOne();
                 Receive(GlobalSocket.GlobalVarible);//Receive();
                 receiveDone.WaitOne();
@@ -98,10 +105,10 @@ namespace LoginForms
 
                 Console.WriteLine($"Response received:{response}");
 
-                GlobalSocket.GlobalVarible.Shutdown(SocketShutdown.Both);
-                GlobalSocket.GlobalVarible.Close();
+                //GlobalSocket.GlobalVarible.Shutdown(SocketShutdown.Both);
+                //GlobalSocket.GlobalVarible.Close();
             }
-            catch (Exception e)
+            catch (SocketException e)
             {
                 Console.WriteLine(e.ToString());
             }
@@ -121,7 +128,7 @@ namespace LoginForms
         //    }
         //}
 
-        private static void ConnectCallback(IAsyncResult ar)
+        public void ConnectCallback(IAsyncResult ar)
         {
             try
             {
@@ -130,17 +137,16 @@ namespace LoginForms
 
                 // Complete the connection.  
                 client.EndConnect(ar);
-
+                Console.WriteLine(client.Connected.ToString());
+                SetupkeepAlive(client);
                 Console.WriteLine($"Socket connected to:{client.RemoteEndPoint}");
                 Console.WriteLine($"Desde el socket:{client.LocalEndPoint}");
-                
-
                 // Signal that the connection has been made.  
                 connectDone.Set();
             }
-            catch (Exception e)
+            catch (SocketException e)
             {
-                Console.WriteLine(e.ToString());
+                Console.WriteLine($"{e.Message}: {e.ErrorCode}");
             }
         }
 
@@ -159,7 +165,7 @@ namespace LoginForms
 
 
             }
-            catch (Exception e)
+            catch (SocketException e)
             {
                 Console.WriteLine("Error[Receive]: " + e.ToString());
             }
@@ -169,6 +175,7 @@ namespace LoginForms
         {
             try
             {
+                //aqui se presenta una exepción, habra que ver por que no entra en el catch
                 // Retrieve the state object and the client socket
                 // from the asynchronous state object.  
                 StateObject state = (StateObject)ar.AsyncState;
@@ -176,8 +183,8 @@ namespace LoginForms
                 string socketNotification;
 
                 // Read data from the remote device.  
+                
                 int bytesRead = client.EndReceive(ar);
-
                 if (bytesRead > 0)
                 {
                     // There might be more data, so store the data received so far.  
@@ -188,9 +195,10 @@ namespace LoginForms
                         new AsyncCallback(ReceiveCallback), state);
 
                     socketNotification = Encoding.UTF8.GetString(state.buffer, 0, bytesRead).ToString();
+                    Console.WriteLine($"Sockect conectado:{client.Connected.ToString()}");
                     Console.WriteLine("Desde string es: " + socketNotification);
 
-                    treatNotificationAsync(socketNotification);
+                   treatNotificationAsync(socketNotification);
                 }
                 else
                 {
@@ -206,7 +214,7 @@ namespace LoginForms
             }
 
 
-            catch (Exception e)
+            catch (SocketException e)
             {
                 Console.WriteLine("Error[ReceiveCallback]: " + e.ToString());
             }
@@ -221,6 +229,7 @@ namespace LoginForms
             // Begin sending the data to the remote device.  
             client.BeginSend(byteData, 0, byteData.Length, 0,
                 new AsyncCallback(SendCallback), client);
+
         }
 
         private void SendCallback(IAsyncResult ar)
@@ -229,7 +238,7 @@ namespace LoginForms
             {
                 // Retrieve the socket from the state object.  
                 Socket client = (Socket)ar.AsyncState;
-
+                Console.WriteLine(client.Connected.ToString());
                 // Complete sending the data to the remote device.  
                 int bytesSent = client.EndSend(ar);
                 Console.WriteLine("Sent {0} bytes to server.", bytesSent);
@@ -237,7 +246,7 @@ namespace LoginForms
                 //screen.CapturarPantalla();
                 sendDone.Set();
             }
-            catch (Exception e)
+            catch (SocketException e)
             {
                 Console.WriteLine(e.ToString());
             }
@@ -248,7 +257,6 @@ namespace LoginForms
             try
             {
                 GlobalSocket.GlobalVarible.Shutdown(SocketShutdown.Both);
-                GlobalSocket.GlobalVarible.Disconnect(true);
                 if (GlobalSocket.GlobalVarible.Connected)
                 {
                     Console.WriteLine($"Socket Connected");
@@ -258,7 +266,7 @@ namespace LoginForms
                     Console.WriteLine($"Socket Disconnected");
                 }
             }
-            catch (Exception ex)
+            catch (SocketException ex)
             {
                 Console.WriteLine($"Error[CloseSocketConnection][AsynchronousClient] {ex.Message}");
             }
@@ -454,6 +462,10 @@ namespace LoginForms
                         scrM.ReconexionServidor();
                     }
                 }
+                //else if (jobject.ContainsKey("")
+                //{
+
+                //}
                 else
                 {
                     Models.Message notification = JsonConvert.DeserializeObject<Models.Message>(socketNotification);
@@ -621,5 +633,19 @@ namespace LoginForms
         }
         #endregion
 
+        public void SetupkeepAlive(Socket socket, uint interval = 100U)
+        {
+            if(socket is null)
+            {
+                throw new ArgumentException(nameof(socket));
+            }
+
+            var size = Marshal.SizeOf(0U);
+            var keepAlive = new byte[size * 3];
+            Buffer.BlockCopy(BitConverter.GetBytes(1U), 0, keepAlive, 0, size);
+            Buffer.BlockCopy(BitConverter.GetBytes(interval), 0, keepAlive, size, size);
+            Buffer.BlockCopy(BitConverter.GetBytes(interval), 0, keepAlive, size * 2, size);
+            _ = socket.IOControl(IOControlCode.KeepAliveValues, keepAlive, null);
+        }
     }
 }

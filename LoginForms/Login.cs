@@ -82,22 +82,29 @@ namespace LoginForms
             {
                 FormPrincipal formPrincipal = new FormPrincipal();
                 var jsonLogin = await rh.Login(txtUserName.Text, txtPassword.Text, ipAddress);
-                //Se deshabilita la actualizacion de ip aqui pues se utilizara el puerto que mande la api como ip
-                //var jsonUpdateAgentActiveIp = await rh.updateAgentActiveIp(txtUserName.Text, ipAddress);
-                
-                Json jsonUser = JsonConvert.DeserializeObject<Json>(jsonLogin);
-                User user = rh.GetUser(jsonLogin);
-                //string agentStatus = GlobalSocket.currentUser.status.id;
+                if(jsonLogin == "Unauthorized")
+                {
+                    MessageBox.Show($"Correo o contraseña Incorrecta, revisa tus credenciales", $"SIDI Omnichannel", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtPassword.Text = "";
+                }
+                else
+                {
+                    //Se deshabilita la actualizacion de ip aqui pues se utilizara el puerto que mande la api como ip
+                    //Aquí cuando la contraseña o el correo son incorrectos manda un error 401, Unauthorized, 201 OK
+                    //var jsonUpdateAgentActiveIp = await rh.updateAgentActiveIp(txtUserName.Text, ipAddress);
+                    Json jsonUser = JsonConvert.DeserializeObject<Json>(jsonLogin);
+                    User user = rh.GetUser(jsonLogin);
+                    //string agentStatus = GlobalSocket.currentUser.status.id;
+                    GlobalSocket.currentUser = jsonUser.data.user;
+                    //GlobalSocket.currentUser.activeIp = ipAddress;
+                    GlobalSocket.currentUser.activeIp = "0";
+                    GlobalSocket.currentUser.token = user.token;
+                    //sIPAccount = new SIPAccount(requiredRegister, displayName, userName, registerName, password, domain, port, proxy);
+                    this.Hide();
+                    formPrincipal.FormClosed += (s, args) => this.Close();
+                    formPrincipal.Show();
+                }
 
-                GlobalSocket.currentUser = jsonUser.data.user;
-                //GlobalSocket.currentUser.activeIp = ipAddress;
-                GlobalSocket.currentUser.activeIp = "0";
-                GlobalSocket.currentUser.token = user.token;
-                //sIPAccount = new SIPAccount(requiredRegister, displayName, userName, registerName, password, domain, port, proxy);
-
-                this.Hide();
-                formPrincipal.FormClosed += (s, args) => this.Close();
-                formPrincipal.Show();
 
             }
             catch (Exception ex)

@@ -12,7 +12,6 @@ using System.Windows.Forms;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.Net.Http.Headers;
 
 namespace LoginForms.Shared
@@ -206,6 +205,9 @@ namespace LoginForms.Shared
                 var input = new FormUrlEncodedContent(inputData);
 
                 HttpClient client = new HttpClient();
+                //Aquí cuando la contraseña o el correo son incorrectos manda un error 401, Unauthorized
+                //Abra que mandarle una advertencia al usuario
+                //de que la contraseña o el correo están mal
                 HttpResponseMessage response = await client.PostAsync(baseUrl + "auth", input);
                 HttpContent content = response.Content;
                 string data = await content.ReadAsStringAsync();
@@ -215,6 +217,7 @@ namespace LoginForms.Shared
                 }
                 else
                 {
+                    //puede ser aquí donde se le mande al usuario la advertencia
                     return response.StatusCode.ToString();
                 }
             }
@@ -982,13 +985,14 @@ namespace LoginForms.Shared
 
 
 
-        public async Task<string> SendCall()
+        public async Task<string> SendCall(string tipo)
         {
             date = DateTime.Now.ToString("HH:mm:ss:ff");
             var inputData = new Dictionary<string, string>
             {
                 {"startTime", date},
                 {"userId", GlobalSocket.currentUser.ID },
+                {"tipoLlamada", tipo }
             };
 
             Console.WriteLine(inputData);
@@ -1039,14 +1043,29 @@ namespace LoginForms.Shared
             }
         }
 
+        public async Task<string> GetIdCall()
+        {
+            var inputData = new Dictionary<string, string>
+            {
+                {"startTime", date},
+            };
+            Console.WriteLine(inputData);
+            var input = new FormUrlEncodedContent(inputData);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync(baseUrl + "calls/getIdCall", input);
+            Console.WriteLine(response);
+            HttpContent content = response.Content;
+            string data = await response.Content.ReadAsStringAsync();
+            if(!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            {
+                return data;
+            }
+            else
+            {
+                return response.StatusCode.ToString();
+            }
 
-
-
-
-
-
-
-
+        }
 
         public async Task<string> newEmptyChat(string text, string chatId, string clientPlatformIdentifier, string platformIdentifier, string agentPlatformIdentifier)
         {

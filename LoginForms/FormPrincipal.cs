@@ -27,7 +27,6 @@ namespace LoginForms
         RestHelper rh = new RestHelper();
         Json jsonStatus;
         Login login;
-        AsynchronousClient asynchronousClient = new AsynchronousClient();
         public string rolId;
 
         double dummy = 50;
@@ -331,13 +330,12 @@ namespace LoginForms
         private void btnCloseSesion_Click(object sender, EventArgs e)
         {
             login = new Login();
-            //asynchronousClient = new AsynchronousClient();
             string userToken = GlobalSocket.currentUser.token;
             userToken = "";
 
             if (string.IsNullOrEmpty(userToken))
             {
-                asynchronousClient.CloseSocketConnection();
+                client.CloseSocketConnection();
                 MessageBox.Show("usuario cerró sesión", "Omnicanal", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Dispose();
                 login.Show();
@@ -362,7 +360,7 @@ namespace LoginForms
 
             if (string.IsNullOrEmpty(userToken))
             {
-                asynchronousClient.CloseSocketConnection();
+                client.CloseSocketConnection();
                 MessageBox.Show("usuario cerró sesión", "Omnicanal", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Dispose();
                 login.Show();

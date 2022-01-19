@@ -34,8 +34,9 @@ namespace LoginForms
             this.txtComments = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.txtScore = new System.Windows.Forms.TextBox();
             this.btnSave = new System.Windows.Forms.Button();
+            this.txtScore = new System.Windows.Forms.TextBox();
+            this.cmbScore = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // cmbNetwork
@@ -83,14 +84,6 @@ namespace LoginForms
             this.label3.TabIndex = 4;
             this.label3.Text = "Calificación de la Llamada";
             // 
-            // txtScore
-            // 
-            this.txtScore.Location = new System.Drawing.Point(15, 113);
-            this.txtScore.Name = "txtScore";
-            this.txtScore.Size = new System.Drawing.Size(121, 20);
-            this.txtScore.TabIndex = 5;
-            this.txtScore.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtScore_KeyPress);
-            // 
             // btnSave
             // 
             this.btnSave.Location = new System.Drawing.Point(15, 321);
@@ -101,11 +94,40 @@ namespace LoginForms
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
+            // txtScore
+            // 
+            this.txtScore.Location = new System.Drawing.Point(152, 146);
+            this.txtScore.Name = "txtScore";
+            this.txtScore.Size = new System.Drawing.Size(121, 20);
+            this.txtScore.TabIndex = 5;
+            this.txtScore.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtScore_KeyPress);
+            // 
+            // cmbScore
+            // 
+            this.cmbScore.FormattingEnabled = true;
+            this.cmbScore.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10"});
+            this.cmbScore.Location = new System.Drawing.Point(15, 114);
+            this.cmbScore.Name = "cmbScore";
+            this.cmbScore.Size = new System.Drawing.Size(131, 21);
+            this.cmbScore.TabIndex = 7;
+            this.cmbScore.SelectedIndexChanged += new System.EventHandler(this.cmbScore_SelectedIndexChanged);
+            // 
             // CallTypification
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(306, 405);
+            this.Controls.Add(this.cmbScore);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.txtScore);
             this.Controls.Add(this.label3);
@@ -128,7 +150,8 @@ namespace LoginForms
         private System.Windows.Forms.TextBox txtComments;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txtScore;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.TextBox txtScore;
+        private System.Windows.Forms.ComboBox cmbScore;
     }
 }

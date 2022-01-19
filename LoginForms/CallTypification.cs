@@ -11,6 +11,7 @@ namespace LoginForms
         RestHelper rh = new RestHelper();
         Json jsonNetwork;
         string valor;
+        string score;
         //string userid;
         public CallTypification()//string userId
         {
@@ -24,7 +25,13 @@ namespace LoginForms
             CallItems classItems = (CallItems)cmbNetwork.SelectedItem;
             valor = classItems.Id;
         }
-        
+
+        private void cmbScore_SelectedIndexChanged(object sender, EventArgs e)
+        {
+             score = cmbScore.SelectedItem.ToString(); //este es el machin
+            Console.WriteLine($"Valor seleccionado:{score}");
+        }
+
         private async void ComboBoxGetNetwork()
         {
             try
@@ -88,7 +95,7 @@ namespace LoginForms
         {
             try
             {
-                await rh.UpdateNetworkCategoryCalls(valor, txtScore.Text, txtComments.Text);
+                await rh.UpdateNetworkCategoryCalls(valor, score, txtComments.Text);
                 //MessageBox.Show("Datos guardados correctamente", "Omnicanal", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 this.Dispose();
             }

@@ -11,6 +11,9 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using LoginForms.Shared;
 using System.Net.NetworkInformation;
+using Newtonsoft.Json;
+using LoginForms.Models;
+using Newtonsoft.Json.Linq;
 
 namespace LoginForms
 {
@@ -168,10 +171,9 @@ namespace LoginForms
             }
 
             sdkLib.enableAEC(checkBoxAEC.Checked);
-            //sdkLib.enableVAD(checkBoxVAD.Checked);
-            //sdkLib.enableCNG(checkBoxCNG.Checked);
-            //sdkLib.enableAGC(checkBoxAGC.Checked);
-            //sdkLib.enableANS(checkBoxANS.Checked);
+            sdkLib.enableCNG(checkBoxCNG.Checked);
+            sdkLib.enableAGC(checkBoxAGC.Checked);
+            sdkLib.enableANS(checkBoxANS.Checked);
 
 
             sdkLib.setVideoNackStatus(checkBoxNack.Checked);
@@ -365,30 +367,36 @@ namespace LoginForms
 
 
         #region metodos para iniciar y detener la grabación de una llamada
-        private void StartCallRecord()
+        private async void StartCallRecord()
         {
             if (sIPInited == false)
             {
                 MessageBox.Show("Please initialize the SDK first.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
+            string callId = await rh.GetIdCall();
+            //MsjApi jsonData = JsonConvert.DeserializeObject<MsjApi>(callId);
+            //var data = jsonData.data;
+            var jobject = JsonConvert.DeserializeObject<JObject>(callId);
 
-            string filePath = @"d:\softphone-call-records";
-            string fileName = "grabacion";
+            var id = jobject.Value<string>("data").ToString();
+
+            string filePath = "C:/Users/KODE/Documents/llamadas";
+            string fileName = $"grabacion-{id}";
 
             AUDIO_RECORDING_FILEFORMAT audioRecordFileFormat = AUDIO_RECORDING_FILEFORMAT.FILEFORMAT_WAVE;
 
-            //Se empieza la grabación
-            int rt = sdkLib.startRecord(_CallSessions[currentlyLine].getSessionId(), filePath, fileName, true, audioRecordFileFormat,
-                RECORD_MODE.RECORD_BOTH, VIDEOCODEC_TYPE.VIDEO_CODEC_H264, RECORD_MODE.RECORD_RECV);
+            //start recording
+            int rt = sdkLib.startRecord(_CallSessions[currentlyLine].getSessionId(), filePath, fileName, false, audioRecordFileFormat, RECORD_MODE.RECORD_BOTH, VIDEOCODEC_TYPE.VIDEO_CODEC_H264, RECORD_MODE.RECORD_RECV);
 
             if (rt != 0)
             {
-                MessageBox.Show("Failed to start record conversation.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                lblRecordEstatus.Text = "Fallo la grabacion de la conversación.";
+                //MessageBox.Show("Fallo la grabacion de la conversación.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
-
-            MessageBox.Show("Started record conversation.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            lblRecordEstatus.Text = "Se inicio la grabación de la llamada.";
+            //MessageBox.Show("Se inicio la grabación de la llamada.", "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
 
         private void EndCallRecord()
@@ -397,10 +405,11 @@ namespace LoginForms
             {
                 return;
             }
-
             sdkLib.stopRecord(_CallSessions[currentlyLine].getSessionId());
-            MessageBox.Show("Stop record conversation.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-
+            lblRecordEstatus.Text = "Se detuvo la grabación de la llamada.";
+            btnBeginRecord.Text = "Grabar Llamada";
+            btnBeginRecord.Enabled = true;
+            //MessageBox.Show("Se detuvo la grabación de la llamada.", "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
         #endregion
 
@@ -599,17 +608,7 @@ namespace LoginForms
             string outboundServer = "";
 
             // Set the SIP user information
-            rt = sdkLib.setUser(userName,
-                                       displayName,
-                                       authName,
-                                       password,
-                                       sipDomain,
-                                       sipServer,
-                                       SIPServerPort,
-                                       stunServer,
-                                       StunServerPort,
-                                       outboundServer,
-                                       outboundServerPort);
+            rt = sdkLib.setUser(userName, displayName, authName, password, sipDomain, sipServer, SIPServerPort, stunServer, StunServerPort, outboundServer, outboundServerPort);
             if (rt != 0)
             {
                 sdkLib.unInitialize();
@@ -635,7 +634,7 @@ namespace LoginForms
 
             SetSRTPType();
 
-            string licenseKey = "PORTSIP_TEST_LICENSE";
+            string licenseKey = "1WINqx00QjlERUMwMkI1OUMzNUI2OTdENjI2MDA2RDNFRjU2REBCQkRCNzI1NEE4MDVDRjUwNzQ1NDAxRkIyRkQzMTNFREA4MEE3RkYzMjkwOTJBMkJFM0MzMzBGOTY3MzRGRDBBM0A5NEQwNDFEQzE2OTUyNjhGRjBBRkE2QzE4QTQ1N0I2NA";
             rt = sdkLib.setLicenseKey(licenseKey);
             if (rt == PortSIP_Errors.ECoreTrialVersionLicenseKey)
             {
@@ -925,6 +924,8 @@ namespace LoginForms
                 CallTypification typification = new CallTypification();
                 typification.ShowDialog();
                 typification.StartPosition = FormStartPosition.CenterParent;
+                btnBeginRecord.Enabled = true;
+                btnBeginRecord.Text = "Grabar Llamada";
             }
         }
 
@@ -1295,17 +1296,7 @@ namespace LoginForms
             string outboundServer = "";
 
             // Set the SIP user information
-            rt = sdkLib.setUser(userName,
-                                       displayName,
-                                       authName,
-                                       password,
-                                       sipDomain,
-                                       sipServer,
-                                       SIPServerPort,
-                                       stunServer,
-                                       StunServerPort,
-                                       outboundServer,
-                                       outboundServerPort);
+            rt = sdkLib.setUser(userName, displayName, authName, password, sipDomain, sipServer, SIPServerPort, stunServer, StunServerPort, outboundServer, outboundServerPort);
             if (rt != 0)
             {
                 sdkLib.unInitialize();
@@ -1331,7 +1322,7 @@ namespace LoginForms
 
             SetSRTPType();
 
-            string licenseKey = "PORTSIP_TEST_LICENSE";
+            string licenseKey = "1WINqx00QjlERUMwMkI1OUMzNUI2OTdENjI2MDA2RDNFRjU2REBCQkRCNzI1NEE4MDVDRjUwNzQ1NDAxRkIyRkQzMTNFREA4MEE3RkYzMjkwOTJBMkJFM0MzMzBGOTY3MzRGRDBBM0A5NEQwNDFEQzE2OTUyNjhGRjBBRkE2QzE4QTQ1N0I2NA";
             rt = sdkLib.setLicenseKey(licenseKey);
             if (rt == PortSIP_Errors.ECoreTrialVersionLicenseKey)
             {
@@ -1654,16 +1645,7 @@ namespace LoginForms
         }
 
 
-        public Int32 onInviteIncoming(Int32 sessionId,
-                                             String callerDisplayName,
-                                             String caller,
-                                             String calleeDisplayName,
-                                             String callee,
-                                             String audioCodecNames,
-                                             String videoCodecNames,
-                                             Boolean existsAudio,
-                                             Boolean existsVideo,
-                                            StringBuilder sipMessage)
+        public Int32 onInviteIncoming(Int32 sessionId, String callerDisplayName, String caller, String calleeDisplayName, String callee, String audioCodecNames, String videoCodecNames, Boolean existsAudio, Boolean existsVideo, StringBuilder sipMessage)
         {
             int index = -1;
             for (int i = LINE_BASE; i < MAX_LINES; ++i)
@@ -1739,8 +1721,8 @@ namespace LoginForms
                 {
                     ListBoxSIPLog.Items.Add(Text);
                 }));
-                rh.SendCall();
-                StartCallRecord();
+                rh.SendCall("0");
+                //StartCallRecord();
                 return 0;
             }
 
@@ -1783,13 +1765,7 @@ namespace LoginForms
         }
 
 
-        public Int32 onInviteSessionProgress(Int32 sessionId,
-                                             String audioCodecNames,
-                                             String videoCodecNames,
-                                             Boolean existsEarlyMedia,
-                                             Boolean existsAudio,
-                                             Boolean existsVideo,
-                                            StringBuilder sipMessage)
+        public Int32 onInviteSessionProgress(Int32 sessionId, String audioCodecNames, String videoCodecNames, Boolean existsEarlyMedia, Boolean existsAudio, Boolean existsVideo, StringBuilder sipMessage)
         {
             int i = findSession(sessionId);
             if (i == -1)
@@ -1823,10 +1799,7 @@ namespace LoginForms
             return 0;
         }
 
-        public Int32 onInviteRinging(Int32 sessionId,
-                                            String statusText,
-                                            Int32 statusCode,
-                                            StringBuilder sipMessage)
+        public Int32 onInviteRinging(Int32 sessionId, String statusText, Int32 statusCode, StringBuilder sipMessage)
         {
             int i = findSession(sessionId);
             if (i == -1)
@@ -1852,16 +1825,7 @@ namespace LoginForms
         }
 
 
-        public Int32 onInviteAnswered(Int32 sessionId,
-                                             String callerDisplayName,
-                                             String caller,
-                                             String calleeDisplayName,
-                                             String callee,
-                                             String audioCodecNames,
-                                             String videoCodecNames,
-                                             Boolean existsAudio,
-                                             Boolean existsVideo,
-                                             StringBuilder sipMessage)
+        public Int32 onInviteAnswered(Int32 sessionId, String callerDisplayName, String caller, String calleeDisplayName, String callee, String audioCodecNames, String videoCodecNames, Boolean existsAudio, Boolean existsVideo, StringBuilder sipMessage)
         {
             int i = findSession(sessionId);
             if (i == -1)
@@ -1885,7 +1849,7 @@ namespace LoginForms
 
             string Text = "Line " + i.ToString();
             Text = Text + ": Call established";
-            rh.SendCall();
+            rh.SendCall("1");
             ListBoxSIPLog.Invoke(new MethodInvoker(delegate
             {
                 ListBoxSIPLog.Items.Add(Text);
@@ -1962,13 +1926,7 @@ namespace LoginForms
         }
 
 
-        public Int32 onInviteUpdated(Int32 sessionId,
-                                             String audioCodecNames,
-                                             String videoCodecNames,
-                                             Boolean existsAudio,
-                                             Boolean existsVideo,
-                                             Boolean existsScreen,
-                                             StringBuilder sipMessage)
+        public Int32 onInviteUpdated(Int32 sessionId, String audioCodecNames, String videoCodecNames, Boolean existsAudio, Boolean existsVideo, Boolean existsScreen, StringBuilder sipMessage)
         {
             int i = findSession(sessionId);
             if (i == -1)
@@ -2027,7 +1985,10 @@ namespace LoginForms
 
             string Text = "Line " + i.ToString();
             Text = Text + ": Call is connected";
-
+            //rh.SendCall();
+            //Task task = new Task(StartCallRecord);
+            //task.Wait = 100;
+            //StartCallRecord();
             ListBoxSIPLog.Invoke(new MethodInvoker(delegate
             {
                 ListBoxSIPLog.Items.Add(Text);
@@ -2077,10 +2038,7 @@ namespace LoginForms
         }
 
 
-        public Int32 onDialogStateUpdated(String BLFMonitoredUri,
-                                 String BLFDialogState,
-                                 String BLFDialogId,
-                                 String BLFDialogDirection)
+        public Int32 onDialogStateUpdated(String BLFMonitoredUri, String BLFDialogState, String BLFDialogId, String BLFDialogDirection)
         {
             string text = "The user ";
             text += BLFMonitoredUri;
@@ -2120,11 +2078,7 @@ namespace LoginForms
         }
 
 
-        public Int32 onRemoteUnHold(Int32 sessionId,
-                                             String audioCodecNames,
-                                             String videoCodecNames,
-                                             Boolean existsAudio,
-                                             Boolean existsVideo)
+        public Int32 onRemoteUnHold(Int32 sessionId, String audioCodecNames, String videoCodecNames, Boolean existsAudio, Boolean existsVideo)
         {
             int i = findSession(sessionId);
             if (i == -1)
@@ -2144,14 +2098,8 @@ namespace LoginForms
         }
 
 
-        public Int32 onReceivedRefer(Int32 sessionId,
-                                                    Int32 referId,
-                                                    String to,
-                                                    String from,
-                                                    StringBuilder referSipMessage)
+        public Int32 onReceivedRefer(Int32 sessionId, Int32 referId, String to, String from, StringBuilder referSipMessage)
         {
-
-
             int index = findSession(sessionId);
             if (index == -1)
             {
@@ -2352,11 +2300,7 @@ namespace LoginForms
 
 
 
-        public Int32 onWaitingVoiceMessage(String messageAccount,
-                                                  Int32 urgentNewMessageCount,
-                                                  Int32 urgentOldMessageCount,
-                                                  Int32 newMessageCount,
-                                                  Int32 oldMessageCount)
+        public Int32 onWaitingVoiceMessage(String messageAccount, Int32 urgentNewMessageCount, Int32 urgentOldMessageCount, Int32 newMessageCount, Int32 oldMessageCount)
         {
 
             string Text = messageAccount;
@@ -2379,11 +2323,7 @@ namespace LoginForms
         }
 
 
-        public Int32 onWaitingFaxMessage(String messageAccount,
-                                                  Int32 urgentNewMessageCount,
-                                                  Int32 urgentOldMessageCount,
-                                                  Int32 newMessageCount,
-                                                  Int32 oldMessageCount)
+        public Int32 onWaitingFaxMessage(String messageAccount, Int32 urgentNewMessageCount, Int32 urgentOldMessageCount, Int32 newMessageCount, Int32 oldMessageCount)
         {
             string Text = messageAccount;
             Text += " has FAX message.";
@@ -2455,35 +2395,23 @@ namespace LoginForms
             {
                 ListBoxSIPLog.Items.Add(Text);
             }));
-
-
             return 0;
         }
 
 
-        public Int32 onPresenceRecvSubscribe(Int32 subscribeId,
-                                                    String fromDisplayName,
-                                                    String from,
-                                                    String subject)
+        public Int32 onPresenceRecvSubscribe(Int32 subscribeId, String fromDisplayName, String from, String subject)
         {
-
-
             return 0;
         }
 
 
-        public Int32 onPresenceOnline(String fromDisplayName,
-                                      String from,
-                                      String stateText)
+        public Int32 onPresenceOnline(String fromDisplayName, String from, String stateText)
         {
-
             return 0;
         }
 
         public Int32 onPresenceOffline(String fromDisplayName, String from)
         {
-
-
             return 0;
         }
 
@@ -2493,7 +2421,6 @@ namespace LoginForms
             //         string text = "Received an OPTIONS message: ";
             //       text += optionsMessage.ToString();
             //     MessageBox.Show(text, "Received an OPTIONS message", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-
             return 0;
         }
 
@@ -2508,10 +2435,7 @@ namespace LoginForms
         }
 
 
-        public Int32 onRecvNotifyOfSubscription(Int32 subscribeId,
-                        StringBuilder notifyMsg,
-                        byte[] contentData,
-                        Int32 contentLenght)
+        public Int32 onRecvNotifyOfSubscription(Int32 subscribeId, StringBuilder notifyMsg, byte[] contentData, Int32 contentLenght)
         {
 
             return 0;
@@ -2528,11 +2452,7 @@ namespace LoginForms
         }
 
 
-        public Int32 onRecvMessage(Int32 sessionId,
-                                                 String mimeType,
-                                                 String subMimeType,
-                                                 byte[] messageData,
-                                                 Int32 messageDataLength)
+        public Int32 onRecvMessage(Int32 sessionId, String mimeType, String subMimeType, byte[] messageData, Int32 messageDataLength)
         {
             int i = findSession(sessionId);
             if (i == -1)
@@ -2562,14 +2482,7 @@ namespace LoginForms
         }
 
 
-        public Int32 onRecvOutOfDialogMessage(String fromDisplayName,
-                                                 String from,
-                                                 String toDisplayName,
-                                                 String to,
-                                                 String mimeType,
-                                                 String subMimeType,
-                                                 byte[] messageData,
-                                                 Int32 messageDataLength)
+        public Int32 onRecvOutOfDialogMessage(String fromDisplayName, String from, String toDisplayName, String to, String mimeType, String subMimeType, byte[] messageData, Int32 messageDataLength)
         {
             string text = "Received a message(out of dialog) from ";
             text += from;
@@ -2598,10 +2511,7 @@ namespace LoginForms
         }
 
 
-        public Int32 onSendMessageFailure(Int32 sessionId,
-                                                        Int32 messageId,
-                                                        String reason,
-                                                        Int32 code)
+        public Int32 onSendMessageFailure(Int32 sessionId, Int32 messageId, String reason, Int32 code)
         {
 
             return 0;
@@ -2609,24 +2519,14 @@ namespace LoginForms
 
 
 
-        public Int32 onSendOutOfDialogMessageSuccess(Int32 messageId,
-                                                        String fromDisplayName,
-                                                        String from,
-                                                        String toDisplayName,
-                                                        String to)
+        public Int32 onSendOutOfDialogMessageSuccess(Int32 messageId, String fromDisplayName, String from, String toDisplayName, String to)
         {
 
 
             return 0;
         }
 
-        public Int32 onSendOutOfDialogMessageFailure(Int32 messageId,
-                                                        String fromDisplayName,
-                                                        String from,
-                                                        String toDisplayName,
-                                                        String to,
-                                                        String reason,
-                                                        Int32 code)
+        public Int32 onSendOutOfDialogMessageFailure(Int32 messageId, String fromDisplayName, String from, String toDisplayName, String to, String reason, Int32 code)
         {
             return 0;
         }
@@ -2672,12 +2572,7 @@ namespace LoginForms
             return 0;
         }
 
-        public Int32 onRTPPacketCallback(IntPtr callbackObject,
-                     Int32 sessionId,
-                     Int32 mediaType,
-                     Int32 direction,
-                     byte[] RTPPacket,
-                     Int32 packetSize)
+        public Int32 onRTPPacketCallback(IntPtr callbackObject, Int32 sessionId, Int32 mediaType, Int32 direction, byte[] RTPPacket, Int32 packetSize)
         {
             /*
                 !!! IMPORTANT !!!
@@ -2690,12 +2585,7 @@ namespace LoginForms
             return 0;
         }
 
-        public Int32 onAudioRawCallback(IntPtr callbackObject,
-                                               Int32 sessionId,
-                                               Int32 callbackType,
-                                               [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] byte[] data,
-                                               Int32 dataLength,
-                                               Int32 samplingFreqHz)
+        public Int32 onAudioRawCallback(IntPtr callbackObject, Int32 sessionId, Int32 callbackType, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] byte[] data, Int32 dataLength, Int32 samplingFreqHz)
         {
 
             /*
@@ -2734,13 +2624,7 @@ namespace LoginForms
         }
 
 
-        public Int32 onVideoRawCallback(IntPtr callbackObject,
-                                               Int32 sessionId,
-                                               Int32 callbackType,
-                                               Int32 width,
-                                               Int32 height,
-                                               [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 6)] byte[] data,
-                                               Int32 dataLength)
+        public Int32 onVideoRawCallback(IntPtr callbackObject, Int32 sessionId, Int32 callbackType, Int32 width, Int32 height, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 6)] byte[] data, Int32 dataLength)
         {
             /*
                 !!! IMPORTANT !!!
@@ -2771,13 +2655,7 @@ namespace LoginForms
             return 0;
 
         }
-        public Int32 onScreenRawCallback(IntPtr callbackObject,
-                                               Int32 sessionId,
-                                               Int32 callbackType,
-                                               Int32 width,
-                                               Int32 height,
-                                               [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 6)] byte[] data,
-                                               Int32 dataLength)
+        public Int32 onScreenRawCallback(IntPtr callbackObject, Int32 sessionId, Int32 callbackType, Int32 width, Int32 height, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 6)] byte[] data, Int32 dataLength)
         {
 
             /*
@@ -2799,12 +2677,89 @@ namespace LoginForms
             //
             return 0;
         }
-
-
-
-
         #endregion
 
+        private async void btnBeginRecord_Click(object sender, EventArgs e)
+        {
+            if (sIPInited == false)
+            {
+                MessageBox.Show("Please initialize the SDK first.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            string callId = await rh.GetIdCall();
+            //MsjApi jsonData = JsonConvert.DeserializeObject<MsjApi>(callId);
+            //var data = jsonData.data;
+            var jobject = JsonConvert.DeserializeObject<JObject>(callId);
 
+            var id = jobject.Value<string>("data").ToString();
+
+            string filePath = "C:/Users/KODE/Documents/llamadas";
+            string fileName = $"grabacion-{id}";
+
+            AUDIO_RECORDING_FILEFORMAT audioRecordFileFormat = AUDIO_RECORDING_FILEFORMAT.FILEFORMAT_WAVE;
+
+            //start recording
+            int rt = sdkLib.startRecord(_CallSessions[currentlyLine].getSessionId(), filePath, fileName, false, audioRecordFileFormat, RECORD_MODE.RECORD_BOTH, VIDEOCODEC_TYPE.VIDEO_CODEC_H264, RECORD_MODE.RECORD_RECV);
+
+            if(rt != 0)
+            {
+                MessageBox.Show("Fallo la grabacion de la conversación.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            MessageBox.Show("Se inicio la grabación de la llamada.", "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            btnBeginRecord.Text = "Grabando...";
+            btnBeginRecord.Enabled = false;
+        }
+
+        private void btnEndRecord_Click(object sender, EventArgs e)
+        {
+            if(sIPInited == false)
+            {
+                return;
+            }
+            sdkLib.stopRecord(_CallSessions[currentlyLine].getSessionId());
+            MessageBox.Show("Se detuvo la grabación de la llamada.", "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+        }
+
+        private void checkBoxAEC_CheckedChanged(object sender, EventArgs e)
+        {
+            if (sIPInited == false)
+            {
+                return;
+            }
+
+            sdkLib.enableAEC(checkBoxAEC.Checked);
+        }
+
+        private void checkBoxCNG_CheckedChanged(object sender, EventArgs e)
+        {
+            if (sIPInited == false)
+            {
+                return;
+            }
+
+            sdkLib.enableCNG(checkBoxCNG.Checked);
+        }
+
+        private void checkBoxAGC_CheckedChanged(object sender, EventArgs e)
+        {
+            if (sIPInited == false)
+            {
+                return;
+            }
+
+            sdkLib.enableAGC(checkBoxAGC.Checked);
+        }
+
+        private void checkBoxANS_CheckedChanged(object sender, EventArgs e)
+        {
+            if (sIPInited == false)
+            {
+                return;
+            }
+
+            sdkLib.enableANS(checkBoxANS.Checked);
+        }
     }
 }
