@@ -33,8 +33,9 @@ namespace LoginForms
             this.solidGauge4 = new LiveCharts.WinForms.SolidGauge();
             this.solidGauge3 = new LiveCharts.WinForms.SolidGauge();
             this.solidGauge1 = new LiveCharts.WinForms.SolidGauge();
-            this.solidGauge2 = new LiveCharts.WinForms.SolidGauge();
+            this.pieLlamadas = new LiveCharts.WinForms.PieChart();
             this.pieChats = new LiveCharts.WinForms.PieChart();
+            this.solidGauge2 = new LiveCharts.WinForms.SolidGauge();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.lblChatsTotales = new System.Windows.Forms.Label();
@@ -42,7 +43,6 @@ namespace LoginForms
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.label3 = new System.Windows.Forms.Label();
             this.lblLlamadasTotales = new System.Windows.Forms.Label();
-            this.pieLlamadas = new LiveCharts.WinForms.PieChart();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -74,12 +74,12 @@ namespace LoginForms
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(910, 519);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1439, 831);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // solidGauge4
             // 
-            this.solidGauge4.Location = new System.Drawing.Point(640, 3);
+            this.solidGauge4.Location = new System.Drawing.Point(1007, 3);
             this.solidGauge4.Name = "solidGauge4";
             this.solidGauge4.Size = new System.Drawing.Size(154, 97);
             this.solidGauge4.TabIndex = 10;
@@ -88,7 +88,7 @@ namespace LoginForms
             // 
             // solidGauge3
             // 
-            this.solidGauge3.Location = new System.Drawing.Point(276, 3);
+            this.solidGauge3.Location = new System.Drawing.Point(433, 3);
             this.solidGauge3.Name = "solidGauge3";
             this.solidGauge3.Size = new System.Drawing.Size(176, 97);
             this.solidGauge3.TabIndex = 9;
@@ -99,29 +99,38 @@ namespace LoginForms
             // 
             this.solidGauge1.Font = new System.Drawing.Font("Calibri Light", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.solidGauge1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.solidGauge1.Location = new System.Drawing.Point(458, 3);
+            this.solidGauge1.Location = new System.Drawing.Point(720, 3);
             this.solidGauge1.Name = "solidGauge1";
             this.solidGauge1.Size = new System.Drawing.Size(176, 97);
             this.solidGauge1.TabIndex = 7;
             this.solidGauge1.Visible = false;
             // 
-            // solidGauge2
+            // pieLlamadas
             // 
-            this.solidGauge2.Location = new System.Drawing.Point(822, 106);
-            this.solidGauge2.Name = "solidGauge2";
-            this.solidGauge2.Size = new System.Drawing.Size(85, 253);
-            this.solidGauge2.TabIndex = 8;
-            this.solidGauge2.Text = "solidGauge2";
-            this.solidGauge2.Visible = false;
+            this.pieLlamadas.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pieLlamadas.Location = new System.Drawing.Point(720, 169);
+            this.pieLlamadas.Name = "pieLlamadas";
+            this.pieLlamadas.Size = new System.Drawing.Size(281, 409);
+            this.pieLlamadas.TabIndex = 19;
+            this.pieLlamadas.Text = "pieChart1";
             // 
             // pieChats
             // 
             this.pieChats.BackColorTransparent = true;
             this.pieChats.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pieChats.Location = new System.Drawing.Point(276, 106);
+            this.pieChats.Location = new System.Drawing.Point(433, 169);
             this.pieChats.Name = "pieChats";
-            this.pieChats.Size = new System.Drawing.Size(176, 253);
+            this.pieChats.Size = new System.Drawing.Size(281, 409);
             this.pieChats.TabIndex = 16;
+            // 
+            // solidGauge2
+            // 
+            this.solidGauge2.Location = new System.Drawing.Point(1294, 169);
+            this.solidGauge2.Name = "solidGauge2";
+            this.solidGauge2.Size = new System.Drawing.Size(85, 253);
+            this.solidGauge2.TabIndex = 8;
+            this.solidGauge2.Text = "solidGauge2";
+            this.solidGauge2.Visible = false;
             // 
             // tableLayoutPanel2
             // 
@@ -131,7 +140,7 @@ namespace LoginForms
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel2.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.lblChatsTotales, 0, 1);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(94, 162);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(198, 303);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -173,7 +182,7 @@ namespace LoginForms
             this.btnRecargar.FlatAppearance.BorderSize = 0;
             this.btnRecargar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRecargar.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnRecargar.Location = new System.Drawing.Point(822, 17);
+            this.btnRecargar.Location = new System.Drawing.Point(1322, 48);
             this.btnRecargar.Name = "btnRecargar";
             this.btnRecargar.Size = new System.Drawing.Size(85, 69);
             this.btnRecargar.TabIndex = 17;
@@ -188,7 +197,7 @@ namespace LoginForms
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel3.Controls.Add(this.label3, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.lblLlamadasTotales, 0, 1);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(640, 151);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(1059, 292);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 2;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -221,20 +230,11 @@ namespace LoginForms
             this.lblLlamadasTotales.Text = "label2";
             this.lblLlamadasTotales.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // pieLlamadas
-            // 
-            this.pieLlamadas.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pieLlamadas.Location = new System.Drawing.Point(458, 106);
-            this.pieLlamadas.Name = "pieLlamadas";
-            this.pieLlamadas.Size = new System.Drawing.Size(176, 253);
-            this.pieLlamadas.TabIndex = 19;
-            this.pieLlamadas.Text = "pieChart1";
-            // 
             // DashboardAgente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(910, 519);
+            this.ClientSize = new System.Drawing.Size(1439, 831);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "DashboardAgente";
             this.Text = "DashboardAgente";

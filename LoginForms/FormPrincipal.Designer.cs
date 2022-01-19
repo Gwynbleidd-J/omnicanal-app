@@ -121,10 +121,10 @@ namespace LoginForms
             this.flpDynamicButtons.Controls.Add(this.button1);
             this.flpDynamicButtons.Controls.Add(this.btnTelegram);
             this.flpDynamicButtons.Controls.Add(this.btnLlamadas);
-            this.flpDynamicButtons.Location = new System.Drawing.Point(1098, 0);
+            this.flpDynamicButtons.Location = new System.Drawing.Point(1679, 0);
             this.flpDynamicButtons.Margin = new System.Windows.Forms.Padding(0);
             this.flpDynamicButtons.Name = "flpDynamicButtons";
-            this.flpDynamicButtons.Size = new System.Drawing.Size(115, 458);
+            this.flpDynamicButtons.Size = new System.Drawing.Size(163, 458);
             this.flpDynamicButtons.TabIndex = 8;
             this.flpDynamicButtons.Visible = false;
             // 
@@ -137,10 +137,10 @@ namespace LoginForms
             this.pnlChatMessages.Controls.Add(this.btnCloseSesion);
             this.pnlChatMessages.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.pnlChatMessages.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.pnlChatMessages.Location = new System.Drawing.Point(125, 2);
+            this.pnlChatMessages.Location = new System.Drawing.Point(189, 2);
             this.pnlChatMessages.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pnlChatMessages.Name = "pnlChatMessages";
-            this.pnlChatMessages.Size = new System.Drawing.Size(970, 485);
+            this.pnlChatMessages.Size = new System.Drawing.Size(1487, 743);
             this.pnlChatMessages.TabIndex = 9;
             // 
             // btnCloseSesion
@@ -149,7 +149,7 @@ namespace LoginForms
             this.btnCloseSesion.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnCloseSesion.FlatAppearance.BorderSize = 0;
             this.btnCloseSesion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCloseSesion.Location = new System.Drawing.Point(1187, 38);
+            this.btnCloseSesion.Location = new System.Drawing.Point(1057, 19);
             this.btnCloseSesion.Margin = new System.Windows.Forms.Padding(4);
             this.btnCloseSesion.Name = "btnCloseSesion";
             this.btnCloseSesion.Size = new System.Drawing.Size(256, 59);
@@ -163,7 +163,7 @@ namespace LoginForms
             this.flpAgentStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.flpAgentStatus.BackColor = System.Drawing.Color.Transparent;
             this.flpAgentStatus.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.flpAgentStatus.Location = new System.Drawing.Point(400, 62);
+            this.flpAgentStatus.Location = new System.Drawing.Point(723, 62);
             this.flpAgentStatus.Margin = new System.Windows.Forms.Padding(4);
             this.flpAgentStatus.Name = "flpAgentStatus";
             this.flpAgentStatus.Size = new System.Drawing.Size(209, 89);
@@ -211,7 +211,7 @@ namespace LoginForms
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(1227, 155);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(1873, 155);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // tableLayoutPanel3
@@ -225,24 +225,24 @@ namespace LoginForms
             this.tableLayoutPanel3.Controls.Add(this.pictureBox1, 3, 1);
             this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel6, 1, 1);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(616, 2);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(939, 2);
             this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 3;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 70F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(608, 151);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(931, 151);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
             // pictureBox1
             // 
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.Image = global::LoginForms.Properties.Resources.cerrar_sesion_1;
-            this.pictureBox1.Location = new System.Drawing.Point(335, 49);
+            this.pictureBox1.Location = new System.Drawing.Point(514, 49);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(206, 66);
+            this.pictureBox1.Size = new System.Drawing.Size(319, 66);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
@@ -257,7 +257,7 @@ namespace LoginForms
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel6.Controls.Add(this.cmbUserStatus, 0, 1);
             this.tableLayoutPanel6.Controls.Add(this.label1, 0, 0);
-            this.tableLayoutPanel6.Location = new System.Drawing.Point(63, 32);
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(96, 32);
             this.tableLayoutPanel6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
             this.tableLayoutPanel6.RowCount = 2;
@@ -280,12 +280,12 @@ namespace LoginForms
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel8, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.tableDebug, 2, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 495);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 753);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1221, 84);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1867, 129);
             this.tableLayoutPanel1.TabIndex = 13;
             // 
             // tableLayoutPanel8
@@ -295,13 +295,13 @@ namespace LoginForms
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel8.Location = new System.Drawing.Point(186, 2);
+            this.tableLayoutPanel8.Location = new System.Drawing.Point(283, 2);
             this.tableLayoutPanel8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tableLayoutPanel8.Name = "tableLayoutPanel8";
             this.tableLayoutPanel8.RowCount = 1;
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
-            this.tableLayoutPanel8.Size = new System.Drawing.Size(848, 80);
+            this.tableLayoutPanel8.Size = new System.Drawing.Size(1300, 125);
             this.tableLayoutPanel8.TabIndex = 13;
             // 
             // tableDebug
@@ -311,7 +311,7 @@ namespace LoginForms
             this.tableDebug.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableDebug.Controls.Add(this.lblSocket, 0, 0);
             this.tableDebug.Controls.Add(this.btnReconexion, 0, 1);
-            this.tableDebug.Location = new System.Drawing.Point(1040, 2);
+            this.tableDebug.Location = new System.Drawing.Point(1589, 2);
             this.tableDebug.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tableDebug.Name = "tableDebug";
             this.tableDebug.RowCount = 2;
@@ -357,7 +357,7 @@ namespace LoginForms
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 1;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(1221, 489);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(1867, 747);
             this.tableLayoutPanel5.TabIndex = 14;
             // 
             // tableLayoutPanel7
@@ -375,7 +375,7 @@ namespace LoginForms
             this.tableLayoutPanel7.RowCount = 2;
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 85F));
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15F));
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(1227, 581);
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(1873, 884);
             this.tableLayoutPanel7.TabIndex = 15;
             // 
             // FormPrincipal
@@ -384,7 +384,7 @@ namespace LoginForms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1227, 772);
+            this.ClientSize = new System.Drawing.Size(1873, 1056);
             this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.tableLayoutPanel7);
             this.DoubleBuffered = true;

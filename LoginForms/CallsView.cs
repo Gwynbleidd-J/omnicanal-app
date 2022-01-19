@@ -604,7 +604,7 @@ namespace LoginForms
             //
             sdkLib.createCallbackHandlers();
 
-            string logFilePath = @"C:\Users\KODE\Documents\Softphonelogs"; // The log file path, you can change it - the folder MUST exists
+            string logFilePath = @"C:\logSoftphone"; // The log file path, you can change it - the folder MUST exists
             string agent = "PortSIP VoIP SDK";
             string stunServer = TextBoxStunServer.Text;
 
