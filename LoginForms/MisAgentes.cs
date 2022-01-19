@@ -184,8 +184,17 @@ namespace LoginForms
 
                     //var fechaUltimoChat = await rh.getLastChatByUserId(ID);
 
+                    //string datosChats = await rh.obtenerDatosChatDiarios(ID.ToString());
+                    //var chatsData = (JObject)JsonConvert.DeserializeObject(datosChats);
+                    //var temp = chatsData["data"].Children();
 
-                    dataGridView1.Rows.Add(nombre, activeChats, chatsMaximos, correo);
+                    //var chatsCerrados = temp["chatsCerrados"].Value<string>();
+                    //var chatsAbiertos = temp["chatsActivos"].Value<string>();
+
+
+                    
+
+                    dataGridView1.Rows.Add(nombre, activeChats,chatsCerrados, chatsMaximos, correo);
                 }
             }
             catch (Exception _e)
