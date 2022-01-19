@@ -604,7 +604,7 @@ namespace LoginForms
             //
             sdkLib.createCallbackHandlers();
 
-            string logFilePath = "C:/Users/KODE/Documents/Softphonelogs"; // The log file path, you can change it - the folder MUST exists
+            string logFilePath = @"C:\Users\KODE\Documents\Softphonelogs"; // The log file path, you can change it - the folder MUST exists
             string agent = "PortSIP VoIP SDK";
             string stunServer = TextBoxStunServer.Text;
 
@@ -1268,7 +1268,7 @@ namespace LoginForms
             //
             sdkLib.createCallbackHandlers();
 
-            string logFilePath = "d:\\"; // The log file path, you can change it - the folder MUST exists
+            string logFilePath = "C:/Users/KODE/Documents/Softphonelogs"; // The log file path, you can change it - the folder MUST exists
             string agent = "PortSIP VoIP SDK";
             string stunServer = TextBoxStunServer.Text;
 
@@ -1278,7 +1278,7 @@ namespace LoginForms
                  // You also can specify a certain local IP to instead of "0.0.0.0", more details please read the SDK User Manual
                  "0.0.0.0",
                  LocalSIPPort,
-                 PORTSIP_LOG_LEVEL.PORTSIP_LOG_NONE,
+                 PORTSIP_LOG_LEVEL.PORTSIP_LOG_DEBUG,
                  logFilePath,
                  MAX_LINES,
                  agent,
@@ -1499,6 +1499,16 @@ namespace LoginForms
             }
             sdkLib.stopRecord(_CallSessions[currentlyLine].getSessionId());
             MessageBox.Show("Se detuvo la grabación de la llamada.", "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+        }
+
+        private void TextBoxPhoneNumber_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back) && (e.KeyChar == (char)Keys.Space))
+            {
+                MessageBox.Show("No se pueden introducir letras ni espacios", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                e.Handled = true;
+                return;
+            }
         }
 
         #endregion

@@ -81,7 +81,7 @@ namespace LoginForms
             try
             {
                 FormPrincipal formPrincipal = new FormPrincipal();
-                var jsonLogin = await rh.Login(txtUserName.Text, txtPassword.Text, ipAddress);
+                var jsonLogin = await rh.Login(txtUserName.Text.Trim(' '), txtPassword.Text.Trim(' '), ipAddress);
                 if(jsonLogin == "Unauthorized")
                 {
                     MessageBox.Show($"Correo o contraseña Incorrecta, revisa tus credenciales", $"SIDI Omnichannel", MessageBoxButtons.OK, MessageBoxIcon.Warning);

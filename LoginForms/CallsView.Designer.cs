@@ -744,6 +744,7 @@ namespace LoginForms
             this.TextBoxPhoneNumber.Name = "TextBoxPhoneNumber";
             this.TextBoxPhoneNumber.Size = new System.Drawing.Size(251, 20);
             this.TextBoxPhoneNumber.TabIndex = 95;
+            this.TextBoxPhoneNumber.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxPhoneNumber_KeyPress);
             // 
             // ComboBoxLines
             // 

@@ -52,9 +52,9 @@ namespace LoginForms
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(185, 26);
+            this.label1.Size = new System.Drawing.Size(176, 26);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Tú chat con la sucursal ha terminado.\r\nSelecciona el nombre de la sucursal.\r\n";
+            this.label1.Text = "Tu llamada con la red ha terminado.\r\nSelecciona el nombre de la red.\r\n";
             // 
             // txtComments
             // 

@@ -59,9 +59,9 @@ namespace LoginForms
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(51, 34);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(185, 26);
+            this.label1.Size = new System.Drawing.Size(161, 26);
             this.label1.TabIndex = 3;
-            this.label1.Text = "Tú chat con la sucursal ha terminado.\r\nSelecciona el nombre de la sucursal.";
+            this.label1.Text = "Tú chat con la red ha terminado.\r\nSelecciona el nombre de la red.";
             // 
             // NetworkCategories
             // 
