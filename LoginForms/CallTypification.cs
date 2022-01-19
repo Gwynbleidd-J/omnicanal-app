@@ -64,7 +64,7 @@ namespace LoginForms
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(cmbNetwork.Text) || !string.IsNullOrEmpty(txtScore.Text))
+            if (!string.IsNullOrEmpty(cmbNetwork.Text))
             {
                 Typification();
             }
@@ -79,7 +79,7 @@ namespace LoginForms
         {
             if ((int)e.KeyChar == (int)Keys.Enter)
             {
-                if (cmbNetwork.Text == "" || txtScore.Text == "")
+                if (cmbNetwork.Text == "")
                 {
                     MessageBox.Show("Llena todos los campos", "Omnicanal", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }

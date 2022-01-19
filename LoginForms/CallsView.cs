@@ -354,6 +354,46 @@ namespace LoginForms
             ComboBoxSpeakers.Items.Clear();
             ComboBoxMicrophones.Items.Clear();
         }
+
+        private void checkBoxAEC_CheckedChanged(object sender, EventArgs e)
+        {
+            if (sIPInited == false)
+            {
+                return;
+            }
+
+            sdkLib.enableAEC(checkBoxAEC.Checked);
+        }
+
+        private void checkBoxCNG_CheckedChanged(object sender, EventArgs e)
+        {
+            if (sIPInited == false)
+            {
+                return;
+            }
+
+            sdkLib.enableCNG(checkBoxCNG.Checked);
+        }
+
+        private void checkBoxAGC_CheckedChanged(object sender, EventArgs e)
+        {
+            if (sIPInited == false)
+            {
+                return;
+            }
+
+            sdkLib.enableAGC(checkBoxAGC.Checked);
+        }
+
+        private void checkBoxANS_CheckedChanged(object sender, EventArgs e)
+        {
+            if (sIPInited == false)
+            {
+                return;
+            }
+
+            sdkLib.enableANS(checkBoxANS.Checked);
+        }
         #endregion
 
         #region Metodos Propios de la aplicacion
@@ -564,7 +604,7 @@ namespace LoginForms
             //
             sdkLib.createCallbackHandlers();
 
-            string logFilePath = "d:\\"; // The log file path, you can change it - the folder MUST exists
+            string logFilePath = "C:/Users/KODE/Documents/Softphonelogs"; // The log file path, you can change it - the folder MUST exists
             string agent = "PortSIP VoIP SDK";
             string stunServer = TextBoxStunServer.Text;
 
@@ -574,7 +614,7 @@ namespace LoginForms
                  // You also can specify a certain local IP to instead of "0.0.0.0", more details please read the SDK User Manual
                  "0.0.0.0",
                  LocalSIPPort,
-                 PORTSIP_LOG_LEVEL.PORTSIP_LOG_NONE,
+                 PORTSIP_LOG_LEVEL.PORTSIP_LOG_DEBUG,
                  logFilePath,
                  MAX_LINES,
                  agent,
@@ -1073,8 +1113,6 @@ namespace LoginForms
             }
         }
 
-
-
         private void CheckBoxMute_CheckedChanged(object sender, EventArgs e)
         {
             if (sIPInited == false)
@@ -1419,6 +1457,50 @@ namespace LoginForms
             Disconnect();
             Connect();
         }
+
+        private async void btnBeginRecord_Click(object sender, EventArgs e)
+        {
+            if (sIPInited == false)
+            {
+                MessageBox.Show("Please initialize the SDK first.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            string callId = await rh.GetIdCall();
+            //MsjApi jsonData = JsonConvert.DeserializeObject<MsjApi>(callId);
+            //var data = jsonData.data;
+            var jobject = JsonConvert.DeserializeObject<JObject>(callId);
+
+            var id = jobject.Value<string>("data").ToString();
+
+            string filePath = "C:/Users/KODE/Documents/llamadas";
+            string fileName = $"grabacion-{id}";
+
+            AUDIO_RECORDING_FILEFORMAT audioRecordFileFormat = AUDIO_RECORDING_FILEFORMAT.FILEFORMAT_WAVE;
+
+            //start recording
+            int rt = sdkLib.startRecord(_CallSessions[currentlyLine].getSessionId(), filePath, fileName, false, audioRecordFileFormat, RECORD_MODE.RECORD_BOTH, VIDEOCODEC_TYPE.VIDEO_CODEC_H264, RECORD_MODE.RECORD_RECV);
+
+            if (rt != 0)
+            {
+                lblRecordEstatus.Text="Fallo la grabacion de la conversación.";
+                return;
+            }
+
+            lblRecordEstatus.Text= "Se inicio la grabación de la llamada.";
+            btnBeginRecord.Text = "Grabando...";
+            btnBeginRecord.Enabled = false;
+        }
+
+        private void btnEndRecord_Click(object sender, EventArgs e)
+        {
+            if (sIPInited == false)
+            {
+                return;
+            }
+            sdkLib.stopRecord(_CallSessions[currentlyLine].getSessionId());
+            MessageBox.Show("Se detuvo la grabación de la llamada.", "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+        }
+
         #endregion
 
         #region Metodos para darle animación a los botones del softphone
@@ -2679,87 +2761,5 @@ namespace LoginForms
         }
         #endregion
 
-        private async void btnBeginRecord_Click(object sender, EventArgs e)
-        {
-            if (sIPInited == false)
-            {
-                MessageBox.Show("Please initialize the SDK first.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return;
-            }
-            string callId = await rh.GetIdCall();
-            //MsjApi jsonData = JsonConvert.DeserializeObject<MsjApi>(callId);
-            //var data = jsonData.data;
-            var jobject = JsonConvert.DeserializeObject<JObject>(callId);
-
-            var id = jobject.Value<string>("data").ToString();
-
-            string filePath = "C:/Users/KODE/Documents/llamadas";
-            string fileName = $"grabacion-{id}";
-
-            AUDIO_RECORDING_FILEFORMAT audioRecordFileFormat = AUDIO_RECORDING_FILEFORMAT.FILEFORMAT_WAVE;
-
-            //start recording
-            int rt = sdkLib.startRecord(_CallSessions[currentlyLine].getSessionId(), filePath, fileName, false, audioRecordFileFormat, RECORD_MODE.RECORD_BOTH, VIDEOCODEC_TYPE.VIDEO_CODEC_H264, RECORD_MODE.RECORD_RECV);
-
-            if(rt != 0)
-            {
-                MessageBox.Show("Fallo la grabacion de la conversación.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return;
-            }
-
-            MessageBox.Show("Se inicio la grabación de la llamada.", "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            btnBeginRecord.Text = "Grabando...";
-            btnBeginRecord.Enabled = false;
-        }
-
-        private void btnEndRecord_Click(object sender, EventArgs e)
-        {
-            if(sIPInited == false)
-            {
-                return;
-            }
-            sdkLib.stopRecord(_CallSessions[currentlyLine].getSessionId());
-            MessageBox.Show("Se detuvo la grabación de la llamada.", "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-        }
-
-        private void checkBoxAEC_CheckedChanged(object sender, EventArgs e)
-        {
-            if (sIPInited == false)
-            {
-                return;
-            }
-
-            sdkLib.enableAEC(checkBoxAEC.Checked);
-        }
-
-        private void checkBoxCNG_CheckedChanged(object sender, EventArgs e)
-        {
-            if (sIPInited == false)
-            {
-                return;
-            }
-
-            sdkLib.enableCNG(checkBoxCNG.Checked);
-        }
-
-        private void checkBoxAGC_CheckedChanged(object sender, EventArgs e)
-        {
-            if (sIPInited == false)
-            {
-                return;
-            }
-
-            sdkLib.enableAGC(checkBoxAGC.Checked);
-        }
-
-        private void checkBoxANS_CheckedChanged(object sender, EventArgs e)
-        {
-            if (sIPInited == false)
-            {
-                return;
-            }
-
-            sdkLib.enableANS(checkBoxANS.Checked);
-        }
     }
 }
