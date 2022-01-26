@@ -112,7 +112,6 @@ namespace LoginForms
             this.pnlRed = new System.Windows.Forms.Panel();
             this.label17 = new System.Windows.Forms.Label();
             this.lblNotification = new System.Windows.Forms.Label();
-            this.btnClearListBox = new System.Windows.Forms.Button();
             this.lblRecordEstatus = new System.Windows.Forms.Label();
             this.timerCallsView = new System.Windows.Forms.Timer(this.components);
             this.groupBox7 = new System.Windows.Forms.GroupBox();
@@ -121,6 +120,7 @@ namespace LoginForms
             this.checkBoxAGC = new System.Windows.Forms.CheckBox();
             this.checkBoxCNG = new System.Windows.Forms.CheckBox();
             this.checkBoxAEC = new System.Windows.Forms.CheckBox();
+            this.btnClearListBox = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -212,6 +212,7 @@ namespace LoginForms
             // 
             // TextBoxUserDomain
             // 
+            this.TextBoxUserDomain.Enabled = false;
             this.TextBoxUserDomain.Location = new System.Drawing.Point(84, 54);
             this.TextBoxUserDomain.Name = "TextBoxUserDomain";
             this.TextBoxUserDomain.Size = new System.Drawing.Size(132, 20);
@@ -228,6 +229,7 @@ namespace LoginForms
             // 
             // TextBoxAuthName
             // 
+            this.TextBoxAuthName.Enabled = false;
             this.TextBoxAuthName.Location = new System.Drawing.Point(302, 33);
             this.TextBoxAuthName.Name = "TextBoxAuthName";
             this.TextBoxAuthName.Size = new System.Drawing.Size(132, 20);
@@ -244,6 +246,7 @@ namespace LoginForms
             // 
             // TextBoxDisplayName
             // 
+            this.TextBoxDisplayName.Enabled = false;
             this.TextBoxDisplayName.Location = new System.Drawing.Point(84, 33);
             this.TextBoxDisplayName.Name = "TextBoxDisplayName";
             this.TextBoxDisplayName.Size = new System.Drawing.Size(132, 20);
@@ -262,11 +265,10 @@ namespace LoginForms
             // 
             this.btnOffline.Location = new System.Drawing.Point(87, 111);
             this.btnOffline.Name = "btnOffline";
-            this.btnOffline.Size = new System.Drawing.Size(75, 22);
+            this.btnOffline.Size = new System.Drawing.Size(80, 22);
             this.btnOffline.TabIndex = 117;
-            this.btnOffline.Text = "Offline";
+            this.btnOffline.Text = "Desconectar";
             this.btnOffline.UseVisualStyleBackColor = true;
-            this.btnOffline.Visible = false;
             this.btnOffline.Click += new System.EventHandler(this.btnOffline_Click);
             // 
             // btnConnect
@@ -275,18 +277,17 @@ namespace LoginForms
             this.btnConnect.Name = "btnConnect";
             this.btnConnect.Size = new System.Drawing.Size(75, 22);
             this.btnConnect.TabIndex = 116;
-            this.btnConnect.Text = "Online";
+            this.btnConnect.Text = "Conectar";
             this.btnConnect.UseVisualStyleBackColor = true;
-            this.btnConnect.Visible = false;
             this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
             // 
             // TextBoxServerPort
             // 
+            this.TextBoxServerPort.Enabled = false;
             this.TextBoxServerPort.Location = new System.Drawing.Point(302, 73);
             this.TextBoxServerPort.Name = "TextBoxServerPort";
             this.TextBoxServerPort.Size = new System.Drawing.Size(132, 20);
             this.TextBoxServerPort.TabIndex = 110;
-            this.TextBoxServerPort.Text = "5060";
             // 
             // Label3
             // 
@@ -299,6 +300,7 @@ namespace LoginForms
             // 
             // TextBoxServer
             // 
+            this.TextBoxServer.Enabled = false;
             this.TextBoxServer.Location = new System.Drawing.Point(84, 75);
             this.TextBoxServer.Name = "TextBoxServer";
             this.TextBoxServer.Size = new System.Drawing.Size(132, 20);
@@ -315,6 +317,7 @@ namespace LoginForms
             // 
             // TextBoxPassword
             // 
+            this.TextBoxPassword.Enabled = false;
             this.TextBoxPassword.Location = new System.Drawing.Point(302, 12);
             this.TextBoxPassword.Name = "TextBoxPassword";
             this.TextBoxPassword.PasswordChar = '*';
@@ -332,6 +335,7 @@ namespace LoginForms
             // 
             // TextBoxUserName
             // 
+            this.TextBoxUserName.Enabled = false;
             this.TextBoxUserName.Location = new System.Drawing.Point(84, 12);
             this.TextBoxUserName.Name = "TextBoxUserName";
             this.TextBoxUserName.Size = new System.Drawing.Size(132, 20);
@@ -1106,25 +1110,6 @@ namespace LoginForms
             this.lblNotification.Size = new System.Drawing.Size(0, 13);
             this.lblNotification.TabIndex = 54;
             // 
-            // btnClearListBox
-            // 
-            this.btnClearListBox.BackColor = System.Drawing.Color.Transparent;
-            this.btnClearListBox.BackgroundImage = global::LoginForms.Properties.Resources.backspace;
-            this.btnClearListBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnClearListBox.FlatAppearance.BorderSize = 0;
-            this.btnClearListBox.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.btnClearListBox.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.btnClearListBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClearListBox.ForeColor = System.Drawing.Color.Transparent;
-            this.btnClearListBox.Location = new System.Drawing.Point(762, 249);
-            this.btnClearListBox.Name = "btnClearListBox";
-            this.btnClearListBox.Size = new System.Drawing.Size(56, 50);
-            this.btnClearListBox.TabIndex = 50;
-            this.btnClearListBox.UseVisualStyleBackColor = false;
-            this.btnClearListBox.Click += new System.EventHandler(this.btnClearListBox_Click);
-            this.btnClearListBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnClearListBox_MouseDown);
-            this.btnClearListBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnClearListBox_MouseUp);
-            // 
             // lblRecordEstatus
             // 
             this.lblRecordEstatus.AutoSize = true;
@@ -1204,6 +1189,25 @@ namespace LoginForms
             this.checkBoxAEC.Text = "AEC";
             this.checkBoxAEC.UseVisualStyleBackColor = true;
             this.checkBoxAEC.CheckedChanged += new System.EventHandler(this.checkBoxAEC_CheckedChanged);
+            // 
+            // btnClearListBox
+            // 
+            this.btnClearListBox.BackColor = System.Drawing.Color.Transparent;
+            this.btnClearListBox.BackgroundImage = global::LoginForms.Properties.Resources.backspace;
+            this.btnClearListBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnClearListBox.FlatAppearance.BorderSize = 0;
+            this.btnClearListBox.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.btnClearListBox.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.btnClearListBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClearListBox.ForeColor = System.Drawing.Color.Transparent;
+            this.btnClearListBox.Location = new System.Drawing.Point(762, 249);
+            this.btnClearListBox.Name = "btnClearListBox";
+            this.btnClearListBox.Size = new System.Drawing.Size(56, 50);
+            this.btnClearListBox.TabIndex = 50;
+            this.btnClearListBox.UseVisualStyleBackColor = false;
+            this.btnClearListBox.Click += new System.EventHandler(this.btnClearListBox_Click);
+            this.btnClearListBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnClearListBox_MouseDown);
+            this.btnClearListBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnClearListBox_MouseUp);
             // 
             // CallsView
             // 

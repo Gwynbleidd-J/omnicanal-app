@@ -1,19 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Net;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using System.Web.UI.WebControls;
 using System.Windows.Forms;
 using LoginForms.Models;
 using LoginForms.Shared;
-using LoginForms.Utils;
 using Newtonsoft.Json;
 using Label = System.Windows.Forms.Label;
 
@@ -28,8 +20,9 @@ namespace LoginForms
         Json jsonStatus;
         Login login;
         public string rolId;
-
+        string valor = "";
         double dummy = 50;
+
         bool pestañaChatActiva = false;
         bool pestañaSoftphoneActiva = false;
 
@@ -58,7 +51,7 @@ namespace LoginForms
             //this.BackColor = ColorTranslator.FromHtml("#e2e0e0");
             this.BackColor = ColorTranslator.FromHtml("#d6d2d2");
 
-            
+
             tableLayoutPanel2.BackColor = ColorTranslator.FromHtml("#1a1a26");
         }
 
@@ -72,7 +65,6 @@ namespace LoginForms
             comboBoxGetUserStatus();
             setStatusAgent();
             createAgentInformationForm();
-
             //this.WindowState = FormWindowState.Maximized;
         }
 
@@ -120,23 +112,24 @@ namespace LoginForms
                     dynamicButton.Text = $"{GlobalSocket.currentUser.rol.permission[i].menu.description}";
                     var menu = $"{GlobalSocket.currentUser.rol.permission[i].menu.description}";
 
+                    //PictureBox dynamicImage
                     System.Windows.Forms.PictureBox dynamicImage = new PictureBox();
                     dynamicImage.Size = new Size(Width, tableLayoutPanel8.Height);
                     dynamicImage.SizeMode = PictureBoxSizeMode.Zoom;
 
                     Assembly asm = Assembly.GetEntryAssembly();
                     Type formtype = asm.GetType(string.Format("{0}.{1}", "LoginForms", GlobalSocket.currentUser.rol.permission[i].menu.name));
-
                     Form f = (Form)Activator.CreateInstance(formtype);
                     //f.Show();
 
-
                     if (menu == "Chats")
                     {
+                        
                         dynamicImage.Image = Properties.Resources.chat;
                         dynamicImage.Name = "Chats";
                         dynamicImage.Click += (s, e) =>
                         {
+                            //chats = f;
                             f.TopLevel = false;
                             f.Parent = pnlChatMessages;
                             f.ControlBox = false;
@@ -154,45 +147,71 @@ namespace LoginForms
                             temp1.Image = Properties.Resources.home;
                             temp2.Image = Properties.Resources.llamadas;
                             dynamicImage.Image = Properties.Resources.chat_presionado;
-
+                            //Console.WriteLine(chats.Text);
+                            //softphone.Dispose();
+                            //dashboard.Dispose();
                         };
 
                     }
                     else if (menu == "Softphone")
                     {
+                        
                         dynamicImage.Image = Properties.Resources.llamadas;
                         dynamicImage.Name = "Softphone";
+
+                        cmbUserStatus.SelectedIndexChanged += (e, a) => 
+                        {
+                            if(cmbUserStatus.SelectedItem.ToString() == "Disponible")
+                            {
+                                CreateSoftphoneForm(f);
+                                MethodInfo m = f.GetType().GetMethod("Connect");
+                                m.Invoke(f, null);
+                            }
+                            else
+                            {
+                                MethodInfo m = f.GetType().GetMethod("Disconnect");
+                                m.Invoke(f, null);
+                                //Hace falta que se haga algo ya que la variable siPInited la detecta false y tiene que ser true
+                            }
+                        };
+
                         dynamicImage.Click += (s, e) =>
                         {
-                            f.TopLevel = false;
-                            f.Parent = pnlChatMessages;
-                            f.ControlBox = false;
-                            f.BringToFront();
-                            f.Location = new Point(0, 0);
-                            f.Dock = DockStyle.Fill;
-                            f.Focus();
+                            //softphone = f;
+                            //f.TopLevel = false;
+                            //f.Parent = pnlChatMessages;
+                            //f.ControlBox = false;
+                            //f.BringToFront();
+                            //f.Location = new Point(0, 0);
+                            //f.Dock = DockStyle.Fill;
+                            //f.Focus();
                             f.Show();
-                            f.FormBorderStyle = FormBorderStyle.None;
-                            f.BackColor = ColorTranslator.FromHtml("#e2e0e1");
-                            client.prueba = f as Prueba;
+                            //f.FormBorderStyle = FormBorderStyle.None;
+                            //f.BackColor = ColorTranslator.FromHtml("#e2e0e1");
+                            //client.prueba = f as Prueba;
+                            //CreateSoftphoneForm(f);
 
                             var temp1 = (PictureBox)tableLayoutPanel8.Controls["Home"];
                             var temp2 = (PictureBox)tableLayoutPanel8.Controls["Chats"];
                             temp1.Image = Properties.Resources.home;
                             temp2.Image = Properties.Resources.chat;
                             dynamicImage.Image = Properties.Resources.llamadas_presionado;
-
+                            //Console.WriteLine(softphone.Text);
+                            //chats.Dispose();
+                            //dashboard.Dispose();
                         };
 
                     }
                     else if (menu == "Panalla inicial agente")
                     {
+                        
                         dynamicImage.SizeMode = PictureBoxSizeMode.Zoom;
                         dynamicImage.Image = Properties.Resources.home;
                         dynamicImage.Name = "Home";
 
                         dynamicImage.Click += (s, e) =>
                         {
+                            //dashboard = f;
                             f.TopLevel = false;
                             f.Parent = pnlChatMessages;
                             f.ControlBox = false;
@@ -210,7 +229,9 @@ namespace LoginForms
                             temp1.Image = Properties.Resources.chat;
                             temp2.Image = Properties.Resources.llamadas;
                             dynamicImage.Image = Properties.Resources.home_presionado;
-
+                            //Console.WriteLine(dashboard.Text);
+                            //softphone.Dispose();
+                            //chats.Dispose();
                         };
                     }
 
@@ -220,21 +241,21 @@ namespace LoginForms
 
                     var tempHome = (PictureBox)tableLayoutPanel8.Controls["Home"];
 
-                    dynamicButton.Click += (s, e) =>
-                    {
-                        f.TopLevel = false;
-                        f.Parent = pnlChatMessages;
-                        f.ControlBox = false;
-                        f.BringToFront();
-                        f.Location = new Point(0, 0);
-                        f.Dock = DockStyle.Fill;
-                        f.Focus();
-                        f.Show();
-                        f.FormBorderStyle = FormBorderStyle.None;
-                        f.BackColor= SystemColors.ButtonHighlight;
-                        client.prueba = f as Prueba;
-                    };
-                    flpDynamicButtons.Controls.Add(dynamicButton);
+                    //dynamicButton.Click += (s, e) =>
+                    //{
+                    //    f.TopLevel = false;
+                    //    f.Parent = pnlChatMessages;
+                    //    f.ControlBox = false;
+                    //    f.BringToFront();
+                    //    f.Location = new Point(0, 0);
+                    //    f.Dock = DockStyle.Fill;
+                    //    f.Focus();
+                    //    f.Show();
+                    //    f.FormBorderStyle = FormBorderStyle.None;
+                    //    f.BackColor = SystemColors.ButtonHighlight;
+                    //    client.prueba = f as Prueba;
+                    //};
+                    //flpDynamicButtons.Controls.Add(dynamicButton);
 
                     if (GlobalSocket.currentUser.rol.Id == 1)
                     {
@@ -246,9 +267,6 @@ namespace LoginForms
                         flpDynamicButtons.Visible = true;
                         tableLayoutPanel8.Visible = false;
                     }
-
-
-
                 }
             }
             catch (Exception ex)
@@ -277,10 +295,10 @@ namespace LoginForms
                 TextAlign = ContentAlignment.TopCenter,
             };
 
-            flpAgentStatus.Controls.AddRange(new Control[] { labelAgentName, labelAgentRol});
+            flpAgentStatus.Controls.AddRange(new Control[] { labelAgentName, labelAgentRol });
             labelAgentName.Width = flpAgentStatus.Width;
-            labelAgentRol.Size = new Size(flpAgentStatus.Width, Height/2);
-            
+            labelAgentRol.Size = new Size(flpAgentStatus.Width, Height / 2);
+
 
         }
 
@@ -295,12 +313,17 @@ namespace LoginForms
             {
                 string jsonUserStatus = await rh.getUserStatus();
                 jsonStatus = JsonConvert.DeserializeObject<Json>(jsonUserStatus);
-
                 for (int i = 0; i < jsonStatus.data.status.Count; i++)
                 {
-                    cmbUserStatus.Items.Add(new ListItem(jsonStatus.data.status[i].status, jsonStatus.data.status[i].id));
-                    
+                    cmbUserStatus.Items.Add(new StatusItems(jsonStatus.data.status[i].status, jsonStatus.data.status[i].description, jsonStatus.data.status[i].id));
                 }
+                //for (int i = 0; i < jsonStatus.data.status.Count; i++)
+                //{
+                //    cmbUserStatus.Items.Add(new ListItem(jsonStatus.data.status[i].status, jsonStatus.data.status[i].id));
+
+                //}
+
+                //Applicaction.ProductVersion
             }
             catch (Exception ex)
             {
@@ -313,18 +336,26 @@ namespace LoginForms
             try
             {
                 string userId = GlobalSocket.currentUser.ID;
-                string valor = "";
-                for (int i = 0; i < jsonStatus.data.status.Count; i++)
-                {
-                    if (jsonStatus.data.status[i].status == cmbUserStatus.SelectedItem.ToString())
-                    {
-                        valor = jsonStatus.data.status[i].id.ToString();
-                    }
-                }
+                //for (int i = 0; i < jsonStatus.data.status.Count; i++)
+                //{
+                //    if (jsonStatus.data.status[i].status == cmbUserStatus.SelectedItem.ToString())
+                //    {
+                //        valor = jsonStatus.data.status[i].id.ToString();
+                //    }
+                //}
+                StatusItems statusItems = (StatusItems)cmbUserStatus.SelectedItem;
+                valor = statusItems.Id;
                 await rh.updateUserStatus(valor, userId);
                 MessageBox.Show("Estatus Agente Cambiado", "Estatus Agente", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //if(cmbUserStatus.SelectedItem.ToString() == "Disponible")
+                //{
+                //}
+                /*
+                 * posiblemente aqui se tengan que usar hilos en los cuales se ejecute primera la cracion de la form del softphone y ya 
+                 * despues lo de la instancia a dicha clase es lo unico que se me ocurre.
+                 */
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine($"Error[cmbUserStatus_SelectedIndexChanged] {ex.Message}");
             }
@@ -390,7 +421,7 @@ namespace LoginForms
             pictureBox1.Image = Properties.Resources.cerrar_sesion_presionado_1;
         }
 
-        private void btnReconexion_Click(object sender, EventArgs e)
+        private  void btnReconexion_Click(object sender, EventArgs e)
         {
             client.Connect();
         }
@@ -417,5 +448,53 @@ namespace LoginForms
         //    AgentMainPage agentMainPage = form ?? new AgentMainPage();
         //    AddFormInPanel(agentMainPage);
         //}
+
+        public void CreateSoftphoneForm(Form form)
+        {
+            form.Show();
+            if (form.IsHandleCreated)
+            {
+                form.TopLevel = false;
+                form.Parent = pnlChatMessages;
+                form.ControlBox = false;
+                form.BringToFront();
+                form.Location = new Point(0, 0);
+                form.Dock = DockStyle.Fill;
+                form.Focus();
+                form.GetType().GetMethod("Connect");
+                form.FormBorderStyle = FormBorderStyle.None;
+                form.BackColor = ColorTranslator.FromHtml("#e2e0e1");
+            }
+        }
+
+        public void DeRegisterFromServer(Form form)
+        {
+            CallsView calls = new CallsView();
+            form.Show();
+            calls.deRegisterFromServer();
+
+        }
+        private void SetProjectVersion()
+        {
+            lblVersión.Text = $"Version:{Application.ProductVersion}";
+        }
+    }
+    class StatusItems
+    {
+        public string Name;
+        public string Value;
+        public string Id;
+
+        public StatusItems(string name, string value, string id)
+        {
+            Name = name;
+            Value = value;
+            Id = id;
+        }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

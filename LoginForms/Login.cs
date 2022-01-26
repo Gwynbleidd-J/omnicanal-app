@@ -20,6 +20,7 @@ namespace LoginForms
             //BackColor = Color.FromArgb(226, 224, 224);
             InitializeComponent();
             //this.FormBorderStyle = FormBorderStyle.None;
+            SetProjectVersion();
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)
@@ -76,7 +77,7 @@ namespace LoginForms
 
         private async void userLogin(IProgress<int> progress = null)
         {
-            string ipAddress = rh.GetPublicIpAddress();
+            string ipAddress = rh.GetLocalIpAddress();
 
             try
             {
@@ -114,19 +115,38 @@ namespace LoginForms
             }
         }
 
-        private void btnEntrar_MouseEnter(object sender, EventArgs e)
-        {
-            btnEntrar.BackgroundImage = Properties.Resources.boton_largo_presionado;
-        }
-
         private void btnEntrar_MouseUp(object sender, MouseEventArgs e)
         {
             btnEntrar.BackgroundImage = Properties.Resources.boton_chico;
+        }
+
+        private void btnEntrar_MouseDown(object sender, MouseEventArgs e)
+        {
+            btnEntrar.BackgroundImage = Properties.Resources.boton_largo_presionado;
         }
 
         private void Login_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
         }
+
+        private void SetProjectVersion()
+        {
+            lblVersion.Text = $"Versión:{Application.ProductVersion.ToLower()}";
+        }
+
+        private void btnShowPassword_Click(object sender, EventArgs e)
+        {
+            if (txtPassword.PasswordChar == '*')
+            {
+                txtPassword.PasswordChar = (char)0;
+            }
+            else
+            {
+                txtPassword.PasswordChar = '*';
+            }
+        }
+
+
     }
 }

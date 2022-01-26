@@ -7,7 +7,7 @@
     <ProjectGuid>{F82DEE85-DD44-4C7F-8A44-81A0056F5FE9}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>LoginForms</RootNamespace>
-    <AssemblyName>LoginForms</AssemblyName>
+    <AssemblyName>SIDI Omnichannel</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

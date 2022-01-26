@@ -1040,14 +1040,15 @@ namespace LoginForms.Shared
 
 
 
-        public async Task<string> SendCall(string tipo)
+        public async Task<string> SendCall(string tipo, string transfer = "0")
         {
             date = DateTime.Now.ToString("HH:mm:ss:ff");
             var inputData = new Dictionary<string, string>
             {
                 {"startTime", date},
                 {"userId", GlobalSocket.currentUser.ID },
-                {"tipoLlamada", tipo }
+                {"tipoLlamada", tipo },
+                { "llamadaTransferida", transfer }
             };
 
             Console.WriteLine(inputData);

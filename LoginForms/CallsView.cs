@@ -307,7 +307,7 @@ namespace LoginForms
 
         }
 
-        private void deRegisterFromServer()
+        public void deRegisterFromServer()
         {
             if (sIPInited == false)
             {
@@ -453,11 +453,12 @@ namespace LoginForms
         }
         #endregion
 
-        private void CallsView_Load(object sender, EventArgs e)
+        public void CallsView_Load(object sender, EventArgs e)
         {
             // Create the call sessions array, allows maximum 500 lines,
             // but we just use 8 lines with this sample, we need a class to save the call sessions information
-
+            
+            Control.CheckForIllegalCrossThreadCalls = false;
             int i = 0;
             for (i = 0; i < MAX_LINES; ++i)
             {
@@ -494,7 +495,7 @@ namespace LoginForms
 
             ComboBoxLines.SelectedIndex = 0;
 
-            Connect();
+            //Connect();
             CheckNetwork();
         }
 
@@ -512,24 +513,24 @@ namespace LoginForms
             }
 
 
-            if (TextBoxUserName.Text.Length <= 0)
-            {
-                MessageBox.Show("The user name does not allows empty.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return;
-            }
+            //if (TextBoxUserName.Text.Length <= 0)
+            //{
+            //    MessageBox.Show("The user name does not allows empty.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //    return;
+            //}
 
 
-            if (TextBoxPassword.Text.Length <= 0)
-            {
-                MessageBox.Show("The password does not allows empty.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return;
-            }
+            //if (TextBoxPassword.Text.Length <= 0)
+            //{
+            //    MessageBox.Show("The password does not allows empty.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //    return;
+            //}
 
-            if (TextBoxServer.Text.Length <= 0)
-            {
-                MessageBox.Show("The SIP server does not allows empty.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return;
-            }
+            //if (TextBoxServer.Text.Length <= 0)
+            //{
+            //    MessageBox.Show("The SIP server does not allows empty.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //    return;
+            //}
 
             int SIPServerPort = 0;
             if (TextBoxServerPort.Text.Length > 0)
@@ -559,29 +560,29 @@ namespace LoginForms
             Random rd = new Random();
             int LocalSIPPort = rd.Next(1000, 5000) + 4000; // Generate the random port for SIP
 
-            TRANSPORT_TYPE transportType = TRANSPORT_TYPE.TRANSPORT_UDP;
-            switch (ComboBoxTransport.SelectedIndex)
-            {
-                case 0:
-                    transportType = TRANSPORT_TYPE.TRANSPORT_UDP;
-                    break;
+            TRANSPORT_TYPE transportType = TRANSPORT_TYPE.TRANSPORT_TLS;
+            //switch (ComboBoxTransport.SelectedIndex)
+            //{
+            //    case 0:
+            //        transportType = TRANSPORT_TYPE.TRANSPORT_UDP;
+            //        break;
 
-                case 1:
-                    transportType = TRANSPORT_TYPE.TRANSPORT_TLS;
-                    break;
+            //    case 1:
+            //        transportType = TRANSPORT_TYPE.TRANSPORT_TLS;
+            //        break;
 
-                case 2:
-                    transportType = TRANSPORT_TYPE.TRANSPORT_TCP;
-                    break;
+            //    case 2:
+            //        transportType = TRANSPORT_TYPE.TRANSPORT_TCP;
+            //        break;
 
-                case 3:
-                    transportType = TRANSPORT_TYPE.TRANSPORT_PERS;
-                    break;
-                default:
-                    MessageBox.Show("The transport is wrong.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //    case 3:
+            //        transportType = TRANSPORT_TYPE.TRANSPORT_PERS;
+            //        break;
+            //    default:
+            //        MessageBox.Show("The transport is wrong.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
-                    return;
-            }
+            //        return;
+            //}
 
 
 
@@ -604,7 +605,7 @@ namespace LoginForms
             //
             sdkLib.createCallbackHandlers();
 
-            string logFilePath = @"C:\Users\KODE\Documents\Softphonelogs"; // The log file path, you can change it - the folder MUST exists
+            string logFilePath = @"C:\logSoftphone"; // The log file path, you can change it - the folder MUST exists
             string agent = "PortSIP VoIP SDK";
             string stunServer = TextBoxStunServer.Text;
 
@@ -637,12 +638,34 @@ namespace LoginForms
 
             loadDevices();
 
-            string userName = TextBoxUserName.Text;
-            string password = TextBoxPassword.Text;
-            string sipDomain = TextBoxUserDomain.Text;
-            string displayName = TextBoxDisplayName.Text;
-            string authName = TextBoxAuthName.Text;
-            string sipServer = TextBoxServer.Text;
+            #region La informacion se tiene que introducir manualmente por el usuario
+            //string userName = TextBoxUserName.Text;
+            //string password = TextBoxPassword.Text;
+            //string sipDomain = TextBoxUserDomain.Text;
+            //string displayName = TextBoxDisplayName.Text;
+            //string authName = TextBoxAuthName.Text;
+            //string sipServer = TextBoxServer.Text;
+            #endregion
+
+            #region La informacion del usuario viene desde el JSON que se genera en el login
+            string userName = GlobalSocket.currentUser.credentials.userName;
+            string password = GlobalSocket.currentUser.credentials.password;
+            string sipDomain = GlobalSocket.currentUser.credentials.domain;
+            string displayName = GlobalSocket.currentUser.credentials.displayName;
+            string authName = GlobalSocket.currentUser.credentials.authName;
+            string sipServer = GlobalSocket.currentUser.credentials.server;
+            string sipServerPort = GlobalSocket.currentUser.credentials.port;
+
+            TextBoxUserName.Text = userName;
+            TextBoxPassword.Text = password;
+            TextBoxDisplayName.Text = displayName;
+            TextBoxAuthName.Text = authName;
+            TextBoxUserDomain.Text = sipDomain;
+            TextBoxServer.Text = sipServer;
+            TextBoxServerPort.Text = sipServerPort;
+            SIPServerPort = int.Parse(TextBoxServerPort.Text);
+            #endregion
+
 
             int outboundServerPort = 0;
             string outboundServer = "";
@@ -963,6 +986,7 @@ namespace LoginForms
                 EndCallRecord();
                 CallTypification typification = new CallTypification();
                 typification.ShowDialog();
+                typification.TopMost = true;
                 typification.StartPosition = FormStartPosition.CenterParent;
                 btnBeginRecord.Enabled = true;
                 btnBeginRecord.Text = "Grabar Llamada";
@@ -1268,7 +1292,7 @@ namespace LoginForms
             //
             sdkLib.createCallbackHandlers();
 
-            string logFilePath = "C:/Users/KODE/Documents/Softphonelogs"; // The log file path, you can change it - the folder MUST exists
+            string logFilePath = @"C:\logSoftphone"; // The log file path, you can change it - the folder MUST exists
             string agent = "PortSIP VoIP SDK";
             string stunServer = TextBoxStunServer.Text;
 
@@ -1482,11 +1506,11 @@ namespace LoginForms
 
             if (rt != 0)
             {
-                lblRecordEstatus.Text="Fallo la grabacion de la conversación.";
+                lblRecordEstatus.Text = "Fallo la grabacion de la conversación.";
                 return;
             }
 
-            lblRecordEstatus.Text= "Se inicio la grabación de la llamada.";
+            lblRecordEstatus.Text = "Se inicio la grabación de la llamada.";
             btnBeginRecord.Text = "Grabando...";
             btnBeginRecord.Enabled = false;
         }
@@ -1712,16 +1736,17 @@ namespace LoginForms
         public Int32 onRegisterSuccess(String statusText, Int32 statusCode, StringBuilder sipMessage)
         {
             // use the Invoke method to modify the control.
-            ListBoxSIPLog.Invoke(new MethodInvoker(delegate
-            {
-                ListBoxSIPLog.Items.Add("Registration succeeded");
-            }));
 
-            sIPLogined = true;
+                ListBoxSIPLog.Invoke(new MethodInvoker(delegate
+                {
+                    ListBoxSIPLog.Items.Add("Registration succeeded");
+                }));
+
+                sIPLogined = true;
+
 
             return 0;
         }
-
 
         public Int32 onRegisterFailure(String statusText, Int32 statusCode, StringBuilder sipMessage)
         {
@@ -1813,7 +1838,7 @@ namespace LoginForms
                 {
                     ListBoxSIPLog.Items.Add(Text);
                 }));
-                rh.SendCall("0");
+                rh.SendCall("1");
                 //StartCallRecord();
                 return 0;
             }
@@ -1941,7 +1966,7 @@ namespace LoginForms
 
             string Text = "Line " + i.ToString();
             Text = Text + ": Call established";
-            rh.SendCall("1");
+            rh.SendCall("2");
             ListBoxSIPLog.Invoke(new MethodInvoker(delegate
             {
                 ListBoxSIPLog.Items.Add(Text);
@@ -2077,7 +2102,6 @@ namespace LoginForms
 
             string Text = "Line " + i.ToString();
             Text = Text + ": Call is connected";
-            //rh.SendCall();
             //Task task = new Task(StartCallRecord);
             //task.Wait = 100;
             //StartCallRecord();
@@ -2124,6 +2148,7 @@ namespace LoginForms
             EndCallRecord();
             CallTypification typification = new CallTypification();
             typification.ShowDialog();
+            typification.TopMost = true;
             typification.StartPosition = FormStartPosition.CenterParent;
 
             return 0;
@@ -2236,6 +2261,7 @@ namespace LoginForms
                 {
                     ListBoxSIPLog.Items.Add(Text);
                 }));
+                rh.SendCall("3", "2");
             }
 
             return 0;
@@ -2258,8 +2284,8 @@ namespace LoginForms
             {
                 ListBoxSIPLog.Items.Add(Text);
             }));
-
-            return 0;
+            rh.SendCall("3", "1");
+            return 0; 
         }
 
 
@@ -2394,16 +2420,14 @@ namespace LoginForms
 
         public Int32 onWaitingVoiceMessage(String messageAccount, Int32 urgentNewMessageCount, Int32 urgentOldMessageCount, Int32 newMessageCount, Int32 oldMessageCount)
         {
-
             string Text = messageAccount;
             Text += " has voice message.";
 
-
+                
             ListBoxSIPLog.Invoke(new MethodInvoker(delegate
-            {
-                ListBoxSIPLog.Items.Add(Text);
-            }));
-
+                {
+                    ListBoxSIPLog.Items.Add(Text);
+                }));
             // You can use these parameters to check the voice message count
 
             //  urgentNewMessageCount;
