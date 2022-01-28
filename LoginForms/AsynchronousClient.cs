@@ -38,6 +38,7 @@ namespace LoginForms
 
         public static bool Monitoreando = false;
         public static bool conexionPerdidaMonitoreo = false;
+        public static bool Reconexion = false;
 
         //Constructores
         public AsynchronousClient(RichTextBox container, Form whatsapp, Prueba prueba, Form fPrincipal)
@@ -76,39 +77,48 @@ namespace LoginForms
         {
             try
             {
+
                 //Establish the remote endpoint for the socket.
                 IPAddress ipAddress = IPAddress.Parse(remoteEndPoint);
                 //IPAddress ipAddress = IPAddress.Parse("201.149.34.171");
                 //IPAddress ipAddress = IPAddress.Parse("192.168.1.145");
                 IPEndPoint remoteEP = new IPEndPoint(ipAddress, port);
+
+                if (Reconexion)
+                {
+                    Console.WriteLine("************ \nReseteando las banderas");
+                    connectDone.Reset();
+                    sendDone.Reset();
+                    receiveDone.Reset();
+                }
+                
+                   // Create a TCP/IP socket.  
+                   GlobalSocket.GlobalVarible = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+                   GlobalSocket.GlobalVarible.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.KeepAlive, true);
+                   //SetupkeepAlive(GlobalSocket.GlobalVarible);
                 
 
-                
-                // Create a TCP/IP socket.  
-                GlobalSocket.GlobalVarible = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-                GlobalSocket.GlobalVarible.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.KeepAlive, true);
-                //SetupkeepAlive(GlobalSocket.GlobalVarible);
-                
                 //GlobalSocket.GlobalVarible.SetSocketOption(SocketOptionLevel.Tcp, SocketOptionName.tc)
                 //Connect to the remote endpoint
                 GlobalSocket.GlobalVarible.BeginConnect(remoteEP, new AsyncCallback(ConnectCallback), GlobalSocket.GlobalVarible);
                 
-                connectDone.WaitOne();
+                //connectDone.WaitOne();
                 Receive(GlobalSocket.GlobalVarible);//Receive();
-                receiveDone.WaitOne();
+                //receiveDone.WaitOne();
 
                 //Send(GlobalSocket.GlobalVarible, "This is a test");
-                sendDone.WaitOne();
+                //sendDone.WaitOne();
 
-                Receive(GlobalSocket.GlobalVarible);
-                receiveDone.WaitOne();
+                //****************Comentado porque arriba ya hay un Receive
+                //Receive(GlobalSocket.GlobalVarible);
+                //receiveDone.WaitOne();
 
                 Console.WriteLine($"Response received:{response}");
 
                 //GlobalSocket.GlobalVarible.Shutdown(SocketShutdown.Both);
                 //GlobalSocket.GlobalVarible.Close();
             }
-            catch (SocketException e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
             }
@@ -144,9 +154,10 @@ namespace LoginForms
                 // Signal that the connection has been made.  
                 connectDone.Set();
             }
-            catch (SocketException e)
+            catch (Exception e)
             {
-                Console.WriteLine($"{e.Message}: {e.ErrorCode}");
+                Console.WriteLine("Error[ConnectCallback]:" +e);
+                //Console.WriteLine($"{e.Message}: {e.ErrorCode}");
             }
         }
 
@@ -165,7 +176,7 @@ namespace LoginForms
 
 
             }
-            catch (SocketException e)
+            catch (Exception e)
             {
                 Console.WriteLine("Error[Receive]: " + e.ToString());
             }
@@ -183,25 +194,37 @@ namespace LoginForms
                 string socketNotification;
 
                 // Read data from the remote device.  
-                
-                int bytesRead = client.EndReceive(ar);
-                if (bytesRead > 0)
+                if (client.Connected)
                 {
-                    // There might be more data, so store the data received so far.  
-                    state.stringBuilder.Append(Encoding.ASCII.GetString(state.buffer, 0, bytesRead));
+                    int bytesRead = client.EndReceive(ar);
+                    if (bytesRead > 0)
+                    {
+                        // There might be more data, so store the data received so far.  
+                        state.stringBuilder.Append(Encoding.ASCII.GetString(state.buffer, 0, bytesRead));
 
-                    // Get the rest of the data.  
-                    client.BeginReceive(state.buffer, 0, StateObject.bufferSize, 0,
-                        new AsyncCallback(ReceiveCallback), state);
+                        // Get the rest of the data.  
+                        client.BeginReceive(state.buffer, 0, StateObject.bufferSize, 0,
+                            new AsyncCallback(ReceiveCallback), state);
 
-                    socketNotification = Encoding.UTF8.GetString(state.buffer, 0, bytesRead).ToString();
-                    Console.WriteLine($"Sockect conectado:{client.Connected.ToString()}");
-                    Console.WriteLine("Desde string es: " + socketNotification);
+                        socketNotification = Encoding.UTF8.GetString(state.buffer, 0, bytesRead).ToString();
+                        Console.WriteLine($"Sockect conectado:{client.Connected.ToString()}");
+                        Console.WriteLine("Desde string es: " + socketNotification);
 
-                   treatNotificationAsync(socketNotification);
+                        treatNotificationAsync(socketNotification);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Ya no se está recibiendo datos");
+                        // All the data has arrived; put it in response.  
+                        if (state.stringBuilder.Length > 1)
+                        {
+                            response = state.stringBuilder.ToString();
+                        }
+                        // Signal that all bytes have been received.  
+                        receiveDone.Set();
+                    }
                 }
-                else
-                {
+                else {
                     Console.WriteLine("Ya no se está recibiendo datos");
                     // All the data has arrived; put it in response.  
                     if (state.stringBuilder.Length > 1)
@@ -211,12 +234,13 @@ namespace LoginForms
                     // Signal that all bytes have been received.  
                     receiveDone.Set();
                 }
+                
             }
 
-
-            catch (SocketException e)
+            //SocketException
+            catch (Exception _e)
             {
-                Console.WriteLine("Error[ReceiveCallback]: " + e.ToString());
+                Console.WriteLine("Error[ReceiveCallback]: " + _e.ToString());
             }
         }
 
@@ -246,7 +270,7 @@ namespace LoginForms
                 //screen.CapturarPantalla();
                 sendDone.Set();
             }
-            catch (SocketException e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
             }
@@ -266,7 +290,7 @@ namespace LoginForms
                     Console.WriteLine($"Socket Disconnected");
                 }
             }
-            catch (SocketException ex)
+            catch (Exception ex)
             {
                 Console.WriteLine($"Error[CloseSocketConnection][AsynchronousClient] {ex.Message}");
             }
@@ -446,26 +470,28 @@ namespace LoginForms
                     var port = jobject.Value<string>("socketPort");
                     Console.WriteLine("\nHola agente, tu puerto asignado por la API es:" + port);
                     var temp= await rh.updateAgentActiveIp(GlobalSocket.currentUser.email, port.ToString());
-                    GlobalSocket.currentUser.activeIp = port;
+                    if (temp == "OK")
+                    {
+                        GlobalSocket.currentUser.activeIp = port;
+                    }
+                    else {
+                        Console.WriteLine("No se pudo actualizar el puerto en base correctamente:" +temp);
+                    }
 
                     FormPrincipal ActivePrincipal = (FormPrincipal)Application.OpenForms["FormPrincipal"];
-                    TableLayoutPanel tempPanel1= (TableLayoutPanel)ActivePrincipal.Controls["tableLayoutPanel7"];
-                    TableLayoutPanel tempPanel2 = (TableLayoutPanel)tempPanel1.Controls["tableLayoutPanel1"];
-                    TableLayoutPanel tempPanel = (TableLayoutPanel)tempPanel2.Controls["tableDebug"];
-                    Label tempLabel = (Label)tempPanel.Controls["lblSocket"];
-                    tempLabel.Text = "Socket:" +port;
+                    ActivePrincipal.BeginInvoke(new MethodInvoker(() => {
+                        ActivePrincipal.TextSocket = "Socket:" + port;
 
-                    if (conexionPerdidaMonitoreo == true && temp == "OK")
-                    {
-                        screenMonitor scrM = (screenMonitor)Application.OpenForms["screenMonitor"];
-                        screenMonitor.Reconectado = true;
-                        scrM.ReconexionServidor();
-                    }
+                    }));
+
+
+                    //if (conexionPerdidaMonitoreo == true && temp == "OK")
+                    //{
+                    //    screenMonitor scrM = (screenMonitor)Application.OpenForms["screenMonitor"];
+                    //    screenMonitor.Reconectado = true;
+                    //    scrM.ReconexionServidor();
+                    //}
                 }
-                //else if (jobject.ContainsKey("")
-                //{
-
-                //}
                 else
                 {
                     Models.Message notification = JsonConvert.DeserializeObject<Models.Message>(socketNotification);

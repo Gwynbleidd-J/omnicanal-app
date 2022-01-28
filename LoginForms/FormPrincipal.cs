@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web.UI.WebControls;
 using System.Windows.Forms;
@@ -25,6 +26,12 @@ namespace LoginForms
 
         bool pestañaChatActiva = false;
         bool pestañaSoftphoneActiva = false;
+
+        public string TextSocket
+        {
+            get { return lblSocket.Text; }
+            set { lblSocket.Text = value; }
+        }
 
         public FormPrincipal()//string agent
         {
@@ -422,8 +429,19 @@ namespace LoginForms
             pictureBox1.Image = Properties.Resources.cerrar_sesion_presionado_1;
         }
 
-        private  void btnReconexion_Click(object sender, EventArgs e)
+        private void btnReconexion_Click(object sender, EventArgs e)
         {
+
+            string userToken = GlobalSocket.currentUser.token;
+            userToken = "";
+
+            if (string.IsNullOrEmpty(userToken))
+            {
+                client.CloseSocketConnection();
+            }
+
+            AsynchronousClient.Reconexion = true;
+            Thread.CurrentThread.Join(2000);
             client.Connect();
         }
 
