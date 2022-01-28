@@ -121,6 +121,8 @@ namespace LoginForms
             this.checkBoxCNG = new System.Windows.Forms.CheckBox();
             this.checkBoxAEC = new System.Windows.Forms.CheckBox();
             this.btnClearListBox = new System.Windows.Forms.Button();
+            this.lblEstatusLlamada = new System.Windows.Forms.Label();
+            this.lblFolio = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -213,7 +215,7 @@ namespace LoginForms
             // TextBoxUserDomain
             // 
             this.TextBoxUserDomain.Enabled = false;
-            this.TextBoxUserDomain.Location = new System.Drawing.Point(84, 54);
+            this.TextBoxUserDomain.Location = new System.Drawing.Point(89, 54);
             this.TextBoxUserDomain.Name = "TextBoxUserDomain";
             this.TextBoxUserDomain.Size = new System.Drawing.Size(132, 20);
             this.TextBoxUserDomain.TabIndex = 108;
@@ -221,11 +223,11 @@ namespace LoginForms
             // Label9
             // 
             this.Label9.AutoSize = true;
-            this.Label9.Location = new System.Drawing.Point(11, 57);
+            this.Label9.Location = new System.Drawing.Point(5, 58);
             this.Label9.Name = "Label9";
-            this.Label9.Size = new System.Drawing.Size(68, 13);
+            this.Label9.Size = new System.Drawing.Size(45, 13);
             this.Label9.TabIndex = 120;
-            this.Label9.Text = "User Domain";
+            this.Label9.Text = "Dominio";
             // 
             // TextBoxAuthName
             // 
@@ -238,16 +240,16 @@ namespace LoginForms
             // Label5
             // 
             this.Label5.AutoSize = true;
-            this.Label5.Location = new System.Drawing.Point(236, 36);
+            this.Label5.Location = new System.Drawing.Point(225, 36);
             this.Label5.Name = "Label5";
-            this.Label5.Size = new System.Drawing.Size(60, 13);
+            this.Label5.Size = new System.Drawing.Size(77, 13);
             this.Label5.TabIndex = 119;
-            this.Label5.Text = "Auth Name";
+            this.Label5.Text = "Autentificacion";
             // 
             // TextBoxDisplayName
             // 
             this.TextBoxDisplayName.Enabled = false;
-            this.TextBoxDisplayName.Location = new System.Drawing.Point(84, 33);
+            this.TextBoxDisplayName.Location = new System.Drawing.Point(89, 33);
             this.TextBoxDisplayName.Name = "TextBoxDisplayName";
             this.TextBoxDisplayName.Size = new System.Drawing.Size(132, 20);
             this.TextBoxDisplayName.TabIndex = 104;
@@ -255,11 +257,11 @@ namespace LoginForms
             // Label6
             // 
             this.Label6.AutoSize = true;
-            this.Label6.Location = new System.Drawing.Point(7, 35);
+            this.Label6.Location = new System.Drawing.Point(4, 36);
             this.Label6.Name = "Label6";
-            this.Label6.Size = new System.Drawing.Size(72, 13);
+            this.Label6.Size = new System.Drawing.Size(81, 13);
             this.Label6.TabIndex = 118;
-            this.Label6.Text = "Display Name";
+            this.Label6.Text = "Nombre Agente";
             // 
             // btnOffline
             // 
@@ -269,6 +271,7 @@ namespace LoginForms
             this.btnOffline.TabIndex = 117;
             this.btnOffline.Text = "Desconectar";
             this.btnOffline.UseVisualStyleBackColor = true;
+            this.btnOffline.Visible = false;
             this.btnOffline.Click += new System.EventHandler(this.btnOffline_Click);
             // 
             // btnConnect
@@ -279,12 +282,13 @@ namespace LoginForms
             this.btnConnect.TabIndex = 116;
             this.btnConnect.Text = "Conectar";
             this.btnConnect.UseVisualStyleBackColor = true;
+            this.btnConnect.Visible = false;
             this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
             // 
             // TextBoxServerPort
             // 
             this.TextBoxServerPort.Enabled = false;
-            this.TextBoxServerPort.Location = new System.Drawing.Point(302, 73);
+            this.TextBoxServerPort.Location = new System.Drawing.Point(304, 73);
             this.TextBoxServerPort.Name = "TextBoxServerPort";
             this.TextBoxServerPort.Size = new System.Drawing.Size(132, 20);
             this.TextBoxServerPort.TabIndex = 110;
@@ -292,16 +296,16 @@ namespace LoginForms
             // Label3
             // 
             this.Label3.AutoSize = true;
-            this.Label3.Location = new System.Drawing.Point(232, 76);
+            this.Label3.Location = new System.Drawing.Point(223, 76);
             this.Label3.Name = "Label3";
-            this.Label3.Size = new System.Drawing.Size(60, 13);
+            this.Label3.Size = new System.Drawing.Size(80, 13);
             this.Label3.TabIndex = 111;
-            this.Label3.Text = "Server Port";
+            this.Label3.Text = "Puerto Servidor";
             // 
             // TextBoxServer
             // 
             this.TextBoxServer.Enabled = false;
-            this.TextBoxServer.Location = new System.Drawing.Point(84, 75);
+            this.TextBoxServer.Location = new System.Drawing.Point(89, 75);
             this.TextBoxServer.Name = "TextBoxServer";
             this.TextBoxServer.Size = new System.Drawing.Size(132, 20);
             this.TextBoxServer.TabIndex = 109;
@@ -309,11 +313,11 @@ namespace LoginForms
             // Label4
             // 
             this.Label4.AutoSize = true;
-            this.Label4.Location = new System.Drawing.Point(21, 78);
+            this.Label4.Location = new System.Drawing.Point(5, 78);
             this.Label4.Name = "Label4";
-            this.Label4.Size = new System.Drawing.Size(58, 13);
+            this.Label4.Size = new System.Drawing.Size(66, 13);
             this.Label4.TabIndex = 107;
-            this.Label4.Text = "SIP Server";
+            this.Label4.Text = "Servidor SIP";
             // 
             // TextBoxPassword
             // 
@@ -327,16 +331,16 @@ namespace LoginForms
             // Label2
             // 
             this.Label2.AutoSize = true;
-            this.Label2.Location = new System.Drawing.Point(243, 16);
+            this.Label2.Location = new System.Drawing.Point(236, 16);
             this.Label2.Name = "Label2";
-            this.Label2.Size = new System.Drawing.Size(53, 13);
+            this.Label2.Size = new System.Drawing.Size(61, 13);
             this.Label2.TabIndex = 105;
-            this.Label2.Text = "Password";
+            this.Label2.Text = "Contraseña";
             // 
             // TextBoxUserName
             // 
             this.TextBoxUserName.Enabled = false;
-            this.TextBoxUserName.Location = new System.Drawing.Point(84, 12);
+            this.TextBoxUserName.Location = new System.Drawing.Point(89, 12);
             this.TextBoxUserName.Name = "TextBoxUserName";
             this.TextBoxUserName.Size = new System.Drawing.Size(132, 20);
             this.TextBoxUserName.TabIndex = 101;
@@ -344,11 +348,11 @@ namespace LoginForms
             // Label1
             // 
             this.Label1.AutoSize = true;
-            this.Label1.Location = new System.Drawing.Point(24, 16);
+            this.Label1.Location = new System.Drawing.Point(4, 16);
             this.Label1.Name = "Label1";
-            this.Label1.Size = new System.Drawing.Size(55, 13);
+            this.Label1.Size = new System.Drawing.Size(53, 13);
             this.Label1.TabIndex = 102;
-            this.Label1.Text = "Username";
+            this.Label1.Text = "Extensión";
             // 
             // ComboBoxTransport
             // 
@@ -941,7 +945,7 @@ namespace LoginForms
             this.ListBoxSIPLog.FormattingEnabled = true;
             this.ListBoxSIPLog.Location = new System.Drawing.Point(455, 44);
             this.ListBoxSIPLog.Name = "ListBoxSIPLog";
-            this.ListBoxSIPLog.Size = new System.Drawing.Size(370, 199);
+            this.ListBoxSIPLog.Size = new System.Drawing.Size(264, 147);
             this.ListBoxSIPLog.TabIndex = 48;
             // 
             // panel1
@@ -1107,8 +1111,9 @@ namespace LoginForms
             this.lblNotification.AutoSize = true;
             this.lblNotification.Location = new System.Drawing.Point(459, 25);
             this.lblNotification.Name = "lblNotification";
-            this.lblNotification.Size = new System.Drawing.Size(0, 13);
+            this.lblNotification.Size = new System.Drawing.Size(73, 13);
             this.lblNotification.TabIndex = 54;
+            this.lblNotification.Text = "lblNotificacion";
             // 
             // lblRecordEstatus
             // 
@@ -1200,7 +1205,7 @@ namespace LoginForms
             this.btnClearListBox.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnClearListBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClearListBox.ForeColor = System.Drawing.Color.Transparent;
-            this.btnClearListBox.Location = new System.Drawing.Point(762, 249);
+            this.btnClearListBox.Location = new System.Drawing.Point(663, 198);
             this.btnClearListBox.Name = "btnClearListBox";
             this.btnClearListBox.Size = new System.Drawing.Size(56, 50);
             this.btnClearListBox.TabIndex = 50;
@@ -1209,11 +1214,35 @@ namespace LoginForms
             this.btnClearListBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnClearListBox_MouseDown);
             this.btnClearListBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnClearListBox_MouseUp);
             // 
+            // lblEstatusLlamada
+            // 
+            this.lblEstatusLlamada.AutoSize = true;
+            this.lblEstatusLlamada.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEstatusLlamada.ForeColor = System.Drawing.Color.Tomato;
+            this.lblEstatusLlamada.Location = new System.Drawing.Point(726, 61);
+            this.lblEstatusLlamada.Name = "lblEstatusLlamada";
+            this.lblEstatusLlamada.Size = new System.Drawing.Size(108, 16);
+            this.lblEstatusLlamada.TabIndex = 57;
+            this.lblEstatusLlamada.Text = "Estatus Llamada";
+            // 
+            // lblFolio
+            // 
+            this.lblFolio.AutoSize = true;
+            this.lblFolio.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFolio.ForeColor = System.Drawing.Color.Tomato;
+            this.lblFolio.Location = new System.Drawing.Point(729, 86);
+            this.lblFolio.Name = "lblFolio";
+            this.lblFolio.Size = new System.Drawing.Size(94, 16);
+            this.lblFolio.TabIndex = 58;
+            this.lblFolio.Text = "Folio Llamada";
+            // 
             // CallsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(835, 627);
+            this.ClientSize = new System.Drawing.Size(863, 753);
+            this.Controls.Add(this.lblFolio);
+            this.Controls.Add(this.lblEstatusLlamada);
             this.Controls.Add(this.groupBox7);
             this.Controls.Add(this.lblRecordEstatus);
             this.Controls.Add(this.lblNotification);
@@ -1341,5 +1370,7 @@ namespace LoginForms
         private System.Windows.Forms.CheckBox checkBoxAGC;
         private System.Windows.Forms.CheckBox checkBoxCNG;
         private System.Windows.Forms.CheckBox checkBoxAEC;
+        private System.Windows.Forms.Label lblEstatusLlamada;
+        private System.Windows.Forms.Label lblFolio;
     }
 }

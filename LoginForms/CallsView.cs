@@ -405,7 +405,6 @@ namespace LoginForms
             this.FormBorderStyle = FormBorderStyle.None;
         }
 
-
         #region metodos para iniciar y detener la grabación de una llamada
         private async void StartCallRecord()
         {
@@ -421,7 +420,7 @@ namespace LoginForms
 
             var id = jobject.Value<string>("data").ToString();
 
-            string filePath = "C:/Users/KODE/Documents/llamadas";
+            string filePath = "C:/grabaciones";
             string fileName = $"grabacion-{id}";
 
             AUDIO_RECORDING_FILEFORMAT audioRecordFileFormat = AUDIO_RECORDING_FILEFORMAT.FILEFORMAT_WAVE;
@@ -497,6 +496,7 @@ namespace LoginForms
 
             //Connect();
             CheckNetwork();
+            this.ActiveControl = TextBoxPhoneNumber;
         }
 
         private void CallsView_FormClosing(object sender, FormClosingEventArgs e)
@@ -988,8 +988,14 @@ namespace LoginForms
                 typification.ShowDialog();
                 typification.TopMost = true;
                 typification.StartPosition = FormStartPosition.CenterParent;
+                typification.Shown += (s, a) =>
+                {
+                    lblEstatusLlamada.Text = "Tipificando Llamada";
+                }; 
                 btnBeginRecord.Enabled = true;
                 btnBeginRecord.Text = "Grabar Llamada";
+                lblEstatusLlamada.Text = "Llamada Terminada";
+                lblFolio.Text = "Folio Llamada";
             }
         }
 
@@ -1496,7 +1502,7 @@ namespace LoginForms
 
             var id = jobject.Value<string>("data").ToString();
 
-            string filePath = "C:/Users/KODE/Documents/llamadas";
+            string filePath = "C:/grabaciones";
             string fileName = $"grabacion-{id}";
 
             AUDIO_RECORDING_FILEFORMAT audioRecordFileFormat = AUDIO_RECORDING_FILEFORMAT.FILEFORMAT_WAVE;
@@ -1754,8 +1760,6 @@ namespace LoginForms
             {
                 ListBoxSIPLog.Items.Add("Registration failure");
             }));
-
-
             sIPLogined = false;
 
             return 0;
@@ -1839,6 +1843,9 @@ namespace LoginForms
                     ListBoxSIPLog.Items.Add(Text);
                 }));
                 rh.SendCall("1");
+
+                lblFolio.Text = rh.SendCall("1").Result.ToString();
+                lblEstatusLlamada.Text = "En llamada";
                 //StartCallRecord();
                 return 0;
             }
@@ -1967,6 +1974,7 @@ namespace LoginForms
             string Text = "Line " + i.ToString();
             Text = Text + ": Call established";
             rh.SendCall("2");
+            lblFolio.Text = rh.SendCall("2").Result.ToString();
             ListBoxSIPLog.Invoke(new MethodInvoker(delegate
             {
                 ListBoxSIPLog.Items.Add(Text);
@@ -1979,7 +1987,7 @@ namespace LoginForms
             {
                 _CallSessions[i].setReferCall(false, 0);
             }
-
+            lblEstatusLlamada.Text = "En Llamada";
             return 0;
         }
 
@@ -2150,7 +2158,8 @@ namespace LoginForms
             typification.ShowDialog();
             typification.TopMost = true;
             typification.StartPosition = FormStartPosition.CenterParent;
-
+            lblEstatusLlamada.Text = "Llamada Terminada";
+            lblFolio.Text = "Folio Llamada";
             return 0;
         }
 
@@ -2263,7 +2272,7 @@ namespace LoginForms
                 }));
                 rh.SendCall("3", "2");
             }
-
+            lblEstatusLlamada.Text = "Recibiste una transferencia de llamada";
             return 0;
         }
 
@@ -2285,6 +2294,7 @@ namespace LoginForms
                 ListBoxSIPLog.Items.Add(Text);
             }));
             rh.SendCall("3", "1");
+            lblEstatusLlamada.Text = "Transferiste una llamada";
             return 0; 
         }
 

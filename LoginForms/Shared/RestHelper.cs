@@ -1056,10 +1056,11 @@ namespace LoginForms.Shared
             HttpClient client = new HttpClient();
             HttpResponseMessage response = await client.PostAsync(baseUrl + "calls", input);
             HttpContent content = response.Content;
-            string data = response.StatusCode.ToString();
+            string data = response.Content.ReadAsStringAsync().Result;
             if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
             {
-                return data;
+                var folio = GetFolioFromApi(data);
+                return folio;
             }
             else
             {
@@ -1292,6 +1293,16 @@ namespace LoginForms.Shared
 
         }
 
+        public string GetFolioFromApi(string response)
+        {
+            string apiData = response;
+            MsjApi jsonData = JsonConvert.DeserializeObject<MsjApi>(apiData);
+            var data = jsonData.data;
+            var jObject = JsonConvert.DeserializeObject<JObject>(apiData);
+            var folio = jObject.Value<string>("data").ToString();
+
+            return folio;
+        }
     }
     public class MsjApi
     {

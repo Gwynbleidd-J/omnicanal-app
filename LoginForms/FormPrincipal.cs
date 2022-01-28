@@ -185,7 +185,8 @@ namespace LoginForms
                             //f.Location = new Point(0, 0);
                             //f.Dock = DockStyle.Fill;
                             //f.Focus();
-                            f.Show();
+                            //f.Show()
+                            CreateSoftphoneForm(f);
                             //f.FormBorderStyle = FormBorderStyle.None;
                             //f.BackColor = ColorTranslator.FromHtml("#e2e0e1");
                             //client.prueba = f as Prueba;
@@ -476,7 +477,7 @@ namespace LoginForms
         }
         private void SetProjectVersion()
         {
-            lblVersión.Text = $"Version:{Application.ProductVersion}";
+           // lblVersión.Text = $"Version:{Application.ProductVersion}";
         }
     }
     class StatusItems
