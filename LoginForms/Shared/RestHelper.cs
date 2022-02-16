@@ -1012,7 +1012,9 @@ namespace LoginForms.Shared
             {
                 string socketData = JsonConvert.SerializeObject(inputData);
                 Console.WriteLine("\n\nSe intentara enviar por socket la data directamente al servidor a continuacion:\n " +socketData);
-                new AsynchronousClient().Send(GlobalSocket.GlobalVarible, socketData);
+                //new AsynchronousClient().Send(GlobalSocket.GlobalVarible, socketData);
+                //new SocketIOClient().SendMessage(socketData);
+
             }
 
             string data = response.StatusCode.ToString();

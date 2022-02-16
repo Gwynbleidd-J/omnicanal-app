@@ -25,6 +25,15 @@ namespace LoginForms
      * Solo le agregaran métodos a la clase.
      * El código comentado es el código original.
      */
+
+    public class ObjectState
+    {
+        public const int BufferSize = 256;
+        public Socket socket = null;
+        public byte[] Buffer = new byte[BufferSize];
+        public StringBuilder sb = new StringBuilder();
+    }
+
     public class AsynchronousClient
     {
         private RichTextBox container;
@@ -65,7 +74,7 @@ namespace LoginForms
         private readonly int port = Convert.ToInt32(ConfigurationManager.AppSettings["serverPort"]);
         private readonly string remoteEndPoint = ConfigurationManager.AppSettings["remoteEndPoint"];
 
-        
+
         // ManualResetEvent instances signal completion.  
         private static ManualResetEvent connectDone = new ManualResetEvent(false);
         private static ManualResetEvent sendDone = new ManualResetEvent(false);
@@ -91,17 +100,17 @@ namespace LoginForms
                     sendDone.Reset();
                     receiveDone.Reset();
                 }
-                
-                   // Create a TCP/IP socket.  
-                   GlobalSocket.GlobalVarible = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-                   GlobalSocket.GlobalVarible.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.KeepAlive, true);
-                   //SetupkeepAlive(GlobalSocket.GlobalVarible);
-                
+
+                // Create a TCP/IP socket.  
+                GlobalSocket.GlobalVarible = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+                GlobalSocket.GlobalVarible.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.KeepAlive, true);
+                //SetupkeepAlive(GlobalSocket.GlobalVarible);
+
 
                 //GlobalSocket.GlobalVarible.SetSocketOption(SocketOptionLevel.Tcp, SocketOptionName.tc)
                 //Connect to the remote endpoint
                 GlobalSocket.GlobalVarible.BeginConnect(remoteEP, new AsyncCallback(ConnectCallback), GlobalSocket.GlobalVarible);
-                
+
                 //connectDone.WaitOne();
                 Receive(GlobalSocket.GlobalVarible);//Receive();
                 //receiveDone.WaitOne();
@@ -156,7 +165,7 @@ namespace LoginForms
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error[ConnectCallback]:" +e);
+                Console.WriteLine("Error[ConnectCallback]:" + e);
                 //Console.WriteLine($"{e.Message}: {e.ErrorCode}");
             }
         }
@@ -166,11 +175,11 @@ namespace LoginForms
             try
             {
                 // Create the state object.  
-                StateObject state = new StateObject();
-                state.workSocket = client; //state.workSocket = GlobalSocket.GlobalVariable
+                ObjectState state = new ObjectState();
+                state.socket = client; //state.workSocket = GlobalSocket.GlobalVariable
                                            // Begin receiving the data from the remote device.
 
-                client.BeginReceive(state.buffer, 0, StateObject.bufferSize, 0, new AsyncCallback(ReceiveCallback), state);
+                client.BeginReceive(state.Buffer, 0, ObjectState.BufferSize, 0, new AsyncCallback(ReceiveCallback), state);
                 //GlobalSocket.GlobalVarible.BeginReceive(state.buffer, 0, StateObject.bufferSize, 0,
                 //    new AsyncCallback(ReceiveCallback), state);
 
@@ -189,8 +198,8 @@ namespace LoginForms
                 //aqui se presenta una exepción, habra que ver por que no entra en el catch
                 // Retrieve the state object and the client socket
                 // from the asynchronous state object.  
-                StateObject state = (StateObject)ar.AsyncState;
-                Socket client = state.workSocket;
+                ObjectState state = (ObjectState)ar.AsyncState;
+                Socket client = state.socket;
                 string socketNotification;
 
                 // Read data from the remote device.  
@@ -200,13 +209,13 @@ namespace LoginForms
                     if (bytesRead > 0)
                     {
                         // There might be more data, so store the data received so far.  
-                        state.stringBuilder.Append(Encoding.ASCII.GetString(state.buffer, 0, bytesRead));
+                        state.sb.Append(Encoding.ASCII.GetString(state.Buffer, 0, bytesRead));
 
                         // Get the rest of the data.  
-                        client.BeginReceive(state.buffer, 0, StateObject.bufferSize, 0,
+                        client.BeginReceive(state.Buffer, 0, ObjectState.BufferSize, 0,
                             new AsyncCallback(ReceiveCallback), state);
 
-                        socketNotification = Encoding.UTF8.GetString(state.buffer, 0, bytesRead).ToString();
+                        socketNotification = Encoding.UTF8.GetString(state.Buffer, 0, bytesRead).ToString();
                         Console.WriteLine($"Sockect conectado:{client.Connected.ToString()}");
                         Console.WriteLine("Desde string es: " + socketNotification);
 
@@ -216,25 +225,26 @@ namespace LoginForms
                     {
                         Console.WriteLine("Ya no se está recibiendo datos");
                         // All the data has arrived; put it in response.  
-                        if (state.stringBuilder.Length > 1)
+                        if (state.sb.Length > 1)
                         {
-                            response = state.stringBuilder.ToString();
+                            response = state.sb.ToString();
                         }
                         // Signal that all bytes have been received.  
                         receiveDone.Set();
                     }
                 }
-                else {
+                else
+                {
                     Console.WriteLine("Ya no se está recibiendo datos");
                     // All the data has arrived; put it in response.  
-                    if (state.stringBuilder.Length > 1)
+                    if (state.sb.Length > 1)
                     {
-                        response = state.stringBuilder.ToString();
+                        response = state.sb.ToString();
                     }
                     // Signal that all bytes have been received.  
                     receiveDone.Set();
                 }
-                
+
             }
 
             //SocketException
@@ -304,7 +314,7 @@ namespace LoginForms
         {
             try
             {
-                Console.WriteLine("\n************** \nSe recibe lo siguiente:" +socketNotification);
+                Console.WriteLine("\n************** \nSe recibe lo siguiente:" + socketNotification);
                 var jobject = JsonConvert.DeserializeObject<JObject>(socketNotification);
 
                 if (jobject.ContainsKey("Agent"))
@@ -336,13 +346,16 @@ namespace LoginForms
                 //    chat.btnSendMessage.Visible = false;
                 //    //chat.btnCloseButton.PerformClick();
                 //}
-                else if (jobject.ContainsKey("closeTransferChat")) {
+                else if (jobject.ContainsKey("closeTransferChat"))
+                {
                     Console.WriteLine("\nEl id del chat es: " + jobject.Value<string>("chatId"));
 
                     TabPageChat chat = prueba.getTabChatByChatId(jobject.Value<string>("chatId"));
                     chat.removeTabChat();
 
-                } else if (jobject.ContainsKey("openTransferChat")) {
+                }
+                else if (jobject.ContainsKey("openTransferChat"))
+                {
 
                     Console.WriteLine("La respuesta de la transferencia de chats cayo al supervisor");
 
@@ -401,7 +414,8 @@ namespace LoginForms
                     //pictureBox1.ImageLocation = path;
 
                 }
-                else if (jobject.ContainsKey("getMonitoring")) {
+                else if (jobject.ContainsKey("getMonitoring"))
+                {
 
                     screenMonitor scrM = (screenMonitor)Application.OpenForms["screenMonitor"];
                     PictureBox pic = (PictureBox)scrM.Controls["pictureBox1"];
@@ -419,7 +433,7 @@ namespace LoginForms
                     myImageCodecInfo = GetEncoderInfo("image/jpeg");
                     myEncoder = System.Drawing.Imaging.Encoder.Quality;
 
-                    Console.WriteLine("\nEl id del supervisor es:" +idSupervisor + "\nEl id del Agente es:" +idAgente + "\nEl estatus de monitoreo es:"+ Monitoreando);
+                    Console.WriteLine("\nEl id del supervisor es:" + idSupervisor + "\nEl id del Agente es:" + idAgente + "\nEl estatus de monitoreo es:" + Monitoreando);
 
                     if (Monitoreando)
                     {
@@ -466,16 +480,18 @@ namespace LoginForms
 
                     }
                 }
-                else if (jobject.ContainsKey("socketPort")) {
+                else if (jobject.ContainsKey("socketPort"))
+                {
                     var port = jobject.Value<string>("socketPort");
                     Console.WriteLine("\nHola agente, tu puerto asignado por la API es:" + port);
-                    var temp= await rh.updateAgentActiveIp(GlobalSocket.currentUser.email, port.ToString());
+                    var temp = await rh.updateAgentActiveIp(GlobalSocket.currentUser.email, port.ToString());
                     if (temp == "OK")
                     {
                         GlobalSocket.currentUser.activeIp = port;
                     }
-                    else {
-                        Console.WriteLine("No se pudo actualizar el puerto en base correctamente:" +temp);
+                    else
+                    {
+                        Console.WriteLine("No se pudo actualizar el puerto en base correctamente:" + temp);
                     }
 
                     FormPrincipal ActivePrincipal = (FormPrincipal)Application.OpenForms["FormPrincipal"];
@@ -661,7 +677,7 @@ namespace LoginForms
 
         public void SetupkeepAlive(Socket socket, uint interval = 100U)
         {
-            if(socket is null)
+            if (socket is null)
             {
                 throw new ArgumentException(nameof(socket));
             }

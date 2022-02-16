@@ -63,10 +63,11 @@ namespace LoginForms
         }
 
 
-        private void FormPrincipal_Load(object sender, EventArgs e)
+        private async void FormPrincipal_Load(object sender, EventArgs e)
         {
-            Task task = new Task(client.Connect);
-            task.Start();
+            //Task task = new Task(client.Connect);
+            //task.Start();
+            await SocketIOClient.ClienteSocketIO();
             dynamicUserButtons();
             labelAgentStatus();
             comboBoxGetUserStatus();
@@ -377,7 +378,7 @@ namespace LoginForms
 
             if (string.IsNullOrEmpty(userToken))
             {
-                client.CloseSocketConnection();
+                //client.CloseSocketConnection();
                 MessageBox.Show("usuario cerró sesión", "Omnicanal", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Dispose();
                 login.Show();
@@ -402,7 +403,7 @@ namespace LoginForms
 
             if (string.IsNullOrEmpty(userToken))
             {
-                client.CloseSocketConnection();
+                //client.CloseSocketConnection();
                 MessageBox.Show("usuario cerró sesión", "Omnicanal", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Dispose();
                 login.Show();
@@ -429,7 +430,7 @@ namespace LoginForms
             pictureBox1.Image = Properties.Resources.cerrar_sesion_presionado_1;
         }
 
-        private void btnReconexion_Click(object sender, EventArgs e)
+        private async void btnReconexion_Click(object sender, EventArgs e)
         {
 
             string userToken = GlobalSocket.currentUser.token;
@@ -437,12 +438,12 @@ namespace LoginForms
 
             if (string.IsNullOrEmpty(userToken))
             {
-                client.CloseSocketConnection();
+                //client.CloseSocketConnection();
             }
 
-            AsynchronousClient.Reconexion = true;
-            Thread.CurrentThread.Join(2000);
-            client.Connect();
+            //AsynchronousClient.Reconexion = true;
+            //Thread.CurrentThread.Join(2000);
+            await SocketIOClient.ClienteSocketIO();
         }
 
         //Metodos que no recuerdo para que se utilizan, pero deben de tener una utilidad
