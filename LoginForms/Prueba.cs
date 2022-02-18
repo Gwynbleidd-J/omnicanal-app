@@ -491,7 +491,7 @@ namespace LoginForms
 
                 txtNumber.KeyPress += (w, q) =>
                 {
-                    if (!char.IsControl(q.KeyChar) && !char.IsDigit(q.KeyChar))
+                    if(!char.IsControl(q.KeyChar) && !char.IsDigit(q.KeyChar))
                     {
                         q.Handled = true;
                         MessageBox.Show("Sólo puedes introducir números", "Omnicanal", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -545,7 +545,7 @@ namespace LoginForms
                 {
                     name = chatWindowLocal.arrTabPageChat[position].tbPage.Name.ToString();
                     var sTabPAge = chatWindowLocal.arrTabPageChat[position];
-                    Console.WriteLine("Comparando "+name +" y " +searchedName);
+                    Console.WriteLine("Comparando " + name + " y " + searchedName);
 
                     if (sTabPAge != null && name == searchedName)
                     {

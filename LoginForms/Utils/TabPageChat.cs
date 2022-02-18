@@ -400,57 +400,116 @@ namespace LoginForms.Utils
 
                 for (int i = jsonChatMessagestHistoric.data.messages.Count - 1; i >= 0; i--)
                 {
-                    //Iniciio de construcción de la etiqueta dinámica
-                    Label newLabelMessage = new Label();
-                    newLabelMessage.Width = (pnlMessages.Width/2) + 15;
-                    newLabelMessage.Height = 30; //20                     
-                    newLabelMessage.AutoSize = false;
-                    newLabelMessage.Name = jsonChatMessagestHistoric.data.messages[i].id;
-                    //newLabelMessage.BackColor = Color.LightGray;
-                    newLabelMessage.Text = jsonChatMessagestHistoric.data.messages[i].text;
-                    newLabelMessage.Font = new Font("Calibri", 10);
-                    newLabelMessage.Padding = new Padding(7);
+                    var temp = jsonChatMessagestHistoric.data.messages[i].mediaUrl;
+                    if (jsonChatMessagestHistoric.data.messages[i].mediaUrl != null)
+                    {
+                        LinkLabel linklabel = new LinkLabel();
+                        linklabel.Width = (pnlMessages.Width / 2) + 15;
+                        linklabel.Height = 30; //20                     
+                        linklabel.AutoSize = false;
+                        linklabel.Name = jsonChatMessagestHistoric.data.messages[i].id;
+                        linklabel.Text = jsonChatMessagestHistoric.data.messages[i].mediaUrl;
+                        linklabel.Font = new Font("Calibri", 10);
+                        linklabel.Padding = new Padding(7);
+                        linklabel.LinkClicked += (s, e) =>
+                         {
+                             linklabel.LinkVisited = true;
+                             System.Diagnostics.Process.Start(temp);
+                         };
+                        if (lastLabel == null)
+                            linklabel.Location = new Point(0, 10);//10
+                        else
+                            linklabel.Location = new Point(0, lastLabel.Location.Y + 40); //30
 
-                    if (lastLabel == null)
-                        newLabelMessage.Location = new Point(0, 10);//10
-                    else
-                        newLabelMessage.Location = new Point(0, lastLabel.Location.Y + 40); //30
+                        lastLabel = linklabel;
+                        lastMessageId = linklabel.Name;
+                        lastUsedHeigth += linklabel.Height;
+                        //Validación para la alineación de la etiqueta según el Transmitter  <-- cliente / agente -->
+                        if (jsonChatMessagestHistoric.data.messages[i].transmitter == "c")
+                        {
+                            linklabel.Left = 10;
+                            linklabel.TextAlign = ContentAlignment.MiddleLeft;
+                            //newLabelMessage.BackColor = Color.FromArgb(66,66,74);
+                            linklabel.BackColor = ColorTranslator.FromHtml("#ffffff");
+                            //newLabelMessage.ForeColor = Color.FromArgb(255, 255, 255);#444444
+                            linklabel.ForeColor = ColorTranslator.FromHtml("#444444");
+                        }
+                        else
+                        {
+                            //newLabelMessage.Left = newLabelMessage.Width -60;
+                            linklabel.Left = pnlMessages.Width - linklabel.Width - 30;
+                            linklabel.TextAlign = ContentAlignment.MiddleRight;
+                            //newLabelMessage.BackColor = Color.FromArgb(13, 75, 70);
+                            linklabel.BackColor = ColorTranslator.FromHtml("#dcf8c6");
+                            //newLabelMessage.ForeColor = Color.FromArgb(255, 255, 255);
+                            linklabel.ForeColor = ColorTranslator.FromHtml("#444444");
+                            labelsAgent.Add(linklabel);
+                        }
 
-                    lastLabel = newLabelMessage;
-                    lastMessageId = newLabelMessage.Name;
-                    lastUsedHeigth += newLabelMessage.Height; 
+                        //lastUsedHeigth = lastUsedHeigth + 20;
+                        ////Proceso original: Buscaba desde el Form en controls hasta llegar al panel de mensajes para irle agregando las etiquetas
+                        //Control ctnPanelMessages = tabControlChats.Controls["tabPageChat_" + chatId].Controls["panelMessages_" + chatId];
+                        //ctnPanelMessages.Controls.Add(newLabelMessage);
+                        //ctnPanelMessages.ScrollControlIntoView(newLabelMessage);
 
-                    //Validación para la alineación de la etiqueta según el Transmitter  <-- cliente / agente -->
-                    if (jsonChatMessagestHistoric.data.messages[i].transmitter == "c")
-                    { 
-                        newLabelMessage.Left = 10;
-                        newLabelMessage.TextAlign = ContentAlignment.MiddleLeft;
-                        //newLabelMessage.BackColor = Color.FromArgb(66,66,74);
-                        newLabelMessage.BackColor = ColorTranslator.FromHtml("#ffffff");
-                        //newLabelMessage.ForeColor = Color.FromArgb(255, 255, 255);#444444
-                        newLabelMessage.ForeColor = ColorTranslator.FromHtml("#444444");
+                        ////Nuevo proceso: Estando al mismo nivel de controles en el tabPage, intentar llegar al panel de mensajes solamente con el nombre del objeto
+                        pnlMessages.Controls.Add(linklabel);
+                        //pnlMessages.ScrollControlIntoView(newLabelMessage);
                     }
                     else
                     {
-                        //newLabelMessage.Left = newLabelMessage.Width -60;
-                        newLabelMessage.Left = pnlMessages.Width - newLabelMessage.Width -30;
-                        newLabelMessage.TextAlign = ContentAlignment.MiddleRight;
-                        //newLabelMessage.BackColor = Color.FromArgb(13, 75, 70);
-                        newLabelMessage.BackColor = ColorTranslator.FromHtml("#dcf8c6");
-                        //newLabelMessage.ForeColor = Color.FromArgb(255, 255, 255);
-                        newLabelMessage.ForeColor = ColorTranslator.FromHtml("#444444");
-                        labelsAgent.Add(newLabelMessage);
-                    }
+                        //Iniciio de construcción de la etiqueta dinámica
+                        Label newLabelMessage = new Label();
+                        newLabelMessage.Width = (pnlMessages.Width / 2) + 15;
+                        newLabelMessage.Height = 30; //20                     
+                        newLabelMessage.AutoSize = false;
+                        newLabelMessage.Name = jsonChatMessagestHistoric.data.messages[i].id;
+                        //newLabelMessage.BackColor = Color.LightGray;
+                        newLabelMessage.Text = jsonChatMessagestHistoric.data.messages[i].text;
+                        newLabelMessage.Font = new Font("Calibri", 10);
+                        newLabelMessage.Padding = new Padding(7);
 
-                    //lastUsedHeigth = lastUsedHeigth + 20;
-                    ////Proceso original: Buscaba desde el Form en controls hasta llegar al panel de mensajes para irle agregando las etiquetas
-                    //Control ctnPanelMessages = tabControlChats.Controls["tabPageChat_" + chatId].Controls["panelMessages_" + chatId];
-                    //ctnPanelMessages.Controls.Add(newLabelMessage);
-                    //ctnPanelMessages.ScrollControlIntoView(newLabelMessage);
-                    
-                    ////Nuevo proceso: Estando al mismo nivel de controles en el tabPage, intentar llegar al panel de mensajes solamente con el nombre del objeto
-                    pnlMessages.Controls.Add(newLabelMessage);
-                    //pnlMessages.ScrollControlIntoView(newLabelMessage);
+                        if (lastLabel == null)
+                            newLabelMessage.Location = new Point(0, 10);//10
+                        else
+                            newLabelMessage.Location = new Point(0, lastLabel.Location.Y + 40); //30
+
+                        lastLabel = newLabelMessage;
+                        lastMessageId = newLabelMessage.Name;
+                        lastUsedHeigth += newLabelMessage.Height;
+
+                        //Validación para la alineación de la etiqueta según el Transmitter  <-- cliente / agente -->
+                        if (jsonChatMessagestHistoric.data.messages[i].transmitter == "c")
+                        {
+                            newLabelMessage.Left = 10;
+                            newLabelMessage.TextAlign = ContentAlignment.MiddleLeft;
+                            //newLabelMessage.BackColor = Color.FromArgb(66,66,74);
+                            newLabelMessage.BackColor = ColorTranslator.FromHtml("#ffffff");
+                            //newLabelMessage.ForeColor = Color.FromArgb(255, 255, 255);#444444
+                            newLabelMessage.ForeColor = ColorTranslator.FromHtml("#444444");
+                        }
+                        else
+                        {
+                            //newLabelMessage.Left = newLabelMessage.Width -60;
+                            newLabelMessage.Left = pnlMessages.Width - newLabelMessage.Width - 30;
+                            newLabelMessage.TextAlign = ContentAlignment.MiddleRight;
+                            //newLabelMessage.BackColor = Color.FromArgb(13, 75, 70);
+                            newLabelMessage.BackColor = ColorTranslator.FromHtml("#dcf8c6");
+                            //newLabelMessage.ForeColor = Color.FromArgb(255, 255, 255);
+                            newLabelMessage.ForeColor = ColorTranslator.FromHtml("#444444");
+                            labelsAgent.Add(newLabelMessage);
+                        }
+
+                        //lastUsedHeigth = lastUsedHeigth + 20;
+                        ////Proceso original: Buscaba desde el Form en controls hasta llegar al panel de mensajes para irle agregando las etiquetas
+                        //Control ctnPanelMessages = tabControlChats.Controls["tabPageChat_" + chatId].Controls["panelMessages_" + chatId];
+                        //ctnPanelMessages.Controls.Add(newLabelMessage);
+                        //ctnPanelMessages.ScrollControlIntoView(newLabelMessage);
+
+                        ////Nuevo proceso: Estando al mismo nivel de controles en el tabPage, intentar llegar al panel de mensajes solamente con el nombre del objeto
+                        pnlMessages.Controls.Add(newLabelMessage);
+                        //pnlMessages.ScrollControlIntoView(newLabelMessage);
+                    }
 
                 }
 
@@ -467,7 +526,6 @@ namespace LoginForms.Utils
                 Console.WriteLine("Error[addLabelMessages]: " + ex.Message);
             }
         }
-
         public async Task<bool> closeChat()
         {
             bool resultCloseChat = false;

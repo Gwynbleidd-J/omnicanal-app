@@ -17,6 +17,7 @@ namespace LoginForms.Models
         public string chatId { get; set; }
         public string platformIdentifier { get; set; }
         public string clientPlatformIdentifier { get; set; }
+        public string mediaUrl { get; set; }
 
 
            // "platformIdentifier": 'w', "clientPlatformIdentifier: '24243244323422'"

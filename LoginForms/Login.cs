@@ -62,13 +62,13 @@ namespace LoginForms
 
         private void txtPassword_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if((int)e.KeyChar == (int)Keys.Enter)
+            if ((int)e.KeyChar == (int)Keys.Enter)
             {
                 if (txtUserName.Text == "" || txtPassword.Text == "")
                 {
                     MessageBox.Show("Campos Vacios", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                else 
+                else
                 {
                     userLogin();
                 }
@@ -83,7 +83,7 @@ namespace LoginForms
             {
                 FormPrincipal formPrincipal = new FormPrincipal();
                 var jsonLogin = await rh.Login(txtUserName.Text.Trim(' '), txtPassword.Text.Trim(' '), ipAddress);
-                if(jsonLogin == "Unauthorized")
+                if (jsonLogin == "Unauthorized")
                 {
                     MessageBox.Show($"Correo o contraseña Incorrecta, revisa tus credenciales", $"SIDI Omnichannel", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     txtPassword.Text = "";

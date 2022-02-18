@@ -6,6 +6,7 @@ using Newtonsoft.Json.Linq;
 using SocketIOClient;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -17,20 +18,22 @@ namespace LoginForms
     class SocketIOClient
     {
         public static Prueba prueba;
+        private static readonly string baseUrl = ConfigurationManager.AppSettings["IpSocketIO"];
         static RestHelper rh = new RestHelper();
         public static bool Monitoreando = false;
 
         public static async Task ClienteSocketIO()
         {
             //Console.OutputEncoding = Encoding.UTF8;
-            var uri = new Uri("http://192.168.1.108:3001");
-            var socket = new SocketIO(uri, new SocketIOOptions
+            var uri = new Uri(baseUrl);
+            //var uri = new Uri("http://201.149.34.171:3025");
+             var socket = new SocketIO(uri, new SocketIOOptions
             {
                 Query = new Dictionary<string, string>
                 {
                     {"token", "V3"}
                 },
-                Reconnection = true
+                Reconnection = true,
             });
 
             socket.OnConnected += Socket_OnConnected;
