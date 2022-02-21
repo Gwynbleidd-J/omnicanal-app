@@ -51,7 +51,7 @@ namespace LoginForms
             this.cmbNetwork.Name = "cmbNetwork";
             this.cmbNetwork.Size = new System.Drawing.Size(121, 21);
             this.cmbNetwork.TabIndex = 2;
-            this.cmbNetwork.Text = "Selecciona Una Sucursal";
+            this.cmbNetwork.Text = "Selecciona Una Red";
             this.cmbNetwork.SelectedIndexChanged += new System.EventHandler(this.cmbNetwork_SelectedIndexChanged);
             // 
             // label1
@@ -74,7 +74,7 @@ namespace LoginForms
             this.Controls.Add(this.btnAccept);
             this.Name = "NetworkCategories";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "NetworkCategories";
+            this.Text = "SIDI Omnichannel";
             this.ResumeLayout(false);
             this.PerformLayout();
 

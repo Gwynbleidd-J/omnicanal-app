@@ -68,29 +68,32 @@ namespace LoginForms
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel3, 4, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 4;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1439, 831);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1079, 675);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // solidGauge4
             // 
-            this.solidGauge4.Location = new System.Drawing.Point(1007, 3);
+            this.solidGauge4.Location = new System.Drawing.Point(754, 2);
+            this.solidGauge4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.solidGauge4.Name = "solidGauge4";
-            this.solidGauge4.Size = new System.Drawing.Size(154, 97);
+            this.solidGauge4.Size = new System.Drawing.Size(116, 79);
             this.solidGauge4.TabIndex = 10;
             this.solidGauge4.Text = "solidGauge4";
             this.solidGauge4.Visible = false;
             // 
             // solidGauge3
             // 
-            this.solidGauge3.Location = new System.Drawing.Point(433, 3);
+            this.solidGauge3.Location = new System.Drawing.Point(324, 2);
+            this.solidGauge3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.solidGauge3.Name = "solidGauge3";
-            this.solidGauge3.Size = new System.Drawing.Size(176, 97);
+            this.solidGauge3.Size = new System.Drawing.Size(132, 79);
             this.solidGauge3.TabIndex = 9;
             this.solidGauge3.Text = "solidGauge3";
             this.solidGauge3.Visible = false;
@@ -99,18 +102,20 @@ namespace LoginForms
             // 
             this.solidGauge1.Font = new System.Drawing.Font("Calibri Light", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.solidGauge1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.solidGauge1.Location = new System.Drawing.Point(720, 3);
+            this.solidGauge1.Location = new System.Drawing.Point(539, 2);
+            this.solidGauge1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.solidGauge1.Name = "solidGauge1";
-            this.solidGauge1.Size = new System.Drawing.Size(176, 97);
+            this.solidGauge1.Size = new System.Drawing.Size(132, 79);
             this.solidGauge1.TabIndex = 7;
             this.solidGauge1.Visible = false;
             // 
             // pieLlamadas
             // 
             this.pieLlamadas.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pieLlamadas.Location = new System.Drawing.Point(720, 169);
+            this.pieLlamadas.Location = new System.Drawing.Point(539, 137);
+            this.pieLlamadas.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.pieLlamadas.Name = "pieLlamadas";
-            this.pieLlamadas.Size = new System.Drawing.Size(281, 409);
+            this.pieLlamadas.Size = new System.Drawing.Size(211, 333);
             this.pieLlamadas.TabIndex = 19;
             this.pieLlamadas.Text = "pieChart1";
             // 
@@ -118,16 +123,18 @@ namespace LoginForms
             // 
             this.pieChats.BackColorTransparent = true;
             this.pieChats.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pieChats.Location = new System.Drawing.Point(433, 169);
+            this.pieChats.Location = new System.Drawing.Point(324, 137);
+            this.pieChats.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.pieChats.Name = "pieChats";
-            this.pieChats.Size = new System.Drawing.Size(281, 409);
+            this.pieChats.Size = new System.Drawing.Size(211, 333);
             this.pieChats.TabIndex = 16;
             // 
             // solidGauge2
             // 
-            this.solidGauge2.Location = new System.Drawing.Point(1294, 169);
+            this.solidGauge2.Location = new System.Drawing.Point(969, 137);
+            this.solidGauge2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.solidGauge2.Name = "solidGauge2";
-            this.solidGauge2.Size = new System.Drawing.Size(85, 253);
+            this.solidGauge2.Size = new System.Drawing.Size(64, 206);
             this.solidGauge2.TabIndex = 8;
             this.solidGauge2.Text = "solidGauge2";
             this.solidGauge2.Visible = false;
@@ -137,15 +144,16 @@ namespace LoginForms
             this.tableLayoutPanel2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.tableLayoutPanel2.ColumnCount = 1;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 15F));
             this.tableLayoutPanel2.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.lblChatsTotales, 0, 1);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(198, 303);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(148, 246);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(176, 140);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(132, 114);
             this.tableLayoutPanel2.TabIndex = 15;
             // 
             // label1
@@ -153,9 +161,10 @@ namespace LoginForms
             this.label1.AutoSize = true;
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label1.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(3, 0);
+            this.label1.Location = new System.Drawing.Point(2, 0);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(170, 70);
+            this.label1.Size = new System.Drawing.Size(128, 57);
             this.label1.TabIndex = 11;
             this.label1.Text = " Chats";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -166,9 +175,10 @@ namespace LoginForms
             this.lblChatsTotales.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblChatsTotales.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblChatsTotales.Font = new System.Drawing.Font("Calibri", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblChatsTotales.Location = new System.Drawing.Point(3, 70);
+            this.lblChatsTotales.Location = new System.Drawing.Point(2, 57);
+            this.lblChatsTotales.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblChatsTotales.Name = "lblChatsTotales";
-            this.lblChatsTotales.Size = new System.Drawing.Size(170, 70);
+            this.lblChatsTotales.Size = new System.Drawing.Size(128, 57);
             this.lblChatsTotales.TabIndex = 12;
             this.lblChatsTotales.Text = "label5";
             this.lblChatsTotales.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -182,9 +192,10 @@ namespace LoginForms
             this.btnRecargar.FlatAppearance.BorderSize = 0;
             this.btnRecargar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRecargar.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnRecargar.Location = new System.Drawing.Point(1322, 48);
+            this.btnRecargar.Location = new System.Drawing.Point(991, 39);
+            this.btnRecargar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnRecargar.Name = "btnRecargar";
-            this.btnRecargar.Size = new System.Drawing.Size(85, 69);
+            this.btnRecargar.Size = new System.Drawing.Size(64, 56);
             this.btnRecargar.TabIndex = 17;
             this.btnRecargar.UseVisualStyleBackColor = false;
             this.btnRecargar.Click += new System.EventHandler(this.btnRecargar_Click);
@@ -194,15 +205,16 @@ namespace LoginForms
             this.tableLayoutPanel3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.tableLayoutPanel3.ColumnCount = 1;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 15F));
             this.tableLayoutPanel3.Controls.Add(this.label3, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.lblLlamadasTotales, 0, 1);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(1059, 292);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(793, 237);
+            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 2;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(176, 162);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(132, 132);
             this.tableLayoutPanel3.TabIndex = 18;
             // 
             // label3
@@ -210,9 +222,10 @@ namespace LoginForms
             this.label3.AutoSize = true;
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label3.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(3, 0);
+            this.label3.Location = new System.Drawing.Point(2, 0);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(170, 81);
+            this.label3.Size = new System.Drawing.Size(128, 66);
             this.label3.TabIndex = 13;
             this.label3.Text = "LLamadas";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -223,21 +236,23 @@ namespace LoginForms
             this.lblLlamadasTotales.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblLlamadasTotales.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblLlamadasTotales.Font = new System.Drawing.Font("Calibri", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLlamadasTotales.Location = new System.Drawing.Point(3, 81);
+            this.lblLlamadasTotales.Location = new System.Drawing.Point(2, 66);
+            this.lblLlamadasTotales.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblLlamadasTotales.Name = "lblLlamadasTotales";
-            this.lblLlamadasTotales.Size = new System.Drawing.Size(170, 81);
+            this.lblLlamadasTotales.Size = new System.Drawing.Size(128, 66);
             this.lblLlamadasTotales.TabIndex = 14;
             this.lblLlamadasTotales.Text = "label2";
             this.lblLlamadasTotales.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // DashboardAgente
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1439, 831);
+            this.ClientSize = new System.Drawing.Size(1079, 675);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "DashboardAgente";
-            this.Text = "DashboardAgente";
+            this.Text = "SIDI Omnichannel";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();

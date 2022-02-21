@@ -34,20 +34,20 @@ namespace LoginForms
             // 
             // flpAgentInfo
             // 
-            this.flpAgentInfo.Location = new System.Drawing.Point(17, 16);
-            this.flpAgentInfo.Margin = new System.Windows.Forms.Padding(4);
+            this.flpAgentInfo.Location = new System.Drawing.Point(13, 13);
             this.flpAgentInfo.Name = "flpAgentInfo";
-            this.flpAgentInfo.Size = new System.Drawing.Size(830, 612);
+            this.flpAgentInfo.Size = new System.Drawing.Size(622, 497);
             this.flpAgentInfo.TabIndex = 1;
             // 
             // CheckAgents
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(860, 641);
+            this.ClientSize = new System.Drawing.Size(645, 521);
             this.Controls.Add(this.flpAgentInfo);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "CheckAgents";
-            this.Text = "Agentes";
+            this.Text = "SIDI Omnichannel";
             this.Load += new System.EventHandler(this.CheckAgents_Load);
             this.ResumeLayout(false);
 

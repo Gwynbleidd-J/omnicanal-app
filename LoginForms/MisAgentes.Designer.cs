@@ -33,8 +33,6 @@ namespace LoginForms
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.flpAgentInfo = new System.Windows.Forms.FlowLayoutPanel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.btnRecargar = new System.Windows.Forms.Button();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.NombreAgente = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ChatsActivos = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.chatsCerrados = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -43,6 +41,8 @@ namespace LoginForms
             this.llamadasEntrada = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.llamadaActiva = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnRecargar = new System.Windows.Forms.Button();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -51,10 +51,9 @@ namespace LoginForms
             // 
             this.flpAgentInfo.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.flpAgentInfo.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flpAgentInfo.Location = new System.Drawing.Point(31, 28);
-            this.flpAgentInfo.Margin = new System.Windows.Forms.Padding(4);
+            this.flpAgentInfo.Location = new System.Drawing.Point(23, 23);
             this.flpAgentInfo.Name = "flpAgentInfo";
-            this.flpAgentInfo.Size = new System.Drawing.Size(930, 514);
+            this.flpAgentInfo.Size = new System.Drawing.Size(698, 418);
             this.flpAgentInfo.TabIndex = 0;
             // 
             // dataGridView1
@@ -91,19 +90,85 @@ namespace LoginForms
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 3);
+            this.dataGridView1.Location = new System.Drawing.Point(2, 2);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(987, 458);
+            this.dataGridView1.Size = new System.Drawing.Size(741, 372);
             this.dataGridView1.TabIndex = 1;
+            // 
+            // NombreAgente
+            // 
+            this.NombreAgente.HeaderText = "Nombre del Agente";
+            this.NombreAgente.MinimumWidth = 6;
+            this.NombreAgente.Name = "NombreAgente";
+            this.NombreAgente.ReadOnly = true;
+            this.NombreAgente.Width = 94;
+            // 
+            // ChatsActivos
+            // 
+            this.ChatsActivos.HeaderText = "Chats Activos";
+            this.ChatsActivos.MinimumWidth = 6;
+            this.ChatsActivos.Name = "ChatsActivos";
+            this.ChatsActivos.ReadOnly = true;
+            this.ChatsActivos.Width = 98;
+            // 
+            // chatsCerrados
+            // 
+            this.chatsCerrados.HeaderText = "Chats Cerrados";
+            this.chatsCerrados.MinimumWidth = 6;
+            this.chatsCerrados.Name = "chatsCerrados";
+            this.chatsCerrados.ReadOnly = true;
+            this.chatsCerrados.Width = 107;
+            // 
+            // chatsMaximos
+            // 
+            this.chatsMaximos.HeaderText = "Chats Maximos";
+            this.chatsMaximos.MinimumWidth = 6;
+            this.chatsMaximos.Name = "chatsMaximos";
+            this.chatsMaximos.ReadOnly = true;
+            this.chatsMaximos.Width = 108;
+            // 
+            // llamadasSalida
+            // 
+            this.llamadasSalida.HeaderText = "Llamadas Salida";
+            this.llamadasSalida.MinimumWidth = 6;
+            this.llamadasSalida.Name = "llamadasSalida";
+            this.llamadasSalida.ReadOnly = true;
+            this.llamadasSalida.Width = 112;
+            // 
+            // llamadasEntrada
+            // 
+            this.llamadasEntrada.HeaderText = "Llamadas Entrada";
+            this.llamadasEntrada.MinimumWidth = 6;
+            this.llamadasEntrada.Name = "llamadasEntrada";
+            this.llamadasEntrada.ReadOnly = true;
+            this.llamadasEntrada.Width = 123;
+            // 
+            // llamadaActiva
+            // 
+            this.llamadaActiva.HeaderText = "Llamada Activa";
+            this.llamadaActiva.MinimumWidth = 6;
+            this.llamadaActiva.Name = "llamadaActiva";
+            this.llamadaActiva.ReadOnly = true;
+            this.llamadaActiva.Width = 109;
+            // 
+            // Email
+            // 
+            this.Email.HeaderText = "Email";
+            this.Email.MinimumWidth = 6;
+            this.Email.Name = "Email";
+            this.Email.ReadOnly = true;
+            this.Email.Width = 64;
             // 
             // btnRecargar
             // 
-            this.btnRecargar.Location = new System.Drawing.Point(3, 528);
+            this.btnRecargar.Location = new System.Drawing.Point(2, 429);
+            this.btnRecargar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnRecargar.Name = "btnRecargar";
-            this.btnRecargar.Size = new System.Drawing.Size(146, 37);
+            this.btnRecargar.Size = new System.Drawing.Size(110, 30);
             this.btnRecargar.TabIndex = 2;
             this.btnRecargar.Text = "Recargar";
             this.btnRecargar.UseVisualStyleBackColor = true;
@@ -116,91 +181,27 @@ namespace LoginForms
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 15F));
             this.tableLayoutPanel1.Controls.Add(this.btnRecargar, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.dataGridView1, 0, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 12);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(9, 10);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(993, 657);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(745, 534);
             this.tableLayoutPanel1.TabIndex = 3;
-            // 
-            // NombreAgente
-            // 
-            this.NombreAgente.HeaderText = "Nombre del Agente";
-            this.NombreAgente.MinimumWidth = 6;
-            this.NombreAgente.Name = "NombreAgente";
-            this.NombreAgente.ReadOnly = true;
-            this.NombreAgente.Width = 115;
-            // 
-            // ChatsActivos
-            // 
-            this.ChatsActivos.HeaderText = "Chats Activos";
-            this.ChatsActivos.MinimumWidth = 6;
-            this.ChatsActivos.Name = "ChatsActivos";
-            this.ChatsActivos.ReadOnly = true;
-            this.ChatsActivos.Width = 121;
-            // 
-            // chatsCerrados
-            // 
-            this.chatsCerrados.HeaderText = "Chats Cerrados";
-            this.chatsCerrados.MinimumWidth = 6;
-            this.chatsCerrados.Name = "chatsCerrados";
-            this.chatsCerrados.ReadOnly = true;
-            this.chatsCerrados.Width = 132;
-            // 
-            // chatsMaximos
-            // 
-            this.chatsMaximos.HeaderText = "Chats Maximos";
-            this.chatsMaximos.MinimumWidth = 6;
-            this.chatsMaximos.Name = "chatsMaximos";
-            this.chatsMaximos.ReadOnly = true;
-            this.chatsMaximos.Width = 134;
-            // 
-            // llamadasSalida
-            // 
-            this.llamadasSalida.HeaderText = "Llamadas Salida";
-            this.llamadasSalida.MinimumWidth = 6;
-            this.llamadasSalida.Name = "llamadasSalida";
-            this.llamadasSalida.ReadOnly = true;
-            this.llamadasSalida.Width = 136;
-            // 
-            // llamadasEntrada
-            // 
-            this.llamadasEntrada.HeaderText = "Llamadas Entrada";
-            this.llamadasEntrada.MinimumWidth = 6;
-            this.llamadasEntrada.Name = "llamadasEntrada";
-            this.llamadasEntrada.ReadOnly = true;
-            this.llamadasEntrada.Width = 148;
-            // 
-            // llamadaActiva
-            // 
-            this.llamadaActiva.HeaderText = "Llamada Activa";
-            this.llamadaActiva.MinimumWidth = 6;
-            this.llamadaActiva.Name = "llamadaActiva";
-            this.llamadaActiva.ReadOnly = true;
-            this.llamadaActiva.Width = 131;
-            // 
-            // Email
-            // 
-            this.Email.HeaderText = "Email";
-            this.Email.MinimumWidth = 6;
-            this.Email.Name = "Email";
-            this.Email.ReadOnly = true;
-            this.Email.Width = 77;
             // 
             // MisAgentes
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1017, 681);
+            this.ClientSize = new System.Drawing.Size(763, 553);
             this.Controls.Add(this.flpAgentInfo);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MisAgentes";
-            this.Text = "MisAgentes";
+            this.Text = "SIDI Omnichannel";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);

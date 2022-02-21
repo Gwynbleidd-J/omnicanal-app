@@ -46,19 +46,17 @@ namespace LoginForms
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(56, 89);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox1.Location = new System.Drawing.Point(42, 72);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(219, 22);
+            this.textBox1.Size = new System.Drawing.Size(165, 20);
             this.textBox1.TabIndex = 0;
             this.textBox1.Visible = false;
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(315, 164);
-            this.richTextBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.richTextBox1.Location = new System.Drawing.Point(236, 133);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(192, 65);
+            this.richTextBox1.Size = new System.Drawing.Size(145, 54);
             this.richTextBox1.TabIndex = 1;
             this.richTextBox1.Text = "";
             this.richTextBox1.Visible = false;
@@ -68,12 +66,11 @@ namespace LoginForms
             this.tabControlChats.Controls.Add(this.tabPage1);
             this.tabControlChats.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlChats.ItemSize = new System.Drawing.Size(60, 30);
-            this.tabControlChats.Location = new System.Drawing.Point(22, 17);
-            this.tabControlChats.Margin = new System.Windows.Forms.Padding(4);
+            this.tabControlChats.Location = new System.Drawing.Point(16, 13);
             this.tabControlChats.Name = "tabControlChats";
             this.tabControlChats.Padding = new System.Drawing.Point(0, 0);
             this.tabControlChats.SelectedIndex = 0;
-            this.tabControlChats.Size = new System.Drawing.Size(886, 591);
+            this.tabControlChats.Size = new System.Drawing.Size(665, 480);
             this.tabControlChats.TabIndex = 5;
             // 
             // tabPage1
@@ -83,18 +80,16 @@ namespace LoginForms
             this.tabPage1.Controls.Add(this.button2);
             this.tabPage1.Controls.Add(this.txtNewTabChat);
             this.tabPage1.Location = new System.Drawing.Point(4, 34);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(878, 553);
+            this.tabPage1.Size = new System.Drawing.Size(657, 442);
             this.tabPage1.TabIndex = 0;
             // 
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(739, 473);
-            this.button1.Margin = new System.Windows.Forms.Padding(4);
+            this.button1.Location = new System.Drawing.Point(554, 384);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(123, 28);
+            this.button1.Size = new System.Drawing.Size(93, 23);
             this.button1.TabIndex = 5;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
@@ -103,10 +98,9 @@ namespace LoginForms
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(610, 473);
-            this.button2.Margin = new System.Windows.Forms.Padding(4);
+            this.button2.Location = new System.Drawing.Point(458, 384);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(121, 28);
+            this.button2.Size = new System.Drawing.Size(92, 23);
             this.button2.TabIndex = 6;
             this.button2.Text = "button2";
             this.button2.UseVisualStyleBackColor = true;
@@ -115,10 +109,9 @@ namespace LoginForms
             // txtNewTabChat
             // 
             this.txtNewTabChat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtNewTabChat.Location = new System.Drawing.Point(4, 479);
-            this.txtNewTabChat.Margin = new System.Windows.Forms.Padding(4);
+            this.txtNewTabChat.Location = new System.Drawing.Point(3, 389);
             this.txtNewTabChat.Name = "txtNewTabChat";
-            this.txtNewTabChat.Size = new System.Drawing.Size(598, 22);
+            this.txtNewTabChat.Size = new System.Drawing.Size(451, 20);
             this.txtNewTabChat.TabIndex = 4;
             this.txtNewTabChat.Visible = false;
             // 
@@ -128,10 +121,9 @@ namespace LoginForms
             | System.Windows.Forms.AnchorStyles.Left)));
             this.btnBeginChat.AutoSize = true;
             this.btnBeginChat.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBeginChat.Location = new System.Drawing.Point(22, 616);
-            this.btnBeginChat.Margin = new System.Windows.Forms.Padding(4);
+            this.btnBeginChat.Location = new System.Drawing.Point(16, 499);
             this.btnBeginChat.Name = "btnBeginChat";
-            this.btnBeginChat.Size = new System.Drawing.Size(271, 31);
+            this.btnBeginChat.Size = new System.Drawing.Size(203, 26);
             this.btnBeginChat.TabIndex = 7;
             this.btnBeginChat.Text = " Nueva conversacion WhatsApp";
             this.btnBeginChat.UseVisualStyleBackColor = true;
@@ -141,9 +133,10 @@ namespace LoginForms
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Location = new System.Drawing.Point(468, 662);
+            this.label1.Location = new System.Drawing.Point(351, 538);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(12, 17);
+            this.label1.Size = new System.Drawing.Size(10, 13);
             this.label1.TabIndex = 8;
             this.label1.Text = " ";
             // 
@@ -160,30 +153,30 @@ namespace LoginForms
             this.tableLayoutPanel1.Controls.Add(this.tabControlChats, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.btnBeginChat, 1, 2);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 4;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 2F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 2F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(932, 666);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(699, 541);
             this.tableLayoutPanel1.TabIndex = 9;
             // 
             // Prueba
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(932, 666);
+            this.ClientSize = new System.Drawing.Size(699, 541);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.textBox1);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Prueba";
             this.Tag = "Chats";
-            this.Text = "Chats";
+            this.Text = "SIDI Omnichannel";
             this.TransparencyKey = System.Drawing.Color.Transparent;
             this.Load += new System.EventHandler(this.Prueba_Load);
             this.tabControlChats.ResumeLayout(false);

@@ -37,10 +37,9 @@ namespace LoginForms
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(71, 49);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(53, 40);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(242, 34);
+            this.label1.Size = new System.Drawing.Size(182, 26);
             this.label1.TabIndex = 6;
             this.label1.Text = "Selecciona un estado para cambiarlo\r\na un agente.\r\n";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -48,20 +47,18 @@ namespace LoginForms
             // cmbAgentStatus
             // 
             this.cmbAgentStatus.FormattingEnabled = true;
-            this.cmbAgentStatus.Location = new System.Drawing.Point(130, 97);
-            this.cmbAgentStatus.Margin = new System.Windows.Forms.Padding(4);
+            this.cmbAgentStatus.Location = new System.Drawing.Point(98, 79);
             this.cmbAgentStatus.Name = "cmbAgentStatus";
-            this.cmbAgentStatus.Size = new System.Drawing.Size(128, 24);
+            this.cmbAgentStatus.Size = new System.Drawing.Size(97, 21);
             this.cmbAgentStatus.TabIndex = 5;
             this.cmbAgentStatus.Text = "Estado Agente";
             this.cmbAgentStatus.SelectedIndexChanged += new System.EventHandler(this.cmbAgentStatus_SelectedIndexChanged);
             // 
             // btnAccept
             // 
-            this.btnAccept.Location = new System.Drawing.Point(145, 141);
-            this.btnAccept.Margin = new System.Windows.Forms.Padding(4);
+            this.btnAccept.Location = new System.Drawing.Point(109, 115);
             this.btnAccept.Name = "btnAccept";
-            this.btnAccept.Size = new System.Drawing.Size(100, 28);
+            this.btnAccept.Size = new System.Drawing.Size(75, 23);
             this.btnAccept.TabIndex = 4;
             this.btnAccept.Text = "Aceptar";
             this.btnAccept.UseVisualStyleBackColor = true;
@@ -69,16 +66,17 @@ namespace LoginForms
             // 
             // ChangeAgentStatus
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(389, 218);
+            this.ClientSize = new System.Drawing.Size(292, 177);
             this.ControlBox = false;
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cmbAgentStatus);
             this.Controls.Add(this.btnAccept);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "ChangeAgentStatus";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Cambiar Estatus Agente";
+            this.Text = "SIDI Omnichannel";
             this.ResumeLayout(false);
             this.PerformLayout();
 

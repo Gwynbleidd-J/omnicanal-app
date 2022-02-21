@@ -169,7 +169,7 @@ namespace LoginForms
 
                         cmbUserStatus.SelectedIndexChanged += (e, a) => 
                         {
-                            if(cmbUserStatus.SelectedItem.ToString() == "Disponible")
+                            if(cmbUserStatus.SelectedItem.ToString() == "Disponible" && GlobalSocket.currentUser.rol.Id == 1)
                             {
                                 CreateSoftphoneForm(f);
                                 MethodInfo m = f.GetType().GetMethod("Connect");

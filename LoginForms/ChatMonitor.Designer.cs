@@ -85,14 +85,15 @@ namespace LoginForms
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.GridColor = System.Drawing.SystemColors.ControlLight;
-            this.dataGridView1.Location = new System.Drawing.Point(336, 37);
+            this.dataGridView1.Location = new System.Drawing.Point(252, 30);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(952, 464);
+            this.dataGridView1.Size = new System.Drawing.Size(714, 377);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
@@ -104,7 +105,7 @@ namespace LoginForms
             this.idChat.MinimumWidth = 6;
             this.idChat.Name = "idChat";
             this.idChat.ReadOnly = true;
-            this.idChat.Width = 77;
+            this.idChat.Width = 63;
             // 
             // idAgente
             // 
@@ -113,7 +114,7 @@ namespace LoginForms
             this.idAgente.MinimumWidth = 6;
             this.idAgente.Name = "idAgente";
             this.idAgente.ReadOnly = true;
-            this.idAgente.Width = 91;
+            this.idAgente.Width = 74;
             // 
             // agente
             // 
@@ -122,7 +123,7 @@ namespace LoginForms
             this.agente.MinimumWidth = 6;
             this.agente.Name = "agente";
             this.agente.ReadOnly = true;
-            this.agente.Width = 132;
+            this.agente.Width = 103;
             // 
             // HoraInicio
             // 
@@ -131,7 +132,7 @@ namespace LoginForms
             this.HoraInicio.MinimumWidth = 6;
             this.HoraInicio.Name = "HoraInicio";
             this.HoraInicio.ReadOnly = true;
-            this.HoraInicio.Width = 114;
+            this.HoraInicio.Width = 90;
             // 
             // plataforma
             // 
@@ -140,7 +141,7 @@ namespace LoginForms
             this.plataforma.MinimumWidth = 6;
             this.plataforma.Name = "plataforma";
             this.plataforma.ReadOnly = true;
-            this.plataforma.Width = 105;
+            this.plataforma.Width = 82;
             // 
             // Transferir
             // 
@@ -154,7 +155,7 @@ namespace LoginForms
             this.Transferir.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.Transferir.Text = "Transferir";
             this.Transferir.UseColumnTextForButtonValue = true;
-            this.Transferir.Width = 76;
+            this.Transferir.Width = 57;
             // 
             // groupBox1
             // 
@@ -164,9 +165,11 @@ namespace LoginForms
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.textBox1);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(336, 529);
+            this.groupBox1.Location = new System.Drawing.Point(252, 430);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(470, 171);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Size = new System.Drawing.Size(352, 139);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = " Transferir chats";
@@ -174,9 +177,10 @@ namespace LoginForms
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(337, 119);
+            this.button2.Location = new System.Drawing.Point(253, 97);
+            this.button2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(86, 33);
+            this.button2.Size = new System.Drawing.Size(64, 27);
             this.button2.TabIndex = 5;
             this.button2.Text = " Cancelar";
             this.button2.UseVisualStyleBackColor = true;
@@ -184,9 +188,10 @@ namespace LoginForms
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(325, 43);
+            this.button1.Location = new System.Drawing.Point(244, 35);
+            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(107, 48);
+            this.button1.Size = new System.Drawing.Size(80, 39);
             this.button1.TabIndex = 4;
             this.button1.Text = " Transferir";
             this.button1.UseVisualStyleBackColor = true;
@@ -196,34 +201,38 @@ namespace LoginForms
             // 
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(40, 119);
+            this.comboBox1.Location = new System.Drawing.Point(30, 97);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(234, 24);
+            this.comboBox1.Size = new System.Drawing.Size(176, 21);
             this.comboBox1.TabIndex = 3;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(37, 98);
+            this.label2.Location = new System.Drawing.Point(28, 80);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(130, 17);
+            this.label2.Size = new System.Drawing.Size(96, 13);
             this.label2.TabIndex = 2;
             this.label2.Text = " Agente a transferir";
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(37, 56);
+            this.textBox1.Location = new System.Drawing.Point(28, 46);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(237, 22);
+            this.textBox1.Size = new System.Drawing.Size(179, 20);
             this.textBox1.TabIndex = 1;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(34, 36);
+            this.label1.Location = new System.Drawing.Point(26, 29);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(99, 17);
+            this.label1.Size = new System.Drawing.Size(76, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = " Agente actual";
             // 
@@ -237,9 +246,11 @@ namespace LoginForms
             this.groupBox2.Controls.Add(this.button3);
             this.groupBox2.Controls.Add(this.textBox2);
             this.groupBox2.Controls.Add(this.comboBox2);
-            this.groupBox2.Location = new System.Drawing.Point(58, 37);
+            this.groupBox2.Location = new System.Drawing.Point(44, 30);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(238, 464);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Size = new System.Drawing.Size(178, 377);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = " Buscar";
@@ -247,27 +258,30 @@ namespace LoginForms
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(21, 185);
+            this.label8.Location = new System.Drawing.Point(16, 150);
+            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(120, 17);
+            this.label8.Size = new System.Drawing.Size(92, 13);
             this.label8.TabIndex = 13;
             this.label8.Text = " Rango de fechas";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(20, 106);
+            this.label7.Location = new System.Drawing.Point(15, 86);
+            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(45, 17);
+            this.label7.Size = new System.Drawing.Size(34, 13);
             this.label7.TabIndex = 12;
             this.label7.Text = " Valor";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(21, 33);
+            this.label6.Location = new System.Drawing.Point(16, 27);
+            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(67, 17);
+            this.label6.Size = new System.Drawing.Size(51, 13);
             this.label6.TabIndex = 11;
             this.label6.Text = " Columna";
             // 
@@ -275,26 +289,29 @@ namespace LoginForms
             // 
             this.dateTimePicker2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dateTimePicker2.Location = new System.Drawing.Point(17, 269);
+            this.dateTimePicker2.Location = new System.Drawing.Point(13, 219);
+            this.dateTimePicker2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(181, 22);
+            this.dateTimePicker2.Size = new System.Drawing.Size(137, 20);
             this.dateTimePicker2.TabIndex = 9;
             // 
             // dateTimePicker1
             // 
             this.dateTimePicker1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dateTimePicker1.Location = new System.Drawing.Point(17, 224);
+            this.dateTimePicker1.Location = new System.Drawing.Point(13, 182);
+            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(181, 22);
+            this.dateTimePicker1.Size = new System.Drawing.Size(137, 20);
             this.dateTimePicker1.TabIndex = 8;
             // 
             // button3
             // 
             this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Location = new System.Drawing.Point(20, 349);
+            this.button3.Location = new System.Drawing.Point(15, 284);
+            this.button3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(178, 32);
+            this.button3.Size = new System.Drawing.Size(134, 26);
             this.button3.TabIndex = 7;
             this.button3.Text = " Buscar";
             this.button3.UseVisualStyleBackColor = true;
@@ -303,9 +320,10 @@ namespace LoginForms
             // textBox2
             // 
             this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox2.Location = new System.Drawing.Point(20, 129);
+            this.textBox2.Location = new System.Drawing.Point(15, 105);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(178, 22);
+            this.textBox2.Size = new System.Drawing.Size(134, 20);
             this.textBox2.TabIndex = 6;
             // 
             // comboBox2
@@ -319,22 +337,24 @@ namespace LoginForms
             "Transferir"});
             this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(20, 56);
+            this.comboBox2.Location = new System.Drawing.Point(15, 46);
+            this.comboBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(184, 24);
+            this.comboBox2.Size = new System.Drawing.Size(139, 21);
             this.comboBox2.TabIndex = 5;
             this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
             // 
             // ChatMonitor
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1319, 746);
+            this.ClientSize = new System.Drawing.Size(989, 606);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.dataGridView1);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "ChatMonitor";
-            this.Text = "ChatMonitor";
+            this.Text = "SIDI Omnichannel";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

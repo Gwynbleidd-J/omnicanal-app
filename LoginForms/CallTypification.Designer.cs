@@ -127,7 +127,7 @@ namespace LoginForms
             this.Controls.Add(this.cmbNetwork);
             this.Name = "CallTypification";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Tipificación de Llamadas";
+            this.Text = "SIDI Omnichannel";
             this.ResumeLayout(false);
             this.PerformLayout();
 

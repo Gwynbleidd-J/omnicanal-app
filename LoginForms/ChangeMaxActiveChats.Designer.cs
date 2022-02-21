@@ -37,10 +37,9 @@ namespace LoginForms
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(30, 40);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(22, 32);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(329, 34);
+            this.label1.Size = new System.Drawing.Size(246, 26);
             this.label1.TabIndex = 9;
             this.label1.Text = "Introduzca el numero maximo de chats simultaneos\r\nque desea que atienda el agente" +
     "\r\n";
@@ -48,10 +47,9 @@ namespace LoginForms
             // 
             // btnAccept
             // 
-            this.btnAccept.Location = new System.Drawing.Point(147, 141);
-            this.btnAccept.Margin = new System.Windows.Forms.Padding(4);
+            this.btnAccept.Location = new System.Drawing.Point(110, 115);
             this.btnAccept.Name = "btnAccept";
-            this.btnAccept.Size = new System.Drawing.Size(100, 28);
+            this.btnAccept.Size = new System.Drawing.Size(75, 23);
             this.btnAccept.TabIndex = 7;
             this.btnAccept.Text = "Aceptar";
             this.btnAccept.UseVisualStyleBackColor = true;
@@ -59,21 +57,23 @@ namespace LoginForms
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(132, 97);
+            this.textBox1.Location = new System.Drawing.Point(99, 79);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(122, 22);
+            this.textBox1.Size = new System.Drawing.Size(92, 20);
             this.textBox1.TabIndex = 10;
             // 
             // ChangeMaxActiveChats
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(389, 218);
+            this.ClientSize = new System.Drawing.Size(292, 177);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnAccept);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "ChangeMaxActiveChats";
-            this.Text = "ChangeMaxActiveChats";
+            this.Text = "SIDI Omnichannel";
             this.ResumeLayout(false);
             this.PerformLayout();
 

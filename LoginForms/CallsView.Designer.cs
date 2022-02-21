@@ -1256,7 +1256,7 @@ namespace LoginForms
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "CallsView";
-            this.Text = "Softphone";
+            this.Text = "SIDI Omnichannel";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CallsView_FormClosing);
             this.Load += new System.EventHandler(this.CallsView_Load);
             this.groupBox1.ResumeLayout(false);
