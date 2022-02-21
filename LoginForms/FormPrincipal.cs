@@ -250,21 +250,26 @@ namespace LoginForms
 
                     var tempHome = (PictureBox)tableLayoutPanel8.Controls["Home"];
 
-                    //dynamicButton.Click += (s, e) =>
-                    //{
-                    //    f.TopLevel = false;
-                    //    f.Parent = pnlChatMessages;
-                    //    f.ControlBox = false;
-                    //    f.BringToFront();
-                    //    f.Location = new Point(0, 0);
-                    //    f.Dock = DockStyle.Fill;
-                    //    f.Focus();
-                    //    f.Show();
-                    //    f.FormBorderStyle = FormBorderStyle.None;
-                    //    f.BackColor = SystemColors.ButtonHighlight;
-                    //    client.prueba = f as Prueba;
-                    //};
-                    //flpDynamicButtons.Controls.Add(dynamicButton);
+                    dynamicButton.Click += (s, e) =>
+                    {
+                        f.TopLevel = false;
+                        f.Parent = pnlChatMessages;
+                        f.ControlBox = false;
+                        f.BringToFront();
+                        f.Location = new Point(0, 0);
+                        f.Dock = DockStyle.Fill;
+                        f.Focus();
+                        f.Show();
+                        f.FormBorderStyle = FormBorderStyle.None;
+                        f.BackColor = SystemColors.ButtonHighlight;
+                        client.prueba = f as Prueba;
+                    };
+
+
+                    if (dynamicButton.Text != "Softphone" && dynamicButton.Text != "Chats")
+                    {
+                        flpDynamicButtons.Controls.Add(dynamicButton);
+                    }
 
                     if (GlobalSocket.currentUser.rol.Id == 1)
                     {
@@ -392,8 +397,9 @@ namespace LoginForms
             return indidualId;
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
+        private async void pictureBox1_Click(object sender, EventArgs e)
         {
+            await rh.updateUserStatus("8", GlobalSocket.currentUser.ID);
             pictureBox1.Image = Properties.Resources.cerrar_sesion_presionado_1;
 
             login = new Login();

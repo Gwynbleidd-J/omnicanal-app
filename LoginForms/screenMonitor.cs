@@ -62,6 +62,7 @@ namespace LoginForms
                 //AsynchronousClient.conexionPerdidaMonitoreo = true;
 
                 //AsynchronousClient.Monitoreando = false;
+                SocketIOClient.Monitoreando = true;
                 button1.Text = "Comenzar monitoreo";
                 comboBox1.Enabled = true;
                 Monitoreando = false;
@@ -139,6 +140,7 @@ namespace LoginForms
             if (Monitoreando)
             {
                 //AsynchronousClient.Monitoreando = false;
+                SocketIOClient.Monitoreando = false;
                 button1.Text = "Comenzar monitoreo";
                 comboBox1.Enabled = true;
                 panel1.Visible = false;
@@ -163,6 +165,7 @@ namespace LoginForms
                 Monitoreando = true;
 
                 //AsynchronousClient.Monitoreando = true;
+                SocketIOClient.Monitoreando = true;
                 var response =  await rh.startMonitoring(idAgent, idSupervisor);
                 if (response == "InternalServerError")
                 {

@@ -1001,21 +1001,24 @@ namespace LoginForms.Shared
                 { "numberToSend", numberToSend}
             };
 
+            //GlobalSocket.message.messagePlatformId = "";
+            //GlobalSocket.message.text = text;
+            //GlobalSocket.message.transmitter = "a";
+            //GlobalSocket.message.statusId = 1;
+            //GlobalSocket.message.chatId = chatId;
+            //GlobalSocket.message.clientPlatformIdentifier = clientPlatformIdentifier;
+            //GlobalSocket.message.platformIdentifier = platformIdentifier;
+            //GlobalSocket.message.agentPlatformIdentifier = agentPlatformIdentifier;
+
+
+            await GlobalSocket.GlobalVarible.EmitAsync("agent-data",inputData);
+
             Console.WriteLine(inputData);
             var input = new FormUrlEncodedContent(inputData);
             HttpClient client = new HttpClient();
             HttpResponseMessage response = await client.PostAsync(baseUrl + "messenger/outMessage", input);
             HttpContent content = response.Content;
             //string data = await content.ReadAsStringAsync();
-
-            if (platformIdentifier == "c")
-            {
-                string socketData = JsonConvert.SerializeObject(inputData);
-                Console.WriteLine("\n\nSe intentara enviar por socket la data directamente al servidor a continuacion:\n " +socketData);
-                //new AsynchronousClient().Send(GlobalSocket.GlobalVarible, socketData);
-                //new SocketIOClient().SendMessage(socketData);
-
-            }
 
             string data = response.StatusCode.ToString();
             if (data != null)

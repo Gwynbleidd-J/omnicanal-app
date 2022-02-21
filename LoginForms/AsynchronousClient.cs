@@ -87,42 +87,42 @@ namespace LoginForms
             try
             {
 
-                //Establish the remote endpoint for the socket.
-                IPAddress ipAddress = IPAddress.Parse(remoteEndPoint);
-                //IPAddress ipAddress = IPAddress.Parse("201.149.34.171");
-                //IPAddress ipAddress = IPAddress.Parse("192.168.1.145");
-                IPEndPoint remoteEP = new IPEndPoint(ipAddress, port);
+                ////Establish the remote endpoint for the socket.
+                //IPAddress ipAddress = IPAddress.Parse(remoteEndPoint);
+                ////IPAddress ipAddress = IPAddress.Parse("201.149.34.171");
+                ////IPAddress ipAddress = IPAddress.Parse("192.168.1.145");
+                //IPEndPoint remoteEP = new IPEndPoint(ipAddress, port);
 
-                if (Reconexion)
-                {
-                    Console.WriteLine("************ \nReseteando las banderas");
-                    connectDone.Reset();
-                    sendDone.Reset();
-                    receiveDone.Reset();
-                }
+                //if (Reconexion)
+                //{
+                //    Console.WriteLine("************ \nReseteando las banderas");
+                //    connectDone.Reset();
+                //    sendDone.Reset();
+                //    receiveDone.Reset();
+                //}
 
-                // Create a TCP/IP socket.  
-                GlobalSocket.GlobalVarible = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-                GlobalSocket.GlobalVarible.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.KeepAlive, true);
-                //SetupkeepAlive(GlobalSocket.GlobalVarible);
+                //// Create a TCP/IP socket.  
+                //GlobalSocket.GlobalVarible = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+                //GlobalSocket.GlobalVarible.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.KeepAlive, true);
+                ////SetupkeepAlive(GlobalSocket.GlobalVarible);
 
 
-                //GlobalSocket.GlobalVarible.SetSocketOption(SocketOptionLevel.Tcp, SocketOptionName.tc)
-                //Connect to the remote endpoint
-                GlobalSocket.GlobalVarible.BeginConnect(remoteEP, new AsyncCallback(ConnectCallback), GlobalSocket.GlobalVarible);
+                ////GlobalSocket.GlobalVarible.SetSocketOption(SocketOptionLevel.Tcp, SocketOptionName.tc)
+                ////Connect to the remote endpoint
+                //GlobalSocket.GlobalVarible.BeginConnect(remoteEP, new AsyncCallback(ConnectCallback), GlobalSocket.GlobalVarible);
 
-                //connectDone.WaitOne();
-                Receive(GlobalSocket.GlobalVarible);//Receive();
-                //receiveDone.WaitOne();
+                ////connectDone.WaitOne();
+                //Receive(GlobalSocket.GlobalVarible);//Receive();
+                ////receiveDone.WaitOne();
 
-                //Send(GlobalSocket.GlobalVarible, "This is a test");
-                //sendDone.WaitOne();
+                ////Send(GlobalSocket.GlobalVarible, "This is a test");
+                ////sendDone.WaitOne();
 
-                //****************Comentado porque arriba ya hay un Receive
-                //Receive(GlobalSocket.GlobalVarible);
-                //receiveDone.WaitOne();
+                ////****************Comentado porque arriba ya hay un Receive
+                ////Receive(GlobalSocket.GlobalVarible);
+                ////receiveDone.WaitOne();
 
-                Console.WriteLine($"Response received:{response}");
+                //Console.WriteLine($"Response received:{response}");
 
                 //GlobalSocket.GlobalVarible.Shutdown(SocketShutdown.Both);
                 //GlobalSocket.GlobalVarible.Close();
@@ -288,26 +288,26 @@ namespace LoginForms
 
         public void CloseSocketConnection()
         {
-            try
-            {
-                GlobalSocket.GlobalVarible.Shutdown(SocketShutdown.Both);
-                if (GlobalSocket.GlobalVarible.Connected)
-                {
-                    Console.WriteLine($"Socket Connected");
-                }
-                else
-                {
-                    Console.WriteLine($"Socket Disconnected");
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error[CloseSocketConnection][AsynchronousClient] {ex.Message}");
-            }
-            finally
-            {
-                GlobalSocket.GlobalVarible.Close();
-            }
+            //try
+            //{
+            //    GlobalSocket.GlobalVarible.Shutdown(SocketShutdown.Both);
+            //    if (GlobalSocket.GlobalVarible.Connected)
+            //    {
+            //        Console.WriteLine($"Socket Connected");
+            //    }
+            //    else
+            //    {
+            //        Console.WriteLine($"Socket Disconnected");
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine($"Error[CloseSocketConnection][AsynchronousClient] {ex.Message}");
+            //}
+            //finally
+            //{
+            //    GlobalSocket.GlobalVarible.Close();
+            //}
         }
 
         public async Task treatNotificationAsync(string socketNotification)

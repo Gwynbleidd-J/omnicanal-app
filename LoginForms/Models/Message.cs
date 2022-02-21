@@ -19,6 +19,8 @@ namespace LoginForms.Models
         public string clientPlatformIdentifier { get; set; }
         public string mediaUrl { get; set; }
 
+        public string agentPlatformIdentifier { get; set; }
+
 
            // "platformIdentifier": 'w', "clientPlatformIdentifier: '24243244323422'"
     }

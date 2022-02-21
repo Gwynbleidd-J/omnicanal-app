@@ -6,15 +6,16 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Net.Sockets;
 using LoginForms.Models;
+using SocketIOClient;
 
 namespace LoginForms
 {
     static class GlobalSocket
     {
-        private static Socket socket;
+        private static SocketIO socket;
         private static User user;
 
-        public static Socket GlobalVarible
+        public static SocketIO GlobalVarible
         {
             get { return socket; }
             set { socket = value; }
@@ -25,6 +26,9 @@ namespace LoginForms
             get { return user; }
             set { user = value; }
         }
+
+        public static Message message { get; set; }
+
         public static string numberToSend { get; set; }
     }
 }

@@ -10,8 +10,11 @@ using System.Configuration;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using LoginForms.Models;
 
 namespace LoginForms
 {
@@ -27,20 +30,45 @@ namespace LoginForms
             //Console.OutputEncoding = Encoding.UTF8;
             var uri = new Uri(baseUrl);
             //var uri = new Uri("http://201.149.34.171:3025");
-             var socket = new SocketIO(uri, new SocketIOOptions
+            var socket = new SocketIO(uri, new SocketIOOptions
             {
                 Query = new Dictionary<string, string>
                 {
                     {"token", "V3"}
                 },
                 Reconnection = true,
+                ReconnectionDelay = 600
+
             });
 
-            socket.OnConnected += Socket_OnConnected;
+            GlobalSocket.GlobalVarible = socket;
+
+            socket .OnConnected += async (sender, e) =>
+            {
+                Console.WriteLine("Socket_OnConnected");
+                var client  = sender as SocketIO;
+                Console.WriteLine($"SocketId: {socket.Id}");
+                //await treatNotificationAsync(socket);
+                await socket.EmitAsync("hi", DateTime.Now.ToString());
+                //await socket.EmitAsync("agent-data", new Models.Message
+                //{
+                //    messagePlatformId = GlobalSocket.message.messagePlatformId,
+                //    text = GlobalSocket.message.text,
+                //    transmitter = GlobalSocket.message.transmitter,
+                //    statusId = GlobalSocket.message.statusId,
+                //    chatId = GlobalSocket.message.chatId,
+                //    clientPlatformIdentifier = GlobalSocket.message.clientPlatformIdentifier,
+                //    platformIdentifier = GlobalSocket.message.agentPlatformIdentifier,
+                //    agentPlatformIdentifier = GlobalSocket.message.agentPlatformIdentifier
+                //});
+            };
+            //socket.OnConnected += Socket_OnConnected;
             socket.OnPing += Socket_OnPing;
             socket.OnPong += Socket_OnPong;
             socket.OnDisconnected += Socket_OnDisconnected;
             socket.OnReconnectAttempt += Socket_OnReconnecting;
+            socket.OnReconnected += Socket_OnReconnected;
+            socket.OnError += Socket_OnError;
             socket.OnAny((name, response) =>
             {
                 Console.WriteLine("Evento que se escucha desde el server");
@@ -50,7 +78,7 @@ namespace LoginForms
             socket.On("serverEvent", response =>
             {
                 Console.WriteLine($"Server response:{response.GetValue<string>()}");
-               
+
             });
 
             socket.On("serverNotification", async response =>
@@ -65,16 +93,43 @@ namespace LoginForms
                 await treatNotificationAsync(response.ToString());
                 //await SetSocketPort(response.ToString());
             });
+
+            //socket.EmitAsync("server-data", SendData());
+
             await socket.ConnectAsync();
         }
-        private static async void Socket_OnConnected(object sender, EventArgs e)
+
+        private static void Socket_OnError(object sender, string e)
         {
-            Console.WriteLine("Socket_OnConnected");
-            var socket = sender as SocketIO;
-            Console.WriteLine($"SocketId: {socket.Id}");
-            //await treatNotificationAsync(socket);
-            await socket.EmitAsync("hi", DateTime.Now.ToString());
+            throw new NotImplementedException();
         }
+
+        private static void Socket_OnReconnected(object sender, int e)
+        {
+            throw new NotImplementedException(); /// esté metodo cuando se renecta el socket, por ejemplo cuandp hay reinicio de API
+        }
+
+        //private static async void Socket_OnConnected(object sender, EventArgs e)
+        //{
+        //    Console.WriteLine("Socket_OnConnected");
+        //    var socket = sender as SocketIO;
+        //    Console.WriteLine($"SocketId: {socket.Id}");
+        //    //await treatNotificationAsync(socket);
+        //    await socket.EmitAsync("hi", DateTime.Now.ToString());
+        //    await socket.EmitAsync("agent-data", new Models.Message
+        //    {
+        //        messagePlatformId = GlobalSocket.message.messagePlatformId,
+        //        text = GlobalSocket.message.text,
+        //        transmitter = GlobalSocket.message.transmitter,
+        //        statusId = GlobalSocket.message.statusId,
+        //        chatId = GlobalSocket.message.chatId,
+        //        clientPlatformIdentifier = GlobalSocket.message.clientPlatformIdentifier,
+        //        platformIdentifier = GlobalSocket.message.agentPlatformIdentifier,
+        //        agentPlatformIdentifier = GlobalSocket.message.agentPlatformIdentifier
+        //    });
+
+        //    //await socket.EmitAsync("agent-data", SendData());
+        //}
 
         private static void Socket_OnReconnecting(object sender, int e)
         {
@@ -141,23 +196,31 @@ namespace LoginForms
 
                 if (jobject.ContainsKey("Agent"))
                 {
-
-                    string Agent = jobject.Value<string>("Agent");
-                    string Message = jobject.Value<string>("message");
-                    var time24 = DateTime.Now.ToString("HH:mm:ss");
-
-                    new ToastContentBuilder()
-                    .AddArgument("action", "viewConversation")
-                    .AddArgument("conversationId", Agent + time24)
-                    .AddText("Agente " + Agent)
-                    .AddText(Message)
-                    .AddAttributionText("Hora: " + time24)
-                    //.SetBackgroundActivation()
-                    .Show(toast =>
+                    try
                     {
-                        toast.ExpirationTime = DateTime.Now.AddSeconds(1);
-                        toast.Dismissed += (senderT, args) => ToastNotificationManagerCompat.History.Clear();
-                    });
+                        string Agent = jobject.Value<string>("Agent");
+                        string Message = jobject.Value<string>("message");
+                        var time24 = DateTime.Now.ToString("HH:mm:ss");
+
+                        new ToastContentBuilder()
+                        .AddArgument("action", "viewConversation")
+                        .AddArgument("conversationId", Agent + time24)
+                        .AddText("Agente " + Agent)
+                        .AddText(Message)
+                        .AddAttributionText("Hora: " + time24)
+                        //.SetBackgroundActivation()
+                        .Show(toast =>
+                        {
+                            toast.Tag = "18365";
+                            toast.Group = "wallPosts";
+                            toast.ExpirationTime = DateTime.Now.AddSeconds(1);
+                            toast.Dismissed += (senderT, args) => ToastNotificationManagerCompat.History.Clear();
+                        });
+                    }
+                    catch(System.Runtime.InteropServices.COMException ex)
+                    {
+                        Console.WriteLine(ex);
+                    }
                 }
                 //else if (jobject.ContainsKey("CloseChat"))
                 //{
@@ -372,12 +435,25 @@ namespace LoginForms
             catch (Exception ex)
             {
                 Console.WriteLine("Error[treatNotification]: " + ex.ToString());
-            
-            
+
+
             }
         }
 
-
+        //public static string SendData(string data = "")
+        //{
+        //    return data;
+        //}
+        
+        public static void GetData(Dictionary<string, string> json)
+        {
+            var jsonData = JsonConvert.SerializeObject(json);
+            
+            foreach (var item in jsonData)
+            {
+                new JsonSocket().AgentPlatformIdentifier = jsonData;
+            }
+        }
         public static async Task SetSocketPort(string port)
         {
             var jobject = JsonConvert.DeserializeObject<JObject>(port);
@@ -693,6 +769,31 @@ namespace LoginForms
 
     public class JsonSocket
     {
-        public object socketPort { get; set; }
+        [JsonPropertyName("messagePlatformId")]
+        public string MessagePlatformId { get; set; }
+
+        [JsonPropertyName("text")]
+        public string Text { get; set; }
+
+        [JsonPropertyName("transmitter")]
+        public string Transmitter { get; set; }
+
+        [JsonPropertyName("statusId")]
+        public string StatusId { get; set; }
+
+        [JsonPropertyName("chatId")]
+        public string ChatId { get; set; }
+
+        [JsonPropertyName("clientPlatformIdentifier")]
+        public string ClientPlatformIdentifier { get; set; }
+
+        [JsonPropertyName("platformIdentifier")]
+        public string PlatformIdentifier { get; set; }
+
+        [JsonPropertyName("agentPlatformIdentifier")]
+        public string AgentPlatformIdentifier { get; set; }
+
+        [JsonPropertyName("numberToSend")]
+        public string NumberToSend { get; set; }
     }
 }

@@ -45,7 +45,6 @@ namespace LoginForms
             this.txtUserName.Name = "txtUserName";
             this.txtUserName.Size = new System.Drawing.Size(229, 22);
             this.txtUserName.TabIndex = 2;
-            this.txtUserName.Text = "alberto.victor@promoespacio.com.mx";
             // 
             // txtPassword
             // 
@@ -55,7 +54,6 @@ namespace LoginForms
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(229, 24);
             this.txtPassword.TabIndex = 3;
-            this.txtPassword.Text = "alberto.victor";
             this.txtPassword.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPassword_KeyPress);
             // 
             // panel2
