@@ -67,12 +67,13 @@ namespace LoginForms
         {
             //Task task = new Task(client.Connect);
             //task.Start();
-            await SocketIOClient.ClienteSocketIO();
             dynamicUserButtons();
             labelAgentStatus();
             comboBoxGetUserStatus();
             setStatusAgent();
             createAgentInformationForm();
+            await rh.SetStatusTime(GlobalSocket.currentUser.status.id);
+            await SocketIOClient.ClienteSocketIO();
             //this.WindowState = FormWindowState.Maximized;
         }
 
@@ -359,7 +360,12 @@ namespace LoginForms
                 //}
                 StatusItems statusItems = (StatusItems)cmbUserStatus.SelectedItem;
                 valor = statusItems.Id;
+                GlobalSocket.currentUser.status.id = valor;
                 await rh.updateUserStatus(valor, userId);
+                await rh.ChangeStatus(userId, valor);
+                await rh.TotalTimeStatus(GlobalSocket.currentUser.ID);
+                
+
                 MessageBox.Show("Estatus Agente Cambiado", "Estatus Agente", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 //if(cmbUserStatus.SelectedItem.ToString() == "Disponible")
                 //{
@@ -399,7 +405,9 @@ namespace LoginForms
 
         private async void pictureBox1_Click(object sender, EventArgs e)
         {
+            await rh.UpdateOnClosing(GlobalSocket.currentUser.ID, GlobalSocket.currentUser.status.id);
             await rh.updateUserStatus("8", GlobalSocket.currentUser.ID);
+            //await rh.ChangeStatus() para el tiempo en los cambios de los estados
             pictureBox1.Image = Properties.Resources.cerrar_sesion_presionado_1;
 
             login = new Login();

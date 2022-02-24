@@ -2430,14 +2430,14 @@ namespace LoginForms
 
         public Int32 onWaitingVoiceMessage(String messageAccount, Int32 urgentNewMessageCount, Int32 urgentOldMessageCount, Int32 newMessageCount, Int32 oldMessageCount)
         {
-            string Text = messageAccount;
-            Text += " has voice message.";
+            //string Text = messageAccount;
+            //Text += " has voice message.";
 
                 
-            ListBoxSIPLog.Invoke(new MethodInvoker(delegate
-                {
-                    ListBoxSIPLog.Items.Add(Text);
-                }));
+            //ListBoxSIPLog.Invoke(new MethodInvoker(delegate
+            //    {
+            //        ListBoxSIPLog.Items.Add(Text);
+            //    }));
             // You can use these parameters to check the voice message count
 
             //  urgentNewMessageCount;

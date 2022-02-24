@@ -155,27 +155,6 @@ namespace LoginForms
         {
             try
             {
-                #region region
-                //Console.WriteLine("\n************** \nSe recibe lo siguiente:" + socketNotification);
-                //var port = socketNotification;
-                //Console.WriteLine("\nHola agente, tu puerto asignado por la API es:" + port);
-                //var temp = await rh.updateAgentActiveIp(GlobalSocket.currentUser.email, port.ToString());
-                //if (temp == "OK")
-                //{
-                //    GlobalSocket.currentUser.activeIp = port;
-                //}
-                //else
-                //{
-                //    Console.WriteLine("No se pudo actualizar el puerto en base correctamente:" + temp);
-                //}
-
-                //FormPrincipal ActivePrincipal = (FormPrincipal)Application.OpenForms["FormPrincipal"];
-                //ActivePrincipal.BeginInvoke(new MethodInvoker(() =>
-                //{
-                //    ActivePrincipal.TextSocket = "Socket:" + port;
-
-                //}));
-                #endregion
 
                 #region Metodos con notificacion
                 Console.WriteLine("\n************** \nSe recibe lo siguiente:" + socketNotification);
@@ -235,7 +214,11 @@ namespace LoginForms
                 {
                     Console.WriteLine("\nEl id del chat es: " + jobject.Value<string>("chatId"));
 
-                    TabPageChat chat = prueba.getTabChatByChatId(jobject.Value<string>("chatId"));
+
+                    Prueba prue = (Prueba)Application.OpenForms["Prueba"];
+                    TabPageChat chat = prue.getTabChatByChatId(jobject.Value<string>("chatId"));
+
+                    //TabPageChat chat = prueba.getTabChatByChatId(jobject.Value<string>("chatId"));
                     chat.removeTabChat();
 
                 }
@@ -256,7 +239,12 @@ namespace LoginForms
 
                     Console.WriteLine("El objeto chat creado es este:" + JsonConvert.SerializeObject(Object).ToString());
 
-                    SocketIOClient.prueba.treatNotification(Object);
+
+
+                    Prueba prue = (Prueba)Application.OpenForms["Prueba"];
+                    prue.treatNotification(Object);
+
+                    //SocketIOClient.prueba.treatNotification(Object);
                 }
                 else if (jobject.ContainsKey("startMonitoring"))
                 {

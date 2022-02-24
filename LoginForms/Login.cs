@@ -82,6 +82,7 @@ namespace LoginForms
             try
             {
                 FormPrincipal formPrincipal = new FormPrincipal();
+                //await rh.SetStatusTime("8");
                 var jsonLogin = await rh.Login(txtUserName.Text.Trim(' '), txtPassword.Text.Trim(' '), ipAddress);
                 if (jsonLogin == "Unauthorized")
                 {
@@ -101,6 +102,7 @@ namespace LoginForms
                     GlobalSocket.currentUser.activeIp = "0";
                     GlobalSocket.currentUser.token = user.token;
                     //sIPAccount = new SIPAccount(requiredRegister, displayName, userName, registerName, password, domain, port, proxy);
+                    //await rh.SetStatusTime("8");
                     this.Hide();
                     formPrincipal.FormClosed += (s, args) => this.Close();
                     formPrincipal.Show();

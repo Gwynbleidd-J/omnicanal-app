@@ -54,6 +54,7 @@ namespace LoginForms
                     contadorLlamadas++;
                 }
 
+
                 lblLlamadasTotales.Text = contadorLlamadas.ToString();
 
                 pieLlamadas.Series = new SeriesCollection
@@ -257,10 +258,15 @@ namespace LoginForms
 
         //}
 
-        private void btnRecargar_Click(object sender, EventArgs e)
+        private async void btnRecargar_Click(object sender, EventArgs e)
         {
-            getChatsAsync();
-            getCallsAsync();
+            await getChatsAsync();
+            await getCallsAsync();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

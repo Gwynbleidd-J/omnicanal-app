@@ -27,6 +27,8 @@ namespace LoginForms.Shared
 
         private static readonly string baseUrl = ConfigurationManager.AppSettings["IpServidor"];
         private static string date;
+        private static string statusDate;
+        private static string endDate;
         /*
          * Lo mismo preguntar a Juan Carlos que pasa también con este método
          */
@@ -1033,17 +1035,109 @@ namespace LoginForms.Shared
             //sacarlo del json
         }
 
-        //Metodos para llenar la tabla de las llamadas
+        
+        
+        //Tiempo de cada estado del agente
+        public async Task<string> SetStatusTime( string statusId)
+        {
+            statusDate = DateTime.Now.ToString("HH:mm:ss");
+            var inputData = new Dictionary<string, string>
+            {
+                { "startingTime", statusDate},
+                { "userId", GlobalSocket.currentUser.ID},
+                { "statusId", statusId}
+            };
+            Console.WriteLine(inputData);
+            var input = new FormUrlEncodedContent(inputData);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync(baseUrl + "status/setStarTime", input);
+            HttpContent content = response.Content;
+            string data = response.Content.ReadAsStringAsync().Result;
+            if(!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            {
+                return data;
+            }
+            else
+            {
+                return response.StatusCode.ToString();
+            }
+        }
 
+        public async Task<string> ChangeStatus(string userId, string statusId)
+        {
+            endDate = DateTime.Now.ToString("HH:mm:ss");
+            var inputData = new Dictionary<string, string>
+            {
+                {"endingTime", endDate},
+                {"startingTime", endDate },
+                {"userId", GlobalSocket.currentUser.ID},
+                {"statusId", statusId }
+            };
+            var input = new FormUrlEncodedContent(inputData);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync(baseUrl + "status/changeStatus", input);
+            HttpContent content = response.Content;
+            string data = response.Content.ReadAsStringAsync().Result;
+            
+            if(!string.IsNullOrEmpty(response.StatusCode.ToString())&& response.StatusCode.ToString() == "OK")
+            {
 
+                return data;
+            }
+            else
+            {
+                return response.StatusCode.ToString();
+            }
+        }
 
-        //private string StartTime()
-        //{
-        //    string date = DateTime.Now.ToString("HH:mm:ss:ff");
-        //    return date;
-        //}
+        public async Task<string> TotalTimeStatus(string userId)
+        {
+            var inputData = new Dictionary<string, string>
+            {
+                {"startingTime", endDate},
+                {"userId", userId }
+            };
+            var input = new FormUrlEncodedContent(inputData);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync(baseUrl + "status/totalTime", input);
+            HttpContent content = response.Content;
+            string data = response.Content.ReadAsStringAsync().Result.ToString();
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            {
+                Console.WriteLine(data);
+                return data;
+            }
+            else
+            {
+                return response.StatusCode.ToString();
+            }
+        }
 
+        public async Task<string> UpdateOnClosing(string userId, string statusId)
+        {
+            string endDate = DateTime.Now.ToString("HH:mm:ss");
+            var inputData = new Dictionary<string, string>
+            {
+                {"endingTime", endDate },
+                {"userId", userId },
+                {"statusId", statusId }
+            };
+            var input = new FormUrlEncodedContent(inputData);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync(baseUrl + "status/updateOnClosing", input);
+            HttpContent content = response.Content;
+            string data = response.Content.ReadAsStringAsync().Result;
+            if(!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            {
+                return data;
+            }
+            else
+            {
+                return response.StatusCode.ToString();
+            }
 
+            //updateOnClosing
+        }
 
         public async Task<string> SendCall(string tipo, string transfer = "0")
         {
