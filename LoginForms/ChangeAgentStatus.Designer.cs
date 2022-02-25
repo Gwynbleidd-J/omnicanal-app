@@ -29,6 +29,7 @@ namespace LoginForms
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChangeAgentStatus));
             this.label1 = new System.Windows.Forms.Label();
             this.cmbAgentStatus = new System.Windows.Forms.ComboBox();
             this.btnAccept = new System.Windows.Forms.Button();
@@ -73,7 +74,8 @@ namespace LoginForms
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cmbAgentStatus);
             this.Controls.Add(this.btnAccept);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ChangeAgentStatus";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SIDI Omnichannel";

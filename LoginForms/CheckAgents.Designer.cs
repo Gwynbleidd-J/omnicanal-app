@@ -29,6 +29,7 @@ namespace LoginForms
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CheckAgents));
             this.flpAgentInfo = new System.Windows.Forms.FlowLayoutPanel();
             this.SuspendLayout();
             // 
@@ -45,7 +46,8 @@ namespace LoginForms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(645, 521);
             this.Controls.Add(this.flpAgentInfo);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "CheckAgents";
             this.Text = "SIDI Omnichannel";
             this.Load += new System.EventHandler(this.CheckAgents_Load);

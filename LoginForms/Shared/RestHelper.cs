@@ -1003,15 +1003,6 @@ namespace LoginForms.Shared
                 { "numberToSend", numberToSend}
             };
 
-            //GlobalSocket.message.messagePlatformId = "";
-            //GlobalSocket.message.text = text;
-            //GlobalSocket.message.transmitter = "a";
-            //GlobalSocket.message.statusId = 1;
-            //GlobalSocket.message.chatId = chatId;
-            //GlobalSocket.message.clientPlatformIdentifier = clientPlatformIdentifier;
-            //GlobalSocket.message.platformIdentifier = platformIdentifier;
-            //GlobalSocket.message.agentPlatformIdentifier = agentPlatformIdentifier;
-
 
             await GlobalSocket.GlobalVarible.EmitAsync("agent-data",inputData);
 
@@ -1223,6 +1214,27 @@ namespace LoginForms.Shared
 
         }
 
+        public async Task<string> GetUserStates(string id)
+        {
+            var inputData = new Dictionary<string, string>
+            {
+                { "id", id},
+            };
+            Console.WriteLine(inputData);
+            var input = new FormUrlEncodedContent(inputData);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync(baseUrl + "status/GetUserStates", input);
+            HttpContent content = response.Content;
+            string data = response.Content.ReadAsStringAsync().Result;
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            {
+                return data;
+            }
+            else
+            {
+                return response.StatusCode.ToString();
+            }
+        }
         public async Task<string> newEmptyChat(string text, string chatId, string clientPlatformIdentifier, string platformIdentifier, string agentPlatformIdentifier)
         {
             var numberToSend = "";

@@ -29,6 +29,7 @@ namespace LoginForms
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CallTypification));
             this.cmbNetwork = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtComments = new System.Windows.Forms.TextBox();
@@ -125,6 +126,7 @@ namespace LoginForms
             this.Controls.Add(this.txtComments);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cmbNetwork);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "CallTypification";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "SIDI Omnichannel";

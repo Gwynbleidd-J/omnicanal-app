@@ -31,6 +31,7 @@ namespace LoginForms
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MisAgentes));
             this.flpAgentInfo = new System.Windows.Forms.FlowLayoutPanel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.NombreAgente = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -41,6 +42,14 @@ namespace LoginForms
             this.llamadasEntrada = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.llamadaActiva = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Disponible = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NoDisponible = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ACW = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Capacitacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Calidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Sanitario = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Comida = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Break = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnRecargar = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -81,7 +90,15 @@ namespace LoginForms
             this.llamadasSalida,
             this.llamadasEntrada,
             this.llamadaActiva,
-            this.Email});
+            this.Email,
+            this.Disponible,
+            this.NoDisponible,
+            this.ACW,
+            this.Capacitacion,
+            this.Calidad,
+            this.Sanitario,
+            this.Comida,
+            this.Break});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -163,6 +180,70 @@ namespace LoginForms
             this.Email.ReadOnly = true;
             this.Email.Width = 64;
             // 
+            // Disponible
+            // 
+            this.Disponible.HeaderText = "Disponible";
+            this.Disponible.MinimumWidth = 6;
+            this.Disponible.Name = "Disponible";
+            this.Disponible.ReadOnly = true;
+            this.Disponible.Width = 91;
+            // 
+            // NoDisponible
+            // 
+            this.NoDisponible.HeaderText = "No Disponible";
+            this.NoDisponible.MinimumWidth = 6;
+            this.NoDisponible.Name = "NoDisponible";
+            this.NoDisponible.ReadOnly = true;
+            this.NoDisponible.Width = 101;
+            // 
+            // ACW
+            // 
+            this.ACW.HeaderText = "ACW";
+            this.ACW.MinimumWidth = 6;
+            this.ACW.Name = "ACW";
+            this.ACW.ReadOnly = true;
+            this.ACW.Width = 60;
+            // 
+            // Capacitacion
+            // 
+            this.Capacitacion.HeaderText = "Capacitacion";
+            this.Capacitacion.MinimumWidth = 6;
+            this.Capacitacion.Name = "Capacitacion";
+            this.Capacitacion.ReadOnly = true;
+            this.Capacitacion.Width = 105;
+            // 
+            // Calidad
+            // 
+            this.Calidad.HeaderText = "Calidad";
+            this.Calidad.MinimumWidth = 6;
+            this.Calidad.Name = "Calidad";
+            this.Calidad.ReadOnly = true;
+            this.Calidad.Width = 74;
+            // 
+            // Sanitario
+            // 
+            this.Sanitario.HeaderText = "Sanitario";
+            this.Sanitario.MinimumWidth = 6;
+            this.Sanitario.Name = "Sanitario";
+            this.Sanitario.ReadOnly = true;
+            this.Sanitario.Width = 83;
+            // 
+            // Comida
+            // 
+            this.Comida.HeaderText = "Comida";
+            this.Comida.MinimumWidth = 6;
+            this.Comida.Name = "Comida";
+            this.Comida.ReadOnly = true;
+            this.Comida.Width = 75;
+            // 
+            // Break
+            // 
+            this.Break.HeaderText = "Break";
+            this.Break.MinimumWidth = 6;
+            this.Break.Name = "Break";
+            this.Break.ReadOnly = true;
+            this.Break.Width = 66;
+            // 
             // btnRecargar
             // 
             this.btnRecargar.Location = new System.Drawing.Point(2, 429);
@@ -198,8 +279,9 @@ namespace LoginForms
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(763, 553);
-            this.Controls.Add(this.flpAgentInfo);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.flpAgentInfo);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MisAgentes";
             this.Text = "SIDI Omnichannel";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -222,5 +304,13 @@ namespace LoginForms
         private System.Windows.Forms.DataGridViewTextBoxColumn llamadasEntrada;
         private System.Windows.Forms.DataGridViewTextBoxColumn llamadaActiva;
         private System.Windows.Forms.DataGridViewTextBoxColumn Email;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Disponible;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NoDisponible;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ACW;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Capacitacion;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Calidad;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Sanitario;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Comida;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Break;
     }
 }

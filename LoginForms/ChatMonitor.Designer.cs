@@ -31,6 +31,7 @@ namespace LoginForms
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChatMonitor));
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.idChat = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.idAgente = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -86,7 +87,7 @@ namespace LoginForms
             this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.GridColor = System.Drawing.SystemColors.ControlLight;
             this.dataGridView1.Location = new System.Drawing.Point(252, 30);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
@@ -166,9 +167,9 @@ namespace LoginForms
             this.groupBox1.Controls.Add(this.textBox1);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(252, 430);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(352, 139);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
@@ -178,7 +179,7 @@ namespace LoginForms
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(253, 97);
-            this.button2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(64, 27);
             this.button2.TabIndex = 5;
@@ -189,7 +190,7 @@ namespace LoginForms
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(244, 35);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(80, 39);
             this.button1.TabIndex = 4;
@@ -202,7 +203,7 @@ namespace LoginForms
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(30, 97);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(2);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(176, 21);
             this.comboBox1.TabIndex = 3;
@@ -221,7 +222,7 @@ namespace LoginForms
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(28, 46);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(179, 20);
             this.textBox1.TabIndex = 1;
@@ -247,9 +248,9 @@ namespace LoginForms
             this.groupBox2.Controls.Add(this.textBox2);
             this.groupBox2.Controls.Add(this.comboBox2);
             this.groupBox2.Location = new System.Drawing.Point(44, 30);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox2.Size = new System.Drawing.Size(178, 377);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
@@ -290,7 +291,7 @@ namespace LoginForms
             this.dateTimePicker2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Time;
             this.dateTimePicker2.Location = new System.Drawing.Point(13, 219);
-            this.dateTimePicker2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dateTimePicker2.Margin = new System.Windows.Forms.Padding(2);
             this.dateTimePicker2.Name = "dateTimePicker2";
             this.dateTimePicker2.Size = new System.Drawing.Size(137, 20);
             this.dateTimePicker2.TabIndex = 9;
@@ -300,7 +301,7 @@ namespace LoginForms
             this.dateTimePicker1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Time;
             this.dateTimePicker1.Location = new System.Drawing.Point(13, 182);
-            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(2);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(137, 20);
             this.dateTimePicker1.TabIndex = 8;
@@ -309,7 +310,7 @@ namespace LoginForms
             // 
             this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.button3.Location = new System.Drawing.Point(15, 284);
-            this.button3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button3.Margin = new System.Windows.Forms.Padding(2);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(134, 26);
             this.button3.TabIndex = 7;
@@ -321,7 +322,7 @@ namespace LoginForms
             // 
             this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox2.Location = new System.Drawing.Point(15, 105);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(2);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(134, 20);
             this.textBox2.TabIndex = 6;
@@ -338,7 +339,7 @@ namespace LoginForms
             this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox2.FormattingEnabled = true;
             this.comboBox2.Location = new System.Drawing.Point(15, 46);
-            this.comboBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBox2.Margin = new System.Windows.Forms.Padding(2);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(139, 21);
             this.comboBox2.TabIndex = 5;
@@ -352,7 +353,8 @@ namespace LoginForms
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.dataGridView1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ChatMonitor";
             this.Text = "SIDI Omnichannel";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

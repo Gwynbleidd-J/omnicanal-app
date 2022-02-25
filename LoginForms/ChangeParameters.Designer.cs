@@ -29,6 +29,7 @@ namespace LoginForms
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChangeParameters));
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.lblBotTokenTelegram = new System.Windows.Forms.Label();
             this.lblTokenTwilioAccount = new System.Windows.Forms.Label();
@@ -97,9 +98,9 @@ namespace LoginForms
             this.groupBox3.Controls.Add(this.label21);
             this.groupBox3.Controls.Add(this.label22);
             this.groupBox3.Location = new System.Drawing.Point(333, 254);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox3.Size = new System.Drawing.Size(415, 128);
             this.groupBox3.TabIndex = 134;
             this.groupBox3.TabStop = false;
@@ -291,9 +292,9 @@ namespace LoginForms
             this.groupBox4.Controls.Add(this.label10);
             this.groupBox4.Controls.Add(this.label11);
             this.groupBox4.Location = new System.Drawing.Point(457, 11);
-            this.groupBox4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox4.Size = new System.Drawing.Size(291, 169);
             this.groupBox4.TabIndex = 132;
             this.groupBox4.TabStop = false;
@@ -467,7 +468,7 @@ namespace LoginForms
             // 
             this.cmbAgents.FormattingEnabled = true;
             this.cmbAgents.Location = new System.Drawing.Point(7, 22);
-            this.cmbAgents.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbAgents.Margin = new System.Windows.Forms.Padding(2);
             this.cmbAgents.Name = "cmbAgents";
             this.cmbAgents.Size = new System.Drawing.Size(131, 21);
             this.cmbAgents.Sorted = true;
@@ -600,7 +601,8 @@ namespace LoginForms
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ChangeParameters";
             this.Text = "SIDI Omnichannel";
             this.groupBox3.ResumeLayout(false);

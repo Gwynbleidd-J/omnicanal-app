@@ -24,6 +24,7 @@ namespace LoginForms
             InitializeComponent();
             getChatsAsync();
             getCallsAsync();
+            getStatusAsync();
         
             btnRecargar.BackColor = ColorTranslator.FromHtml("#e2e0e0");
 
@@ -169,7 +170,133 @@ namespace LoginForms
 
         }
 
+        public async Task getStatusAsync()
+        {
+            try
+            {
+                var userId = GlobalSocket.currentUser.ID;
+                var data = await rh.GetUserStates(userId);
+                var cleanData = (JObject)JsonConvert.DeserializeObject(data);
+                var algo = cleanData["data"];
 
+                var Disponible = algo["Disponible"].Value<int>();
+                var NoDisponible = algo["NoDisponible"].Value<int>();
+                var ACW = algo["ACW"].Value<int>();
+                var Capacitacion = algo["Capacitacion"].Value<int>();
+                var Calidad = algo["Calidad"].Value<int>();
+                var Sanitario = algo["Sanitario"].Value<int>();
+                var Comida = algo["Comida"].Value<int>();
+                var Break = algo["Break"].Value<int>();
+
+
+                bool dataDisponible = false;
+                bool dataNoDisponible = false;
+                bool dataACW = false;
+                bool dataCapacitacion = false;
+                bool dataCalidad = false;
+                bool dataSanitario = false;
+                bool dataComida = false;
+                bool dataBreak = false;
+
+                foreach (var item in algo)
+                {
+                    if (Disponible != 0) { dataDisponible = true; }
+                    if (NoDisponible != 0) { dataNoDisponible = true; }
+                    if (ACW != 0) { dataACW = true; }
+                    if (Capacitacion != 0) { dataCapacitacion = true; }
+                    if (Calidad != 0) { dataCalidad = true; }
+                    if (Sanitario != 0) { dataSanitario = true; }
+                    if (Comida != 0) { dataComida = true; }
+                    if (Break != 0) { dataBreak = true; }
+
+                }
+
+                pieStatus.Series = new SeriesCollection
+            {
+                new PieSeries
+                {
+                    StrokeThickness = 0,
+                    Title = "Disponible",
+                    Values = new ChartValues<double> {Disponible},
+                    PushOut = 5,
+                    DataLabels = dataDisponible,
+                    FontWeight = FontWeights.Normal,
+                    FontSize = double.Parse("14")
+                },
+                new PieSeries
+                {
+                    StrokeThickness = 0,
+                    PushOut = 5,
+                    Title = "No Disponible",
+                    Values = new ChartValues<double> {NoDisponible},
+                    DataLabels = dataNoDisponible,
+                    FontWeight = FontWeights.Normal,
+                },
+                new PieSeries
+                {
+                    StrokeThickness = 0,
+                    PushOut = 5,
+                    Title = "ACW",
+                    Values = new ChartValues<double> {ACW},
+                    DataLabels = dataACW,
+                    FontWeight = FontWeights.Normal,
+                },
+                new PieSeries
+                {
+                    StrokeThickness = 0,
+                    PushOut = 5,
+                    Title = "Capacitacion",
+                    Values = new ChartValues<double> {Capacitacion},
+                    DataLabels = dataCapacitacion,
+                    FontWeight = FontWeights.Normal,
+                },
+                new PieSeries
+                {
+                    StrokeThickness = 0,
+                    PushOut = 5,
+                    Title = "Calidad",
+                    Values = new ChartValues<double> {Calidad},
+                    DataLabels = dataCalidad,
+                    FontWeight = FontWeights.Normal,
+                },
+                new PieSeries
+                {
+                    StrokeThickness = 0,
+                    PushOut = 5,
+                    Title = "Sanitario",
+                    Values = new ChartValues<double> {Sanitario},
+                    DataLabels = dataSanitario,
+                    FontWeight = FontWeights.Normal,
+                },
+                new PieSeries
+                {
+                    StrokeThickness = 0,
+                    PushOut = 5,
+                    Title = "Comida",
+                    Values = new ChartValues<double> {Comida},
+                    DataLabels = dataComida,
+                    FontWeight = FontWeights.Normal,
+                },
+                new PieSeries
+                {
+                    StrokeThickness = 0,
+                    PushOut = 5,
+                    Title = "Break",
+                    Values = new ChartValues<double> {Break},
+                    DataLabels = dataBreak,
+                    FontWeight = FontWeights.Normal,
+                },
+
+            };
+
+                pieStatus.LegendLocation = LegendLocation.Bottom;
+
+            }
+            catch (Exception _e)
+            {
+                throw _e;
+            }
+        }
 
         //public void SetSolidGauge()
         //{
@@ -262,6 +389,7 @@ namespace LoginForms
         {
             await getChatsAsync();
             await getCallsAsync();
+            await getStatusAsync();
         }
 
         private void label1_Click(object sender, EventArgs e)

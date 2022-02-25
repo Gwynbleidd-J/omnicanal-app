@@ -29,6 +29,7 @@ namespace LoginForms
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Prueba));
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.tabControlChats = new System.Windows.Forms.TabControl();
@@ -153,7 +154,7 @@ namespace LoginForms
             this.tableLayoutPanel1.Controls.Add(this.tabControlChats, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.btnBeginChat, 1, 2);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 4;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 2F));
@@ -174,6 +175,7 @@ namespace LoginForms
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.textBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Prueba";
             this.Tag = "Chats";
             this.Text = "SIDI Omnichannel";

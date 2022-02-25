@@ -206,6 +206,7 @@ namespace LoginForms
                     int contadorLlamadasEntrantes = 0;
                     int contadorLlamadasActivas = 0;
 
+
                     foreach (var itemCall in tempCalls)
                     {
                         var tipoLlamada = itemCall["tipoLlamada"].Value<int>();
@@ -227,7 +228,37 @@ namespace LoginForms
                     }
                     //++++++++++++++++++
 
-                    dataGridView1.Rows.Add(nombre, chatsActivos,chatsCerrados, chatsMaximos, contadorLlamadasEntrantes, ContadorLlamadasCerradas, contadorLlamadasActivas, correo);
+
+
+                    //Seccion de estados del agente
+
+
+                    string datosStatus = await rh.GetUserStates(ID.ToString());
+                    var statusData = (JObject)JsonConvert.DeserializeObject(datosStatus);
+                    var tempStatus = statusData["data"];
+
+                    var Disponible = tempStatus["Disponible"].Value<int>();
+                    var NoDisponible = tempStatus["NoDisponible"].Value<int>();
+                    var ACW = tempStatus["ACW"].Value<int>();
+                    var Capacitacion = tempStatus["Capacitacion"].Value<int>();
+                    var Calidad = tempStatus["Calidad"].Value<int>();
+                    var Sanitario = tempStatus["Sanitario"].Value<int>();
+                    var Comida = tempStatus["Comida"].Value<int>();
+                    var Break = tempStatus["Break"].Value<int>();
+
+                    //+++++++++++++++++++++
+
+                    dataGridView1.Rows.Add(nombre, chatsActivos,chatsCerrados, chatsMaximos, contadorLlamadasEntrantes, 
+                        ContadorLlamadasCerradas, contadorLlamadasActivas, correo,
+                        Disponible,
+                        NoDisponible,
+                        ACW,
+                        Capacitacion,
+                        Calidad,
+                        Sanitario,
+                        Comida,
+                        Break
+                        );
                 }
 
                 dataGridView1.Refresh();

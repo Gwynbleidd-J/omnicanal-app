@@ -30,6 +30,7 @@ namespace LoginForms
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CallsView));
             this.checkBoxH264 = new System.Windows.Forms.CheckBox();
             this.checkBoxG729 = new System.Windows.Forms.CheckBox();
             this.checkBoxPCMA = new System.Windows.Forms.CheckBox();
@@ -1255,6 +1256,7 @@ namespace LoginForms
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "CallsView";
             this.Text = "SIDI Omnichannel";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CallsView_FormClosing);

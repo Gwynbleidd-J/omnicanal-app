@@ -13,7 +13,7 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>C:\Users\danyp\OneDrive\Documentos\Instalador Omnicanal\</PublishUrl>
+    <PublishUrl>C:\Promo Espacio\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -23,9 +23,10 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>7</ApplicationRevision>
+    <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -57,7 +58,7 @@
     <ManifestKeyFile>LoginForms_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <GenerateManifests>false</GenerateManifests>
+    <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>false</SignManifests>
@@ -68,6 +69,9 @@
   <PropertyGroup />
   <PropertyGroup>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Sidi Omnichannel.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
@@ -151,12 +155,6 @@
     </Compile>
     <Compile Include="FormPrincipal.Designer.cs">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GetTimeStatus.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GetTimeStatus.Designer.cs">
-      <DependentUpon>GetTimeStatus.cs</DependentUpon>
     </Compile>
     <Compile Include="GlobalSocket.cs" />
     <Compile Include="Login.cs">
@@ -279,9 +277,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormPrincipal.resx">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GetTimeStatus.resx">
-      <DependentUpon>GetTimeStatus.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
@@ -621,6 +616,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\recargar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="portsip_media.dll" />
+    <Content Include="portsip_sdk.dll" />
+    <Content Include="Sidi Omnichannel.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

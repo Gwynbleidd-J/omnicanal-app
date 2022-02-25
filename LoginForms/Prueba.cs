@@ -475,7 +475,6 @@ namespace LoginForms
                     Name = $"txtNumber",
                     Size = new Size(170, 30),
                     Location = new Point(105, 70),
-                    Text = "4621929111"
                 };
 
                 Button btnSaveNumber = new Button

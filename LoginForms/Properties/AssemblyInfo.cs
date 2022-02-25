@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // conjunto de atributos. Cambie estos valores de atributo para modificar la información
 // asociada con un ensamblado.
 [assembly: AssemblyTitle("SIDI Omnichannel")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("CRM Omnichannel para la plataforma SIDI")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Promo Espacio")]
 [assembly: AssemblyProduct("SIDI Omnichannel")]
 [assembly: AssemblyCopyright("Copyright ©  2022")]
 [assembly: AssemblyTrademark("")]

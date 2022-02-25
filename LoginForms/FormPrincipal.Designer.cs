@@ -382,6 +382,7 @@ namespace LoginForms
             this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.tableLayoutPanel7);
             this.DoubleBuffered = true;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Menu = this.mainMenu1;
             this.MinimumSize = new System.Drawing.Size(855, 665);
             this.Name = "FormPrincipal";

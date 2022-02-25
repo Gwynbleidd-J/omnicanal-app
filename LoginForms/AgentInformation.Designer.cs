@@ -29,24 +29,24 @@ namespace LoginForms
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AgentInformation));
             this.flpAgentInformation = new System.Windows.Forms.FlowLayoutPanel();
             this.SuspendLayout();
             // 
             // flpAgentInformation
             // 
-            this.flpAgentInformation.Location = new System.Drawing.Point(16, 15);
-            this.flpAgentInformation.Margin = new System.Windows.Forms.Padding(4);
+            this.flpAgentInformation.Location = new System.Drawing.Point(12, 12);
             this.flpAgentInformation.Name = "flpAgentInformation";
-            this.flpAgentInformation.Size = new System.Drawing.Size(599, 362);
+            this.flpAgentInformation.Size = new System.Drawing.Size(449, 294);
             this.flpAgentInformation.TabIndex = 0;
             // 
             // AgentInformation
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(629, 388);
+            this.ClientSize = new System.Drawing.Size(472, 315);
             this.Controls.Add(this.flpAgentInformation);
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AgentInformation";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Información Agente";

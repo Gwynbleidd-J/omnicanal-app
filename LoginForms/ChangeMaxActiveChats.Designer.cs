@@ -29,6 +29,7 @@ namespace LoginForms
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChangeMaxActiveChats));
             this.label1 = new System.Windows.Forms.Label();
             this.btnAccept = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -58,7 +59,7 @@ namespace LoginForms
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(99, 79);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(92, 20);
             this.textBox1.TabIndex = 10;
@@ -71,7 +72,8 @@ namespace LoginForms
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnAccept);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ChangeMaxActiveChats";
             this.Text = "SIDI Omnichannel";
             this.ResumeLayout(false);

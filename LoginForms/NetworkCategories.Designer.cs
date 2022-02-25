@@ -29,6 +29,7 @@ namespace LoginForms
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NetworkCategories));
             this.btnAccept = new System.Windows.Forms.Button();
             this.cmbNetwork = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -72,6 +73,7 @@ namespace LoginForms
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cmbNetwork);
             this.Controls.Add(this.btnAccept);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "NetworkCategories";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SIDI Omnichannel";
