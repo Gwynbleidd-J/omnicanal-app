@@ -14,6 +14,7 @@ using System.Net.NetworkInformation;
 using Newtonsoft.Json;
 using LoginForms.Models;
 using Newtonsoft.Json.Linq;
+using System.IO;
 
 namespace LoginForms
 {
@@ -1298,7 +1299,13 @@ namespace LoginForms
             //
             sdkLib.createCallbackHandlers();
 
-            string logFilePath = @"C:\logSoftphone"; // The log file path, you can change it - the folder MUST exists
+            string appPath = Path.GetDirectoryName(Application.ExecutablePath) + @"\LogRecords\";
+            if (Directory.Exists(appPath) == false)
+            {
+                Directory.CreateDirectory(appPath);
+            }
+
+            string logFilePath = appPath; // The log file path, you can change it - the folder MUST exists
             string agent = "PortSIP VoIP SDK";
             string stunServer = TextBoxStunServer.Text;
 
@@ -1502,7 +1509,13 @@ namespace LoginForms
 
             var id = jobject.Value<string>("data").ToString();
 
-            string filePath = "C:/grabaciones";
+            string appPath = Path.GetDirectoryName(Application.ExecutablePath) + @"\CallRecords\";
+            if (Directory.Exists(appPath) == false)
+            {
+                Directory.CreateDirectory(appPath);
+            }
+
+            string filePath = appPath;
             string fileName = $"grabacion-{id}";
 
             AUDIO_RECORDING_FILEFORMAT audioRecordFileFormat = AUDIO_RECORDING_FILEFORMAT.FILEFORMAT_WAVE;
@@ -1842,8 +1855,8 @@ namespace LoginForms
                 {
                     ListBoxSIPLog.Items.Add(Text);
                 }));
-                rh.SendCall("1");
 
+                //rh.SendCall("1").Wait();
                 lblFolio.Text = rh.SendCall("1").Result.ToString();
                 lblEstatusLlamada.Text = "En llamada";
                 //StartCallRecord();
@@ -1973,7 +1986,7 @@ namespace LoginForms
 
             string Text = "Line " + i.ToString();
             Text = Text + ": Call established";
-            rh.SendCall("2");
+            //rh.SendCall("2").Wait();
             lblFolio.Text = rh.SendCall("2").Result.ToString();
             ListBoxSIPLog.Invoke(new MethodInvoker(delegate
             {
@@ -2270,7 +2283,7 @@ namespace LoginForms
                 {
                     ListBoxSIPLog.Items.Add(Text);
                 }));
-                rh.SendCall("3", "2");
+                rh.SendCall("3", "2").Wait();
             }
             lblEstatusLlamada.Text = "Recibiste una transferencia de llamada";
             return 0;
@@ -2293,7 +2306,7 @@ namespace LoginForms
             {
                 ListBoxSIPLog.Items.Add(Text);
             }));
-            rh.SendCall("3", "1");
+            rh.SendCall("3", "1").Wait();
             lblEstatusLlamada.Text = "Transferiste una llamada";
             return 0; 
         }

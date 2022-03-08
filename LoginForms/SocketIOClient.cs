@@ -27,7 +27,6 @@ namespace LoginForms
 
         public static async Task ClienteSocketIO()
         {
-            //Console.OutputEncoding = Encoding.UTF8;
             var uri = new Uri(baseUrl);
             //var uri = new Uri("http://201.149.34.171:3025");
             var socket = new SocketIO(uri, new SocketIOOptions
@@ -389,6 +388,16 @@ namespace LoginForms
 
                     //Models.Message notification = JsonConvert.DeserializeObject<Models.Message>(jobjectP.ToString())
                     Models.Message notification = JsonConvert.DeserializeObject<Models.Message>(jobject.ToString());
+                    //if(jobject.Value<string>("platformIdentifier") == "t")
+                    //{
+                    //    GlobalSocket.numberToClose = jobject.Value<string>("clientPlatformIdentifier");
+                    //    Console.WriteLine($"clientPlatformIdentifier: {GlobalSocket.numberToClose}");
+                    //}
+                    //else if(jobject.Value<string>("platformIdentifier") == "w")
+                    //{
+                    //    GlobalSocket.numberToClose = jobject.Value<string>("clientPlatformIdentifier");
+                    //    Console.WriteLine($"clientPlatformIdentifier: {GlobalSocket.numberToClose}");
+                    //}
 
                     Console.WriteLine("notificacion:" + notification);
 

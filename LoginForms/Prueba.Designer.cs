@@ -67,11 +67,11 @@ namespace LoginForms
             this.tabControlChats.Controls.Add(this.tabPage1);
             this.tabControlChats.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlChats.ItemSize = new System.Drawing.Size(60, 30);
-            this.tabControlChats.Location = new System.Drawing.Point(16, 13);
+            this.tabControlChats.Location = new System.Drawing.Point(17, 14);
             this.tabControlChats.Name = "tabControlChats";
             this.tabControlChats.Padding = new System.Drawing.Point(0, 0);
             this.tabControlChats.SelectedIndex = 0;
-            this.tabControlChats.Size = new System.Drawing.Size(665, 480);
+            this.tabControlChats.Size = new System.Drawing.Size(672, 524);
             this.tabControlChats.TabIndex = 5;
             // 
             // tabPage1
@@ -82,15 +82,15 @@ namespace LoginForms
             this.tabPage1.Controls.Add(this.txtNewTabChat);
             this.tabPage1.Location = new System.Drawing.Point(4, 34);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(657, 442);
+            this.tabPage1.Size = new System.Drawing.Size(664, 486);
             this.tabPage1.TabIndex = 0;
             // 
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(554, 384);
+            this.button1.Location = new System.Drawing.Point(554, 406);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(93, 23);
+            this.button1.Size = new System.Drawing.Size(100, 23);
             this.button1.TabIndex = 5;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
@@ -99,9 +99,9 @@ namespace LoginForms
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(458, 384);
+            this.button2.Location = new System.Drawing.Point(458, 406);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(92, 23);
+            this.button2.Size = new System.Drawing.Size(99, 23);
             this.button2.TabIndex = 6;
             this.button2.Text = "button2";
             this.button2.UseVisualStyleBackColor = true;
@@ -110,9 +110,9 @@ namespace LoginForms
             // txtNewTabChat
             // 
             this.txtNewTabChat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtNewTabChat.Location = new System.Drawing.Point(3, 389);
+            this.txtNewTabChat.Location = new System.Drawing.Point(3, 411);
             this.txtNewTabChat.Name = "txtNewTabChat";
-            this.txtNewTabChat.Size = new System.Drawing.Size(451, 20);
+            this.txtNewTabChat.Size = new System.Drawing.Size(458, 20);
             this.txtNewTabChat.TabIndex = 4;
             this.txtNewTabChat.Visible = false;
             // 
@@ -122,9 +122,9 @@ namespace LoginForms
             | System.Windows.Forms.AnchorStyles.Left)));
             this.btnBeginChat.AutoSize = true;
             this.btnBeginChat.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBeginChat.Location = new System.Drawing.Point(16, 499);
+            this.btnBeginChat.Location = new System.Drawing.Point(17, 544);
             this.btnBeginChat.Name = "btnBeginChat";
-            this.btnBeginChat.Size = new System.Drawing.Size(203, 26);
+            this.btnBeginChat.Size = new System.Drawing.Size(203, 29);
             this.btnBeginChat.TabIndex = 7;
             this.btnBeginChat.Text = " Nueva conversacion WhatsApp";
             this.btnBeginChat.UseVisualStyleBackColor = true;
@@ -161,7 +161,7 @@ namespace LoginForms
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 2F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(699, 541);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(707, 589);
             this.tableLayoutPanel1.TabIndex = 9;
             // 
             // Prueba
@@ -170,7 +170,7 @@ namespace LoginForms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(699, 541);
+            this.ClientSize = new System.Drawing.Size(707, 589);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.richTextBox1);

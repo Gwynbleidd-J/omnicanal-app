@@ -36,17 +36,22 @@ namespace LoginForms
 
         private void ShowAgents()
         {
-            if(GlobalSocket.currentUser.rol.Id.ToString() == "3")
-            {
-                agentsInformation(GlobalSocket.currentUser.ID);
-                dataGridView1.Visible = false;
-                tableLayoutPanel1.Visible = false;
-            }
-            else
-            {
-                flpAgentInfo.Visible = false;
-                SupervisorAgents(rolId);
-            }
+
+            flpAgentInfo.Visible = false;
+            SupervisorAgents(rolId);
+
+
+            //if (GlobalSocket.currentUser.rol.Id.ToString() == "3")
+            //{
+            //    agentsInformation(GlobalSocket.currentUser.ID);
+            //    dataGridView1.Visible = false;
+            //    tableLayoutPanel1.Visible = false;
+            //}
+            //else
+            //{
+            //    flpAgentInfo.Visible = false;
+            //    SupervisorAgents(rolId);
+            //}
         }
 
         private async void agentsInformation(string leaderId)

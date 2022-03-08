@@ -13,6 +13,7 @@ using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Drawing;
 using System.Net.Http.Headers;
+using LoginForms.Utils;
 
 namespace LoginForms.Shared
 {
@@ -511,7 +512,7 @@ namespace LoginForms.Shared
         public async Task<string> shareScreenshot(Bitmap bitImage, string idSupervisor)
         {
 
-            HttpContent stringContent = new StringContent(idSupervisor);
+            HttpContent stringContent = new StringContent(idSupervisor); // a que chat
             ImageConverter converter = new ImageConverter();
             byte[] BArray = (byte[])converter.ConvertTo(bitImage, typeof(byte[]));
 
@@ -615,10 +616,15 @@ namespace LoginForms.Shared
 
         public async Task<string> updateNetworkCategories(string chatId, string networkCategoryId)
         {
+            string clientPlatformIdentifier = TabPageChat.lblClientPlatformIdentifier.Text;
+            string platformIdentifier = TabPageChat.lblPlatformIdentifier.Text;
             var inputData = new Dictionary<string, string>
             {
                 {"chatId", chatId },
-                {"networkId", networkCategoryId }
+                {"networkId", networkCategoryId },
+                {"clientPlatformIdentifier", clientPlatformIdentifier },
+                {"platformIdentifier", platformIdentifier}
+
             };
             var input = new FormUrlEncodedContent(inputData);
             HttpClient client = new HttpClient();
@@ -1026,6 +1032,45 @@ namespace LoginForms.Shared
             //sacarlo del json
         }
 
+        //public async Task<string> SendImage()
+        //{
+
+        //    HttpContent stringContent = new StringContent(idSupervisor);
+        //    ImageConverter converter = new ImageConverter();
+        //    byte[] BArray = (byte[])converter.ConvertTo(bitImage, typeof(byte[]));
+
+        //    string idAgente = GlobalSocket.currentUser.ID;
+        //    HttpContent agentContent = new StringContent(idAgente);
+
+        //    //HttpContent fileStreamContent = new StreamContent(fileStream);
+        //    HttpContent bytesContent = new ByteArrayContent(BArray);
+
+        //    //Setting type of file
+        //    bytesContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
+
+        //    using (var client = new HttpClient())
+        //    using (var formData = new MultipartFormDataContent())
+        //    {
+
+        //        // <input type="text" name="filename" />
+        //        formData.Add(bytesContent, "campo1", "campo1");
+        //        formData.Add(stringContent, "campo2", idSupervisor);
+        //        formData.Add(agentContent, "campo3", idAgente);
+
+        //        var response = await client.PostAsync(baseUrl + "record", formData);
+        //        HttpContent content = response.Content;
+        //        var data = await content.ReadAsStringAsync();
+
+        //        if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+        //        {
+        //            return data;
+        //        }
+        //        else
+        //        {
+        //            return response.StatusCode.ToString();
+        //        }
+        //    }
+        //}
         
         
         //Tiempo de cada estado del agente
@@ -1092,7 +1137,7 @@ namespace LoginForms.Shared
             HttpClient client = new HttpClient();
             HttpResponseMessage response = await client.PostAsync(baseUrl + "status/totalTime", input);
             HttpContent content = response.Content;
-            string data = response.Content.ReadAsStringAsync().Result.ToString();
+            string data = await response.Content.ReadAsStringAsync();
             if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
             {
                 Console.WriteLine(data);
@@ -1117,7 +1162,7 @@ namespace LoginForms.Shared
             HttpClient client = new HttpClient();
             HttpResponseMessage response = await client.PostAsync(baseUrl + "status/updateOnClosing", input);
             HttpContent content = response.Content;
-            string data = response.Content.ReadAsStringAsync().Result;
+            string data = await response.Content.ReadAsStringAsync();
             if(!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
             {
                 return data;

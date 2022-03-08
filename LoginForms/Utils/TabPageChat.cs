@@ -16,21 +16,23 @@ namespace LoginForms.Utils
     {
         //FORMULARIO PADRE
         #region Atributos
-        public string chatId { get; set; } 
+        public string chatId { get; set; }
         public string platformIdentifier { get; set; }
         public string clientPlatformIdentifier { get; set; }
         public string lastMessageId { get; set; }
         public int lastUsedHeigth { get; set; }
         public string chatMessagestHistoric { get; set; }
 
-        public TabPage tbPage { get; set; } 
+        public TabPage tbPage { get; set; }
         public Label lblLastMessageId { get; set; }
         public Label lblChatId { get; set; }
-        public Label lblClientPlatformIdentifier { get; set; } 
-        public Label lblLastHeighUsed { get; set; } 
-        public Label lblPlatformIdentifier { get; set; } 
+        public static Label lblClientPlatformIdentifier { get; set; }
+        public Label lblLastHeighUsed { get; set; }
+        public static Label lblPlatformIdentifier { get; set; }
         public Panel pnlMessages { get; set; }
         public Label lastLabel { get; set; }
+
+        public RichTextBox rtxtImage { get; set; }
 
         public Button btnCloseButton { get; set; }
 
@@ -40,8 +42,11 @@ namespace LoginForms.Utils
         public System.Windows.Forms.Padding Padding { get; set; }
 
         /// Prueba para tener el botón y textBox de envío de mensajes al mismo nivel del tabPage
-        public TextBox txtSendMessage { get; set; } 
+        public TextBox txtSendMessage { get; set; }
         public Button btnSendMessage { get; set; }
+
+        public Button btnSendImage { get; set; } 
+        
         RestHelper restHelper = new RestHelper();
 
         public PictureBox picSendMessage { get; set; }
@@ -88,12 +93,14 @@ namespace LoginForms.Utils
                 lblLastHeighUsed = new Label();
                 lblPlatformIdentifier = new Label();
                 lblChatId = new Label();
+                rtxtImage = new RichTextBox();
                 pnlMessages = new Panel();
                 //panelControl = new PanelControl(); 
                 //Prueba de controles a nivel del tabPage
                 lastLabel = new Label();
                 txtSendMessage = new TextBox(); 
                 btnSendMessage = new Button();
+                btnSendImage = new Button();
                 btnCloseButton = new Button();
                 tabla = new TableLayoutPanel();
 
@@ -270,8 +277,42 @@ namespace LoginForms.Utils
                         NetworkCategories networkCategories = new NetworkCategories(chatId);
                         networkCategories.ShowDialog();
                         removeTabChat();
-
                     }
+                };
+
+                btnSendImage.Name = $"btnSendImage_{chatId}";
+                btnSendImage.Tag = $"btnSendImage_{chatId}";
+                btnSendImage.Text = $"Enviar Imagen";
+                btnSendImage.Size = new Size(86, 23);
+                btnSendImage.Location = new Point(605, pnlMessages.Size.Height + 10);
+                btnSendImage.Anchor = AnchorStyles.Left;
+
+                btnSendImage.Click += async (s, e) =>
+                {
+                    try
+                    {
+                        OpenFileDialog file = new OpenFileDialog();
+                        if (file.ShowDialog() == DialogResult.OK)
+                        {
+                            Bitmap imagen = new Bitmap(file.FileName);
+                            Console.WriteLine(file.FileName);
+
+                            if (!string.IsNullOrEmpty(txtSendMessage.Text.ToString()))
+                            {
+                                await sendMessageFromPanelControl();
+                            }
+
+                            //Clipboard.SetDataObject(imagen);
+                            //DataFormats.Format formato = DataFormats.GetFormat(DataFormats.Bitmap);
+                            //rtxtImage.Paste(formato);
+                            
+                        }
+                    }
+                    catch(Exception ex)
+                    {
+                        Console.WriteLine($"btnSendImage.Click[Error]: {ex}");
+                    }
+
                 };
 
                 tabla.ColumnCount = 5;
@@ -282,6 +323,7 @@ namespace LoginForms.Utils
                 tabla.Controls.Add(txtSendMessage, 1, 0);
                 tabla.Controls.Add(btnSendMessage, 2, 0);
                 tabla.Controls.Add(btnCloseButton, 3, 0);
+                tabla.Controls.Add(btnSendImage, 4, 0);
                 tabla.Padding = new Padding(15);
 
                 //tabla.Controls.Add(txtSendMessage, 1, 0);
@@ -316,9 +358,6 @@ namespace LoginForms.Utils
                     //btnCloseButton.Location = new Point(586,pnlMessages.Size.Height - 60);
 
                 };
-                    
-                
-
             }
             catch (Exception ex) 
             { 

@@ -19,7 +19,12 @@ namespace LoginForms
             InitializeComponent();
             ComboBoxGetNetwork();
         }
-        
+
+        private async void CallTypification_Load(object sender, EventArgs e)
+        {
+            await rh.ChangeStatus(GlobalSocket.currentUser.ID, "9");
+        }
+
         private void cmbNetwork_SelectedIndexChanged(object sender, EventArgs e)
         {
             CallItems classItems = (CallItems)cmbNetwork.SelectedItem;
@@ -49,17 +54,6 @@ namespace LoginForms
                 Console.WriteLine($"Error[getNetworkCategories] {ex}");
             }
         }
-
-        private void txtScore_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
-            {
-                MessageBox.Show("Solo se permiten numeros", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                e.Handled = true;
-                return;
-            }
-        }
-
 
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -93,9 +87,10 @@ namespace LoginForms
 
         private async void Typification()
         {
-            try
+            try 
             {
                 await rh.UpdateNetworkCategoryCalls(valor, score, txtComments.Text);
+                await rh.ChangeStatus(GlobalSocket.currentUser.ID, "7");
                 //MessageBox.Show("Datos guardados correctamente", "Omnicanal", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 this.Dispose();
             }

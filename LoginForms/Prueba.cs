@@ -355,7 +355,7 @@ namespace LoginForms
                 for (int position = 0; position < chatWindowLocal.arrTabPageChat.Count; position++)
                     if (chatWindowLocal.arrTabPageChat[position] != null && chatWindowLocal.arrTabPageChat[position].tbPage.Name == "tabPageChat_" + chatId)
                         resultado = true;
-
+                //está encontrando el tabPage existente cuando ya deberia haber sido borrado
             }
             catch (Exception ex)
             {
@@ -674,7 +674,7 @@ namespace LoginForms
             //            //if(!string.IsNullOrEmpty(resulAskForNewMessages))
 
             //        }
-            //        catch (Exception ex)
+            //        catch (Exception ex)new
             //        {
             //            Console.WriteLine("Error[btnSendMessage.Click]: " + ex.Message);
             //        }

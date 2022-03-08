@@ -331,6 +331,10 @@ namespace LoginForms
                 for (int i = 0; i < jsonStatus.data.status.Count; i++)
                 {
                     cmbUserStatus.Items.Add(new StatusItems(jsonStatus.data.status[i].status, jsonStatus.data.status[i].description, jsonStatus.data.status[i].id));
+                    if (jsonStatus.data.status[i].id == "9")
+                    {
+                        cmbUserStatus.Items.RemoveAt(i);
+                    }
                 }
                 //for (int i = 0; i < jsonStatus.data.status.Count; i++)
                 //{
@@ -351,19 +355,13 @@ namespace LoginForms
             try
             {
                 string userId = GlobalSocket.currentUser.ID;
-                //for (int i = 0; i < jsonStatus.data.status.Count; i++)
-                //{
-                //    if (jsonStatus.data.status[i].status == cmbUserStatus.SelectedItem.ToString())
-                //    {
-                //        valor = jsonStatus.data.status[i].id.ToString();
-                //    }
-                //}
+
                 StatusItems statusItems = (StatusItems)cmbUserStatus.SelectedItem;
                 valor = statusItems.Id;
                 GlobalSocket.currentUser.status.id = valor;
                 await rh.updateUserStatus(valor, userId);
                 await rh.ChangeStatus(userId, valor);
-                await rh.TotalTimeStatus(GlobalSocket.currentUser.ID);
+                //await rh.TotalTimeStatus(GlobalSocket.currentUser.ID);
                 
 
                 MessageBox.Show("Estatus Agente Cambiado", "Estatus Agente", MessageBoxButtons.OK, MessageBoxIcon.Information);

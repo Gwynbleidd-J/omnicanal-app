@@ -29,6 +29,8 @@ namespace LoginForms
 
         public static Message message { get; set; }
 
+        public static string numberToClose { get; set; }
+
         public static string numberToSend { get; set; }
     }
 }

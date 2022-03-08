@@ -35,6 +35,7 @@ namespace LoginForms
         {
             try
             {
+                Console.WriteLine($"Number to send: {GlobalSocket.numberToClose}");
                 if (!string.IsNullOrEmpty(valor))
                 {
                     await rh.updateNetworkCategories(chatid, valor);
