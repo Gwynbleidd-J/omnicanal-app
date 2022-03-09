@@ -25,14 +25,15 @@ namespace LoginForms
             getChatsAsync();
             getCallsAsync();
             getStatusAsync();
-        
+
             btnRecargar.BackColor = ColorTranslator.FromHtml("#e2e0e0");
 
         }
 
         RestHelper rh = new RestHelper();
 
-        public async Task getCallsAsync() {
+        public async Task getCallsAsync()
+        {
             try
             {
                 var userId = GlobalSocket.currentUser.ID;
@@ -43,14 +44,18 @@ namespace LoginForms
                 int contadorLlamadas = 0;
                 int contadorLlamadasEntrantes = 0;
                 int contadorLlamadasSalientes = 0;
+                int contadorLlamadasTransferidas = 0;
 
                 bool dataLlamadasEntrantes = false;
                 bool dataLlamadasSalientes = false;
+                bool dataLlamadasTransferidas = false;
+
 
                 foreach (var item in algo)
                 {
-                    if (item["tipoLlamada"].Value<string>() == "0"){ contadorLlamadasEntrantes++;  dataLlamadasEntrantes = true; }
-                    if (item["tipoLlamada"].Value<string>() == "1"){ contadorLlamadasSalientes++;  dataLlamadasSalientes = true; }
+                    if (item["tipoLlamada"].Value<string>() == "1") { contadorLlamadasEntrantes++; dataLlamadasEntrantes = true; }
+                    if (item["tipoLlamada"].Value<string>() == "2") { contadorLlamadasSalientes++; dataLlamadasSalientes = true; }
+                    if (item["tipoLlamada"].Value<string>() == "3") { contadorLlamadasTransferidas++; dataLlamadasTransferidas = true; }
 
                     contadorLlamadas++;
                 }
@@ -77,6 +82,15 @@ namespace LoginForms
                     Title = "Salida",
                     Values = new ChartValues<double> {contadorLlamadasSalientes},
                     DataLabels = dataLlamadasSalientes,
+                    FontWeight = FontWeights.Normal,
+                },
+                new PieSeries
+                {
+                    StrokeThickness = 0,
+                    PushOut = 5,
+                    Title = "Transferidas",
+                    Values = new ChartValues<double> {contadorLlamadasTransferidas},
+                    DataLabels = dataLlamadasTransferidas,
                     FontWeight = FontWeights.Normal,
                 }
             };
@@ -114,7 +128,8 @@ namespace LoginForms
                     if (item["platformIdentifier"].Value<string>() == "t") { telegram++; dataTelegram = true; }
                     if (item["platformIdentifier"].Value<string>() == "c") { chatWeb++; dataChatWeb = true; }
 
-                    contadorChats++;                }
+                    contadorChats++;
+                }
 
                 lblChatsTotales.Text = contadorChats.ToString();
 
@@ -198,6 +213,8 @@ namespace LoginForms
                 bool dataComida = false;
                 bool dataBreak = false;
 
+
+
                 foreach (var item in algo)
                 {
                     if (Disponible != 0) { dataDisponible = true; }
@@ -221,7 +238,9 @@ namespace LoginForms
                     PushOut = 5,
                     DataLabels = dataDisponible,
                     FontWeight = FontWeights.Normal,
-                    FontSize = double.Parse("14")
+                    FontSize = double.Parse("14"),
+                    LabelPoint = val => val.Y +" "
+
                 },
                 new PieSeries
                 {
@@ -231,6 +250,8 @@ namespace LoginForms
                     Values = new ChartValues<double> {NoDisponible},
                     DataLabels = dataNoDisponible,
                     FontWeight = FontWeights.Normal,
+                    LabelPoint = val => val.Y +" "
+
                 },
                 new PieSeries
                 {
@@ -240,6 +261,7 @@ namespace LoginForms
                     Values = new ChartValues<double> {ACW},
                     DataLabels = dataACW,
                     FontWeight = FontWeights.Normal,
+                    LabelPoint = val => val.Y +" "
                 },
                 new PieSeries
                 {
@@ -249,6 +271,7 @@ namespace LoginForms
                     Values = new ChartValues<double> {Capacitacion},
                     DataLabels = dataCapacitacion,
                     FontWeight = FontWeights.Normal,
+                    LabelPoint = val => val.Y +" "
                 },
                 new PieSeries
                 {
@@ -258,6 +281,7 @@ namespace LoginForms
                     Values = new ChartValues<double> {Calidad},
                     DataLabels = dataCalidad,
                     FontWeight = FontWeights.Normal,
+                    LabelPoint = val => val.Y +" "
                 },
                 new PieSeries
                 {
@@ -267,6 +291,7 @@ namespace LoginForms
                     Values = new ChartValues<double> {Sanitario},
                     DataLabels = dataSanitario,
                     FontWeight = FontWeights.Normal,
+                    LabelPoint = val => val.Y +" "
                 },
                 new PieSeries
                 {
@@ -276,6 +301,8 @@ namespace LoginForms
                     Values = new ChartValues<double> {Comida},
                     DataLabels = dataComida,
                     FontWeight = FontWeights.Normal,
+                    LabelPoint = val => val.Y +" "
+
                 },
                 new PieSeries
                 {
@@ -285,10 +312,10 @@ namespace LoginForms
                     Values = new ChartValues<double> {Break},
                     DataLabels = dataBreak,
                     FontWeight = FontWeights.Normal,
-                },
+                    LabelPoint = val => val.Y +" "
+            },
 
             };
-
                 pieStatus.LegendLocation = LegendLocation.Bottom;
 
             }

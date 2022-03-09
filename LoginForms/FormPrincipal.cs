@@ -121,6 +121,7 @@ namespace LoginForms
                     dynamicButton.Text = $"{GlobalSocket.currentUser.rol.permission[i].menu.description}";
                     var menu = $"{GlobalSocket.currentUser.rol.permission[i].menu.description}";
 
+
                     //PictureBox dynamicImage
                     System.Windows.Forms.PictureBox dynamicImage = new PictureBox();
                     dynamicImage.Size = new Size(Width, tableLayoutPanel8.Height);
@@ -130,6 +131,44 @@ namespace LoginForms
                     Type formtype = asm.GetType(string.Format("{0}.{1}", "LoginForms", GlobalSocket.currentUser.rol.permission[i].menu.name));
                     Form f = (Form)Activator.CreateInstance(formtype);
                     //f.Show();
+
+
+                    void EjecucionPictureHomeclick(Form fo)
+                    {
+                        try
+                        {
+                            fo.TopLevel = false;
+                            fo.Parent = pnlChatMessages;
+                            fo.ControlBox = false;
+                            fo.BringToFront();
+                            fo.Location = new Point(0, 0);
+                            fo.Dock = DockStyle.Fill;
+                            fo.Focus();
+                            fo.Show();
+                            fo.FormBorderStyle = FormBorderStyle.None;
+                            fo.BackColor = ColorTranslator.FromHtml("#e2e0e1");
+                            client.prueba = fo as Prueba;
+
+                            var temp1 = (PictureBox)tableLayoutPanel8.Controls["Chats"];
+                            var temp2 = (PictureBox)tableLayoutPanel8.Controls["Softphone"];
+                            if (temp1 != null)
+                            {
+                                temp1.Image = Properties.Resources.chat;
+
+                            }
+                            if (temp2 != null)
+                            {
+                                temp2.Image = Properties.Resources.llamadas;
+                            }
+
+                            dynamicImage.Image = Properties.Resources.home_presionado;
+                        }
+                        catch (Exception _e)
+                        {
+                            throw _e;
+                        }
+                    }
+
 
                     if (menu == "Chats")
                     {
@@ -219,30 +258,13 @@ namespace LoginForms
                         dynamicImage.Image = Properties.Resources.home;
                         dynamicImage.Name = "Home";
 
+
                         dynamicImage.Click += (s, e) =>
                         {
-                            //dashboard = f;
-                            f.TopLevel = false;
-                            f.Parent = pnlChatMessages;
-                            f.ControlBox = false;
-                            f.BringToFront();
-                            f.Location = new Point(0, 0);
-                            f.Dock = DockStyle.Fill;
-                            f.Focus();
-                            f.Show();
-                            f.FormBorderStyle = FormBorderStyle.None;
-                            f.BackColor = ColorTranslator.FromHtml("#e2e0e1");
-                            client.prueba = f as Prueba;
+                            EjecucionPictureHomeclick(f);
 
-                            var temp1 = (PictureBox)tableLayoutPanel8.Controls["Chats"];
-                            var temp2 = (PictureBox)tableLayoutPanel8.Controls["Softphone"];
-                            temp1.Image = Properties.Resources.chat;
-                            temp2.Image = Properties.Resources.llamadas;
-                            dynamicImage.Image = Properties.Resources.home_presionado;
-                            //Console.WriteLine(dashboard.Text);
-                            //softphone.Dispose();
-                            //chats.Dispose();
                         };
+
                     }
 
                     tableLayoutPanel8.Controls.Add(dynamicImage, i, 0);
@@ -250,6 +272,11 @@ namespace LoginForms
                     dynamicImage.Dock = DockStyle.Fill;
 
                     var tempHome = (PictureBox)tableLayoutPanel8.Controls["Home"];
+                    //void tempHomeOnClick(object sender, EventArgs e){ 
+                    //    base.OnClick(e);
+                    //}
+
+                    
 
                     dynamicButton.Click += (s, e) =>
                     {
@@ -276,6 +303,8 @@ namespace LoginForms
                     {
                         flpDynamicButtons.Visible = false;
                         tableLayoutPanel8.Visible = true;
+
+                        EjecucionPictureHomeclick(f);
                     }
                     else
                     {
@@ -331,7 +360,7 @@ namespace LoginForms
                 for (int i = 0; i < jsonStatus.data.status.Count; i++)
                 {
                     cmbUserStatus.Items.Add(new StatusItems(jsonStatus.data.status[i].status, jsonStatus.data.status[i].description, jsonStatus.data.status[i].id));
-                    if (jsonStatus.data.status[i].id == "9")
+                    if(jsonStatus.data.status[i].id == "9")
                     {
                         cmbUserStatus.Items.RemoveAt(i);
                     }
@@ -355,7 +384,13 @@ namespace LoginForms
             try
             {
                 string userId = GlobalSocket.currentUser.ID;
-
+                //for (int i = 0; i < jsonStatus.data.status.Count; i++)
+                //{
+                //    if (jsonStatus.data.status[i].status == cmbUserStatus.SelectedItem.ToString())
+                //    {
+                //        valor = jsonStatus.data.status[i].id.ToString();
+                //    }
+                //}
                 StatusItems statusItems = (StatusItems)cmbUserStatus.SelectedItem;
                 valor = statusItems.Id;
                 GlobalSocket.currentUser.status.id = valor;
@@ -496,6 +531,12 @@ namespace LoginForms
                 form.GetType().GetMethod("Connect");
                 form.FormBorderStyle = FormBorderStyle.None;
                 form.BackColor = ColorTranslator.FromHtml("#e2e0e1");
+
+                var temp2 = (PictureBox)tableLayoutPanel8.Controls["Softphone"];
+                temp2.Image = Properties.Resources.llamadas_presionado;
+
+                var temp1 = (PictureBox)tableLayoutPanel8.Controls["Home"];
+                temp1.Image = Properties.Resources.home;
             }
         }
 

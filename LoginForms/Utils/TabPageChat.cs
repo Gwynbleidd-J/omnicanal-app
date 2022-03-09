@@ -189,6 +189,11 @@ namespace LoginForms.Utils
                 pnlMessages.Anchor = (AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top);
                 pnlMessages.BorderStyle = BorderStyle.FixedSingle;
 
+                pnlMessages.Resize += PnlMessages_Resize;
+                {
+
+                }
+
                 //panelControl.chatId = chatId;
                 //panelControl.buildPanel(); 
 
@@ -203,6 +208,7 @@ namespace LoginForms.Utils
                 txtSendMessage.Text = "Buen día, soy su agente a cargo, ¿En qué le puedo ayudar?";
                 txtSendMessage.Anchor = AnchorStyles.Top;
                 txtSendMessage.Font = new Font("Calibri", 10);
+                txtSendMessage.MaxLength = 1600;
                 txtSendMessage.KeyPress += async (s, e) =>
                 {
                     try
@@ -367,6 +373,17 @@ namespace LoginForms.Utils
             //return tbPage;
         }
 
+        private void PnlMessages_Resize(object sender, EventArgs e)
+        {
+            foreach (Label item in pnlMessages.Controls)
+            {
+                item.MaximumSize = new Size((pnlMessages.Width / 2) + 15, 0);
+                item.Width = (pnlMessages.Width / 2) + 15;
+                item.Height = item.PreferredHeight;
+            }
+            //throw new NotImplementedException();
+        }
+
         private void PnlMessages_Layout(object sender, LayoutEventArgs e)
         {
             throw new NotImplementedException();
@@ -450,6 +467,9 @@ namespace LoginForms.Utils
                         linklabel.Text = jsonChatMessagestHistoric.data.messages[i].mediaUrl;
                         linklabel.Font = new Font("Calibri", 10);
                         linklabel.Padding = new Padding(7);
+
+
+
                         linklabel.LinkClicked += (s, e) =>
                          {
                              linklabel.LinkVisited = true;
@@ -508,10 +528,14 @@ namespace LoginForms.Utils
                         newLabelMessage.Font = new Font("Calibri", 10);
                         newLabelMessage.Padding = new Padding(7);
 
+                        newLabelMessage.MaximumSize = new Size((pnlMessages.Width / 2) + 15, 0);
+                        newLabelMessage.Height = newLabelMessage.PreferredHeight;
+
+
                         if (lastLabel == null)
                             newLabelMessage.Location = new Point(0, 10);//10
                         else
-                            newLabelMessage.Location = new Point(0, lastLabel.Location.Y + 40); //30
+                            newLabelMessage.Location = new Point(0, lastLabel.Location.Y + lastLabel.Height + 10); //30
 
                         lastLabel = newLabelMessage;
                         lastMessageId = newLabelMessage.Name;

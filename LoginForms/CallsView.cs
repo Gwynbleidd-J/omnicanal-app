@@ -1762,8 +1762,6 @@ namespace LoginForms
                 }));
 
                 sIPLogined = true;
-
-
             return 0;
         }
 
