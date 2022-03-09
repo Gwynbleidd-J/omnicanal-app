@@ -20,7 +20,7 @@ namespace LoginForms
         RestHelper rh = new RestHelper();
         string idAgent;
         string rolId = "1";
-        
+
         public MisAgentes()
         {
             InitializeComponent();
@@ -129,8 +129,8 @@ namespace LoginForms
                         TextAlign = ContentAlignment.MiddleCenter,
                         ForeColor = Color.Black
                     };
-                    
-                    if (jsonMyAgentsInformation.data.users[i].rolID == "2" || jsonMyAgentsInformation.data.users[i].rolID =="3")
+
+                    if (jsonMyAgentsInformation.data.users[i].rolID == "2" || jsonMyAgentsInformation.data.users[i].rolID == "3")
                     {
                         panelAgentInformation.Controls.AddRange(new Control[] { labelAgentName, labelEmail, buttonChangeAgentStatus, buttonCheckAgents, buttonChangeMaxActiveChats });
 
@@ -164,8 +164,8 @@ namespace LoginForms
                     }
                 }
             }
-            
-            catch(Exception ex)
+
+            catch (Exception ex)
             {
                 Console.WriteLine($"Error[agentInfo]: {ex.Message}");
             }
@@ -217,11 +217,12 @@ namespace LoginForms
                         var tipoLlamada = itemCall["tipoLlamada"].Value<int>();
                         var statusLlamada = itemCall["statusId"].Value<int>();
 
-                        if (tipoLlamada == 0)
+                        if (tipoLlamada == 2)
                         {
                             ContadorLlamadasCerradas++;
                         }
-                        else if (tipoLlamada == 1) {
+                        else if (tipoLlamada == 1)
+                        {
                             contadorLlamadasEntrantes++;
                         }
 
@@ -253,8 +254,8 @@ namespace LoginForms
 
                     //+++++++++++++++++++++
 
-                    dataGridView1.Rows.Add(nombre, chatsActivos,chatsCerrados, chatsMaximos, contadorLlamadasEntrantes, 
-                        ContadorLlamadasCerradas, contadorLlamadasActivas, correo,
+                    dataGridView1.Rows.Add(nombre, chatsActivos, chatsCerrados, chatsMaximos, ContadorLlamadasCerradas,
+                        contadorLlamadasEntrantes, contadorLlamadasActivas, correo,
                         Disponible,
                         NoDisponible,
                         ACW,
@@ -336,4 +337,3 @@ namespace LoginForms
         }
     }
 }
-
