@@ -14,6 +14,10 @@ namespace LoginForms.Utils
 {
     public class TabPageChat
     {
+
+        public static string platformIdentifierClose;
+        public static string clientPlatformIdentifierClose;
+
         //FORMULARIO PADRE
         #region Atributos
         public string chatId { get; set; }
@@ -26,9 +30,9 @@ namespace LoginForms.Utils
         public TabPage tbPage { get; set; }
         public Label lblLastMessageId { get; set; }
         public Label lblChatId { get; set; }
-        public static Label lblClientPlatformIdentifier { get; set; }
+        public Label lblClientPlatformIdentifier { get; set; }
         public Label lblLastHeighUsed { get; set; }
-        public static Label lblPlatformIdentifier { get; set; }
+        public Label lblPlatformIdentifier { get; set; }
         public Panel pnlMessages { get; set; }
         public Label lastLabel { get; set; }
 
@@ -280,6 +284,9 @@ namespace LoginForms.Utils
                 {
                     if (await closeChat())
                     {
+                        platformIdentifierClose = platformIdentifier;
+                        clientPlatformIdentifierClose = clientPlatformIdentifier;
+
                         NetworkCategories networkCategories = new NetworkCategories(chatId);
                         networkCategories.ShowDialog();
                         removeTabChat();

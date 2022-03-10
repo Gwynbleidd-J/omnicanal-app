@@ -616,8 +616,8 @@ namespace LoginForms.Shared
 
         public async Task<string> updateNetworkCategories(string chatId, string networkCategoryId)
         {
-            string clientPlatformIdentifier = TabPageChat.lblClientPlatformIdentifier.Text;
-            string platformIdentifier = TabPageChat.lblPlatformIdentifier.Text;
+            string clientPlatformIdentifier = TabPageChat.clientPlatformIdentifierClose;
+            string platformIdentifier = TabPageChat.platformIdentifierClose;
             var inputData = new Dictionary<string, string>
             {
                 {"chatId", chatId },
@@ -1280,6 +1280,29 @@ namespace LoginForms.Shared
                 return response.StatusCode.ToString();
             }
         }
+
+        public async Task<string> GetUserStatesSupervisor(string id)
+        {
+            var inputData = new Dictionary<string, string>
+            {
+                { "id", id},
+            };
+            Console.WriteLine(inputData);
+            var input = new FormUrlEncodedContent(inputData);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync(baseUrl + "status/GetUserStatesSupervisor", input);
+            HttpContent content = response.Content;
+            string data = response.Content.ReadAsStringAsync().Result;
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            {
+                return data;
+            }
+            else
+            {
+                return response.StatusCode.ToString();
+            }
+        }
+
         public async Task<string> newEmptyChat(string text, string chatId, string clientPlatformIdentifier, string platformIdentifier, string agentPlatformIdentifier)
         {
             var numberToSend = "";

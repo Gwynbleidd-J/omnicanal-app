@@ -239,13 +239,13 @@ namespace LoginForms
                     //Seccion de estados del agente
 
 
-                    string datosStatus = await rh.GetUserStates(ID.ToString());
+                    string datosStatus = await rh.GetUserStatesSupervisor(ID.ToString());
                     var statusData = (JObject)JsonConvert.DeserializeObject(datosStatus);
                     var tempStatus = statusData["data"];
 
-                    var Disponible = tempStatus["Disponible"].Value<int>();
+                    var Disponible = tempStatus["Disponible"].Value<int>() ;
                     var NoDisponible = tempStatus["NoDisponible"].Value<int>();
-                    var ACW = tempStatus["ACW"].Value<int>();
+                    var ACW = tempStatus["ACW"].Value<int>() /60;
                     var Capacitacion = tempStatus["Capacitacion"].Value<int>();
                     var Calidad = tempStatus["Calidad"].Value<int>();
                     var Sanitario = tempStatus["Sanitario"].Value<int>();
