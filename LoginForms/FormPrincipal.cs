@@ -22,10 +22,6 @@ namespace LoginForms
         Login login;
         public string rolId;
         string valor = "";
-        double dummy = 50;
-
-        bool pestañaChatActiva = false;
-        bool pestañaSoftphoneActiva = false;
 
         public string TextSocket
         {
@@ -169,6 +165,42 @@ namespace LoginForms
                         }
                     }
 
+                    void EjecucionPictureChatsclick(Form fo)
+                    {
+                        try
+                        {
+                            fo.TopLevel = false;
+                            fo.Parent = pnlChatMessages;
+                            fo.ControlBox = false;
+                            fo.BringToFront();
+                            fo.Location = new Point(0, 0);
+                            fo.Dock = DockStyle.Fill;
+                            fo.Focus();
+                            fo.Show();
+                            fo.FormBorderStyle = FormBorderStyle.None;
+                            fo.BackColor = ColorTranslator.FromHtml("#e2e0e1");
+                            client.prueba = fo as Prueba;
+
+                            var temp1 = (PictureBox)tableLayoutPanel8.Controls["Home"];
+                            var temp2 = (PictureBox)tableLayoutPanel8.Controls["Softphone"];
+                            if (temp1 != null)
+                            {
+                                temp1.Image = Properties.Resources.home;
+
+                            }
+                            if (temp2 != null)
+                            {
+                                temp2.Image = Properties.Resources.llamadas;
+                            }
+
+                            dynamicImage.Image = Properties.Resources.chat_presionado;
+                        }
+                        catch (Exception _e)
+                        {
+                            throw _e;
+                        }
+                    }
+
 
                     if (menu == "Chats")
                     {
@@ -177,27 +209,8 @@ namespace LoginForms
                         dynamicImage.Name = "Chats";
                         dynamicImage.Click += (s, e) =>
                         {
-                            //chats = f;
-                            f.TopLevel = false;
-                            f.Parent = pnlChatMessages;
-                            f.ControlBox = false;
-                            f.BringToFront();
-                            f.Location = new Point(0, 0);
-                            f.Dock = DockStyle.Fill;
-                            f.Focus();
-                            f.Show();
-                            f.FormBorderStyle = FormBorderStyle.None;
-                            f.BackColor = ColorTranslator.FromHtml("#e2e0e1");
-                            client.prueba = f as Prueba;
+                            EjecucionPictureChatsclick(f);
 
-                            var temp1 = (PictureBox)tableLayoutPanel8.Controls["Home"];
-                            var temp2 = (PictureBox)tableLayoutPanel8.Controls["Softphone"];
-                            temp1.Image = Properties.Resources.home;
-                            temp2.Image = Properties.Resources.llamadas;
-                            dynamicImage.Image = Properties.Resources.chat_presionado;
-                            //Console.WriteLine(chats.Text);
-                            //softphone.Dispose();
-                            //dashboard.Dispose();
                         };
 
                     }
@@ -304,6 +317,7 @@ namespace LoginForms
                         flpDynamicButtons.Visible = false;
                         tableLayoutPanel8.Visible = true;
 
+                        EjecucionPictureChatsclick(f);
                         EjecucionPictureHomeclick(f);
                     }
                     else

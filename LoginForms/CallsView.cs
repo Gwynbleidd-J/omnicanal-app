@@ -15,6 +15,7 @@ using Newtonsoft.Json;
 using LoginForms.Models;
 using Newtonsoft.Json.Linq;
 using System.IO;
+using Microsoft.Toolkit.Uwp.Notifications;
 
 namespace LoginForms
 {
@@ -2129,7 +2130,28 @@ namespace LoginForms
                 ListBoxSIPLog.Items.Add(Text);
             }));
 
+            AgentNotification("Una nueva llamada con un cliente ha iniciado");
+
             return 0;
+        }
+
+        public void AgentNotification(string Mensaje)
+        {
+            try
+            {
+                var time24 = DateTime.Now.ToString("HH:mm:ss");
+                var name = GlobalSocket.currentUser.name + " " + GlobalSocket.currentUser.paternalSurname + " " + GlobalSocket.currentUser.maternalSurname;
+
+                new ToastContentBuilder()
+                .AddArgument("action", "viewConversation")
+                .AddText("Agente " + name)
+                .AddText(Mensaje)
+                .Show();
+            }
+            catch (Exception _e)
+            {
+                throw _e;
+            }
         }
 
 

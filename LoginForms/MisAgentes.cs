@@ -188,6 +188,7 @@ namespace LoginForms
                 {
                     var ID = item["ID"].Value<string>();
                     var nombre = item["name"].Value<string>();
+                    var estatusActual = item["status"].Value<string>();
                     var activeChats = item["activeChats"].Value<string>();
                     var correo = item["email"].Value<string>();
                     var chatsMaximos = item["maxActiveChats"].Value<string>();
@@ -252,9 +253,10 @@ namespace LoginForms
                     var Comida = tempStatus["Comida"].Value<int>();
                     var Break = tempStatus["Break"].Value<int>();
 
+
                     //+++++++++++++++++++++
 
-                    dataGridView1.Rows.Add(nombre, chatsActivos, chatsCerrados, chatsMaximos, ContadorLlamadasCerradas,
+                    dataGridView1.Rows.Add(nombre, estatusActual, chatsActivos, chatsCerrados, chatsMaximos, ContadorLlamadasCerradas,
                         contadorLlamadasEntrantes, contadorLlamadasActivas, correo,
                         Disponible,
                         NoDisponible,

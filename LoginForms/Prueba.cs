@@ -14,6 +14,7 @@ using LoginForms.Shared;
 using LoginForms.Utils;
 using RestSharp;
 using System.Net.NetworkInformation;
+using Microsoft.Toolkit.Uwp.Notifications;
 
 namespace LoginForms
 {
@@ -67,6 +68,7 @@ namespace LoginForms
                 Console.WriteLine("Error[Prueba_Load]: " + ex.ToString());
             }
         }
+
 
         public void AddressChangedCallback(object sender, NetworkAvailabilityEventArgs e)
         {
@@ -319,6 +321,7 @@ namespace LoginForms
                     //Thread.Sleep(100);
                     Thread.CurrentThread.Join(50);
                     buildNewMessagesLabels(newNotification);
+                    AgentNotification("Ha llegado un nuevo chat", newNotification);
                 }
                 else
                 {
@@ -329,6 +332,27 @@ namespace LoginForms
             catch (Exception ex)
             {
                 Console.WriteLine("Error[validarNuevoTab]: " + ex.ToString());
+            }
+        }
+
+
+        public void AgentNotification(string Mensaje, Models.Message message)
+        {
+            try
+            {
+                var time24 = DateTime.Now.ToString("HH:mm:ss");
+                var name = GlobalSocket.currentUser.name + " " + GlobalSocket.currentUser.paternalSurname + " " + GlobalSocket.currentUser.maternalSurname;
+
+                new ToastContentBuilder()
+                .AddArgument("action", "viewConversation")
+                .AddArgument("conversationId", message.messagePlatformId + time24)
+                .AddText("Agente " + name)
+                .AddText(Mensaje)
+                .Show();
+            }
+            catch (Exception _e)
+            {
+                throw _e;
             }
         }
 
@@ -346,7 +370,7 @@ namespace LoginForms
         //        throw _e;
         //    }
         //}
-         
+
         public bool tabChatExits(string chatId)
         {
             bool resultado = false;

@@ -95,7 +95,7 @@ namespace LoginForms
                 }
             };
 
-                pieLlamadas.LegendLocation = LegendLocation.Bottom;
+                //pieLlamadas.LegendLocation = LegendLocation.Bottom;
 
             }
             catch (Exception _e)
@@ -175,7 +175,7 @@ namespace LoginForms
                 }
             };
 
-                pieChats.LegendLocation = LegendLocation.Bottom;
+                //pieChats.LegendLocation = LegendLocation.Bottom;
 
             }
             catch (Exception _e)
@@ -316,7 +316,7 @@ namespace LoginForms
             },
 
             };
-                pieStatus.LegendLocation = LegendLocation.Bottom;
+                //pieStatus.LegendLocation = LegendLocation.Bottom;
 
             }
             catch (Exception _e)
