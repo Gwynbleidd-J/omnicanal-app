@@ -505,6 +505,9 @@ namespace LoginForms
             //AsynchronousClient.Reconexion = true;
             //Thread.CurrentThread.Join(2000);
             await SocketIOClient.ClienteSocketIO();
+
+            var temp = GlobalSocket.currentUser.ID.ToString();
+            prueba.recoverActiveChats(temp);
         }
 
         //Metodos que no recuerdo para que se utilizan, pero deben de tener una utilidad

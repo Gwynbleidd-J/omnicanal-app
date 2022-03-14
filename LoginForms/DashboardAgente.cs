@@ -185,6 +185,26 @@ namespace LoginForms
 
         }
 
+        public double roundMinutesToHours(int minutes) {
+            try
+            {
+                double redondeo = new float();
+                if (minutes > 60)
+                {
+                    redondeo = minutes / 60;
+                }
+                else {
+                    redondeo = minutes;
+                }
+
+                return redondeo;
+            }
+            catch (Exception _e)
+            {
+                throw _e;
+            }
+        }
+
         public async Task getStatusAsync()
         {
             try
@@ -234,7 +254,7 @@ namespace LoginForms
                 {
                     StrokeThickness = 0,
                     Title = "Disponible",
-                    Values = new ChartValues<double> {Disponible},
+                    Values = new ChartValues<double> {roundMinutesToHours(Disponible)},
                     PushOut = 5,
                     DataLabels = dataDisponible,
                     FontWeight = FontWeights.Normal,
@@ -247,7 +267,7 @@ namespace LoginForms
                     StrokeThickness = 0,
                     PushOut = 5,
                     Title = "No Disponible",
-                    Values = new ChartValues<double> {NoDisponible},
+                    Values = new ChartValues<double> {roundMinutesToHours(NoDisponible) },
                     DataLabels = dataNoDisponible,
                     FontWeight = FontWeights.Normal,
                     LabelPoint = val => val.Y +" "
@@ -268,7 +288,7 @@ namespace LoginForms
                     StrokeThickness = 0,
                     PushOut = 5,
                     Title = "Capacitacion",
-                    Values = new ChartValues<double> {Capacitacion},
+                    Values = new ChartValues<double> {roundMinutesToHours(Capacitacion)},
                     DataLabels = dataCapacitacion,
                     FontWeight = FontWeights.Normal,
                     LabelPoint = val => val.Y +" "
@@ -278,7 +298,7 @@ namespace LoginForms
                     StrokeThickness = 0,
                     PushOut = 5,
                     Title = "Calidad",
-                    Values = new ChartValues<double> {Calidad},
+                    Values = new ChartValues<double> {roundMinutesToHours(Calidad) },
                     DataLabels = dataCalidad,
                     FontWeight = FontWeights.Normal,
                     LabelPoint = val => val.Y +" "
@@ -288,7 +308,7 @@ namespace LoginForms
                     StrokeThickness = 0,
                     PushOut = 5,
                     Title = "Sanitario",
-                    Values = new ChartValues<double> {Sanitario},
+                    Values = new ChartValues<double> {roundMinutesToHours(Sanitario) },
                     DataLabels = dataSanitario,
                     FontWeight = FontWeights.Normal,
                     LabelPoint = val => val.Y +" "
@@ -298,7 +318,7 @@ namespace LoginForms
                     StrokeThickness = 0,
                     PushOut = 5,
                     Title = "Comida",
-                    Values = new ChartValues<double> {Comida},
+                    Values = new ChartValues<double> {roundMinutesToHours(Comida)},
                     DataLabels = dataComida,
                     FontWeight = FontWeights.Normal,
                     LabelPoint = val => val.Y +" "
@@ -309,7 +329,7 @@ namespace LoginForms
                     StrokeThickness = 0,
                     PushOut = 5,
                     Title = "Break",
-                    Values = new ChartValues<double> {Break},
+                    Values = new ChartValues<double> {roundMinutesToHours(Break) },
                     DataLabels = dataBreak,
                     FontWeight = FontWeights.Normal,
                     LabelPoint = val => val.Y +" "
