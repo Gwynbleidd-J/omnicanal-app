@@ -233,7 +233,7 @@ namespace LoginForms
             // TextBoxAuthName
             // 
             this.TextBoxAuthName.Enabled = false;
-            this.TextBoxAuthName.Location = new System.Drawing.Point(302, 33);
+            this.TextBoxAuthName.Location = new System.Drawing.Point(298, 33);
             this.TextBoxAuthName.Name = "TextBoxAuthName";
             this.TextBoxAuthName.Size = new System.Drawing.Size(132, 20);
             this.TextBoxAuthName.TabIndex = 106;
@@ -241,7 +241,7 @@ namespace LoginForms
             // Label5
             // 
             this.Label5.AutoSize = true;
-            this.Label5.Location = new System.Drawing.Point(225, 36);
+            this.Label5.Location = new System.Drawing.Point(224, 36);
             this.Label5.Name = "Label5";
             this.Label5.Size = new System.Drawing.Size(77, 13);
             this.Label5.TabIndex = 119;
@@ -289,7 +289,7 @@ namespace LoginForms
             // TextBoxServerPort
             // 
             this.TextBoxServerPort.Enabled = false;
-            this.TextBoxServerPort.Location = new System.Drawing.Point(304, 73);
+            this.TextBoxServerPort.Location = new System.Drawing.Point(302, 73);
             this.TextBoxServerPort.Name = "TextBoxServerPort";
             this.TextBoxServerPort.Size = new System.Drawing.Size(132, 20);
             this.TextBoxServerPort.TabIndex = 110;
@@ -297,7 +297,7 @@ namespace LoginForms
             // Label3
             // 
             this.Label3.AutoSize = true;
-            this.Label3.Location = new System.Drawing.Point(223, 76);
+            this.Label3.Location = new System.Drawing.Point(222, 76);
             this.Label3.Name = "Label3";
             this.Label3.Size = new System.Drawing.Size(80, 13);
             this.Label3.TabIndex = 111;
@@ -323,7 +323,7 @@ namespace LoginForms
             // TextBoxPassword
             // 
             this.TextBoxPassword.Enabled = false;
-            this.TextBoxPassword.Location = new System.Drawing.Point(302, 12);
+            this.TextBoxPassword.Location = new System.Drawing.Point(292, 12);
             this.TextBoxPassword.Name = "TextBoxPassword";
             this.TextBoxPassword.PasswordChar = '*';
             this.TextBoxPassword.Size = new System.Drawing.Size(132, 20);
@@ -332,7 +332,7 @@ namespace LoginForms
             // Label2
             // 
             this.Label2.AutoSize = true;
-            this.Label2.Location = new System.Drawing.Point(236, 16);
+            this.Label2.Location = new System.Drawing.Point(225, 16);
             this.Label2.Name = "Label2";
             this.Label2.Size = new System.Drawing.Size(61, 13);
             this.Label2.TabIndex = 105;

@@ -199,9 +199,9 @@ namespace LoginForms
         private System.Windows.Forms.Button btnBeginChat;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.TabControl tabControlChats;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TextBox txtNewTabChat;
+        public System.Windows.Forms.TabControl tabControlChats;
     }
 }

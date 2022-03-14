@@ -46,6 +46,7 @@ namespace LoginForms
             this.cmbNetwork.Name = "cmbNetwork";
             this.cmbNetwork.Size = new System.Drawing.Size(267, 21);
             this.cmbNetwork.TabIndex = 0;
+            this.cmbNetwork.Text = "Selecciona Una Red";
             this.cmbNetwork.SelectedIndexChanged += new System.EventHandler(this.cmbNetwork_SelectedIndexChanged);
             // 
             // label1
@@ -119,6 +120,7 @@ namespace LoginForms
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(306, 405);
+            this.ControlBox = false;
             this.Controls.Add(this.cmbScore);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.label3);

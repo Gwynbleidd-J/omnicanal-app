@@ -100,7 +100,7 @@ namespace LoginForms
 
         private static void Socket_OnError(object sender, string e)
         {
-            throw new NotImplementedException();
+            Console.WriteLine($"Error en Socket: {e}");
         }
 
         private static void Socket_OnReconnected(object sender, int e)
@@ -145,6 +145,11 @@ namespace LoginForms
         private static void Socket_OnPong(object sender, TimeSpan e)
         {
             Console.WriteLine($"Pong:{e.TotalMilliseconds}");
+            //Console.WriteLine($"Pong en segundos:{e.TotalSeconds}");
+            Console.WriteLine($"Pong en milisegundos:{e.TotalMilliseconds}");
+            var client = sender as SocketIO;
+            Console.WriteLine($"Estado socket:{client.Connected}");
+            Console.WriteLine($"Socket Id: {client.Id}");
         }
 
         private static void Socket_OnPing(object sender, EventArgs e)

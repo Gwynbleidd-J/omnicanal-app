@@ -18,11 +18,16 @@ namespace LoginForms
             //userid = userId;
             InitializeComponent();
             ComboBoxGetNetwork();
+
+            GlobalSocket.algo.Text = "ACW";
+
         }
 
         private async void CallTypification_Load(object sender, EventArgs e)
         {
             await rh.ChangeStatus(GlobalSocket.currentUser.ID, "9");
+         
+
         }
 
         private void cmbNetwork_SelectedIndexChanged(object sender, EventArgs e)
@@ -91,6 +96,7 @@ namespace LoginForms
             {
                 await rh.UpdateNetworkCategoryCalls(valor, score, txtComments.Text);
                 await rh.ChangeStatus(GlobalSocket.currentUser.ID, "7");
+                GlobalSocket.algo.Text = "Disponible";
                 //MessageBox.Show("Datos guardados correctamente", "Omnicanal", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 this.Dispose();
             }

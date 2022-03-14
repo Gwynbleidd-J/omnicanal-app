@@ -15,7 +15,6 @@ using Newtonsoft.Json;
 using LoginForms.Models;
 using Newtonsoft.Json.Linq;
 using System.IO;
-using Microsoft.Toolkit.Uwp.Notifications;
 
 namespace LoginForms
 {
@@ -405,6 +404,7 @@ namespace LoginForms
 
             BackColor = Color.FromArgb(226, 224, 224);
             this.FormBorderStyle = FormBorderStyle.None;
+
         }
 
         #region metodos para iniciar y detener la grabación de una llamada
@@ -458,7 +458,7 @@ namespace LoginForms
         {
             // Create the call sessions array, allows maximum 500 lines,
             // but we just use 8 lines with this sample, we need a class to save the call sessions information
-            
+
             Control.CheckForIllegalCrossThreadCalls = false;
             int i = 0;
             for (i = 0; i < MAX_LINES; ++i)
@@ -635,7 +635,7 @@ namespace LoginForms
                 return;
             }
 
-            ListBoxSIPLog.Items.Add("Initialized.");
+            ListBoxSIPLog.Items.Add(" Sofphone Inicializado.");
             sIPInited = true;
 
             loadDevices();
@@ -682,11 +682,11 @@ namespace LoginForms
 
                 ListBoxSIPLog.Items.Clear();
 
-                MessageBox.Show("setUser failure.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Error al establecer la información del usuario.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
 
-            ListBoxSIPLog.Items.Add("Succeeded set user information.");
+            ListBoxSIPLog.Items.Add("Se ha establecido con éxito la información del usuario.");
 
             // Example: set the codec parameter for AMR-WB
             /*
@@ -731,7 +731,7 @@ namespace LoginForms
                 }
 
 
-                ListBoxSIPLog.Items.Add("Registering...");
+                ListBoxSIPLog.Items.Add("Registrando Softphone...");
             }
         }
 
@@ -771,9 +771,10 @@ namespace LoginForms
                 sdkLib.setRemoteVideoWindow(_CallSessions[currentlyLine].getSessionId(), IntPtr.Zero);
                 _CallSessions[currentlyLine].setHoldState(true);
 
-                string Text = "Line " + currentlyLine.ToString();
-                Text = Text + ": Hold";
+                string Text = "Linea " + currentlyLine.ToString();
+                Text = Text + ": En espera";
                 ListBoxSIPLog.Items.Add(Text);
+                Desplazamiento();
             }
 
 
@@ -788,9 +789,10 @@ namespace LoginForms
                 //sdkLib.setRemoteVideoWindow(_CallSessions[currentlyLine].getSessionId(), remoteVideoPanel.Handle);
                 _CallSessions[currentlyLine].setHoldState(false);
 
-                string Text = "Line " + currentlyLine.ToString();
-                Text = Text + ": UnHold - call established";
+                string Text = "Linea " + currentlyLine.ToString();
+                Text = Text + ": Llamada reanudada - llamada establecida";
                 ListBoxSIPLog.Items.Add(Text);
+                Desplazamiento();
             }
         }
 
@@ -944,7 +946,8 @@ namespace LoginForms
             int sessionId = sdkLib.call(callTo, hasSdp, checkBoxMakeVideo.Checked);
             if (sessionId <= 0)
             {
-                ListBoxSIPLog.Items.Add("Call failure");
+                ListBoxSIPLog.Items.Add("Llamada fallida");
+                Desplazamiento();
                 return;
             }
 
@@ -953,9 +956,10 @@ namespace LoginForms
             _CallSessions[currentlyLine].setSessionId(sessionId);
             _CallSessions[currentlyLine].setSessionState(true);
 
-            string Text = "Line " + currentlyLine.ToString();
-            Text = Text + ": Calling...";
+            string Text = "Linea " + currentlyLine.ToString();
+            Text = Text + ": Llamando...";
             ListBoxSIPLog.Items.Add(Text);
+            Desplazamiento();
         }
 
         private void btnHangUp_Click(object sender, EventArgs e)
@@ -970,30 +974,34 @@ namespace LoginForms
                 sdkLib.rejectCall(_CallSessions[currentlyLine].getSessionId(), 486);
                 _CallSessions[currentlyLine].reset();
 
-                string Text = "Line " + currentlyLine.ToString();
-                Text = Text + ": Rejected call";
+                string Text = "Linea " + currentlyLine.ToString();
+                Text = Text + ": Llamada Rechazada";
                 ListBoxSIPLog.Items.Add(Text);
+                Desplazamiento();
 
                 return;
             }
 
             if (_CallSessions[currentlyLine].getSessionState() == true)
             {
+                CallTypification typification = new CallTypification();
                 sdkLib.hangUp(_CallSessions[currentlyLine].getSessionId());
                 _CallSessions[currentlyLine].reset();
 
-                string Text = "Line " + currentlyLine.ToString();
-                Text = Text + ": Hang up";
+
+
+                string Text = "Linea " + currentlyLine.ToString();
+                Text = Text + ": Llamada colgada";
                 ListBoxSIPLog.Items.Add(Text);
+                Desplazamiento();
                 EndCallRecord();
-                CallTypification typification = new CallTypification();
                 typification.ShowDialog();
                 typification.TopMost = true;
                 typification.StartPosition = FormStartPosition.CenterParent;
                 typification.Shown += (s, a) =>
                 {
                     lblEstatusLlamada.Text = "Tipificando Llamada";
-                }; 
+                };
                 btnBeginRecord.Enabled = true;
                 btnBeginRecord.Text = "Grabar Llamada";
                 lblEstatusLlamada.Text = "Llamada Terminada";
@@ -1022,9 +1030,10 @@ namespace LoginForms
             int rt = sdkLib.answerCall(_CallSessions[currentlyLine].getSessionId(), checkBoxAnswerVideo.Checked);
             if (rt == 0)
             {
-                string Text = "Line " + currentlyLine.ToString();
-                Text = Text + ": Call established";
+                string Text = "Linea " + currentlyLine.ToString();
+                Text = Text + ": Llamada establecida";
                 ListBoxSIPLog.Items.Add(Text);
+                Desplazamiento();
 
 
                 joinConference(currentlyLine);
@@ -1033,9 +1042,10 @@ namespace LoginForms
             {
                 _CallSessions[currentlyLine].reset();
 
-                string Text = "Line " + currentlyLine.ToString();
-                Text = Text + ": failed to answer call !";
+                string Text = "Linea " + currentlyLine.ToString();
+                Text = Text + ": ¡Fallo al contestar la llamada!";
                 ListBoxSIPLog.Items.Add(Text);
+                Desplazamiento();
             }
         }
 
@@ -1056,9 +1066,10 @@ namespace LoginForms
             int rt = sdkLib.hold(_CallSessions[currentlyLine].getSessionId());
             if (rt != 0)
             {
-                Text = "Line " + currentlyLine.ToString();
-                Text = Text + ": hold failure.";
+                Text = "Linea " + currentlyLine.ToString();
+                Text = Text + ": Fallo al poner en espera la llamada.";
                 ListBoxSIPLog.Items.Add(Text);
+                Desplazamiento();
 
                 return;
             }
@@ -1066,9 +1077,10 @@ namespace LoginForms
 
             _CallSessions[currentlyLine].setHoldState(true);
 
-            Text = "Line " + currentlyLine.ToString();
-            Text = Text + ": hold";
+            Text = "Linea " + currentlyLine.ToString();
+            Text = Text + ": llamada en espera";
             ListBoxSIPLog.Items.Add(Text);
+            Desplazamiento();
         }
 
         private void btnUnHold_Click(object sender, EventArgs e)
@@ -1089,18 +1101,20 @@ namespace LoginForms
             {
                 _CallSessions[currentlyLine].setHoldState(false);
 
-                Text = "Line " + currentlyLine.ToString();
-                Text = Text + ": Un-Hold Failure.";
+                Text = "Linea " + currentlyLine.ToString();
+                Text = Text + ": Fallo al reanudar la llamada.";
                 ListBoxSIPLog.Items.Add(Text);
+                Desplazamiento();
 
                 return;
             }
 
             _CallSessions[currentlyLine].setHoldState(false);
 
-            Text = "Line " + currentlyLine.ToString();
-            Text = Text + ": Un-Hold";
+            Text = "Linea " + currentlyLine.ToString();
+            Text = Text + ": Llamada en espera";
             ListBoxSIPLog.Items.Add(Text);
+            Desplazamiento();
         }
 
         private void btnTransfer_Click(object sender, EventArgs e)
@@ -1132,16 +1146,18 @@ namespace LoginForms
             int rt = sdkLib.refer(_CallSessions[currentlyLine].getSessionId(), referTo);
             if (rt != 0)
             {
-                string Text = "Line " + currentlyLine.ToString();
-                Text = Text + ": failed to Transfer";
+                string Text = "Linea " + currentlyLine.ToString();
+                Text = Text + ": fallo al transferir llamada";
                 ListBoxSIPLog.Items.Add(Text);
+                Desplazamiento();
             }
             else
             {
-                string Text = "Line " + currentlyLine.ToString();
-                Text = Text + ": Transferring";
+                string Text = "Linea " + currentlyLine.ToString();
+                Text = Text + ": Transfiriendo llamada";
 
                 ListBoxSIPLog.Items.Add(Text);
+                Desplazamiento();
             }
         }
 
@@ -1330,11 +1346,11 @@ namespace LoginForms
             if (rt != 0)
             {
                 sdkLib.releaseCallbackHandlers();
-                MessageBox.Show("Initialize failure.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Fallo al iniciar el softphone.", "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
 
-            ListBoxSIPLog.Items.Add("Initialized.");
+            ListBoxSIPLog.Items.Add("Sofphone Inicializado.");
             sIPInited = true;
 
             loadDevices();
@@ -1381,11 +1397,11 @@ namespace LoginForms
 
                 ListBoxSIPLog.Items.Clear();
 
-                MessageBox.Show("setUser failure.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Fallo al establecer información del usuario.", "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
 
-            ListBoxSIPLog.Items.Add("Succeeded set user information.");
+            ListBoxSIPLog.Items.Add("Se ha establecido con éxito la información del usuario.");
 
             // Example: set the codec parameter for AMR-WB
             /*
@@ -1426,11 +1442,11 @@ namespace LoginForms
 
                     ListBoxSIPLog.Items.Clear();
 
-                    MessageBox.Show("register to server failed.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show("Fallo al registrarse al servidor.", "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
 
 
-                ListBoxSIPLog.Items.Add("Registering...");
+                ListBoxSIPLog.Items.Add("Registrando Softphone...");
             }
         }
 
@@ -1492,6 +1508,7 @@ namespace LoginForms
         {
             ListBoxSIPLog.Items.Clear();
             ListBoxSIPLog.Items.Add("Reconectando el softphone");
+            Desplazamiento();
             Disconnect();
             Connect();
         }
@@ -1553,6 +1570,12 @@ namespace LoginForms
                 e.Handled = true;
                 return;
             }
+        }
+
+        private void Desplazamiento()
+        {
+            ListBoxSIPLog.SelectedIndex = ListBoxSIPLog.Items.Count - 1;
+            ListBoxSIPLog.SelectedIndex = -1;
         }
 
         #endregion
@@ -1757,12 +1780,13 @@ namespace LoginForms
         {
             // use the Invoke method to modify the control.
 
-                ListBoxSIPLog.Invoke(new MethodInvoker(delegate
-                {
-                    ListBoxSIPLog.Items.Add("Registration succeeded");
-                }));
+            ListBoxSIPLog.Invoke(new MethodInvoker(delegate
+            {
+                ListBoxSIPLog.Items.Add("Registro realizado con éxito");
+                Desplazamiento();
+            }));
 
-                sIPLogined = true;
+            sIPLogined = true;
             return 0;
         }
 
@@ -1770,7 +1794,8 @@ namespace LoginForms
         {
             ListBoxSIPLog.Invoke(new MethodInvoker(delegate
             {
-                ListBoxSIPLog.Items.Add("Registration failure");
+                ListBoxSIPLog.Items.Add("Falló el Registro del softphone");
+                Desplazamiento();
             }));
             sIPLogined = false;
 
@@ -1847,12 +1872,13 @@ namespace LoginForms
 
                 sdkLib.answerCall(_CallSessions[index].getSessionId(), answerVideo);
 
-                Text = "Line " + index.ToString();
-                Text = Text + ": Answered call by Auto answer";
+                Text = "Linea " + index.ToString();
+                Text = Text + ": Llamada contestada por auto respuesta";
 
                 ListBoxSIPLog.Invoke(new MethodInvoker(delegate
                 {
                     ListBoxSIPLog.Items.Add(Text);
+                    Desplazamiento();
                 }));
 
                 //rh.SendCall("1").Wait();
@@ -1862,8 +1888,8 @@ namespace LoginForms
                 return 0;
             }
 
-            Text = "Line " + index.ToString();
-            Text = Text + ": Call incoming from ";
+            Text = "Linea " + index.ToString();
+            Text = Text + ": Llamada entrante de ";
             Text = Text + callerDisplayName;
             Text = Text + "<";
             Text = Text + caller;
@@ -1873,6 +1899,7 @@ namespace LoginForms
             ListBoxSIPLog.Invoke(new MethodInvoker(delegate
             {
                 ListBoxSIPLog.Items.Add(Text);
+                Desplazamiento();
             }));
 
             //  You should write your own code to play the wav file here for alert the incoming call(incoming tone);
@@ -1889,12 +1916,13 @@ namespace LoginForms
                 return 0;
             }
 
-            string Text = "Line " + i.ToString();
-            Text = Text + ": Call is trying...";
+            string Text = "Linea " + i.ToString();
+            Text = Text + ":  La llamada se está intentando...";
 
             ListBoxSIPLog.Invoke(new MethodInvoker(delegate
             {
                 ListBoxSIPLog.Items.Add(Text);
+                Desplazamiento();
             }));
 
             return 0;
@@ -1922,12 +1950,13 @@ namespace LoginForms
 
             _CallSessions[i].setSessionState(true);
 
-            string Text = "Line " + i.ToString();
-            Text = Text + ": Call session progress.";
+            string Text = "Linea " + i.ToString();
+            Text = Text + ": Llamada en sesión en progreso...";
 
             ListBoxSIPLog.Invoke(new MethodInvoker(delegate
             {
                 ListBoxSIPLog.Items.Add(Text);
+                Desplazamiento();
             }));
 
             _CallSessions[i].setEarlyMeida(existsEarlyMedia);
@@ -1948,12 +1977,13 @@ namespace LoginForms
                 // No early media, you must play the local WAVE  file for ringing tone
             }
 
-            string Text = "Line " + i.ToString();
-            Text = Text + ": Ringing...";
+            string Text = "Linea " + i.ToString();
+            Text = Text + ": Timbrando...";
 
             ListBoxSIPLog.Invoke(new MethodInvoker(delegate
             {
                 ListBoxSIPLog.Items.Add(Text);
+                Desplazamiento();
             }));
 
 
@@ -1983,8 +2013,8 @@ namespace LoginForms
 
             _CallSessions[i].setSessionState(true);
 
-            string Text = "Line " + i.ToString();
-            Text = Text + ": Call established";
+            string Text = "Linea " + i.ToString();
+            Text = Text + ": Llamada Establecida";
             //rh.SendCall("2").Wait();
             lblFolio.Text = rh.SendCall("2").Result.ToString();
             ListBoxSIPLog.Invoke(new MethodInvoker(delegate
@@ -1992,6 +2022,7 @@ namespace LoginForms
                 ListBoxSIPLog.Items.Add(Text);
 
                 joinConference(i);
+                Desplazamiento();
             }));
 
             // If this is the refer call then need set it to normal
@@ -2012,8 +2043,8 @@ namespace LoginForms
                 return 0;
             }
 
-            string Text = "Line " + index.ToString();
-            Text += ": call failure, ";
+            string Text = "Linea " + index.ToString();
+            Text += ": Falló la llamada, ";
             Text += reason;
             Text += ", ";
             Text += code.ToString();
@@ -2021,9 +2052,10 @@ namespace LoginForms
             ListBoxSIPLog.Invoke(new MethodInvoker(delegate
             {
                 ListBoxSIPLog.Items.Add(Text);
+                Desplazamiento();
             }));
 
-            
+
             if (_CallSessions[index].isReferCall())
             {
                 // Take off the origin call from HOLD if the refer call is failure
@@ -2047,12 +2079,13 @@ namespace LoginForms
                     currentlyLine = originIndex;
                     ComboBoxLines.SelectedIndex = currentlyLine - 1;
 
-                    Text = "Current line is set to: ";
+                    Text = "La línea actual está establecida en: ";
                     Text += currentlyLine.ToString();
 
                     ListBoxSIPLog.Invoke(new MethodInvoker(delegate
                     {
                         ListBoxSIPLog.Items.Add(Text);
+                        Desplazamiento();
                     }));
                 }
             }
@@ -2082,12 +2115,13 @@ namespace LoginForms
                 // for example: "g.729#GSM#AMR", "H264#H263", you have to parse them by yourself.
             }
 
-            string Text = "Line " + i.ToString();
-            Text = Text + ": Call is updated";
+            string Text = "Linea " + i.ToString();
+            Text = Text + ": La llamada se actualizó";
             Text += existsScreen.ToString();
             ListBoxSIPLog.Invoke(new MethodInvoker(delegate
             {
                 ListBoxSIPLog.Items.Add(Text);
+                Desplazamiento();
             }));
 
             if (existsScreen && _CallSessions[currentlyLine].getExistsScreen() == false)
@@ -2107,7 +2141,7 @@ namespace LoginForms
             else if (existsScreen == false && _CallSessions[currentlyLine].getExistsScreen() == true)
             {
                 _CallSessions[currentlyLine].setExistsScreen(false);
-               //processScreenShareStoped();
+                //processScreenShareStoped();
             }
             return 0;
         }
@@ -2120,49 +2154,30 @@ namespace LoginForms
                 return 0;
             }
 
-            string Text = "Line " + i.ToString();
-            Text = Text + ": Call is connected";
+            string Text = "Linea " + i.ToString();
+            Text = Text + ": Se estableció la llamada";
             //Task task = new Task(StartCallRecord);
             //task.Wait = 100;
             //StartCallRecord();
             ListBoxSIPLog.Invoke(new MethodInvoker(delegate
             {
                 ListBoxSIPLog.Items.Add(Text);
+                Desplazamiento();
             }));
 
-            AgentNotification("Una nueva llamada con un cliente ha iniciado");
-
             return 0;
-        }
-
-        public void AgentNotification(string Mensaje)
-        {
-            try
-            {
-                var time24 = DateTime.Now.ToString("HH:mm:ss");
-                var name = GlobalSocket.currentUser.name + " " + GlobalSocket.currentUser.paternalSurname + " " + GlobalSocket.currentUser.maternalSurname;
-
-                new ToastContentBuilder()
-                .AddArgument("action", "viewConversation")
-                .AddText("Agente " + name)
-                .AddText(Mensaje)
-                .Show();
-            }
-            catch (Exception _e)
-            {
-                throw _e;
-            }
         }
 
 
         public Int32 onInviteBeginingForward(String forwardTo)
         {
-            string Text = "An incoming call was forwarded to: ";
+            string Text = "Una llamada entrante fue redireccionada a: ";
             Text = Text + forwardTo;
 
             ListBoxSIPLog.Invoke(new MethodInvoker(delegate
             {
                 ListBoxSIPLog.Items.Add(Text);
+                Desplazamiento();
             }));
 
             return 0;
@@ -2179,12 +2194,13 @@ namespace LoginForms
 
             _CallSessions[i].reset();
 
-            string Text = "Line " + i.ToString();
-            Text = Text + ": Call closed";
+            string Text = "Linea " + i.ToString();
+            Text = Text + ": Llamada terminada";
 
             ListBoxSIPLog.Invoke(new MethodInvoker(delegate
             {
                 ListBoxSIPLog.Items.Add(Text);
+                Desplazamiento();
             }));
             EndCallRecord();
             CallTypification typification = new CallTypification();
@@ -2211,6 +2227,7 @@ namespace LoginForms
             ListBoxSIPLog.Invoke(new MethodInvoker(delegate
             {
                 ListBoxSIPLog.Items.Add(Text);
+                Desplazamiento();
             }));
 
             return 0;
@@ -2225,12 +2242,13 @@ namespace LoginForms
                 return 0;
             }
 
-            string Text = "Line " + i.ToString();
-            Text = Text + ": Placed on hold by remote.";
+            string Text = "Linea " + i.ToString();
+            Text = Text + ": Puesto en espera por la otra linea.";
 
             ListBoxSIPLog.Invoke(new MethodInvoker(delegate
             {
                 ListBoxSIPLog.Items.Add(Text);
+                Desplazamiento();
             }));
 
             return 0;
@@ -2245,12 +2263,13 @@ namespace LoginForms
                 return 0;
             }
 
-            string Text = "Line " + i.ToString();
-            Text = Text + ": Take off hold by remote.";
+            string Text = "Linea " + i.ToString();
+            Text = Text + ": La otra linea Reanudo la llamada.";
 
             ListBoxSIPLog.Invoke(new MethodInvoker(delegate
             {
                 ListBoxSIPLog.Items.Add(Text);
+                Desplazamiento();
             }));
 
             return 0;
@@ -2267,26 +2286,28 @@ namespace LoginForms
             }
 
 
-            string Text = "Received REFER on line ";
+            string Text = "Recibiste una transferencia de llamada ";
             Text += index.ToString();
-            Text += ", refer to ";
+            Text += ", enviada a ";
             Text += to;
 
             ListBoxSIPLog.Invoke(new MethodInvoker(delegate
             {
                 ListBoxSIPLog.Items.Add(Text);
+                Desplazamiento();
             }));
 
             // Accept the REFER automatically
             int referSessionId = sdkLib.acceptRefer(referId, referSipMessage.ToString());
             if (referSessionId <= 0)
             {
-                Text = "Failed to accept REFER on line ";
+                Text = "Fallo la transferencia de llamada ";
                 Text += index.ToString();
 
                 ListBoxSIPLog.Invoke(new MethodInvoker(delegate
                 {
                     ListBoxSIPLog.Items.Add(Text);
+                    Desplazamiento();
                 }));
             }
             else
@@ -2298,10 +2319,11 @@ namespace LoginForms
                 _CallSessions[index].setSessionId(referSessionId);
                 _CallSessions[index].setSessionState(true);
 
-                Text = "Accepted the REFER";
+                Text = "Se acepto la llamada transferida";
                 ListBoxSIPLog.Invoke(new MethodInvoker(delegate
                 {
                     ListBoxSIPLog.Items.Add(Text);
+                    Desplazamiento();
                 }));
                 rh.SendCall("3", "2").Wait();
             }
@@ -2318,17 +2340,18 @@ namespace LoginForms
                 return 0;
             }
 
-            string Text = "Line ";
+            string Text = "Linea ";
             Text += index.ToString();
-            Text += ", the REFER was accepted";
+            Text += ", tu transferencia de llamada fue exitosa";
 
             ListBoxSIPLog.Invoke(new MethodInvoker(delegate
             {
                 ListBoxSIPLog.Items.Add(Text);
+                Desplazamiento();
             }));
             rh.SendCall("3", "1").Wait();
             lblEstatusLlamada.Text = "Transferiste una llamada";
-            return 0; 
+            return 0;
         }
 
 
@@ -2341,13 +2364,14 @@ namespace LoginForms
                 return 0;
             }
 
-            string Text = "Line ";
+            string Text = "Linea ";
             Text += index.ToString();
-            Text += ", the REFER was rejected";
+            Text += ", rechazaron tu transferencia de llamada";
 
             ListBoxSIPLog.Invoke(new MethodInvoker(delegate
             {
                 ListBoxSIPLog.Items.Add(Text);
+                Desplazamiento();
             }));
 
             return 0;
@@ -2362,12 +2386,13 @@ namespace LoginForms
                 return 0;
             }
 
-            string Text = "Line " + i.ToString();
-            Text = Text + ": Transfer Trying";
+            string Text = "Linea " + i.ToString();
+            Text = Text + ": Intentanto transferencia de llamada";
 
             ListBoxSIPLog.Invoke(new MethodInvoker(delegate
             {
                 ListBoxSIPLog.Items.Add(Text);
+                Desplazamiento();
             }));
 
 
@@ -2382,12 +2407,13 @@ namespace LoginForms
                 return 0;
             }
 
-            string Text = "Line " + i.ToString();
-            Text = Text + ": Transfer Ringing";
+            string Text = "Linea " + i.ToString();
+            Text = Text + ": Transferencia Timbrando";
 
             ListBoxSIPLog.Invoke(new MethodInvoker(delegate
             {
                 ListBoxSIPLog.Items.Add(Text);
+                Desplazamiento();
             }));
 
             return 0;
@@ -2407,12 +2433,13 @@ namespace LoginForms
             sdkLib.hangUp(_CallSessions[i].getSessionId());
             _CallSessions[i].reset();
 
-            string Text = "Line " + i.ToString();
-            Text = Text + ": Transfer succeeded, call closed.";
+            string Text = "Linea " + i.ToString();
+            Text = Text + ": Transferencia exitosa, tu llamada se cerró.";
 
             ListBoxSIPLog.Invoke(new MethodInvoker(delegate
             {
                 ListBoxSIPLog.Items.Add(Text);
+                Desplazamiento();
             }));
 
             return 0;
@@ -2427,12 +2454,13 @@ namespace LoginForms
                 return 0;
             }
 
-            string Text = "Line " + i.ToString();
-            Text = Text + ": Transfer failure";
+            string Text = "Linea " + i.ToString();
+            Text = Text + ": Transferencia fallida";
 
             ListBoxSIPLog.Invoke(new MethodInvoker(delegate
             {
                 ListBoxSIPLog.Items.Add(Text);
+                Desplazamiento();
             }));
 
             //  reason is error reason
@@ -2466,7 +2494,7 @@ namespace LoginForms
             //string Text = messageAccount;
             //Text += " has voice message.";
 
-                
+
             //ListBoxSIPLog.Invoke(new MethodInvoker(delegate
             //    {
             //        ListBoxSIPLog.Items.Add(Text);
@@ -2491,6 +2519,7 @@ namespace LoginForms
             ListBoxSIPLog.Invoke(new MethodInvoker(delegate
             {
                 ListBoxSIPLog.Items.Add(Text);
+                Desplazamiento();
             }));
 
 
@@ -2553,6 +2582,7 @@ namespace LoginForms
             ListBoxSIPLog.Invoke(new MethodInvoker(delegate
             {
                 ListBoxSIPLog.Items.Add(Text);
+                Desplazamiento();
             }));
             return 0;
         }
@@ -2707,6 +2737,7 @@ namespace LoginForms
             ListBoxSIPLog.Invoke(new MethodInvoker(delegate
             {
                 ListBoxSIPLog.Items.Add(Text);
+                Desplazamiento();
             }));
 
             return 0;
@@ -2726,6 +2757,7 @@ namespace LoginForms
             ListBoxSIPLog.Invoke(new MethodInvoker(delegate
             {
                 ListBoxSIPLog.Items.Add(Text);
+                Desplazamiento();
             }));
 
             return 0;

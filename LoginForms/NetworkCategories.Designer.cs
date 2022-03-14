@@ -48,9 +48,9 @@ namespace LoginForms
             // cmbNetwork
             // 
             this.cmbNetwork.FormattingEnabled = true;
-            this.cmbNetwork.Location = new System.Drawing.Point(80, 73);
+            this.cmbNetwork.Location = new System.Drawing.Point(54, 73);
             this.cmbNetwork.Name = "cmbNetwork";
-            this.cmbNetwork.Size = new System.Drawing.Size(121, 21);
+            this.cmbNetwork.Size = new System.Drawing.Size(158, 21);
             this.cmbNetwork.TabIndex = 2;
             this.cmbNetwork.Text = "Selecciona Una Red";
             this.cmbNetwork.SelectedIndexChanged += new System.EventHandler(this.cmbNetwork_SelectedIndexChanged);

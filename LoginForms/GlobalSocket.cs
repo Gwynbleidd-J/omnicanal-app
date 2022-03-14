@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Sockets;
 using LoginForms.Models;
 using SocketIOClient;
+using System.Windows.Forms;
 
 namespace LoginForms
 {
@@ -27,10 +28,12 @@ namespace LoginForms
             set { user = value; }
         }
 
-        public static Message message { get; set; }
+        public static Models.Message message { get; set; }
 
         public static string numberToClose { get; set; }
 
         public static string numberToSend { get; set; }
+
+        public static ComboBox algo { get; set; }
     }
 }

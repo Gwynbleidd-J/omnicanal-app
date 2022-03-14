@@ -43,7 +43,7 @@ namespace LoginForms
                 }
                 else
                 {
-                    MessageBox.Show("No has seleccionado una sucursal", "Omnicanal", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show("No has seleccionado una red", "Omnicanal", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
             }
             catch (Exception ex)

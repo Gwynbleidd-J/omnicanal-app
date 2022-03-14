@@ -44,6 +44,7 @@ namespace LoginForms
             prueba.TopLevel = false;
             prueba.Parent = pnlChatMessages;
             prueba.ControlBox = false;
+            GlobalSocket.algo = cmbUserStatus;
 
             //webchat.TopLevel = false;
             //webchat.Parent = pnlChatMessages;
@@ -464,7 +465,7 @@ namespace LoginForms
 
             if (string.IsNullOrEmpty(userToken))
             {
-                //client.CloseSocketConnection();
+                await GlobalSocket.GlobalVarible.DisconnectAsync();
                 MessageBox.Show("usuario cerró sesión", "Omnicanal", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Dispose();
                 login.Show();
