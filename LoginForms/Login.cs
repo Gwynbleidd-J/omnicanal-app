@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Deployment.Application;
 using System.Drawing;
 using System.Net.Sockets;
 using System.Windows.Forms;
@@ -104,7 +105,12 @@ namespace LoginForms
                     //sIPAccount = new SIPAccount(requiredRegister, displayName, userName, registerName, password, domain, port, proxy);
                     //await rh.SetStatusTime("8");
                     this.Hide();
-                    formPrincipal.FormClosed += (s, args) => this.Close();
+                    formPrincipal.FormClosed += async (s, args) =>
+                    {
+                        await rh.UpdateOnClosing(GlobalSocket.currentUser.ID, GlobalSocket.currentUser.status.id);
+                        await rh.updateUserStatus("8", GlobalSocket.currentUser.ID);
+                        this.Close();
+                    };
                     formPrincipal.Show();
                 }
 
@@ -134,7 +140,8 @@ namespace LoginForms
 
         private void SetProjectVersion()
         {
-            lblVersion.Text = $"Versión:{Application.ProductVersion.ToLower()}";
+
+            lblVersion.Text = $"Versión: 1.0.0.11";        
         }
 
         private void btnShowPassword_Click(object sender, EventArgs e)

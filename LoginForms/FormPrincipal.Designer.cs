@@ -215,8 +215,8 @@ namespace LoginForms
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel3.Controls.Add(this.pictureBox1, 3, 1);
             this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel6, 1, 1);
+            this.tableLayoutPanel3.Controls.Add(this.pictureBox1, 3, 1);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(520, 2);
             this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(2);
@@ -230,12 +230,12 @@ namespace LoginForms
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pictureBox1.Image = global::LoginForms.Properties.Resources.cerrar_sesion_1;
-            this.pictureBox1.Location = new System.Drawing.Point(283, 39);
+            this.pictureBox1.Location = new System.Drawing.Point(295, 42);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(175, 54);
+            this.pictureBox1.Size = new System.Drawing.Size(151, 48);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
@@ -312,6 +312,7 @@ namespace LoginForms
             this.tableDebug.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableDebug.Size = new System.Drawing.Size(134, 62);
             this.tableDebug.TabIndex = 12;
+            this.tableDebug.Visible = false;
             // 
             // lblSocket
             // 
@@ -334,6 +335,7 @@ namespace LoginForms
             this.btnReconexion.TabIndex = 15;
             this.btnReconexion.Text = "Reconectar";
             this.btnReconexion.UseVisualStyleBackColor = true;
+            this.btnReconexion.Visible = false;
             this.btnReconexion.Click += new System.EventHandler(this.btnReconexion_Click);
             // 
             // tableLayoutPanel5

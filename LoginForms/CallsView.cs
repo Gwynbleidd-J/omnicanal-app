@@ -15,12 +15,14 @@ using Newtonsoft.Json;
 using LoginForms.Models;
 using Newtonsoft.Json.Linq;
 using System.IO;
+using Microsoft.Toolkit.Uwp.Notifications;
 
 namespace LoginForms
 {
     public partial class CallsView : Form, SIPCallbackEvents
     {
         RestHelper rh = new RestHelper();
+        //CallTypification typification = new CallTypification();
         private const int MAX_LINES = 2; // Maximum lines
         private const int LINE_BASE = 1;
 
@@ -401,6 +403,8 @@ namespace LoginForms
         public CallsView()
         {
             InitializeComponent();
+
+            GlobalSocket.SoftPhoneReconnect = this;
 
             BackColor = Color.FromArgb(226, 224, 224);
             this.FormBorderStyle = FormBorderStyle.None;
@@ -984,24 +988,18 @@ namespace LoginForms
 
             if (_CallSessions[currentlyLine].getSessionState() == true)
             {
-                CallTypification typification = new CallTypification();
                 sdkLib.hangUp(_CallSessions[currentlyLine].getSessionId());
                 _CallSessions[currentlyLine].reset();
-
-
-
                 string Text = "Linea " + currentlyLine.ToString();
                 Text = Text + ": Llamada colgada";
                 ListBoxSIPLog.Items.Add(Text);
                 Desplazamiento();
                 EndCallRecord();
+               // Disconnect();
+                CallTypification typification = new CallTypification();
                 typification.ShowDialog();
                 typification.TopMost = true;
                 typification.StartPosition = FormStartPosition.CenterParent;
-                typification.Shown += (s, a) =>
-                {
-                    lblEstatusLlamada.Text = "Tipificando Llamada";
-                };
                 btnBeginRecord.Enabled = true;
                 btnBeginRecord.Text = "Grabar Llamada";
                 lblEstatusLlamada.Text = "Llamada Terminada";
@@ -1880,11 +1878,12 @@ namespace LoginForms
                     ListBoxSIPLog.Items.Add(Text);
                     Desplazamiento();
                 }));
-
+                AgentNotification("Se ha iniciado una nueva llamada");
                 //rh.SendCall("1").Wait();
                 lblFolio.Text = rh.SendCall("1").Result.ToString();
                 lblEstatusLlamada.Text = "En llamada";
                 //StartCallRecord();
+
                 return 0;
             }
 
@@ -1903,9 +1902,27 @@ namespace LoginForms
             }));
 
             //  You should write your own code to play the wav file here for alert the incoming call(incoming tone);
-
             return 0;
 
+        }
+
+        public void AgentNotification(string Mensaje)
+        {
+            try
+            {
+                var time24 = DateTime.Now.ToString("HH:mm:ss");
+                var name = GlobalSocket.currentUser.name + " " + GlobalSocket.currentUser.paternalSurname + " " + GlobalSocket.currentUser.maternalSurname;
+
+                new ToastContentBuilder()
+                .AddArgument("action", "viewConversation")
+                .AddText("Agente " + name)
+                .AddText(Mensaje)
+                .Show();
+            }
+            catch (Exception _e)
+            {
+                throw _e;
+            }
         }
 
         public Int32 onInviteTrying(Int32 sessionId)
@@ -2205,6 +2222,7 @@ namespace LoginForms
             EndCallRecord();
             CallTypification typification = new CallTypification();
             typification.ShowDialog();
+            //Disconnect();
             typification.TopMost = true;
             typification.StartPosition = FormStartPosition.CenterParent;
             lblEstatusLlamada.Text = "Llamada Terminada";

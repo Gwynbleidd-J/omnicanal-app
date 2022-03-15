@@ -2,6 +2,7 @@
 using LoginForms.Shared;
 using Newtonsoft.Json;
 using System;
+using System.Reflection;
 using System.Windows.Forms;
 
 namespace LoginForms
@@ -61,7 +62,7 @@ namespace LoginForms
         }
 
 
-        private void btnSave_Click(object sender, EventArgs e)
+        public void btnSave_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(cmbNetwork.Text))
             {
@@ -97,8 +98,11 @@ namespace LoginForms
                 await rh.UpdateNetworkCategoryCalls(valor, score, txtComments.Text);
                 await rh.ChangeStatus(GlobalSocket.currentUser.ID, "7");
                 GlobalSocket.algo.Text = "Disponible";
+                //GlobalSocket.SoftPhoneReconnect.Connect();
                 //MessageBox.Show("Datos guardados correctamente", "Omnicanal", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
                 this.Dispose();
+
             }
             catch (Exception ex)
             {

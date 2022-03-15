@@ -1140,6 +1140,7 @@ namespace LoginForms
             this.groupBox7.Size = new System.Drawing.Size(216, 58);
             this.groupBox7.TabIndex = 56;
             this.groupBox7.TabStop = false;
+            this.groupBox7.Visible = false;
             // 
             // label21
             // 
@@ -1359,7 +1360,6 @@ namespace LoginForms
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label lblNotification;
         private System.Windows.Forms.Label label18;
-        internal System.Windows.Forms.Button btnReconnect;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Button btnEndRecord;
@@ -1374,5 +1374,6 @@ namespace LoginForms
         private System.Windows.Forms.CheckBox checkBoxAEC;
         private System.Windows.Forms.Label lblEstatusLlamada;
         private System.Windows.Forms.Label lblFolio;
+        public System.Windows.Forms.Button btnReconnect;
     }
 }

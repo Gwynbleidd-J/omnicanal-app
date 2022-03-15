@@ -1203,8 +1203,9 @@ namespace LoginForms.Shared
             }
         }
 
-        public async Task<string> UpdateNetworkCategoryCalls(string networkCategoryId, string score, string comments)
+        public async Task<string> UpdateNetworkCategoryCalls(string networkCategoryId = "", string score = "", string comments = "")
         {
+            CallsView calls = new CallsView();
             //Console.WriteLine($"Inicio de llamada:{startTime}");
             string endingTime = DateTime.Now.ToString("HH:mm:ss:ff");
             Console.WriteLine($"Inicio de la llamada:{date}");

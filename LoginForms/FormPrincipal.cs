@@ -323,6 +323,8 @@ namespace LoginForms
                     }
                     else
                     {
+                        label1.Visible = false;
+                        cmbUserStatus.Visible = false;
                         flpDynamicButtons.Visible = true;
                         tableLayoutPanel8.Visible = false;
                     }
@@ -568,6 +570,13 @@ namespace LoginForms
         private void SetProjectVersion()
         {
            // lblVersión.Text = $"Version:{Application.ProductVersion}";
+        }
+
+        private void FormPrincipal_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            //await rh.UpdateOnClosing(GlobalSocket.currentUser.ID, GlobalSocket.currentUser.status.id);
+            //await rh.updateUserStatus("8", GlobalSocket.currentUser.ID);
+            //Application.Exit();
         }
     }
     class StatusItems

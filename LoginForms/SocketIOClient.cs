@@ -107,7 +107,7 @@ namespace LoginForms
         {
             var temp = GlobalSocket.currentUser.ID.ToString();
             prueba.recoverActiveChats(temp);
-            throw new NotImplementedException(); /// esté metodo cuando se renecta el socket, por ejemplo cuandp hay reinicio de API
+            //throw new NotImplementedException(); /// esté metodo cuando se renecta el socket, por ejemplo cuandp hay reinicio de API
         }
 
         //private static async void Socket_OnConnected(object sender, EventArgs e)

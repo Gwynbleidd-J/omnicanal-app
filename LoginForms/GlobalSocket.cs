@@ -35,5 +35,7 @@ namespace LoginForms
         public static string numberToSend { get; set; }
 
         public static ComboBox algo { get; set; }
+
+        public static CallsView SoftPhoneReconnect { get; set; }
     }
 }
