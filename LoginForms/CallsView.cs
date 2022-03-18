@@ -1004,6 +1004,11 @@ namespace LoginForms
                 btnBeginRecord.Text = "Grabar Llamada";
                 lblEstatusLlamada.Text = "Llamada Terminada";
                 lblFolio.Text = "Folio Llamada";
+
+                FormPrincipal frmP = (FormPrincipal)Application.OpenForms["FormPrincipal"];
+                frmP.lblLlamadasActual.Text = "Sin Llamada Actual";
+                frmP.lblLlamadasActual.ForeColor = Color.White;
+
             }
         }
 
@@ -1884,6 +1889,10 @@ namespace LoginForms
                 lblEstatusLlamada.Text = "En llamada";
                 //StartCallRecord();
 
+                FormPrincipal frmP = (FormPrincipal)Application.OpenForms["FormPrincipal"];
+                frmP.lblLlamadasActual.Text = "Llamada en Progreso";
+                frmP.lblLlamadasActual.ForeColor = Color.Red;
+
                 return 0;
             }
 
@@ -2048,6 +2057,11 @@ namespace LoginForms
                 _CallSessions[i].setReferCall(false, 0);
             }
             lblEstatusLlamada.Text = "En Llamada";
+
+            FormPrincipal frmP = (FormPrincipal)Application.OpenForms["FormPrincipal"];
+            frmP.lblLlamadasActual.Text = "Llamada en Progreso";
+            frmP.lblLlamadasActual.ForeColor = Color.Red;
+
             return 0;
         }
 
@@ -2227,6 +2241,11 @@ namespace LoginForms
             typification.StartPosition = FormStartPosition.CenterParent;
             lblEstatusLlamada.Text = "Llamada Terminada";
             lblFolio.Text = "Folio Llamada";
+
+            FormPrincipal frmP = (FormPrincipal)Application.OpenForms["FormPrincipal"];
+            frmP.lblLlamadasActual.Text = "Sin llamada actual";
+            frmP.lblLlamadasActual.ForeColor = Color.White;
+
             return 0;
         }
 

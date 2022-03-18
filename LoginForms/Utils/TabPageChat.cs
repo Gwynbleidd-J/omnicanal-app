@@ -403,6 +403,21 @@ namespace LoginForms.Utils
             parentTabControlChat.Controls.Remove(tbPage);
             await restHelper.getSubstactActiveChat(userId);
             MessageBox.Show("Chat Cerrado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            FormPrincipal frmP = (FormPrincipal)Application.OpenForms["FormPrincipal"];
+            ChatWindow.contadorActiveChats -= 1;
+
+
+            if (ChatWindow.contadorActiveChats > 0)
+            {
+                frmP.lblChatsActual.Text = "Chats Activos:" + ChatWindow.contadorActiveChats;
+                frmP.lblChatsActual.ForeColor = Color.Red;
+            }
+            else {
+                frmP.lblChatsActual.Text = "Sin chats actuales";
+                frmP.lblChatsActual.ForeColor = Color.White;
+            }
+
         }
 
         public async Task<bool> sendMessageFromPanelControl()

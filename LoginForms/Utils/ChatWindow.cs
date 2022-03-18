@@ -25,6 +25,8 @@ namespace LoginForms.Utils
         public TabPageChat tbPageChat { get; set; }
         public bool MinThread = false;
         public bool firstRecoveredChatsLoading = false;
+        public static int contadorActiveChats = 0;
+
 
         #endregion
         #region Métodos
@@ -130,11 +132,17 @@ namespace LoginForms.Utils
                 //nextTabPagePosition++;
                 //tbControlChats.Controls.Add(arrTabPage[nextTabPagePosition]);
 
+                FormPrincipal frmP = (FormPrincipal)Application.OpenForms["FormPrincipal"];
+                contadorActiveChats += 1;
+                frmP.lblChatsActual.Text = "Chats Activos:" +contadorActiveChats;
+                frmP.lblChatsActual.ForeColor = Color.Red;
+
+
                 //TabPage n = new TabPage();
                 //n.Text = "tryChat: " + chatId;
                 //n.BackColor = System.Drawing.Color.LightGray;
                 //tbControlChats.Controls.Add(n); 
-                  
+
             }
             catch (Exception ex)
             {
