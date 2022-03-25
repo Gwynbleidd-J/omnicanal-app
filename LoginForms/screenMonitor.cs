@@ -53,7 +53,6 @@ namespace LoginForms
                 textBox1.Text = builder.ToString();
 
                 client.Connect();
-
             }
             else {
                 builder.Length = 0;

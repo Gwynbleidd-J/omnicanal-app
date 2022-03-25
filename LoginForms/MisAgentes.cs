@@ -4,13 +4,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace LoginForms
@@ -26,7 +20,6 @@ namespace LoginForms
             InitializeComponent();
             ShowAgents();
             //agentsInformation(GlobalSocket.currentUser.ID);
-            //SupervisorAgents(rolId);
         }
 
         public MisAgentes(string individualId)
@@ -53,6 +46,8 @@ namespace LoginForms
             //    SupervisorAgents(rolId);
             //}
         }
+
+
 
         private async void agentsInformation(string leaderId)
         {
@@ -177,12 +172,24 @@ namespace LoginForms
             try
             {
 
-                dataGridView1.Rows.Clear();
+                dgvAgentesActivos.Rows.Clear();
 
                 string supervisorAgents = await rh.getSupervisorAgents(id);
                 //Json jsonSupervisorAgents = JsonConvert.DeserializeObject<Json>(supervisorAgents);
                 var cleanData = (JObject)JsonConvert.DeserializeObject(supervisorAgents);
                 var algo = cleanData["data"].Children();
+
+                ComboBox CB = new ComboBox();
+                CB.Items.Add(1);
+                CB.Items.Add(2);
+                CB.Items.Add(3);
+                CB.Items.Add(4);
+                CB.Items.Add(5);
+
+                int intTemp = 0;
+                DataGridViewComboBoxColumn columnMax = ((DataGridViewComboBoxColumn)dgvAgentesActivos.Columns["chatsMaximos"]);
+                columnMax.DataSource = CB.Items;
+                columnMax.ValueType = intTemp.GetType();
 
                 foreach (var item in algo)
                 {
@@ -235,10 +242,7 @@ namespace LoginForms
                     }
                     //++++++++++++++++++
 
-
-
                     //Seccion de estados del agente
-
 
                     string datosStatus = await rh.GetUserStatesSupervisor(ID.ToString());
                     var statusData = (JObject)JsonConvert.DeserializeObject(datosStatus);
@@ -253,10 +257,10 @@ namespace LoginForms
                     var Comida = tempStatus["Comida"].Value<int>();
                     var Break = tempStatus["Break"].Value<int>();
 
-
                     //+++++++++++++++++++++
+                    //El valor de chats maximos esta en chatsMaximos
 
-                    dataGridView1.Rows.Add(nombre, estatusActual, chatsActivos, chatsCerrados, chatsMaximos, ContadorLlamadasCerradas,
+                    dgvAgentesActivos.Rows.Add(nombre, estatusActual, chatsActivos, chatsCerrados,null, ContadorLlamadasCerradas,
                         contadorLlamadasEntrantes, contadorLlamadasActivas, correo,
                         Disponible,
                         NoDisponible,
@@ -265,11 +269,40 @@ namespace LoginForms
                         Calidad,
                         Sanitario,
                         Comida,
-                        Break
+                        Break,
+                        ID
                         );
+
+                    DataGridViewRow fila = dgvAgentesActivos.Rows[dgvAgentesActivos.Rows.Count - 1];
+                    DataGridViewComboBoxCell combo = (DataGridViewComboBoxCell)fila.Cells[4];
+                    int index = 0;
+                    foreach (var max in CB.Items)
+                    {
+                        if (max.ToString() == chatsMaximos)
+                        {
+                            index = CB.Items.IndexOf(max);
+                        }
+                    }
+
+                    combo.Value = CB.Items[index];
+
                 }
 
-                dataGridView1.Refresh();
+                foreach (DataGridViewColumn col in dgvAgentesActivos.Columns)
+                {
+                    if (col.Index == 4)
+                    {
+                        col.ReadOnly = false;
+                    }
+                    else
+                    {
+                        col.ReadOnly = true;
+                    }
+                }
+
+                dgvAgentesActivos.Refresh();
+                DataGridViewColumn colNombre = dgvAgentesActivos.Columns[0];
+                colNombre.Frozen = true;
 
             }
             catch (Exception _e)
@@ -333,9 +366,73 @@ namespace LoginForms
             //}
         }
 
+
         private void btnRecargar_Click(object sender, EventArgs e)
         {
             SupervisorAgents(rolId);
         }
+
+        private void dgvAgentesActivos_CurrentCellDirtyStateChanged(object sender, EventArgs e)
+        {
+            if (dgvAgentesActivos.IsCurrentCellDirty) { 
+
+                DataGridView temp = null;
+                temp = (DataGridView)sender;
+
+                if (!temp.Focused)
+                {
+                    var ID = temp.CurrentRow.Cells[temp.CurrentRow.Cells.Count-1].Value;
+                    var nombre = temp.CurrentRow.Cells[0].Value;
+
+                    var newValue = dgvAgentesActivos.CurrentCell.EditedFormattedValue;
+                    _ = rh.updateAgentMaxActiveChats(ID.ToString(), newValue.ToString());
+                    MessageBox.Show("El agente " + nombre + "\ncon el ID " + ID + "\npuede atender "+newValue +" chats ahora");
+                }
+
+                dgvAgentesActivos.CommitEdit(DataGridViewDataErrorContexts.Commit);
+                dgvAgentesActivos.EndEdit();
+            }
+        }
+
+        private async void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string supervisorAgents = await rh.getSupervisorAgents("1");
+                var cleanData = (JObject)JsonConvert.DeserializeObject(supervisorAgents);
+                var algo = cleanData["data"].Children();
+
+                var estados = new Dictionary<string, string>();
+
+                foreach (var item in algo)
+                {
+                    var ID = item["ID"].Value<string>();
+                    var estatusActual = item["status"].Value<string>();
+                    estados.Add(ID, estatusActual);
+                }
+
+                DataGridViewColumn columnaEstatus = dgvAgentesActivos.Columns[1];
+                foreach (DataGridViewRow fila in dgvAgentesActivos.Rows)
+                {
+                    var id = fila.Cells["ID"].ToString();
+                    var estadoA = fila.Cells[1].ToString();
+
+                    foreach (var item in estados)
+                    {
+                        if (item.Key == id)
+                        {
+                            fila.Cells[1].Value = item.Value;
+                        }
+                    }
+                }
+
+                dgvAgentesActivos.Refresh();
+            }
+            catch (Exception _e)
+            {
+                throw _e;
+            }  
+        }
+
     }
 }

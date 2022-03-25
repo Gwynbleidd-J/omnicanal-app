@@ -373,6 +373,7 @@ namespace LoginForms
             this.tableDebug.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableDebug.Size = new System.Drawing.Size(223, 109);
             this.tableDebug.TabIndex = 12;
+            this.tableDebug.Visible = false;
             // 
             // lblSocket
             // 

@@ -329,6 +329,7 @@ namespace LoginForms
                         cmbUserStatus.Visible = false;
                         flpDynamicButtons.Visible = true;
                         tableLayoutPanel8.Visible = false;
+                        tableInteracciones.Visible = false;
                     }
                 }
             }
