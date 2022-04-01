@@ -84,7 +84,15 @@ namespace LoginForms
             {
                 FormPrincipal formPrincipal = new FormPrincipal();
                 //await rh.SetStatusTime("8");
-                var jsonLogin = await rh.Login(txtUserName.Text.Trim(' '), txtPassword.Text.Trim(' '), ipAddress);
+
+                var encryptedPass = Encrypt.EncryptString(txtPassword.Text.Trim());
+                var encryptedEmail = Encrypt.EncryptString(txtUserName.Text.Trim(' '));
+
+                Console.WriteLine("Entrando a la verificacion de usuario");
+                Console.WriteLine("Usuario:" +encryptedEmail+"\nContrasena:"+encryptedPass);
+
+                var jsonLogin = await rh.Login(encryptedEmail, encryptedPass, ipAddress);
+
                 if (jsonLogin == "Unauthorized")
                 {
                     MessageBox.Show($"Correo o contraseña Incorrecta, revisa tus credenciales", $"SIDI Omnichannel", MessageBoxButtons.OK, MessageBoxIcon.Warning);
