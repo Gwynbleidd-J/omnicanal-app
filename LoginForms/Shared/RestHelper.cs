@@ -30,6 +30,9 @@ namespace LoginForms.Shared
         private static string date;
         private static string statusDate;
         private static string endDate;
+        private static int llamadaId;
+        public static string idStatus;
+        private string folio;
         /*
          * Lo mismo preguntar a Juan Carlos que pasa también con este método
          */
@@ -233,14 +236,56 @@ namespace LoginForms.Shared
 
         }
 
+        public async Task<string> UpdateActiveColumn(string email)
+        {
+            var inputData = new Dictionary<string, string>
+            {
+                {"email", email}
+            };
+            var input = new FormUrlEncodedContent(inputData);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync(baseUrl + "auth/activeColumn", input);
+            HttpContent content = response.Content;
+            string data = await content.ReadAsStringAsync();
+
+            if(!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            {
+                return data;
+            }
+            else
+            {
+                return response.StatusCode.ToString();
+            }
+        }
+
+        public async Task<string> UpdateActiveColumnOnClose(string userId)
+        {
+            var inputData = new Dictionary<string, string>
+            {
+                {"userId", userId}
+            };
+            var input = new FormUrlEncodedContent(inputData);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync(baseUrl + "status/updateColmnActiveOnClose", input);
+            HttpContent content = response.Content;
+            string data = await content.ReadAsStringAsync();
+
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            {
+                return data;
+            }
+            else
+            {
+                return response.StatusCode.ToString();
+            }
+        }
+
         public string BeautifyJson(string strJson)
         {
             JToken parseJson = JToken.Parse(strJson);
             return parseJson.ToString(Formatting.Indented);
         }
 
-        //Metodo para deserializar las respuestas del servidor
-        //decirle a Diego que si se puede hacer un metodo para que se encargue de las deserializaciones
         public string DeserializarJson(string strJson)
         {
             Json json = JsonConvert.DeserializeObject<Json>(strJson);
@@ -345,6 +390,23 @@ namespace LoginForms.Shared
             HttpContent content = response.Content;
             string data = await content.ReadAsStringAsync();
             if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            {
+                return data;
+            }
+            else
+            {
+                return response.StatusCode.ToString();
+            }
+        }
+
+        public async Task<string> GetActiveUserStatus()
+        {
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.GetAsync(baseUrl + "status/timer");
+            Console.WriteLine(response);
+            HttpContent content = response.Content;
+            string data = await content.ReadAsStringAsync();
+            if(!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
             {
                 return data;
             }
@@ -486,7 +548,8 @@ namespace LoginForms.Shared
             }
         }
 
-        public async Task<string> startMonitoring(int idAgente, int idSupervisor) {
+        public async Task<string> startMonitoring(int idAgente, int idSupervisor) 
+        {
 
             var inputData = new Dictionary<string, string>
             {
@@ -508,10 +571,10 @@ namespace LoginForms.Shared
                 return response.StatusCode.ToString();
             }
         }
+       
 
         public async Task<string> shareScreenshot(Bitmap bitImage, string idSupervisor)
         {
-
             HttpContent stringContent = new StringContent(idSupervisor); // a que chat
             ImageConverter converter = new ImageConverter();
             byte[] BArray = (byte[])converter.ConvertTo(bitImage, typeof(byte[]));
@@ -643,31 +706,31 @@ namespace LoginForms.Shared
             }
         }
 
-        public async Task<string> AppParameters(string twilioAccountSID, string twilioAuthToken, string whatsappAccount, string botTokenTelegram)
-        {
-            var inputData = new Dictionary<string, string>
-            {
-                {"twilioAccountSID", twilioAccountSID },
-                { "twilioAuthToken", twilioAuthToken},
-                { "whatsappAccount", whatsappAccount},
-                {"botTokenTelegram", botTokenTelegram }
-            };
+        //public async Task<string> AppParameters(string twilioAccountSID, string twilioAuthToken, string whatsappAccount, string botTokenTelegram)
+        //{
+        //    var inputData = new Dictionary<string, string>
+        //    {
+        //        {"twilioAccountSID", twilioAccountSID },
+        //        { "twilioAuthToken", twilioAuthToken},
+        //        { "whatsappAccount", whatsappAccount},
+        //        {"botTokenTelegram", botTokenTelegram }
+        //    };
 
-            var input = new FormUrlEncodedContent(inputData);
-            HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.PostAsync(baseUrl + "parameters/appParameters", input);
-            Console.WriteLine(response);
-            HttpContent content = response.Content;
-            string data = await content.ReadAsStringAsync();
-            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
-            {
-                return data;
-            }
-            else
-            {
-                return response.StatusCode.ToString();
-            }
-        }
+        //    var input = new FormUrlEncodedContent(inputData);
+        //    HttpClient client = new HttpClient();
+        //    HttpResponseMessage response = await client.PostAsync(baseUrl + "parameters/appParameters", input);
+        //    Console.WriteLine(response);
+        //    HttpContent content = response.Content;
+        //    string data = await content.ReadAsStringAsync();
+        //    if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+        //    {
+        //        return data;
+        //    }
+        //    else
+        //    {
+        //        return response.StatusCode.ToString();
+        //    }
+        //}
 
         public async Task<string> SoftphoneParameters(string userId)
         {
@@ -757,6 +820,8 @@ namespace LoginForms.Shared
 
         public async Task<string> updateUserStatus(string statusId, string userId)
         {
+            string date = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:fff");
+
             var inputData = new Dictionary<string, string>
             {
                 {"status", statusId},
@@ -989,15 +1054,6 @@ namespace LoginForms.Shared
 
             var inputData = new Dictionary<string, string>
             {
-                /*
-                 * En este porcion de codigo se necesita poner los parametros estaticos fijos
-                 * agentPlatformIdentifier
-                 * messagePlatformId
-                 * transmitter
-                 * statusId
-                 * agentPlatformIdentifier
-                 */
-                //whatsapp:+5214621929111 , w
                 { "messagePlatformId", ""},
                 { "text", text},
                 { "transmitter",  "a"},
@@ -1026,62 +1082,57 @@ namespace LoginForms.Shared
             } 
 
             return string.Empty;
-            //cuando se contruya form}
+            //cuando se contruya form
             //se identifique de cual chat viene el mensaje
             //tambien el chatPlatformIdentifer
             //sacarlo del json
         }
 
-        //public async Task<string> SendImage()
-        //{
+        public async Task<string> SendImage(Bitmap bitImage, string chatId, string clientPlatformIdentifier, string platformIdentifier, string agentPlatformIdentifier, string imageLocation)//string text
+        {
+            ImageConverter converter = new ImageConverter();
+            byte[] BArray = (byte[])converter.ConvertTo(bitImage, typeof(byte[]));
 
-        //    HttpContent stringContent = new StringContent(idSupervisor);
-        //    ImageConverter converter = new ImageConverter();
-        //    byte[] BArray = (byte[])converter.ConvertTo(bitImage, typeof(byte[]));
+            HttpContent bytesContent = new ByteArrayContent(BArray);
 
-        //    string idAgente = GlobalSocket.currentUser.ID;
-        //    HttpContent agentContent = new StringContent(idAgente);
+            bytesContent.Headers.ContentType = new MediaTypeHeaderValue("multipart/form-data");
 
-        //    //HttpContent fileStreamContent = new StreamContent(fileStream);
-        //    HttpContent bytesContent = new ByteArrayContent(BArray);
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Add("chatId", chatId);
+            client.DefaultRequestHeaders.Add("clientPlatformIdentifier", clientPlatformIdentifier);
+            client.DefaultRequestHeaders.Add("platformIdentifier", platformIdentifier);
+            client.DefaultRequestHeaders.Add("agentPlatformIdentifier", agentPlatformIdentifier);
+            client.DefaultRequestHeaders.Add("imagelocation", imageLocation);
 
-        //    //Setting type of file
-        //    bytesContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
+            using (var formData = new MultipartFormDataContent())
+            {
+                formData.Add(bytesContent, "imagen", "imagen");
+                //formData.Add(stringContent, "chatId", chatId);
+                //formData.Add(stringContent1, "clientPlatformIdentifier", clientPlatformIdentifier);
+                //formData.Add(stringContent2, "platformIdentifier", platformIdentifier);
+                //formData.Add(stringContent3, "agentPlatformIdentifier", agentPlatformIdentifier);
 
-        //    using (var client = new HttpClient())
-        //    using (var formData = new MultipartFormDataContent())
-        //    {
+                var response = await client.PostAsync(baseUrl + "messenger/sendImage", formData);
+                response.EnsureSuccessStatusCode();
+                client.Dispose();
+                var sd = response.Content.ReadAsStringAsync().Result;
+                return sd;
+            }
+        }
 
-        //        // <input type="text" name="filename" />
-        //        formData.Add(bytesContent, "campo1", "campo1");
-        //        formData.Add(stringContent, "campo2", idSupervisor);
-        //        formData.Add(agentContent, "campo3", idAgente);
-
-        //        var response = await client.PostAsync(baseUrl + "record", formData);
-        //        HttpContent content = response.Content;
-        //        var data = await content.ReadAsStringAsync();
-
-        //        if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
-        //        {
-        //            return data;
-        //        }
-        //        else
-        //        {
-        //            return response.StatusCode.ToString();
-        //        }
-        //    }
-        //}
-        
-        
         //Tiempo de cada estado del agente
         public async Task<string> SetStatusTime( string statusId)
         {
             statusDate = DateTime.Now.ToString("HH:mm:ss");
+            string date = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             var inputData = new Dictionary<string, string>
             {
                 { "startingTime", statusDate},
                 { "userId", GlobalSocket.currentUser.ID},
-                { "statusId", statusId}
+                { "statusId", statusId},
+                { "startDate", date},
+                {"idStatus", idStatus}
+
             };
             Console.WriteLine(inputData);
             var input = new FormUrlEncodedContent(inputData);
@@ -1091,6 +1142,9 @@ namespace LoginForms.Shared
             string data = response.Content.ReadAsStringAsync().Result;
             if(!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
             {
+                var values = JsonConvert.DeserializeObject<Dictionary<dynamic, dynamic>>(data);
+                idStatus = values["data"]["statusId"];
+                Console.WriteLine("StatusId:" + idStatus);
                 return data;
             }
             else
@@ -1101,13 +1155,17 @@ namespace LoginForms.Shared
 
         public async Task<string> ChangeStatus(string userId, string statusId)
         {
+            Console.WriteLine("idStatus" + idStatus);
             endDate = DateTime.Now.ToString("HH:mm:ss");
+            string date = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             var inputData = new Dictionary<string, string>
             {
                 {"endingTime", endDate},
                 {"startingTime", endDate },
                 {"userId", GlobalSocket.currentUser.ID},
-                {"statusId", statusId }
+                {"statusId", statusId },
+                { "startDate", date},
+                {"idStatus", idStatus}
             };
             var input = new FormUrlEncodedContent(inputData);
             HttpClient client = new HttpClient();
@@ -1117,8 +1175,10 @@ namespace LoginForms.Shared
             
             if(!string.IsNullOrEmpty(response.StatusCode.ToString())&& response.StatusCode.ToString() == "OK")
             {
-
-                return data;
+                var values = JsonConvert.DeserializeObject<Dictionary<dynamic, dynamic>>(data);
+                idStatus = values["data"]["idStatus"];
+                Console.WriteLine("StatusId:" + idStatus);
+                return idStatus;
             }
             else
             {
@@ -1156,7 +1216,8 @@ namespace LoginForms.Shared
             {
                 {"endingTime", endDate },
                 {"userId", userId },
-                {"statusId", statusId }
+                {"statusId", statusId },
+                {"idStatus", idStatus}
             };
             var input = new FormUrlEncodedContent(inputData);
             HttpClient client = new HttpClient();
@@ -1177,13 +1238,15 @@ namespace LoginForms.Shared
 
         public async Task<string> SendCall(string tipo, string transfer = "0")
         {
-            date = DateTime.Now.ToString("HH:mm:ss:ff");
+            date = DateTime.Now.ToString("HH:mm:ss");
+            string dateTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             var inputData = new Dictionary<string, string>
             {
                 {"startTime", date},
                 {"userId", GlobalSocket.currentUser.ID },
                 {"tipoLlamada", tipo },
-                { "llamadaTransferida", transfer }
+                { "llamadaTransferida", transfer },
+                {"startingDate", dateTime}
             };
 
             Console.WriteLine(inputData);
@@ -1205,8 +1268,6 @@ namespace LoginForms.Shared
 
         public async Task<string> UpdateNetworkCategoryCalls(string networkCategoryId = "", string score = "", string comments = "")
         {
-            CallsView calls = new CallsView();
-            //Console.WriteLine($"Inicio de llamada:{startTime}");
             string endingTime = DateTime.Now.ToString("HH:mm:ss:ff");
             Console.WriteLine($"Inicio de la llamada:{date}");
             Console.WriteLine($"Termino de la llamada:{endingTime}");
@@ -1217,7 +1278,7 @@ namespace LoginForms.Shared
                 {"networkCategoryId", networkCategoryId },
                 {"score", score },
                 {"comments", comments },
-                //{"userId", GlobalSocket.currentUser.ID}
+                {"idLlamada", llamadaId.ToString()}
             };
             var input = new FormUrlEncodedContent(inputData);
             HttpClient client = new HttpClient();
@@ -1240,7 +1301,7 @@ namespace LoginForms.Shared
         {
             var inputData = new Dictionary<string, string>
             {
-                {"startTime", date},
+                {"idLlamada", llamadaId.ToString()}
             };
             Console.WriteLine(inputData);
             var input = new FormUrlEncodedContent(inputData);
@@ -1473,16 +1534,19 @@ namespace LoginForms.Shared
 
         }
 
+
+        //***** MÉTODO QUE SIRVE PARA SACAR EL FOLIO DE LA PETICIÓN HTTP *********//
         public string GetFolioFromApi(string response)
         {
-            string apiData = response;
-            MsjApi jsonData = JsonConvert.DeserializeObject<MsjApi>(apiData);
-            var data = jsonData.data;
-            var jObject = JsonConvert.DeserializeObject<JObject>(apiData);
-            var folio = jObject.Value<string>("data").ToString();
-
+            var values = JsonConvert.DeserializeObject<Dictionary<dynamic, dynamic>>(response);
+            folio = values["data"]["folio"];
+            llamadaId = values["data"]["idLlamada"];
+            Console.WriteLine(folio);
+            Console.WriteLine(llamadaId);
+            
             return folio;
         }
+
     }
     public class MsjApi
     {

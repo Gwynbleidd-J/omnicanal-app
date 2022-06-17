@@ -28,7 +28,6 @@ namespace LoginForms
         public static async Task ClienteSocketIO()
         {
             var uri = new Uri(baseUrl);
-            //var uri = new Uri("http://201.149.34.171:3025");
             var socket = new SocketIO(uri, new SocketIOOptions
             {
                 Query = new Dictionary<string, string>
@@ -105,6 +104,7 @@ namespace LoginForms
 
         private static void Socket_OnReconnected(object sender, int e)
         {
+            //Prueba prueba = new Prueba();
             var temp = GlobalSocket.currentUser.ID.ToString();
             prueba.recoverActiveChats(temp);
             //throw new NotImplementedException(); /// esté metodo cuando se renecta el socket, por ejemplo cuandp hay reinicio de API

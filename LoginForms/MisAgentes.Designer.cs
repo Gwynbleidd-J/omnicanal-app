@@ -29,8 +29,9 @@ namespace LoginForms
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.flpAgentInfo = new System.Windows.Forms.FlowLayoutPanel();
             this.dgvAgentesActivos = new System.Windows.Forms.DataGridView();
             this.NombreAgente = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -41,7 +42,6 @@ namespace LoginForms
             this.llamadasSalida = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.llamadasEntrada = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.llamadaActiva = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Disponible = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NoDisponible = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ACW = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -53,10 +53,14 @@ namespace LoginForms
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnRecargar = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.button1 = new System.Windows.Forms.Button();
+            this.cChUserStatus = new LiveCharts.WinForms.CartesianChart();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dgvAgentesActivos)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -64,10 +68,9 @@ namespace LoginForms
             // 
             this.flpAgentInfo.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.flpAgentInfo.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flpAgentInfo.Location = new System.Drawing.Point(31, 28);
-            this.flpAgentInfo.Margin = new System.Windows.Forms.Padding(4);
+            this.flpAgentInfo.Location = new System.Drawing.Point(17, -13);
             this.flpAgentInfo.Name = "flpAgentInfo";
-            this.flpAgentInfo.Size = new System.Drawing.Size(931, 514);
+            this.flpAgentInfo.Size = new System.Drawing.Size(698, 418);
             this.flpAgentInfo.TabIndex = 0;
             // 
             // dgvAgentesActivos
@@ -79,14 +82,14 @@ namespace LoginForms
             this.dgvAgentesActivos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.dgvAgentesActivos.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.dgvAgentesActivos.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvAgentesActivos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvAgentesActivos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dgvAgentesActivos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvAgentesActivos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.NombreAgente,
@@ -97,7 +100,6 @@ namespace LoginForms
             this.llamadasSalida,
             this.llamadasEntrada,
             this.llamadaActiva,
-            this.Email,
             this.Disponible,
             this.NoDisponible,
             this.ACW,
@@ -107,21 +109,21 @@ namespace LoginForms
             this.Comida,
             this.Break,
             this.ID});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvAgentesActivos.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvAgentesActivos.DefaultCellStyle = dataGridViewCellStyle8;
             this.dgvAgentesActivos.GridColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.dgvAgentesActivos.Location = new System.Drawing.Point(3, 2);
-            this.dgvAgentesActivos.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dgvAgentesActivos.Location = new System.Drawing.Point(2, 2);
+            this.dgvAgentesActivos.Margin = new System.Windows.Forms.Padding(2);
             this.dgvAgentesActivos.Name = "dgvAgentesActivos";
             this.dgvAgentesActivos.RowHeadersWidth = 51;
             this.dgvAgentesActivos.RowTemplate.Height = 24;
-            this.dgvAgentesActivos.Size = new System.Drawing.Size(987, 458);
+            this.dgvAgentesActivos.Size = new System.Drawing.Size(734, 259);
             this.dgvAgentesActivos.TabIndex = 1;
             this.dgvAgentesActivos.CurrentCellDirtyStateChanged += new System.EventHandler(this.dgvAgentesActivos_CurrentCellDirtyStateChanged);
             // 
@@ -130,28 +132,28 @@ namespace LoginForms
             this.NombreAgente.HeaderText = "Nombre del Agente";
             this.NombreAgente.MinimumWidth = 6;
             this.NombreAgente.Name = "NombreAgente";
-            this.NombreAgente.Width = 115;
+            this.NombreAgente.Width = 94;
             // 
             // EstatusActual
             // 
             this.EstatusActual.HeaderText = "Estatus Actual";
             this.EstatusActual.MinimumWidth = 6;
             this.EstatusActual.Name = "EstatusActual";
-            this.EstatusActual.Width = 127;
+            this.EstatusActual.Width = 104;
             // 
             // ChatsActivos
             // 
             this.ChatsActivos.HeaderText = "Chats Activos";
             this.ChatsActivos.MinimumWidth = 6;
             this.ChatsActivos.Name = "ChatsActivos";
-            this.ChatsActivos.Width = 121;
+            this.ChatsActivos.Width = 98;
             // 
             // chatsCerrados
             // 
             this.chatsCerrados.HeaderText = "Chats Cerrados";
             this.chatsCerrados.MinimumWidth = 6;
             this.chatsCerrados.Name = "chatsCerrados";
-            this.chatsCerrados.Width = 132;
+            this.chatsCerrados.Width = 107;
             // 
             // chatsMaximos
             // 
@@ -162,91 +164,84 @@ namespace LoginForms
             this.chatsMaximos.Name = "chatsMaximos";
             this.chatsMaximos.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.chatsMaximos.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.chatsMaximos.Width = 134;
+            this.chatsMaximos.Width = 108;
             // 
             // llamadasSalida
             // 
             this.llamadasSalida.HeaderText = "Llamadas Salida";
             this.llamadasSalida.MinimumWidth = 6;
             this.llamadasSalida.Name = "llamadasSalida";
-            this.llamadasSalida.Width = 136;
+            this.llamadasSalida.Width = 112;
             // 
             // llamadasEntrada
             // 
             this.llamadasEntrada.HeaderText = "Llamadas Entrada";
             this.llamadasEntrada.MinimumWidth = 6;
             this.llamadasEntrada.Name = "llamadasEntrada";
-            this.llamadasEntrada.Width = 148;
+            this.llamadasEntrada.Width = 123;
             // 
             // llamadaActiva
             // 
             this.llamadaActiva.HeaderText = "Llamada Activa";
             this.llamadaActiva.MinimumWidth = 6;
             this.llamadaActiva.Name = "llamadaActiva";
-            this.llamadaActiva.Width = 131;
-            // 
-            // Email
-            // 
-            this.Email.HeaderText = "Email";
-            this.Email.MinimumWidth = 6;
-            this.Email.Name = "Email";
-            this.Email.Width = 77;
+            this.llamadaActiva.Width = 109;
             // 
             // Disponible
             // 
             this.Disponible.HeaderText = "Disponible";
             this.Disponible.MinimumWidth = 6;
             this.Disponible.Name = "Disponible";
-            this.Disponible.Width = 112;
+            this.Disponible.Width = 91;
             // 
             // NoDisponible
             // 
             this.NoDisponible.HeaderText = "No Disponible";
             this.NoDisponible.MinimumWidth = 6;
             this.NoDisponible.Name = "NoDisponible";
-            this.NoDisponible.Width = 125;
+            this.NoDisponible.Width = 101;
             // 
             // ACW
             // 
             this.ACW.HeaderText = "ACW";
             this.ACW.MinimumWidth = 6;
             this.ACW.Name = "ACW";
-            this.ACW.Width = 73;
+            this.ACW.Width = 60;
             // 
             // Capacitacion
             // 
             this.Capacitacion.HeaderText = "Capacitacion";
             this.Capacitacion.MinimumWidth = 6;
             this.Capacitacion.Name = "Capacitacion";
-            this.Capacitacion.Width = 127;
+            this.Capacitacion.Width = 105;
             // 
             // Calidad
             // 
             this.Calidad.HeaderText = "Calidad";
             this.Calidad.MinimumWidth = 6;
             this.Calidad.Name = "Calidad";
-            this.Calidad.Width = 90;
+            this.Calidad.Width = 74;
             // 
             // Sanitario
             // 
             this.Sanitario.HeaderText = "Sanitario";
             this.Sanitario.MinimumWidth = 6;
             this.Sanitario.Name = "Sanitario";
-            this.Sanitario.Width = 101;
+            this.Sanitario.Width = 83;
             // 
             // Comida
             // 
             this.Comida.HeaderText = "Comida";
             this.Comida.MinimumWidth = 6;
             this.Comida.Name = "Comida";
-            this.Comida.Width = 92;
+            this.Comida.Width = 75;
             // 
             // Break
             // 
             this.Break.HeaderText = "Break";
             this.Break.MinimumWidth = 6;
             this.Break.Name = "Break";
-            this.Break.Width = 78;
+            this.Break.Width = 66;
             // 
             // ID
             // 
@@ -254,14 +249,14 @@ namespace LoginForms
             this.ID.MinimumWidth = 6;
             this.ID.Name = "ID";
             this.ID.Visible = false;
-            this.ID.Width = 53;
+            this.ID.Width = 46;
             // 
             // btnRecargar
             // 
-            this.btnRecargar.Location = new System.Drawing.Point(3, 2);
-            this.btnRecargar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnRecargar.Location = new System.Drawing.Point(2, 2);
+            this.btnRecargar.Margin = new System.Windows.Forms.Padding(2);
             this.btnRecargar.Name = "btnRecargar";
-            this.btnRecargar.Size = new System.Drawing.Size(147, 37);
+            this.btnRecargar.Size = new System.Drawing.Size(116, 30);
             this.btnRecargar.TabIndex = 2;
             this.btnRecargar.Text = "Recargar";
             this.btnRecargar.UseVisualStyleBackColor = true;
@@ -275,47 +270,83 @@ namespace LoginForms
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.dgvAgentesActivos, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 0, 1);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 12);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 1);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(9, 10);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 77F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 23F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(993, 657);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 57.35931F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 42.64069F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(738, 462);
             this.tableLayoutPanel1.TabIndex = 3;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
+            this.tableLayoutPanel2.Controls.Add(this.flowLayoutPanel1, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.cChUserStatus, 1, 0);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 268);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(732, 191);
+            this.tableLayoutPanel2.TabIndex = 2;
             // 
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.Controls.Add(this.btnRecargar);
             this.flowLayoutPanel1.Controls.Add(this.button1);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 508);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(2, 2);
+            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(474, 104);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(131, 84);
             this.flowLayoutPanel1.TabIndex = 2;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(156, 3);
+            this.button1.Location = new System.Drawing.Point(2, 36);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(154, 36);
+            this.button1.Size = new System.Drawing.Size(116, 29);
             this.button1.TabIndex = 3;
             this.button1.Text = " Recargar Estados";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // cChUserStatus
+            // 
+            this.cChUserStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cChUserStatus.Location = new System.Drawing.Point(149, 3);
+            this.cChUserStatus.Name = "cChUserStatus";
+            this.cChUserStatus.Size = new System.Drawing.Size(580, 185);
+            this.cChUserStatus.TabIndex = 3;
+            this.cChUserStatus.Text = "cartesianChart1";
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 60000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // MisAgentes
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1017, 681);
+            this.ClientSize = new System.Drawing.Size(750, 481);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.flpAgentInfo);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MisAgentes";
             this.Text = "SIDI Omnichannel";
+            this.Load += new System.EventHandler(this.MisAgentes_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvAgentesActivos)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -327,6 +358,8 @@ namespace LoginForms
         private System.Windows.Forms.DataGridView dgvAgentesActivos;
         private System.Windows.Forms.Button btnRecargar;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.DataGridViewTextBoxColumn NombreAgente;
         private System.Windows.Forms.DataGridViewTextBoxColumn EstatusActual;
         private System.Windows.Forms.DataGridViewTextBoxColumn ChatsActivos;
@@ -335,7 +368,6 @@ namespace LoginForms
         private System.Windows.Forms.DataGridViewTextBoxColumn llamadasSalida;
         private System.Windows.Forms.DataGridViewTextBoxColumn llamadasEntrada;
         private System.Windows.Forms.DataGridViewTextBoxColumn llamadaActiva;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Email;
         private System.Windows.Forms.DataGridViewTextBoxColumn Disponible;
         private System.Windows.Forms.DataGridViewTextBoxColumn NoDisponible;
         private System.Windows.Forms.DataGridViewTextBoxColumn ACW;
@@ -345,7 +377,8 @@ namespace LoginForms
         private System.Windows.Forms.DataGridViewTextBoxColumn Comida;
         private System.Windows.Forms.DataGridViewTextBoxColumn Break;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private LiveCharts.WinForms.CartesianChart cChUserStatus;
+        private System.Windows.Forms.Timer timer1;
     }
 }

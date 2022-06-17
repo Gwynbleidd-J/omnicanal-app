@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<!-- 
+PARAMETROS NECESARIOS PARA LA OFUSCACION
+-->
+<Obfuscator>
+	<!-- RUTA DONDE SE ENCUENTRAN LOS ELEMENTOS A OFUSCAR -->
+	<Var name="InPath" value="." />
+	<!-- RUTA DONDE VAN A ESTAR LOS ARCHIVOS OFUSCADOS -->
+	<Var name="OutPath" value=".\Obfuscator" />
+	<Var name ="LogFile" value=".obfuscator-log.txt"/>
+	<Var name="RenameProperties" value=""/>
+	<Var name="RenameEvents" value=""/>
+	<Var name="RenameFields" value=""/>
+	<Var name="KeepPublicApi" value=""/>
+	<Var name="HidePrivateApi" value=""/>
+	<Var name="UseUnicodeNames" value=""/>
+	<Var name="HideStrings" value=""/>
+	<Var name="OptimizeMethods" value=""/>
+	<Var name="SuppressIldasm" value=""/>
+
+	<Module file="$(InPath)\BasicExampleExe.exe" />
+	<Module file="$(InPath)\BasicExampleLibrary.dll" />
+	
+</Obfuscator>

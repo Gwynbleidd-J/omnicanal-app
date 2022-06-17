@@ -264,6 +264,59 @@ namespace LoginForms.Utils
                         Console.WriteLine("Error[btnSendMessage.Click]: " + ex.Message);
                     }
                 };
+
+                btnSendImage.Name = $"btnSendImage_{chatId}";
+                btnSendImage.Tag = $"btnSendImage_{chatId}";
+                btnSendImage.Text = $"Enviar Imagen";
+                btnSendImage.Size = new Size(86, 23);
+                btnSendImage.Location = new Point(605, pnlMessages.Size.Height + 10);
+                btnSendImage.Anchor = AnchorStyles.Left;
+
+                btnSendImage.Click += async (s, e) =>
+                {
+                    try
+                    {
+                        using (OpenFileDialog file = new OpenFileDialog())
+                        {
+                            file.Title = "SIDI OMNICHANNEL";
+                            file.Filter = "Image Files(*.PNG; *.JPG; *.JPEG)|*.PNG; *.JPG; *.JPEG| All Files(*.*) | *.*";
+                            if (file.ShowDialog() == DialogResult.OK)
+                            {
+                                string imagen = file.FileName;
+                                Console.WriteLine("Imagen: {0}", imagen);
+                                Bitmap image = new Bitmap(imagen);
+                                var agentId = GlobalSocket.currentUser.activeIp;
+                                var numberToSend = GlobalSocket.numberToSend;
+                                await restHelper.SendImage(image, lblChatId.Text.ToString(), lblClientPlatformIdentifier.Text.ToString(), lblPlatformIdentifier.Text.ToString(), agentId, imagen);
+                            }
+                        }
+                        //AQUÍ SE TIEENQ UE MANDAR LA IMAGEN, PERO SE MANDA EL TEXTO
+                        //string statusCodeSendMessage = await restHelper.SendMessage(txtSendMessage.Text.ToString(), chatId, "whatsapp:+5214621257826", "w");
+                        //string statusCodeSendMessage = await restHelper.SendMessage(txtSendMessage.Text.ToString(), lblChatId.Text.ToString(), lblClientPlatformIdentifier.Text.ToString(), lblPlatformIdentifier.Text.ToString(), agentId);
+                        //if (!string.IsNullOrEmpty(statusCodeSendMessage) && statusCodeSendMessage == "OK")
+                        //{
+                        //  await restHelper.sendImage(imagen, txtSendMessage.Text.ToString(), lblChatId.Text.ToString(), lblClientPlatformIdentifier.Text.ToString(), lblPlatformIdentifier.Text.ToString(), agentId);
+                        //  txtSendMessage.Text = "";
+                        //}
+                        //if (!string.IsNullOrEmpty(txtSendMessage.Text.ToString()))
+                        //{
+                        //    await restHelper.sendImage(imagen);
+                        //    //await sendMessageFromPanelControl();
+                        //}
+
+                        //Clipboard.SetDataObject(imagen);
+                        //DataFormats.Format formato = DataFormats.GetFormat(DataFormats.Bitmap);
+                        //rtxtImage.Paste(formato);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"btnSendImage.Click[Error]: {ex}");
+                    }
+
+                };
+
+
+
                 btnSendMessage.MouseHover += (s, e) => {
                     btnSendMessage.BackgroundImage = Properties.Resources.enviar_mensaje_hover_1;
                 };
@@ -291,41 +344,6 @@ namespace LoginForms.Utils
                         networkCategories.ShowDialog();
                         removeTabChat();
                     }
-                };
-
-                btnSendImage.Name = $"btnSendImage_{chatId}";
-                btnSendImage.Tag = $"btnSendImage_{chatId}";
-                btnSendImage.Text = $"Enviar Imagen";
-                btnSendImage.Size = new Size(86, 23);
-                btnSendImage.Location = new Point(605, pnlMessages.Size.Height + 10);
-                btnSendImage.Anchor = AnchorStyles.Left;
-
-                btnSendImage.Click += async (s, e) =>
-                {
-                    try
-                    {
-                        OpenFileDialog file = new OpenFileDialog();
-                        if (file.ShowDialog() == DialogResult.OK)
-                        {
-                            Bitmap imagen = new Bitmap(file.FileName);
-                            Console.WriteLine(file.FileName);
-
-                            if (!string.IsNullOrEmpty(txtSendMessage.Text.ToString()))
-                            {
-                                await sendMessageFromPanelControl();
-                            }
-
-                            //Clipboard.SetDataObject(imagen);
-                            //DataFormats.Format formato = DataFormats.GetFormat(DataFormats.Bitmap);
-                            //rtxtImage.Paste(formato);
-                            
-                        }
-                    }
-                    catch(Exception ex)
-                    {
-                        Console.WriteLine($"btnSendImage.Click[Error]: {ex}");
-                    }
-
                 };
 
                 tabla.ColumnCount = 5;
@@ -427,6 +445,7 @@ namespace LoginForms.Utils
             {
                 var agentId = GlobalSocket.currentUser.activeIp;
                 var numberToSend = GlobalSocket.numberToSend;
+                //AQUÍ SE TIEENQ UE MANDAR LA IMAGEN, PERO SE MANDA EL TEXTO
                 //string statusCodeSendMessage = await restHelper.SendMessage(txtSendMessage.Text.ToString(), chatId, "whatsapp:+5214621257826", "w");
                 string statusCodeSendMessage = await restHelper.SendMessage(txtSendMessage.Text.ToString(), lblChatId.Text.ToString(), lblClientPlatformIdentifier.Text.ToString(), lblPlatformIdentifier.Text.ToString(), agentId);
                 if (!string.IsNullOrEmpty(statusCodeSendMessage) && statusCodeSendMessage == "OK")

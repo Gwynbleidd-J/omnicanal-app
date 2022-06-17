@@ -90,14 +90,22 @@ namespace LoginForms
 
                 Console.WriteLine("Entrando a la verificacion de usuario");
                 Console.WriteLine("Usuario:" +encryptedEmail+"\nContrasena:"+encryptedPass);
-
+                
                 var jsonLogin = await rh.Login(encryptedEmail, encryptedPass, ipAddress);
-
-                if (jsonLogin == "Unauthorized")
+                
+                if(jsonLogin == "Forbidden")
+                {
+                    MessageBox.Show($"El usuario ya inicio sesión", $"SIDI Omnichannel", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtPassword.Text = "";
+                }
+                
+                else if (jsonLogin == "Unauthorized")
                 {
                     MessageBox.Show($"Correo o contraseña Incorrecta, revisa tus credenciales", $"SIDI Omnichannel", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     txtPassword.Text = "";
+                
                 }
+
                 else
                 {
                     //Se deshabilita la actualizacion de ip aqui pues se utilizara el puerto que mande la api como ip
@@ -112,17 +120,18 @@ namespace LoginForms
                     GlobalSocket.currentUser.token = user.token;
                     //sIPAccount = new SIPAccount(requiredRegister, displayName, userName, registerName, password, domain, port, proxy);
                     //await rh.SetStatusTime("8");
+                    await rh.UpdateActiveColumn(encryptedEmail);
                     this.Hide();
                     formPrincipal.FormClosed += async (s, args) =>
                     {
                         await rh.UpdateOnClosing(GlobalSocket.currentUser.ID, GlobalSocket.currentUser.status.id);
                         await rh.updateUserStatus("8", GlobalSocket.currentUser.ID);
+                        await rh.UpdateActiveColumnOnClose(GlobalSocket.currentUser.ID);
                         this.Close();
                     };
+
                     formPrincipal.Show();
                 }
-
-
             }
             catch (Exception ex)
             {
@@ -149,7 +158,7 @@ namespace LoginForms
         private void SetProjectVersion()
         {
 
-            lblVersion.Text = $"Versión: 1.0.0.11";        
+            lblVersion.Text = $"Versión: 1.0.0.19";        
         }
 
         private void btnShowPassword_Click(object sender, EventArgs e)

@@ -132,6 +132,7 @@ namespace LoginForms
             this.Name = "CallTypification";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "SIDI Omnichannel";
+            this.TopMost = true;
             this.Load += new System.EventHandler(this.CallTypification_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

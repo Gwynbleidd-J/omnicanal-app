@@ -460,8 +460,9 @@ namespace LoginForms
         {
             await rh.UpdateOnClosing(GlobalSocket.currentUser.ID, GlobalSocket.currentUser.status.id);
             await rh.updateUserStatus("8", GlobalSocket.currentUser.ID);
+            await rh.UpdateActiveColumnOnClose(GlobalSocket.currentUser.ID);
             //await rh.ChangeStatus() para el tiempo en los cambios de los estados
-            pictureBox1.Image = Properties.Resources.cerrar_sesion_presionado_1;
+            //pictureBox1.Image = Properties.Resources.cerrar_sesion_presionado_1;
 
             login = new Login();
             //asynchronousClient = new AsynchronousClient();
@@ -487,15 +488,18 @@ namespace LoginForms
         //    pictureBox1.Image = Properties.Resources.cerrar_sesion_1;
         //}
 
-        private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
-        {
-            pictureBox1.Image = Properties.Resources.cerrar_sesion_1;
-        }
+        //private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
+        //{
+        //    pictureBox1.Image = Properties.Resources.cerrar_sesion_1;
+        //    Console.WriteLine("Has presionado cerrar sesion");
+        //}
 
-        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
-        {
-            pictureBox1.Image = Properties.Resources.cerrar_sesion_presionado_1;
-        }
+        //private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
+        //{
+        //    pictureBox1.Image = Properties.Resources.cerrar_sesion_presionado_1;
+        //    Console.WriteLine("Has presionado levantado cerrar sesion");
+
+        //}
 
         private async void btnReconexion_Click(object sender, EventArgs e)
         {

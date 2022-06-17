@@ -545,7 +545,7 @@ namespace LoginForms
         {
             if (!string.IsNullOrEmpty(txtNumber.Text))
             {
-                string number =$"{txtNumber.Text}";
+                string number = txtNumber.Text;
                 GlobalSocket.numberToSend = number;
                 Console.WriteLine($"Número teléfonico: {GlobalSocket.numberToSend}");
                 frmNumberToSend.Dispose();

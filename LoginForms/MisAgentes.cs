@@ -6,6 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using LiveCharts;
+using LiveCharts.Wpf;
+using LiveCharts.Defaults;
 
 namespace LoginForms
 {
@@ -19,6 +22,7 @@ namespace LoginForms
         {
             InitializeComponent();
             ShowAgents();
+            GetUserStatus();
             //agentsInformation(GlobalSocket.currentUser.ID);
         }
 
@@ -32,7 +36,6 @@ namespace LoginForms
 
             flpAgentInfo.Visible = false;
             SupervisorAgents(rolId);
-
 
             //if (GlobalSocket.currentUser.rol.Id.ToString() == "3")
             //{
@@ -197,7 +200,7 @@ namespace LoginForms
                     var nombre = item["name"].Value<string>();
                     var estatusActual = item["status"].Value<string>();
                     var activeChats = item["activeChats"].Value<string>();
-                    var correo = item["email"].Value<string>();
+                    //var correo = item["email"].Value<string>();
                     var chatsMaximos = item["maxActiveChats"].Value<string>();
 
                     //Esto es para obtener los datos de chat diarios
@@ -261,7 +264,7 @@ namespace LoginForms
                     //El valor de chats maximos esta en chatsMaximos
 
                     dgvAgentesActivos.Rows.Add(nombre, estatusActual, chatsActivos, chatsCerrados,null, ContadorLlamadasCerradas,
-                        contadorLlamadasEntrantes, contadorLlamadasActivas, correo,
+                        contadorLlamadasEntrantes, contadorLlamadasActivas, //,correo,
                         Disponible,
                         NoDisponible,
                         ACW,
@@ -434,5 +437,90 @@ namespace LoginForms
             }  
         }
 
+        private async void GetUserStatus()
+        {
+            try
+            {
+                List<string> nameList = new List<string>();
+                string[] nombres = { };
+                string timeStatus = await rh.GetActiveUserStatus();
+
+                var cleanData = (JObject)JsonConvert.DeserializeObject(timeStatus);
+                Console.WriteLine("Status Time: " + cleanData);
+                var data = cleanData["data"].Children();
+                Console.WriteLine(data);
+
+                //FOR EACH PARA LLENAR DINAMICAMENTE LOS DATOS DESDE LA PETICION HTTP
+
+
+                ChartValues<int> chartValue = new ChartValues<int>();
+                int countData = 0;
+
+                foreach (var item in data)
+                {
+                    countData++;
+                }
+
+                int[] temp = new int[countData];
+                string[] temp2 = new string[countData];
+                int cont = 0;
+
+
+                foreach (var item in data)
+                {
+
+                    temp[cont] = item["minutos"].Value<int>();
+                    temp2[cont] = item["nombre"].Value<string>();
+                    //nameList.Add(item["nombre"].Value<string>());
+                    cont++;
+
+                }
+                chartValue.AddRange(temp);
+
+                cChUserStatus.Series.Clear();
+                cChUserStatus.AxisX.Clear();
+                cChUserStatus.AxisY.Clear();
+
+
+                cChUserStatus.Series.Add(new ColumnSeries
+                {
+                    Title = "Minutos",
+                    Values = chartValue,
+                    FontSize = double.Parse("14"),
+                });
+
+
+                cChUserStatus.AxisY.Add(new Axis
+                {
+                    Title = "Minutos",
+                    FontSize = double.Parse("14")
+                });
+
+
+                cChUserStatus.AxisX.Add(new Axis
+                {
+                    MinValue = 0,
+                    Title = "Analistas",
+                    Labels = temp2,
+                    FontSize = double.Parse("14")
+                });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Erro[GetUserStatus]" + ex.Message);
+            }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            Console.WriteLine("Se realizo la peticion http de los estatus de los usuarios en las graficas y en la tabla");
+            GetUserStatus();
+            SupervisorAgents(rolId);
+        }
+
+        private void MisAgentes_Load(object sender, EventArgs e)
+        {
+            timer1.Start();
+        }
     }
 }

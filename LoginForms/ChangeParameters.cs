@@ -50,10 +50,10 @@ namespace LoginForms
             }
         }
 
-        private async void SetBotParameters()
-        {
-            await rh.AppParameters(txtSIDTwilioAccount.Text, txtTokenTwilioAccount.Text, txtWhatsappAccount.Text, txtBotTokenTelegram.Text);
-        }
+        //private async void SetBotParameters()
+        //{
+        //    await rh.AppParameters(txtSIDTwilioAccount.Text, txtTokenTwilioAccount.Text, txtWhatsappAccount.Text, txtBotTokenTelegram.Text);
+        //}
 
         private void SetValuesOnLabels()
         {
@@ -149,7 +149,7 @@ namespace LoginForms
         {
             if (!string.IsNullOrEmpty(txtSIDTwilioAccount.Text) && !string.IsNullOrEmpty(txtTokenTwilioAccount.Text) && !string.IsNullOrEmpty(txtWhatsappAccount.Text) && !string.IsNullOrEmpty(txtBotTokenTelegram.Text))
             {
-                SetBotParameters();
+                //SetBotParameters();
                 MessageBox.Show("Parametros de los bots de WhatsApp y Telegram Actualizados Correctamente", "Omnicanal");
                 SetValuesOnLabels();
                 //ClearTextbox();

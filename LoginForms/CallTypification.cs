@@ -1,4 +1,5 @@
-﻿using LoginForms.Models;
+﻿
+using LoginForms.Models;
 using LoginForms.Shared;
 using Newtonsoft.Json;
 using System;
@@ -9,6 +10,7 @@ namespace LoginForms
 {
     public partial class CallTypification : Form
     {
+        CallsView calls = new CallsView();
         RestHelper rh = new RestHelper();
         Json jsonNetwork;
         string valor;
@@ -19,7 +21,6 @@ namespace LoginForms
             //userid = userId;
             InitializeComponent();
             ComboBoxGetNetwork();
-
             GlobalSocket.algo.Text = "ACW";
 
         }
@@ -27,8 +28,6 @@ namespace LoginForms
         private async void CallTypification_Load(object sender, EventArgs e)
         {
             await rh.ChangeStatus(GlobalSocket.currentUser.ID, "9");
-         
-
         }
 
         private void cmbNetwork_SelectedIndexChanged(object sender, EventArgs e)
@@ -64,13 +63,13 @@ namespace LoginForms
 
         public void btnSave_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(cmbNetwork.Text))
+            if (cmbNetwork.SelectedItem == null)
             {
-                Typification();
+                MessageBox.Show("Llena todos los campos", "Omnicanal", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             else
             {
-                MessageBox.Show("Llena todos los campos", "Omnicanal", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                Typification();
             }
 
         }
@@ -79,7 +78,7 @@ namespace LoginForms
         {
             if ((int)e.KeyChar == (int)Keys.Enter)
             {
-                if (cmbNetwork.Text == "")
+                if (cmbNetwork.SelectedItem == null)
                 {
                     MessageBox.Show("Llena todos los campos", "Omnicanal", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }

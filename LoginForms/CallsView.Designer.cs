@@ -35,24 +35,6 @@ namespace LoginForms
             this.checkBoxG729 = new System.Windows.Forms.CheckBox();
             this.checkBoxPCMA = new System.Windows.Forms.CheckBox();
             this.checkBoxPCMU = new System.Windows.Forms.CheckBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnReconnect = new System.Windows.Forms.Button();
-            this.TextBoxUserDomain = new System.Windows.Forms.TextBox();
-            this.Label9 = new System.Windows.Forms.Label();
-            this.TextBoxAuthName = new System.Windows.Forms.TextBox();
-            this.Label5 = new System.Windows.Forms.Label();
-            this.TextBoxDisplayName = new System.Windows.Forms.TextBox();
-            this.Label6 = new System.Windows.Forms.Label();
-            this.btnOffline = new System.Windows.Forms.Button();
-            this.btnConnect = new System.Windows.Forms.Button();
-            this.TextBoxServerPort = new System.Windows.Forms.TextBox();
-            this.Label3 = new System.Windows.Forms.Label();
-            this.TextBoxServer = new System.Windows.Forms.TextBox();
-            this.Label4 = new System.Windows.Forms.Label();
-            this.TextBoxPassword = new System.Windows.Forms.TextBox();
-            this.Label2 = new System.Windows.Forms.Label();
-            this.TextBoxUserName = new System.Windows.Forms.TextBox();
-            this.Label1 = new System.Windows.Forms.Label();
             this.ComboBoxTransport = new System.Windows.Forms.ComboBox();
             this.ComboBoxSRTP = new System.Windows.Forms.ComboBox();
             this.TextBoxStunPort = new System.Windows.Forms.TextBox();
@@ -124,7 +106,24 @@ namespace LoginForms
             this.btnClearListBox = new System.Windows.Forms.Button();
             this.lblEstatusLlamada = new System.Windows.Forms.Label();
             this.lblFolio = new System.Windows.Forms.Label();
-            this.groupBox1.SuspendLayout();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnReconnect = new System.Windows.Forms.Button();
+            this.TextBoxUserDomain = new System.Windows.Forms.TextBox();
+            this.Label9 = new System.Windows.Forms.Label();
+            this.TextBoxAuthName = new System.Windows.Forms.TextBox();
+            this.Label5 = new System.Windows.Forms.Label();
+            this.TextBoxDisplayName = new System.Windows.Forms.TextBox();
+            this.Label6 = new System.Windows.Forms.Label();
+            this.btnOffline = new System.Windows.Forms.Button();
+            this.btnConnect = new System.Windows.Forms.Button();
+            this.TextBoxServerPort = new System.Windows.Forms.TextBox();
+            this.Label3 = new System.Windows.Forms.Label();
+            this.TextBoxServer = new System.Windows.Forms.TextBox();
+            this.Label4 = new System.Windows.Forms.Label();
+            this.TextBoxPassword = new System.Windows.Forms.TextBox();
+            this.Label2 = new System.Windows.Forms.Label();
+            this.TextBoxUserName = new System.Windows.Forms.TextBox();
+            this.Label1 = new System.Windows.Forms.Label();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TrackBarMicrophone)).BeginInit();
@@ -132,6 +131,7 @@ namespace LoginForms
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.groupBox7.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // checkBoxH264
@@ -177,183 +177,6 @@ namespace LoginForms
             this.checkBoxPCMU.Size = new System.Drawing.Size(15, 14);
             this.checkBoxPCMU.TabIndex = 99;
             this.checkBoxPCMU.UseVisualStyleBackColor = true;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.btnReconnect);
-            this.groupBox1.Controls.Add(this.TextBoxUserDomain);
-            this.groupBox1.Controls.Add(this.Label9);
-            this.groupBox1.Controls.Add(this.TextBoxAuthName);
-            this.groupBox1.Controls.Add(this.Label5);
-            this.groupBox1.Controls.Add(this.TextBoxDisplayName);
-            this.groupBox1.Controls.Add(this.Label6);
-            this.groupBox1.Controls.Add(this.btnOffline);
-            this.groupBox1.Controls.Add(this.btnConnect);
-            this.groupBox1.Controls.Add(this.TextBoxServerPort);
-            this.groupBox1.Controls.Add(this.Label3);
-            this.groupBox1.Controls.Add(this.TextBoxServer);
-            this.groupBox1.Controls.Add(this.Label4);
-            this.groupBox1.Controls.Add(this.TextBoxPassword);
-            this.groupBox1.Controls.Add(this.Label2);
-            this.groupBox1.Controls.Add(this.TextBoxUserName);
-            this.groupBox1.Controls.Add(this.Label1);
-            this.groupBox1.Location = new System.Drawing.Point(4, 5);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(445, 139);
-            this.groupBox1.TabIndex = 44;
-            this.groupBox1.TabStop = false;
-            // 
-            // btnReconnect
-            // 
-            this.btnReconnect.Location = new System.Drawing.Point(362, 111);
-            this.btnReconnect.Name = "btnReconnect";
-            this.btnReconnect.Size = new System.Drawing.Size(75, 22);
-            this.btnReconnect.TabIndex = 121;
-            this.btnReconnect.Text = "Reconectar";
-            this.btnReconnect.UseVisualStyleBackColor = true;
-            this.btnReconnect.Click += new System.EventHandler(this.btnReconnect_Click);
-            // 
-            // TextBoxUserDomain
-            // 
-            this.TextBoxUserDomain.Enabled = false;
-            this.TextBoxUserDomain.Location = new System.Drawing.Point(89, 54);
-            this.TextBoxUserDomain.Name = "TextBoxUserDomain";
-            this.TextBoxUserDomain.Size = new System.Drawing.Size(132, 20);
-            this.TextBoxUserDomain.TabIndex = 108;
-            // 
-            // Label9
-            // 
-            this.Label9.AutoSize = true;
-            this.Label9.Location = new System.Drawing.Point(5, 58);
-            this.Label9.Name = "Label9";
-            this.Label9.Size = new System.Drawing.Size(45, 13);
-            this.Label9.TabIndex = 120;
-            this.Label9.Text = "Dominio";
-            // 
-            // TextBoxAuthName
-            // 
-            this.TextBoxAuthName.Enabled = false;
-            this.TextBoxAuthName.Location = new System.Drawing.Point(298, 33);
-            this.TextBoxAuthName.Name = "TextBoxAuthName";
-            this.TextBoxAuthName.Size = new System.Drawing.Size(132, 20);
-            this.TextBoxAuthName.TabIndex = 106;
-            // 
-            // Label5
-            // 
-            this.Label5.AutoSize = true;
-            this.Label5.Location = new System.Drawing.Point(224, 36);
-            this.Label5.Name = "Label5";
-            this.Label5.Size = new System.Drawing.Size(77, 13);
-            this.Label5.TabIndex = 119;
-            this.Label5.Text = "Autentificacion";
-            // 
-            // TextBoxDisplayName
-            // 
-            this.TextBoxDisplayName.Enabled = false;
-            this.TextBoxDisplayName.Location = new System.Drawing.Point(89, 33);
-            this.TextBoxDisplayName.Name = "TextBoxDisplayName";
-            this.TextBoxDisplayName.Size = new System.Drawing.Size(132, 20);
-            this.TextBoxDisplayName.TabIndex = 104;
-            // 
-            // Label6
-            // 
-            this.Label6.AutoSize = true;
-            this.Label6.Location = new System.Drawing.Point(4, 36);
-            this.Label6.Name = "Label6";
-            this.Label6.Size = new System.Drawing.Size(81, 13);
-            this.Label6.TabIndex = 118;
-            this.Label6.Text = "Nombre Agente";
-            // 
-            // btnOffline
-            // 
-            this.btnOffline.Location = new System.Drawing.Point(87, 111);
-            this.btnOffline.Name = "btnOffline";
-            this.btnOffline.Size = new System.Drawing.Size(80, 22);
-            this.btnOffline.TabIndex = 117;
-            this.btnOffline.Text = "Desconectar";
-            this.btnOffline.UseVisualStyleBackColor = true;
-            this.btnOffline.Visible = false;
-            this.btnOffline.Click += new System.EventHandler(this.btnOffline_Click);
-            // 
-            // btnConnect
-            // 
-            this.btnConnect.Location = new System.Drawing.Point(6, 111);
-            this.btnConnect.Name = "btnConnect";
-            this.btnConnect.Size = new System.Drawing.Size(75, 22);
-            this.btnConnect.TabIndex = 116;
-            this.btnConnect.Text = "Conectar";
-            this.btnConnect.UseVisualStyleBackColor = true;
-            this.btnConnect.Visible = false;
-            this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
-            // 
-            // TextBoxServerPort
-            // 
-            this.TextBoxServerPort.Enabled = false;
-            this.TextBoxServerPort.Location = new System.Drawing.Point(302, 73);
-            this.TextBoxServerPort.Name = "TextBoxServerPort";
-            this.TextBoxServerPort.Size = new System.Drawing.Size(132, 20);
-            this.TextBoxServerPort.TabIndex = 110;
-            // 
-            // Label3
-            // 
-            this.Label3.AutoSize = true;
-            this.Label3.Location = new System.Drawing.Point(222, 76);
-            this.Label3.Name = "Label3";
-            this.Label3.Size = new System.Drawing.Size(80, 13);
-            this.Label3.TabIndex = 111;
-            this.Label3.Text = "Puerto Servidor";
-            // 
-            // TextBoxServer
-            // 
-            this.TextBoxServer.Enabled = false;
-            this.TextBoxServer.Location = new System.Drawing.Point(89, 75);
-            this.TextBoxServer.Name = "TextBoxServer";
-            this.TextBoxServer.Size = new System.Drawing.Size(132, 20);
-            this.TextBoxServer.TabIndex = 109;
-            // 
-            // Label4
-            // 
-            this.Label4.AutoSize = true;
-            this.Label4.Location = new System.Drawing.Point(5, 78);
-            this.Label4.Name = "Label4";
-            this.Label4.Size = new System.Drawing.Size(66, 13);
-            this.Label4.TabIndex = 107;
-            this.Label4.Text = "Servidor SIP";
-            // 
-            // TextBoxPassword
-            // 
-            this.TextBoxPassword.Enabled = false;
-            this.TextBoxPassword.Location = new System.Drawing.Point(292, 12);
-            this.TextBoxPassword.Name = "TextBoxPassword";
-            this.TextBoxPassword.PasswordChar = '*';
-            this.TextBoxPassword.Size = new System.Drawing.Size(132, 20);
-            this.TextBoxPassword.TabIndex = 103;
-            // 
-            // Label2
-            // 
-            this.Label2.AutoSize = true;
-            this.Label2.Location = new System.Drawing.Point(225, 16);
-            this.Label2.Name = "Label2";
-            this.Label2.Size = new System.Drawing.Size(61, 13);
-            this.Label2.TabIndex = 105;
-            this.Label2.Text = "Contraseña";
-            // 
-            // TextBoxUserName
-            // 
-            this.TextBoxUserName.Enabled = false;
-            this.TextBoxUserName.Location = new System.Drawing.Point(89, 12);
-            this.TextBoxUserName.Name = "TextBoxUserName";
-            this.TextBoxUserName.Size = new System.Drawing.Size(132, 20);
-            this.TextBoxUserName.TabIndex = 101;
-            // 
-            // Label1
-            // 
-            this.Label1.AutoSize = true;
-            this.Label1.Location = new System.Drawing.Point(4, 16);
-            this.Label1.Name = "Label1";
-            this.Label1.Size = new System.Drawing.Size(53, 13);
-            this.Label1.TabIndex = 102;
-            this.Label1.Text = "Extensión";
             // 
             // ComboBoxTransport
             // 
@@ -1119,7 +942,7 @@ namespace LoginForms
             // lblRecordEstatus
             // 
             this.lblRecordEstatus.AutoSize = true;
-            this.lblRecordEstatus.Location = new System.Drawing.Point(455, 249);
+            this.lblRecordEstatus.Location = new System.Drawing.Point(461, 211);
             this.lblRecordEstatus.Name = "lblRecordEstatus";
             this.lblRecordEstatus.Size = new System.Drawing.Size(0, 13);
             this.lblRecordEstatus.TabIndex = 55;
@@ -1223,7 +1046,7 @@ namespace LoginForms
             this.lblEstatusLlamada.ForeColor = System.Drawing.Color.Tomato;
             this.lblEstatusLlamada.Location = new System.Drawing.Point(726, 61);
             this.lblEstatusLlamada.Name = "lblEstatusLlamada";
-            this.lblEstatusLlamada.Size = new System.Drawing.Size(108, 16);
+            this.lblEstatusLlamada.Size = new System.Drawing.Size(107, 16);
             this.lblEstatusLlamada.TabIndex = 57;
             this.lblEstatusLlamada.Text = "Estatus Llamada";
             // 
@@ -1234,15 +1057,203 @@ namespace LoginForms
             this.lblFolio.ForeColor = System.Drawing.Color.Tomato;
             this.lblFolio.Location = new System.Drawing.Point(729, 86);
             this.lblFolio.Name = "lblFolio";
-            this.lblFolio.Size = new System.Drawing.Size(94, 16);
+            this.lblFolio.Size = new System.Drawing.Size(93, 16);
             this.lblFolio.TabIndex = 58;
             this.lblFolio.Text = "Folio Llamada";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.btnReconnect);
+            this.groupBox1.Controls.Add(this.TextBoxUserDomain);
+            this.groupBox1.Controls.Add(this.Label9);
+            this.groupBox1.Controls.Add(this.TextBoxAuthName);
+            this.groupBox1.Controls.Add(this.Label5);
+            this.groupBox1.Controls.Add(this.TextBoxDisplayName);
+            this.groupBox1.Controls.Add(this.Label6);
+            this.groupBox1.Controls.Add(this.btnOffline);
+            this.groupBox1.Controls.Add(this.btnConnect);
+            this.groupBox1.Controls.Add(this.TextBoxServerPort);
+            this.groupBox1.Controls.Add(this.Label3);
+            this.groupBox1.Controls.Add(this.TextBoxServer);
+            this.groupBox1.Controls.Add(this.Label4);
+            this.groupBox1.Controls.Add(this.TextBoxPassword);
+            this.groupBox1.Controls.Add(this.Label2);
+            this.groupBox1.Controls.Add(this.TextBoxUserName);
+            this.groupBox1.Controls.Add(this.Label1);
+            this.groupBox1.Location = new System.Drawing.Point(4, 5);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(445, 139);
+            this.groupBox1.TabIndex = 59;
+            this.groupBox1.TabStop = false;
+            // 
+            // btnReconnect
+            // 
+            this.btnReconnect.Location = new System.Drawing.Point(362, 111);
+            this.btnReconnect.Name = "btnReconnect";
+            this.btnReconnect.Size = new System.Drawing.Size(75, 22);
+            this.btnReconnect.TabIndex = 121;
+            this.btnReconnect.Text = "Reconectar";
+            this.btnReconnect.UseVisualStyleBackColor = true;
+            this.btnReconnect.Click += new System.EventHandler(this.btnReconnect_Click);
+            // 
+            // TextBoxUserDomain
+            // 
+            this.TextBoxUserDomain.Enabled = false;
+            this.TextBoxUserDomain.Location = new System.Drawing.Point(89, 54);
+            this.TextBoxUserDomain.Name = "TextBoxUserDomain";
+            this.TextBoxUserDomain.Size = new System.Drawing.Size(132, 20);
+            this.TextBoxUserDomain.TabIndex = 108;
+            this.TextBoxUserDomain.Visible = false;
+            // 
+            // Label9
+            // 
+            this.Label9.AutoSize = true;
+            this.Label9.Location = new System.Drawing.Point(5, 58);
+            this.Label9.Name = "Label9";
+            this.Label9.Size = new System.Drawing.Size(45, 13);
+            this.Label9.TabIndex = 120;
+            this.Label9.Text = "Dominio";
+            this.Label9.Visible = false;
+            // 
+            // TextBoxAuthName
+            // 
+            this.TextBoxAuthName.Enabled = false;
+            this.TextBoxAuthName.Location = new System.Drawing.Point(298, 33);
+            this.TextBoxAuthName.Name = "TextBoxAuthName";
+            this.TextBoxAuthName.Size = new System.Drawing.Size(132, 20);
+            this.TextBoxAuthName.TabIndex = 106;
+            this.TextBoxAuthName.Visible = false;
+            // 
+            // Label5
+            // 
+            this.Label5.AutoSize = true;
+            this.Label5.Location = new System.Drawing.Point(224, 36);
+            this.Label5.Name = "Label5";
+            this.Label5.Size = new System.Drawing.Size(77, 13);
+            this.Label5.TabIndex = 119;
+            this.Label5.Text = "Autentificacion";
+            this.Label5.Visible = false;
+            // 
+            // TextBoxDisplayName
+            // 
+            this.TextBoxDisplayName.Enabled = false;
+            this.TextBoxDisplayName.Location = new System.Drawing.Point(89, 33);
+            this.TextBoxDisplayName.Name = "TextBoxDisplayName";
+            this.TextBoxDisplayName.Size = new System.Drawing.Size(132, 20);
+            this.TextBoxDisplayName.TabIndex = 104;
+            this.TextBoxDisplayName.Visible = false;
+            // 
+            // Label6
+            // 
+            this.Label6.AutoSize = true;
+            this.Label6.Location = new System.Drawing.Point(4, 36);
+            this.Label6.Name = "Label6";
+            this.Label6.Size = new System.Drawing.Size(81, 13);
+            this.Label6.TabIndex = 118;
+            this.Label6.Text = "Nombre Agente";
+            this.Label6.Visible = false;
+            // 
+            // btnOffline
+            // 
+            this.btnOffline.Location = new System.Drawing.Point(87, 111);
+            this.btnOffline.Name = "btnOffline";
+            this.btnOffline.Size = new System.Drawing.Size(80, 22);
+            this.btnOffline.TabIndex = 117;
+            this.btnOffline.Text = "Desconectar";
+            this.btnOffline.UseVisualStyleBackColor = true;
+            this.btnOffline.Visible = false;
+            // 
+            // btnConnect
+            // 
+            this.btnConnect.Location = new System.Drawing.Point(6, 111);
+            this.btnConnect.Name = "btnConnect";
+            this.btnConnect.Size = new System.Drawing.Size(75, 22);
+            this.btnConnect.TabIndex = 116;
+            this.btnConnect.Text = "Conectar";
+            this.btnConnect.UseVisualStyleBackColor = true;
+            this.btnConnect.Visible = false;
+            // 
+            // TextBoxServerPort
+            // 
+            this.TextBoxServerPort.Enabled = false;
+            this.TextBoxServerPort.Location = new System.Drawing.Point(302, 73);
+            this.TextBoxServerPort.Name = "TextBoxServerPort";
+            this.TextBoxServerPort.Size = new System.Drawing.Size(132, 20);
+            this.TextBoxServerPort.TabIndex = 110;
+            this.TextBoxServerPort.Visible = false;
+            // 
+            // Label3
+            // 
+            this.Label3.AutoSize = true;
+            this.Label3.Location = new System.Drawing.Point(222, 76);
+            this.Label3.Name = "Label3";
+            this.Label3.Size = new System.Drawing.Size(80, 13);
+            this.Label3.TabIndex = 111;
+            this.Label3.Text = "Puerto Servidor";
+            this.Label3.Visible = false;
+            // 
+            // TextBoxServer
+            // 
+            this.TextBoxServer.Enabled = false;
+            this.TextBoxServer.Location = new System.Drawing.Point(89, 75);
+            this.TextBoxServer.Name = "TextBoxServer";
+            this.TextBoxServer.Size = new System.Drawing.Size(132, 20);
+            this.TextBoxServer.TabIndex = 109;
+            this.TextBoxServer.Visible = false;
+            // 
+            // Label4
+            // 
+            this.Label4.AutoSize = true;
+            this.Label4.Location = new System.Drawing.Point(5, 78);
+            this.Label4.Name = "Label4";
+            this.Label4.Size = new System.Drawing.Size(66, 13);
+            this.Label4.TabIndex = 107;
+            this.Label4.Text = "Servidor SIP";
+            this.Label4.Visible = false;
+            // 
+            // TextBoxPassword
+            // 
+            this.TextBoxPassword.Enabled = false;
+            this.TextBoxPassword.Location = new System.Drawing.Point(292, 12);
+            this.TextBoxPassword.Name = "TextBoxPassword";
+            this.TextBoxPassword.PasswordChar = '*';
+            this.TextBoxPassword.Size = new System.Drawing.Size(132, 20);
+            this.TextBoxPassword.TabIndex = 103;
+            this.TextBoxPassword.Visible = false;
+            // 
+            // Label2
+            // 
+            this.Label2.AutoSize = true;
+            this.Label2.Location = new System.Drawing.Point(225, 16);
+            this.Label2.Name = "Label2";
+            this.Label2.Size = new System.Drawing.Size(61, 13);
+            this.Label2.TabIndex = 105;
+            this.Label2.Text = "Contraseña";
+            this.Label2.Visible = false;
+            // 
+            // TextBoxUserName
+            // 
+            this.TextBoxUserName.Enabled = false;
+            this.TextBoxUserName.Location = new System.Drawing.Point(89, 12);
+            this.TextBoxUserName.Name = "TextBoxUserName";
+            this.TextBoxUserName.Size = new System.Drawing.Size(132, 20);
+            this.TextBoxUserName.TabIndex = 101;
+            // 
+            // Label1
+            // 
+            this.Label1.AutoSize = true;
+            this.Label1.Location = new System.Drawing.Point(4, 16);
+            this.Label1.Name = "Label1";
+            this.Label1.Size = new System.Drawing.Size(53, 13);
+            this.Label1.TabIndex = 102;
+            this.Label1.Text = "Extensión";
             // 
             // CallsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(863, 753);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lblFolio);
             this.Controls.Add(this.lblEstatusLlamada);
             this.Controls.Add(this.groupBox7);
@@ -1256,14 +1267,11 @@ namespace LoginForms
             this.Controls.Add(this.ListBoxSIPLog);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "CallsView";
             this.Text = "SIDI Omnichannel";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CallsView_FormClosing);
             this.Load += new System.EventHandler(this.CallsView_Load);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
@@ -1276,6 +1284,8 @@ namespace LoginForms
             this.panel2.PerformLayout();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1286,28 +1296,11 @@ namespace LoginForms
         private System.Windows.Forms.CheckBox checkBoxG729;
         private System.Windows.Forms.CheckBox checkBoxPCMA;
         private System.Windows.Forms.CheckBox checkBoxPCMU;
-        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.CheckBox checkBoxNeedRegister;
         internal System.Windows.Forms.ComboBox ComboBoxTransport;
         internal System.Windows.Forms.ComboBox ComboBoxSRTP;
-        internal System.Windows.Forms.TextBox TextBoxUserDomain;
-        internal System.Windows.Forms.Label Label9;
-        internal System.Windows.Forms.TextBox TextBoxAuthName;
-        internal System.Windows.Forms.Label Label5;
-        internal System.Windows.Forms.TextBox TextBoxDisplayName;
-        internal System.Windows.Forms.Label Label6;
-        internal System.Windows.Forms.Button btnOffline;
-        internal System.Windows.Forms.Button btnConnect;
         internal System.Windows.Forms.TextBox TextBoxStunPort;
         internal System.Windows.Forms.TextBox TextBoxStunServer;
-        internal System.Windows.Forms.TextBox TextBoxServerPort;
-        internal System.Windows.Forms.Label Label3;
-        internal System.Windows.Forms.TextBox TextBoxServer;
-        internal System.Windows.Forms.Label Label4;
-        internal System.Windows.Forms.TextBox TextBoxPassword;
-        internal System.Windows.Forms.Label Label2;
-        internal System.Windows.Forms.TextBox TextBoxUserName;
-        internal System.Windows.Forms.Label Label1;
         private System.Windows.Forms.GroupBox groupBox2;
         internal System.Windows.Forms.CheckBox checkBoxAnswerVideo;
         internal System.Windows.Forms.CheckBox checkBoxMakeVideo;
@@ -1374,6 +1367,23 @@ namespace LoginForms
         private System.Windows.Forms.CheckBox checkBoxAEC;
         private System.Windows.Forms.Label lblEstatusLlamada;
         private System.Windows.Forms.Label lblFolio;
+        private System.Windows.Forms.GroupBox groupBox1;
+        internal System.Windows.Forms.TextBox TextBoxUserDomain;
+        internal System.Windows.Forms.Label Label9;
+        internal System.Windows.Forms.TextBox TextBoxAuthName;
+        internal System.Windows.Forms.Label Label5;
+        internal System.Windows.Forms.TextBox TextBoxDisplayName;
+        internal System.Windows.Forms.Label Label6;
+        internal System.Windows.Forms.Button btnOffline;
+        internal System.Windows.Forms.Button btnConnect;
+        internal System.Windows.Forms.TextBox TextBoxServerPort;
+        internal System.Windows.Forms.Label Label3;
+        internal System.Windows.Forms.TextBox TextBoxServer;
+        internal System.Windows.Forms.Label Label4;
+        internal System.Windows.Forms.TextBox TextBoxPassword;
+        internal System.Windows.Forms.Label Label2;
+        internal System.Windows.Forms.TextBox TextBoxUserName;
+        internal System.Windows.Forms.Label Label1;
         public System.Windows.Forms.Button btnReconnect;
     }
 }
