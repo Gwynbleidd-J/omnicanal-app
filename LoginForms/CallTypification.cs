@@ -10,7 +10,7 @@ namespace LoginForms
 {
     public partial class CallTypification : Form
     {
-        CallsView calls = new CallsView();
+        public CallsView calls { get; set; }
         RestHelper rh = new RestHelper();
         Json jsonNetwork;
         string valor;
@@ -107,6 +107,11 @@ namespace LoginForms
             {
                 Console.WriteLine($"Error[Typification Method]: {ex.Message}");
             }
+        }
+
+        private void CallTypification_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            calls.CallPBX();
         }
     }
 

@@ -572,7 +572,6 @@ namespace LoginForms.Shared
             }
         }
        
-
         public async Task<string> shareScreenshot(Bitmap bitImage, string idSupervisor)
         {
             HttpContent stringContent = new StringContent(idSupervisor); // a que chat

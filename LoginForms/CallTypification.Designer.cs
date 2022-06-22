@@ -133,6 +133,7 @@ namespace LoginForms
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "SIDI Omnichannel";
             this.TopMost = true;
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CallTypification_FormClosed);
             this.Load += new System.EventHandler(this.CallTypification_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

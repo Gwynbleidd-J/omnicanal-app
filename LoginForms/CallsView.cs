@@ -1,17 +1,12 @@
 ﻿using PortSIP;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using LoginForms.Shared;
 using System.Net.NetworkInformation;
 using Newtonsoft.Json;
-using LoginForms.Models;
 using Newtonsoft.Json.Linq;
 using System.IO;
 using Microsoft.Toolkit.Uwp.Notifications;
@@ -32,7 +27,7 @@ namespace LoginForms
         private bool sIPInited = false;
         private bool sIPLogined = false;
         private int currentlyLine = LINE_BASE;
-        
+        private int callSessionId = 0;
         private PortSIPLib sdkLib;
 
         #region Metodos PortSIP
@@ -694,9 +689,9 @@ namespace LoginForms
 
             //// Example: set the codec parameter for AMR-WB
             ///*
-             
+
             // _sdkLib.setAudioCodecParameter(AUDIOCODEC_TYPE.AUDIOCODEC_AMRWB, "mode-set=0; octet-align=0; robust-sorting=0");
-             
+
             //*/
 
 
@@ -970,6 +965,8 @@ namespace LoginForms
         private void btnHangUp_Click(object sender, EventArgs e)
         {
             CallTypification typification = new CallTypification();
+            string callTo = $"*45*{GlobalSocket.currentUser.credentials.userName}";
+            Boolean hasSdp = true;
             if (sIPInited == false || (checkBoxNeedRegister.Checked && (sIPLogined == false)))
             {
                 return;
@@ -992,6 +989,12 @@ namespace LoginForms
             {
                 sdkLib.hangUp(_CallSessions[currentlyLine].getSessionId());
                 _CallSessions[currentlyLine].reset();
+                callSessionId = sdkLib.call(callTo, hasSdp, checkBoxMakeVideo.Checked); //LLAMA *45*
+                _CallSessions[currentlyLine].setSessionId(callSessionId);
+                typification.calls = this;
+                typification.ShowDialog();
+                //callSessionId = _CallSessions[currentlyLine].getSessionId();
+                Console.WriteLine($"Id Llamada hacia el PBX:{callSessionId}");
                 string Text = "Linea " + currentlyLine.ToString();
                 Text = Text + ": Llamada colgada";
                 ListBoxSIPLog.Items.Add(Text);
@@ -1004,7 +1007,12 @@ namespace LoginForms
                 frmP.lblLlamadasActual.ForeColor = Color.White;
                 Desplazamiento();
                 EndCallRecord();
-                typification.ShowDialog();
+                //if (typification.IsDisposed)
+                //{
+                //    sessionId = sdkLib.call(callTo, hasSdp, checkBoxMakeVideo.Checked);
+                //    _CallSessions[currentlyLine].setSessionId(sessionId);
+                //}
+                #region codigo comentado
                 //typification.onclo += Typification_FormClosing;
                 //CallTypification forma = (CallTypification)Application.OpenForms.Cast<Form>().FirstOrDefault(x => x is CallTypification);
 
@@ -1016,26 +1024,10 @@ namespace LoginForms
                 //typification.FormClosed += (s, a) => { sdkLib.setDoNotDisturb(false); };
                 //sdkLib.setDoNotDisturb(false);
                 //rh.ChangeStatus(GlobalSocket.currentUser.ID, "7").Wait();
-                return;
+                #endregion
+                //return;
             }
         }
-
-        //private void Typification_FormClosing(object sender, FormClosingEventArgs e)
-        //{
-        //    sdkLib.setDoNotDisturb(false);
-        //}
-
-        //public delegate void CerrarForma();
-
-        //public void DoNotDisturb()
-        //{
-        //    sdkLib.setDoNotDisturb(false);
-        //}
-
-        //public void DoNotDisturb(object sender, FormClosedEventArgs e)
-        //{
-        //    sdkLib.setDoNotDisturb(false);
-        //}
 
         private void btnAnswer_Click(object sender, EventArgs e)
         {
@@ -1362,7 +1354,7 @@ namespace LoginForms
                  // You also can specify a certain local IP to instead of "0.0.0.0", more details please read the SDK User Manual
                  "0.0.0.0",
                  LocalSIPPort,
-                 PORTSIP_LOG_LEVEL.PORTSIP_LOG_ERROR,
+                 PORTSIP_LOG_LEVEL.PORTSIP_LOG_DEBUG,
                  logFilePath,
                  MAX_LINES,
                  agent,
@@ -1605,7 +1597,7 @@ namespace LoginForms
         {
             ListBoxSIPLog.SelectedIndex = ListBoxSIPLog.Items.Count - 1;
             ListBoxSIPLog.SelectedIndex = -1;
-            if(ListBoxSIPLog.Items.Count == 5)
+            if (ListBoxSIPLog.Items.Count == 5)
             {
                 ListBoxSIPLog.Items.RemoveAt(0);
             }
@@ -1614,6 +1606,15 @@ namespace LoginForms
         private void CloseForm(object sender, FormClosedEventArgs e)
         {
             return;
+        }
+
+        public void CallPBX()
+        {
+            string callTo = $"*45*{GlobalSocket.currentUser.credentials.userName}";
+            Boolean hasSdp = true;
+            
+            callSessionId = sdkLib.call(callTo, hasSdp, checkBoxMakeVideo.Checked); //LLAMA *45*
+            _CallSessions[currentlyLine].setSessionId(callSessionId);
         }
 
         #endregion
@@ -1850,108 +1851,111 @@ namespace LoginForms
             //}
             //else if(typification == null)
             //{
-                //sdkLib.setDoNotDisturb(false);
-                int index = -1;
-                for (int i = LINE_BASE; i < MAX_LINES; ++i)
+            //sdkLib.setDoNotDisturb(false);
+            int index = -1;
+            for (int i = LINE_BASE; i < MAX_LINES; ++i)
+            {
+                if (_CallSessions[i].getSessionState() == false && _CallSessions[i].getRecvCallState() == false)
                 {
-                    if (_CallSessions[i].getSessionState() == false && _CallSessions[i].getRecvCallState() == false)
-                    {
-                        index = i;
-                        _CallSessions[i].setRecvCallState(true);
-                        break;
-                    }
+                    index = i;
+                    _CallSessions[i].setRecvCallState(true);
+                    break;
                 }
+            }
 
-                if (index == -1)
+            if (index == -1)
+            {
+                sdkLib.rejectCall(sessionId, 486);
+                return 0;
+            }
+
+            if (existsVideo)
+            {
+                // If more than one codecs using, then they are separated with "#",
+                // for example: "g.729#GSM#AMR", "H264#H263", you have to parse them by yourself.
+            }
+            if (existsAudio)
+            {
+                // If more than one codecs using, then they are separated with "#",
+                // for example: "g.729#GSM#AMR", "H264#H263", you have to parse them by yourself.
+            }
+
+            _CallSessions[index].setSessionId(sessionId);
+            string Text = string.Empty;
+
+            bool needIgnoreAutoAnswer = false;
+            int j = 0;
+
+            for (j = LINE_BASE; j < MAX_LINES; ++j)
+            {
+                if (_CallSessions[j].getSessionState() == true)
                 {
-                    sdkLib.rejectCall(sessionId, 486);
-                    return 0;
+                    needIgnoreAutoAnswer = true;
+                    break;
                 }
+            }
 
-                if (existsVideo)
-                {
-                    // If more than one codecs using, then they are separated with "#",
-                    // for example: "g.729#GSM#AMR", "H264#H263", you have to parse them by yourself.
-                }
-                if (existsAudio)
-                {
-                    // If more than one codecs using, then they are separated with "#",
-                    // for example: "g.729#GSM#AMR", "H264#H263", you have to parse them by yourself.
-                }
+            //if (existsVideo)
+            //{
+            //    ListBoxSIPLog.Invoke(new MethodInvoker(delegate
+            //    {
+            //        sdkLib.setRemoteVideoWindow(_CallSessions[index].getSessionId(), remoteVideoPanel.Handle);
+            //    }));
+            //}
 
-                _CallSessions[index].setSessionId(sessionId);
-                string Text = string.Empty;
+            Boolean AA = false;
+            bool answerVideo = false;
+            ListBoxSIPLog.Invoke(new MethodInvoker(delegate
+            {
+                AA = CheckBoxAA.Checked;
+                answerVideo = checkBoxAnswerVideo.Checked;
+            }));
 
-                bool needIgnoreAutoAnswer = false;
-                int j = 0;
-
-                for (j = LINE_BASE; j < MAX_LINES; ++j)
-                {
-                    if (_CallSessions[j].getSessionState() == true)
-                    {
-                        needIgnoreAutoAnswer = true;
-                        break;
-                    }
-                }
-
-                //if (existsVideo)
-                //{
-                //    ListBoxSIPLog.Invoke(new MethodInvoker(delegate
-                //    {
-                //        sdkLib.setRemoteVideoWindow(_CallSessions[index].getSessionId(), remoteVideoPanel.Handle);
-                //    }));
-                //}
-
-                Boolean AA = false;
-                bool answerVideo = false;
-                ListBoxSIPLog.Invoke(new MethodInvoker(delegate
-                {
-                    AA = CheckBoxAA.Checked;
-                    answerVideo = checkBoxAnswerVideo.Checked;
-                }));
-
-                if (needIgnoreAutoAnswer == false && AA == true)
-                {
-                    _CallSessions[index].setRecvCallState(false);
-                    _CallSessions[index].setSessionState(true);
+            if (needIgnoreAutoAnswer == false && AA == true)
+            {
+                _CallSessions[index].setRecvCallState(false);
+                _CallSessions[index].setSessionState(true);
 
 
-                    sdkLib.answerCall(_CallSessions[index].getSessionId(), answerVideo);
-
-                    Text = "Linea " + index.ToString();
-                    Text = Text + ": Llamada contestada por auto respuesta";
-
-                    ListBoxSIPLog.Invoke(new MethodInvoker(delegate
-                    {
-                        ListBoxSIPLog.Items.Add(Text);
-                        Desplazamiento();
-                    }));
-                    AgentNotification("Se ha iniciado una nueva llamada");
-                    //rh.SendCall("1").Wait();
-                    lblFolio.Text = rh.SendCall("1").Result.ToString();
-                    lblEstatusLlamada.Text = "En llamada";
-                    //StartCallRecord();
-
-                    FormPrincipal frmP = (FormPrincipal)Application.OpenForms["FormPrincipal"];
-                    frmP.lblLlamadasActual.Text = "Llamada en Progreso";
-                    frmP.lblLlamadasActual.ForeColor = Color.Red;
-
-                    return 0;
-                }
+                sdkLib.answerCall(_CallSessions[index].getSessionId(), answerVideo);
 
                 Text = "Linea " + index.ToString();
-                Text = Text + ": Llamada entrante de ";
-                Text = Text + callerDisplayName;
-                Text = Text + "<";
-                Text = Text + caller;
-                Text = Text + ">";
-
+                Text = Text + ": Llamada contestada por auto respuesta";
 
                 ListBoxSIPLog.Invoke(new MethodInvoker(delegate
                 {
                     ListBoxSIPLog.Items.Add(Text);
                     Desplazamiento();
                 }));
+                AgentNotification("Se ha iniciado una nueva llamada");
+                //rh.SendCall("1").Wait();
+                if(callSessionId != sessionId)
+                {
+                    lblFolio.Text = rh.SendCall("1").Result.ToString();
+                }
+                lblEstatusLlamada.Text = "En llamada";
+                //StartCallRecord();
+
+                FormPrincipal frmP = (FormPrincipal)Application.OpenForms["FormPrincipal"];
+                frmP.lblLlamadasActual.Text = "Llamada en Progreso";
+                frmP.lblLlamadasActual.ForeColor = Color.Red;
+
+                return 0;
+            }
+
+            Text = "Linea " + index.ToString();
+            Text = Text + ": Llamada entrante de ";
+            Text = Text + callerDisplayName;
+            Text = Text + "<";
+            Text = Text + caller;
+            Text = Text + ">";
+
+
+            ListBoxSIPLog.Invoke(new MethodInvoker(delegate
+            {
+                ListBoxSIPLog.Items.Add(Text);
+                Desplazamiento();
+            }));
             //}
             rh.ChangeStatus(GlobalSocket.currentUser.ID, "5").ConfigureAwait(true);
             //  You should write your own code to play the wav file here for alert the incoming call(incoming tone);
@@ -2085,7 +2089,10 @@ namespace LoginForms
             string Text = "Linea " + i.ToString();
             Text = Text + ": Llamada Establecida";
             //rh.SendCall("2").Wait();
-            lblFolio.Text = rh.SendCall("2").Result.ToString();
+            if(callSessionId != sessionId)
+            {
+                lblFolio.Text = rh.SendCall("2").Result.ToString();
+            }
             ListBoxSIPLog.Invoke(new MethodInvoker(delegate
             {
                 ListBoxSIPLog.Items.Add(Text);
@@ -2259,10 +2266,14 @@ namespace LoginForms
         }
 
 
+        // Necesitamos ver si hay CallView Tiene Hijos
+        // la referencia de los hijos está en tabpageChat en el metodo remove tab chat
         public Int32 onInviteClosed(Int32 sessionId)
         {
-            CallTypification typification = new CallTypification();
+            Console.WriteLine($"ID Llamada hacía el PBX:{callSessionId}");
 
+            //callSessionId siempre viene en 0, tengo que ver por que
+            //se hace un bucle en la tipificacion
             int i = findSession(sessionId);
             if (i == -1)
             {
@@ -2281,14 +2292,31 @@ namespace LoginForms
             }));
             EndCallRecord();
             //Disconnect();
-            typification.ShowDialog();
-            lblEstatusLlamada.Text = "Llamada Terminada";
-            lblFolio.Text = "Folio Llamada";
-
             FormPrincipal frmP = (FormPrincipal)Application.OpenForms["FormPrincipal"];
-            frmP.lblLlamadasActual.Text = "Sin llamada actual";
-            frmP.lblLlamadasActual.ForeColor = Color.White;
-            //rh.ChangeStatus(GlobalSocket.currentUser.ID, "7").ConfigureAwait(true);
+            if (callSessionId == sessionId)
+            {
+                lblEstatusLlamada.Text = "Llamada Terminada";
+                lblFolio.Text = "Folio Llamada";
+                
+                frmP.lblLlamadasActual.Text = "Sin llamada actual";
+                frmP.lblLlamadasActual.ForeColor = Color.White;
+                return 0; 
+            }
+            else if(callSessionId != sessionId)
+            {
+                CallTypification typification = new CallTypification();
+                CallPBX();
+                typification.calls = this;
+                typification.ShowDialog();
+                lblEstatusLlamada.Text = "Llamada Terminada";
+                lblFolio.Text = "Folio Llamada";
+
+                //frmP = (FormPrincipal)Application.OpenForms["FormPrincipal"];
+                frmP.lblLlamadasActual.Text = "Sin llamada actual";
+                frmP.lblLlamadasActual.ForeColor = Color.White;
+                return 0;
+                //rh.ChangeStatus(GlobalSocket.currentUser.ID, "7").ConfigureAwait(true);
+            }
             return 0;
         }
 
