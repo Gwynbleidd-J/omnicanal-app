@@ -177,6 +177,8 @@ namespace LoginForms
             sdkLib.setVideoNackStatus(checkBoxNack.Checked);
 
             sdkLib.setDoNotDisturb(CheckBoxDND.Checked);
+
+            sdkLib.setRtpPortRange(58024, 60999); //Rango de puertos de RTP,
         }
 
 
@@ -1290,6 +1292,7 @@ namespace LoginForms
 
             Random rd = new Random();
             int LocalSIPPort = rd.Next(1000, 5000) + 4000; // Generate the random port for SIP
+            Console.WriteLine($"Puerto SIP: {LocalSIPPort}");
 
             TRANSPORT_TYPE transportType = TRANSPORT_TYPE.TRANSPORT_TLS;
             //switch (ComboBoxTransport.SelectedIndex)
@@ -1348,6 +1351,7 @@ namespace LoginForms
             string agent = "PortSIP VoIP SDK";
             string stunServer = TextBoxStunServer.Text;
 
+             
             // Initialize the SDK
             int rt = sdkLib.initialize(transportType,
                  // Use 0.0.0.0 for local IP then the SDK will choose an available local IP automatically.

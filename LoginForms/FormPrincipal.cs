@@ -47,7 +47,6 @@ namespace LoginForms
             GlobalSocket.algo = cmbUserStatus;
 
 
-
             //webchat.TopLevel = false;
             //webchat.Parent = pnlChatMessages;
             //webchat.ControlBox = false;

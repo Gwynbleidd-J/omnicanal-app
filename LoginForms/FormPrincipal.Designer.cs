@@ -36,8 +36,6 @@ namespace LoginForms
             this.button1 = new System.Windows.Forms.Button();
             this.mainMenu1 = new System.Windows.Forms.MainMenu(this.components);
             this.flpDynamicButtons = new System.Windows.Forms.FlowLayoutPanel();
-            this.pnlChatMessages = new System.Windows.Forms.Panel();
-            this.btnCloseSesion = new System.Windows.Forms.Button();
             this.flpAgentStatus = new System.Windows.Forms.FlowLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbUserStatus = new System.Windows.Forms.ComboBox();
@@ -54,9 +52,10 @@ namespace LoginForms
             this.lblSocket = new System.Windows.Forms.Label();
             this.btnReconexion = new System.Windows.Forms.Button();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.pnlChatMessages1 = new System.Windows.Forms.Panel();
+            this.pnlChatMessages = new System.Windows.Forms.Panel();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             this.flpDynamicButtons.SuspendLayout();
-            this.pnlChatMessages.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
@@ -65,6 +64,7 @@ namespace LoginForms
             this.tableLayoutPanel1.SuspendLayout();
             this.tableDebug.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
+            this.pnlChatMessages1.SuspendLayout();
             this.tableLayoutPanel7.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -128,35 +128,6 @@ namespace LoginForms
             this.flpDynamicButtons.Size = new System.Drawing.Size(104, 372);
             this.flpDynamicButtons.TabIndex = 8;
             this.flpDynamicButtons.Visible = false;
-            // 
-            // pnlChatMessages
-            // 
-            this.pnlChatMessages.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnlChatMessages.BackColor = System.Drawing.Color.Transparent;
-            this.pnlChatMessages.Controls.Add(this.btnCloseSesion);
-            this.pnlChatMessages.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.pnlChatMessages.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.pnlChatMessages.Location = new System.Drawing.Point(131, 2);
-            this.pnlChatMessages.Margin = new System.Windows.Forms.Padding(2);
-            this.pnlChatMessages.Name = "pnlChatMessages";
-            this.pnlChatMessages.Size = new System.Drawing.Size(1031, 595);
-            this.pnlChatMessages.TabIndex = 9;
-            // 
-            // btnCloseSesion
-            // 
-            this.btnCloseSesion.BackgroundImage = global::LoginForms.Properties.Resources.cerrar_sesion_1;
-            this.btnCloseSesion.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnCloseSesion.FlatAppearance.BorderSize = 0;
-            this.btnCloseSesion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCloseSesion.Location = new System.Drawing.Point(793, 15);
-            this.btnCloseSesion.Name = "btnCloseSesion";
-            this.btnCloseSesion.Size = new System.Drawing.Size(192, 48);
-            this.btnCloseSesion.TabIndex = 11;
-            this.btnCloseSesion.UseVisualStyleBackColor = true;
-            this.btnCloseSesion.Visible = false;
-            this.btnCloseSesion.Click += new System.EventHandler(this.btnCloseSesion_Click);
             // 
             // flpAgentStatus
             // 
@@ -406,7 +377,7 @@ namespace LoginForms
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel5.Controls.Add(this.flpDynamicButtons, 2, 0);
-            this.tableLayoutPanel5.Controls.Add(this.pnlChatMessages, 1, 0);
+            this.tableLayoutPanel5.Controls.Add(this.pnlChatMessages1, 1, 0);
             this.tableLayoutPanel5.Location = new System.Drawing.Point(2, 131);
             this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
@@ -414,6 +385,34 @@ namespace LoginForms
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel5.Size = new System.Drawing.Size(1294, 599);
             this.tableLayoutPanel5.TabIndex = 14;
+            // 
+            // pnlChatMessages1
+            // 
+            this.pnlChatMessages1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlChatMessages1.Controls.Add(this.pnlChatMessages);
+            this.pnlChatMessages1.Location = new System.Drawing.Point(132, 3);
+            this.pnlChatMessages1.Name = "pnlChatMessages1";
+            this.pnlChatMessages1.Size = new System.Drawing.Size(1029, 593);
+            this.pnlChatMessages1.TabIndex = 10;
+            // 
+            // pnlChatMessages
+            // 
+            this.pnlChatMessages.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlChatMessages.AutoScroll = true;
+            this.pnlChatMessages.AutoScrollMinSize = new System.Drawing.Size(900, 720);
+            this.pnlChatMessages.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.pnlChatMessages.BackColor = System.Drawing.Color.Transparent;
+            this.pnlChatMessages.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.pnlChatMessages.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.pnlChatMessages.Location = new System.Drawing.Point(0, 0);
+            this.pnlChatMessages.Margin = new System.Windows.Forms.Padding(2);
+            this.pnlChatMessages.Name = "pnlChatMessages";
+            this.pnlChatMessages.Size = new System.Drawing.Size(1029, 593);
+            this.pnlChatMessages.TabIndex = 9;
             // 
             // tableLayoutPanel7
             // 
@@ -450,7 +449,6 @@ namespace LoginForms
             this.Text = "SIDI Omnichannel";
             this.Load += new System.EventHandler(this.FormPrincipal_Load);
             this.flpDynamicButtons.ResumeLayout(false);
-            this.pnlChatMessages.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel6.ResumeLayout(false);
@@ -462,6 +460,7 @@ namespace LoginForms
             this.tableDebug.ResumeLayout(false);
             this.tableDebug.PerformLayout();
             this.tableLayoutPanel5.ResumeLayout(false);
+            this.pnlChatMessages1.ResumeLayout(false);
             this.tableLayoutPanel7.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -473,10 +472,8 @@ namespace LoginForms
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.MainMenu mainMenu1;
         private System.Windows.Forms.FlowLayoutPanel flpDynamicButtons;
-        private System.Windows.Forms.Panel pnlChatMessages;
         private System.Windows.Forms.FlowLayoutPanel flpAgentStatus;
         private System.Windows.Forms.ComboBox cmbUserStatus;
-        private System.Windows.Forms.Button btnCloseSesion;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
@@ -492,5 +489,7 @@ namespace LoginForms
         private System.Windows.Forms.TableLayoutPanel tableInteracciones;
         public System.Windows.Forms.Label lblLlamadasActual;
         public System.Windows.Forms.Label lblChatsActual;
+        private System.Windows.Forms.Panel pnlChatMessages;
+        private System.Windows.Forms.Panel pnlChatMessages1;
     }
 }
