@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using LoginForms.Utils;
 
 namespace LoginForms
 {
@@ -11,6 +12,7 @@ namespace LoginForms
     {
         RestHelper rh = new RestHelper();
         string idAgent;
+        string appPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\ApplicationLogs\";
 
         public AgentInformation(string individualId)
         {
@@ -25,9 +27,9 @@ namespace LoginForms
 
         private async void agentDetails(string idAgent)
         {
+            Log log = new Log(appPath);
             try
             {
-
                 string agentDetails = await rh.getAgentsDetails(idAgent);
                 Json jsonAgentDetails = JsonConvert.DeserializeObject<Json>(agentDetails);
 
@@ -115,6 +117,7 @@ namespace LoginForms
             catch (Exception ex)
             {
                 Console.WriteLine($"Error[agentsDetails]: {ex}");
+                log.Add($"[AgentInformation][agentDetails]: Intentando Login: {ex.Message}");
                 MessageBox.Show(ex.Message);
             }
         }

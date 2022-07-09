@@ -25,6 +25,7 @@ namespace LoginForms.Utils
         public TextBox txtChatHistoric { get; set; }
         public Button btnSendMessage { get; set; }
         RestHelper restHelper = new RestHelper();
+        string appPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\ApplicationLogs\";
         #endregion
 
         #region Métodos
@@ -136,6 +137,7 @@ namespace LoginForms.Utils
 
         public async Task<bool> sendMessageFromPanelControl()
         {
+            Log log = new Log(appPath);
             bool resultSendMessageFromPanelControl = false;
             //try
             //{ 
@@ -152,11 +154,13 @@ namespace LoginForms.Utils
             //    Console.WriteLine("Error[sendMessageFromPanelControl]: " + ex.Message);
             //    resultSendMessageFromPanelControl = false;
             //}
+            log.Add($"[PanelControl][sendMessageFromPanelControl]:{resultSendMessageFromPanelControl}");
             return resultSendMessageFromPanelControl;
         }
 
         public async Task<string> askForNewMessages()
         {
+            Log log = new Log(appPath);
             string resultNewMessages = string.Empty;
             try
             {
@@ -164,12 +168,15 @@ namespace LoginForms.Utils
                 if (!string.IsNullOrEmpty(resultNewMessages) && resultNewMessages == "OK")
                 {
                     resultNewMessages = "OK"; 
+
                 }
+                log.Add($"[PanelControl][askForNewMessages]:{resultNewMessages}");
                 return resultNewMessages;
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error[sendMessageFromPanelControl]: " + ex.Message); 
+                Console.WriteLine("Error[sendMessageFromPanelControl]: " + ex.Message);
+                log.Add($"[PanelControl][sendMessageFromPanelControl]:{ex.Message}");
             }
             return resultNewMessages;
         }

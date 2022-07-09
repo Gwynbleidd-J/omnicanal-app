@@ -23,6 +23,7 @@ namespace LoginForms
         Json jsonNetwork;
         RestHelper rh = new RestHelper();
         string valor;
+        string appPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\ApplicationLogs\";
         public NetworkCategories(string chatId)
         {
             InitializeComponent();
@@ -33,17 +34,19 @@ namespace LoginForms
 
         private async void btnAccept_Click(object sender, EventArgs e)
         {
+            Log log = new Log(appPath);
             try
             {
                 Console.WriteLine($"Number to send: {GlobalSocket.numberToClose}");
                 if (!string.IsNullOrEmpty(valor))
                 {
                     await rh.updateNetworkCategories(chatid, valor);
+                    log.Add($"[NetworkCategories][btnAccept_Click]:chatId{chatid} networkId{valor}");
                     this.Dispose();
                 }
                 else
                 {
-                    MessageBox.Show("No has seleccionado una red", "Omnicanal", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show("No has seleccionado una red", "SIDI Omnichannel", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
             }
             catch (Exception ex)

@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Windows.Forms;
 using LoginForms.Models;
 using LoginForms.Shared;
+using LoginForms.Utils;
 using Newtonsoft.Json;
 using Label = System.Windows.Forms.Label;
 
@@ -14,7 +15,7 @@ namespace LoginForms
 {
     public partial class FormPrincipal : Form
     {
-        WhatsApp whatsApp;
+        //WhatsApp whatsApp;
         Prueba prueba;
         AsynchronousClient client;
         RestHelper rh = new RestHelper();
@@ -22,6 +23,7 @@ namespace LoginForms
         Login login;
         public string rolId;
         string valor = "";
+        string appPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\ApplicationLogs\";
 
         public string TextSocket
         {
@@ -34,7 +36,7 @@ namespace LoginForms
             //agentStatus = agent
             InitializeComponent();
             Control.CheckForIllegalCrossThreadCalls = false;
-            whatsApp = new WhatsApp();
+            //whatsApp = new WhatsApp();
             prueba = new Prueba();
             //this.IsMdiContainer = true;
             //whatsApp.MdiParent = this;
@@ -51,7 +53,7 @@ namespace LoginForms
             //webchat.Parent = pnlChatMessages;
             //webchat.ControlBox = false;
             //prueba.Show();
-            client = new AsynchronousClient(whatsApp.rtxtResponseMessage, this, prueba, this);
+            //client = new AsynchronousClient(whatsApp.rtxtResponseMessage, this, prueba, this);
             //client.inicializarChatWindow();
             //this.BackColor = ColorTranslator.FromHtml("#e2e0e0");
             this.BackColor = ColorTranslator.FromHtml("#d6d2d2");
@@ -63,6 +65,7 @@ namespace LoginForms
 
         private async void FormPrincipal_Load(object sender, EventArgs e)
         {
+            Log log = new Log(appPath);
             //Task task = new Task(client.Connect);
             //task.Start();
             dynamicUserButtons();
@@ -71,13 +74,14 @@ namespace LoginForms
             setStatusAgent();
             createAgentInformationForm();
             await rh.SetStatusTime(GlobalSocket.currentUser.status.id);
+            log.Add($"[PanelControl][FormPrincipal_Load]:Id del agente al que se le va a cambiar el status:{GlobalSocket.currentUser.status.id}");
             await SocketIOClient.ClienteSocketIO();
             //this.WindowState = FormWindowState.Maximized;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            whatsApp.Show();
+            //whatsApp.Show();
             //whatsApp.MdiParent = this;
             //abrirForm(new WhatsApp());
         }
@@ -128,6 +132,10 @@ namespace LoginForms
                     Assembly asm = Assembly.GetEntryAssembly();
                     Type formtype = asm.GetType(string.Format("{0}.{1}", "LoginForms", GlobalSocket.currentUser.rol.permission[i].menu.name));
                     Form f = (Form)Activator.CreateInstance(formtype);
+
+                    
+                    Console.WriteLine($"Forma:{formtype.Name}");
+                    Console.WriteLine($"Forma1:{f.Name}");
                     //f.Show();
 
 
@@ -145,7 +153,7 @@ namespace LoginForms
                             fo.Show();
                             fo.FormBorderStyle = FormBorderStyle.None;
                             fo.BackColor = ColorTranslator.FromHtml("#e2e0e1");
-                            client.prueba = fo as Prueba;
+                            //client.prueba = fo as Prueba;
 
                             var temp1 = (PictureBox)tableLayoutPanel8.Controls["Chats"];
                             var temp2 = (PictureBox)tableLayoutPanel8.Controls["Softphone"];
@@ -181,7 +189,7 @@ namespace LoginForms
                             fo.Show();
                             fo.FormBorderStyle = FormBorderStyle.None;
                             fo.BackColor = ColorTranslator.FromHtml("#e2e0e1");
-                            client.prueba = fo as Prueba;
+                            //client.prueba = fo as Prueba;
 
                             var temp1 = (PictureBox)tableLayoutPanel8.Controls["Home"];
                             var temp2 = (PictureBox)tableLayoutPanel8.Controls["Softphone"];
@@ -295,6 +303,7 @@ namespace LoginForms
 
                     dynamicButton.Click += (s, e) =>
                     {
+                        //Aqui es donde se va a condicionar las peticiones que están dentro del timer
                         f.TopLevel = false;
                         f.Parent = pnlChatMessages;
                         f.ControlBox = false;
@@ -305,7 +314,7 @@ namespace LoginForms
                         f.Show();
                         f.FormBorderStyle = FormBorderStyle.None;
                         f.BackColor = SystemColors.ButtonHighlight;
-                        client.prueba = f as Prueba;
+                        //client.prueba = f as Prueba;
                     };
 
 
@@ -400,6 +409,7 @@ namespace LoginForms
 
         private async void cmbUserStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
+            Log log = new Log(appPath);
             try
             {
                 string userId = GlobalSocket.currentUser.ID;
@@ -413,12 +423,20 @@ namespace LoginForms
                 StatusItems statusItems = (StatusItems)cmbUserStatus.SelectedItem;
                 valor = statusItems.Id;
                 GlobalSocket.currentUser.status.id = valor;
-                await rh.updateUserStatus(valor, userId);
-                await rh.ChangeStatus(userId, valor);
-                //await rh.TotalTimeStatus(GlobalSocket.currentUser.ID);
-                
 
+                #region POSIBLE MEJORA PARA GUARDAR EL ESTATUS DE AGENTE
+                //LA MEJORA CONSISTE EN VER SI SE PUEDE JUNTAR ESTÁS DOS PETICIONES EN UNA 
+                //SOLA, PREGUNTARLE AL ISRA SI SE PEUDE LLEVAR A CABO
+                //TAMBIEN PARA QUE MARTÍN NOS PRESTE A UN AGENTE PARA HACER LAS PRUEBAS
+                await rh.updateUserStatus(valor, userId); //ACTUALIZA EL ESTADO DEL AGENTE EN LA TABLA cat_users;
+                await rh.ChangeStatus(userId, valor); // ACTUALIZA EL ESTADO DEL AGENTE EN LA TABLA ope_status
+                #endregion
+                //await rh.TotalTimeStatus(GlobalSocket.currentUser.ID);
+
+                log.Add($"[FormPrincipal][cmbUserStatus_SelectedIndexChanged]: UserId:{userId} statusId:{valor}");
                 MessageBox.Show("Estatus Agente Cambiado", "Estatus Agente", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                
+                //MessageBox.Show("Estatus Agente Cambiado", "Estatus Agente", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 //if(cmbUserStatus.SelectedItem.ToString() == "Disponible")
                 //{
                 //}
@@ -457,12 +475,13 @@ namespace LoginForms
 
         private async void pictureBox1_Click(object sender, EventArgs e)
         {
+            Log log = new Log(appPath);
             await rh.UpdateOnClosing(GlobalSocket.currentUser.ID, GlobalSocket.currentUser.status.id);
             await rh.updateUserStatus("8", GlobalSocket.currentUser.ID);
             await rh.UpdateActiveColumnOnClose(GlobalSocket.currentUser.ID);
             //await rh.ChangeStatus() para el tiempo en los cambios de los estados
             //pictureBox1.Image = Properties.Resources.cerrar_sesion_presionado_1;
-
+            log.Add($"[FormPrincipal][pictureBox1_Click]:userId{GlobalSocket.currentUser.ID} statusId:{GlobalSocket.currentUser.status.id}");
             login = new Login();
             //asynchronousClient = new AsynchronousClient();
             string userToken = GlobalSocket.currentUser.token;

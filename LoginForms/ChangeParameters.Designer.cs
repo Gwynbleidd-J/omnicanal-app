@@ -30,25 +30,6 @@ namespace LoginForms
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChangeParameters));
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.lblBotTokenTelegram = new System.Windows.Forms.Label();
-            this.lblTokenTwilioAccount = new System.Windows.Forms.Label();
-            this.lblWhatsappAccount = new System.Windows.Forms.Label();
-            this.lblSIDTwilioAccount = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.txtBotTokenTelegram = new System.Windows.Forms.TextBox();
-            this.btnChangeBotsParameters = new System.Windows.Forms.Button();
-            this.txtWhatsappAccount = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.txtTokenTwilioAccount = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.txtSIDTwilioAccount = new System.Windows.Forms.TextBox();
-            this.label20 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.lblAuthName = new System.Windows.Forms.Label();
             this.lblPort = new System.Windows.Forms.Label();
@@ -81,199 +62,44 @@ namespace LoginForms
             this.Label2 = new System.Windows.Forms.Label();
             this.txtUserName = new System.Windows.Forms.TextBox();
             this.Label1 = new System.Windows.Forms.Label();
-            this.groupBox3.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lblSiglasUser = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.lblEmail = new System.Windows.Forms.Label();
+            this.lblApeMaterno = new System.Windows.Forms.Label();
+            this.lblApePaterno = new System.Windows.Forms.Label();
+            this.lblNombre = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.txtSiglasUser = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.cmbTipoUsuario = new System.Windows.Forms.ComboBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.btnModifyUser = new System.Windows.Forms.Button();
+            this.btnDeleteUser = new System.Windows.Forms.Button();
+            this.btnSaveUser = new System.Windows.Forms.Button();
+            this.rbDeleteUser = new System.Windows.Forms.RadioButton();
+            this.rbModifyUser = new System.Windows.Forms.RadioButton();
+            this.rbNewUser = new System.Windows.Forms.RadioButton();
+            this.txtContrasena = new System.Windows.Forms.TextBox();
+            this.cmbUsers = new System.Windows.Forms.ComboBox();
+            this.txtApeMaterno = new System.Windows.Forms.TextBox();
+            this.label29 = new System.Windows.Forms.Label();
+            this.txtApePaterno = new System.Windows.Forms.TextBox();
+            this.label31 = new System.Windows.Forms.Label();
+            this.txtEmail = new System.Windows.Forms.TextBox();
+            this.label33 = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
+            this.txtNombre = new System.Windows.Forms.TextBox();
+            this.label35 = new System.Windows.Forms.Label();
             this.groupBox4.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.lblBotTokenTelegram);
-            this.groupBox3.Controls.Add(this.lblTokenTwilioAccount);
-            this.groupBox3.Controls.Add(this.lblWhatsappAccount);
-            this.groupBox3.Controls.Add(this.lblSIDTwilioAccount);
-            this.groupBox3.Controls.Add(this.label23);
-            this.groupBox3.Controls.Add(this.label18);
-            this.groupBox3.Controls.Add(this.label21);
-            this.groupBox3.Controls.Add(this.label22);
-            this.groupBox3.Location = new System.Drawing.Point(333, 254);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox3.Size = new System.Drawing.Size(415, 128);
-            this.groupBox3.TabIndex = 134;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Visible = false;
-            // 
-            // lblBotTokenTelegram
-            // 
-            this.lblBotTokenTelegram.AutoSize = true;
-            this.lblBotTokenTelegram.Location = new System.Drawing.Point(104, 79);
-            this.lblBotTokenTelegram.Name = "lblBotTokenTelegram";
-            this.lblBotTokenTelegram.Size = new System.Drawing.Size(85, 13);
-            this.lblBotTokenTelegram.TabIndex = 125;
-            this.lblBotTokenTelegram.Text = "Telegram Token";
-            // 
-            // lblTokenTwilioAccount
-            // 
-            this.lblTokenTwilioAccount.AutoSize = true;
-            this.lblTokenTwilioAccount.Location = new System.Drawing.Point(83, 39);
-            this.lblTokenTwilioAccount.Name = "lblTokenTwilioAccount";
-            this.lblTokenTwilioAccount.Size = new System.Drawing.Size(68, 13);
-            this.lblTokenTwilioAccount.TabIndex = 124;
-            this.lblTokenTwilioAccount.Text = "Twilio Token";
-            // 
-            // lblWhatsappAccount
-            // 
-            this.lblWhatsappAccount.AutoSize = true;
-            this.lblWhatsappAccount.Location = new System.Drawing.Point(116, 58);
-            this.lblWhatsappAccount.Name = "lblWhatsappAccount";
-            this.lblWhatsappAccount.Size = new System.Drawing.Size(97, 13);
-            this.lblWhatsappAccount.TabIndex = 126;
-            this.lblWhatsappAccount.Text = "Numero WhatsApp";
-            // 
-            // lblSIDTwilioAccount
-            // 
-            this.lblSIDTwilioAccount.AutoSize = true;
-            this.lblSIDTwilioAccount.Location = new System.Drawing.Point(110, 19);
-            this.lblSIDTwilioAccount.Name = "lblSIDTwilioAccount";
-            this.lblSIDTwilioAccount.Size = new System.Drawing.Size(92, 13);
-            this.lblSIDTwilioAccount.TabIndex = 123;
-            this.lblSIDTwilioAccount.Text = "Twilio Cuenta SID";
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label23.Location = new System.Drawing.Point(4, 76);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(103, 13);
-            this.label23.TabIndex = 121;
-            this.label23.Text = "Telegram Token:";
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(4, 37);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(84, 13);
-            this.label18.TabIndex = 120;
-            this.label18.Text = "Twilio Token:";
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.Location = new System.Drawing.Point(4, 18);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(113, 13);
-            this.label21.TabIndex = 119;
-            this.label21.Text = "Twilio Cuenta SID:";
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label22.Location = new System.Drawing.Point(4, 57);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(116, 13);
-            this.label22.TabIndex = 122;
-            this.label22.Text = "Numero WhatsApp:";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.txtBotTokenTelegram);
-            this.groupBox2.Controls.Add(this.btnChangeBotsParameters);
-            this.groupBox2.Controls.Add(this.txtWhatsappAccount);
-            this.groupBox2.Controls.Add(this.label13);
-            this.groupBox2.Controls.Add(this.txtTokenTwilioAccount);
-            this.groupBox2.Controls.Add(this.label14);
-            this.groupBox2.Controls.Add(this.label19);
-            this.groupBox2.Controls.Add(this.txtSIDTwilioAccount);
-            this.groupBox2.Controls.Add(this.label20);
-            this.groupBox2.Location = new System.Drawing.Point(10, 254);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(318, 193);
-            this.groupBox2.TabIndex = 133;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Parámetros Servicio de Bots";
-            this.groupBox2.Visible = false;
-            // 
-            // txtBotTokenTelegram
-            // 
-            this.txtBotTokenTelegram.Location = new System.Drawing.Point(86, 101);
-            this.txtBotTokenTelegram.Name = "txtBotTokenTelegram";
-            this.txtBotTokenTelegram.Size = new System.Drawing.Size(228, 20);
-            this.txtBotTokenTelegram.TabIndex = 11;
-            // 
-            // btnChangeBotsParameters
-            // 
-            this.btnChangeBotsParameters.Location = new System.Drawing.Point(8, 145);
-            this.btnChangeBotsParameters.Name = "btnChangeBotsParameters";
-            this.btnChangeBotsParameters.Size = new System.Drawing.Size(169, 28);
-            this.btnChangeBotsParameters.TabIndex = 120;
-            this.btnChangeBotsParameters.Text = "Guardar Parámetros Bots";
-            this.btnChangeBotsParameters.UseVisualStyleBackColor = true;
-            this.btnChangeBotsParameters.Click += new System.EventHandler(this.btnChangeBotsParameters_Click);
-            // 
-            // txtWhatsappAccount
-            // 
-            this.txtWhatsappAccount.Location = new System.Drawing.Point(100, 77);
-            this.txtWhatsappAccount.Name = "txtWhatsappAccount";
-            this.txtWhatsappAccount.Size = new System.Drawing.Size(213, 20);
-            this.txtWhatsappAccount.TabIndex = 10;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(3, 80);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(97, 13);
-            this.label13.TabIndex = 119;
-            this.label13.Text = "Numero WhatsApp";
-            // 
-            // txtTokenTwilioAccount
-            // 
-            this.txtTokenTwilioAccount.Location = new System.Drawing.Point(70, 54);
-            this.txtTokenTwilioAccount.Name = "txtTokenTwilioAccount";
-            this.txtTokenTwilioAccount.Size = new System.Drawing.Size(242, 20);
-            this.txtTokenTwilioAccount.TabIndex = 9;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(3, 55);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(68, 13);
-            this.label14.TabIndex = 118;
-            this.label14.Text = "Twilio Token";
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(4, 102);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(85, 13);
-            this.label19.TabIndex = 105;
-            this.label19.Text = "Telegram Token";
-            // 
-            // txtSIDTwilioAccount
-            // 
-            this.txtSIDTwilioAccount.Location = new System.Drawing.Point(93, 31);
-            this.txtSIDTwilioAccount.Name = "txtSIDTwilioAccount";
-            this.txtSIDTwilioAccount.Size = new System.Drawing.Size(220, 20);
-            this.txtSIDTwilioAccount.TabIndex = 8;
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(4, 32);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(92, 13);
-            this.label20.TabIndex = 102;
-            this.label20.Text = "Twilio Cuenta SID";
             // 
             // groupBox4
             // 
@@ -291,11 +117,11 @@ namespace LoginForms
             this.groupBox4.Controls.Add(this.label8);
             this.groupBox4.Controls.Add(this.label10);
             this.groupBox4.Controls.Add(this.label11);
-            this.groupBox4.Location = new System.Drawing.Point(457, 11);
+            this.groupBox4.Location = new System.Drawing.Point(465, 11);
             this.groupBox4.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox4.Size = new System.Drawing.Size(291, 169);
+            this.groupBox4.Size = new System.Drawing.Size(283, 169);
             this.groupBox4.TabIndex = 132;
             this.groupBox4.TabStop = false;
             // 
@@ -452,7 +278,7 @@ namespace LoginForms
             this.groupBox1.Controls.Add(this.Label1);
             this.groupBox1.Location = new System.Drawing.Point(10, 11);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(442, 207);
+            this.groupBox1.Size = new System.Drawing.Size(450, 207);
             this.groupBox1.TabIndex = 131;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Parámetros Softphone";
@@ -592,52 +418,379 @@ namespace LoginForms
             this.Label1.TabIndex = 102;
             this.Label1.Text = "Nombre Usuario";
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.lblSiglasUser);
+            this.groupBox2.Controls.Add(this.label18);
+            this.groupBox2.Controls.Add(this.lblEmail);
+            this.groupBox2.Controls.Add(this.lblApeMaterno);
+            this.groupBox2.Controls.Add(this.lblApePaterno);
+            this.groupBox2.Controls.Add(this.lblNombre);
+            this.groupBox2.Controls.Add(this.label24);
+            this.groupBox2.Controls.Add(this.label25);
+            this.groupBox2.Controls.Add(this.label26);
+            this.groupBox2.Controls.Add(this.label28);
+            this.groupBox2.Location = new System.Drawing.Point(465, 261);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox2.Size = new System.Drawing.Size(283, 194);
+            this.groupBox2.TabIndex = 134;
+            this.groupBox2.TabStop = false;
+            // 
+            // lblSiglasUser
+            // 
+            this.lblSiglasUser.AutoSize = true;
+            this.lblSiglasUser.Location = new System.Drawing.Point(98, 98);
+            this.lblSiglasUser.Name = "lblSiglasUser";
+            this.lblSiglasUser.Size = new System.Drawing.Size(74, 13);
+            this.lblSiglasUser.TabIndex = 134;
+            this.lblSiglasUser.Text = "Siglas Usuario";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(5, 98);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(92, 13);
+            this.label18.TabIndex = 133;
+            this.label18.Text = "Siglas Usuario:";
+            // 
+            // lblEmail
+            // 
+            this.lblEmail.AutoSize = true;
+            this.lblEmail.Location = new System.Drawing.Point(48, 77);
+            this.lblEmail.Name = "lblEmail";
+            this.lblEmail.Size = new System.Drawing.Size(32, 13);
+            this.lblEmail.TabIndex = 132;
+            this.lblEmail.Text = "Email";
+            // 
+            // lblApeMaterno
+            // 
+            this.lblApeMaterno.AutoSize = true;
+            this.lblApeMaterno.Location = new System.Drawing.Point(111, 57);
+            this.lblApeMaterno.Name = "lblApeMaterno";
+            this.lblApeMaterno.Size = new System.Drawing.Size(86, 13);
+            this.lblApeMaterno.TabIndex = 131;
+            this.lblApeMaterno.Text = "Apellido Materno";
+            // 
+            // lblApePaterno
+            // 
+            this.lblApePaterno.AutoSize = true;
+            this.lblApePaterno.Location = new System.Drawing.Point(109, 37);
+            this.lblApePaterno.Name = "lblApePaterno";
+            this.lblApePaterno.Size = new System.Drawing.Size(84, 13);
+            this.lblApePaterno.TabIndex = 130;
+            this.lblApePaterno.Text = "Apellido Paterno";
+            // 
+            // lblNombre
+            // 
+            this.lblNombre.AutoSize = true;
+            this.lblNombre.Location = new System.Drawing.Point(61, 15);
+            this.lblNombre.Name = "lblNombre";
+            this.lblNombre.Size = new System.Drawing.Size(44, 13);
+            this.lblNombre.TabIndex = 128;
+            this.lblNombre.Text = "Nombre";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.Location = new System.Drawing.Point(5, 77);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(41, 13);
+            this.label24.TabIndex = 125;
+            this.label24.Text = "Email:";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label25.Location = new System.Drawing.Point(5, 57);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(106, 13);
+            this.label25.TabIndex = 124;
+            this.label25.Text = "Apellido Materno:";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label26.Location = new System.Drawing.Point(5, 37);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(104, 13);
+            this.label26.TabIndex = 123;
+            this.label26.Text = "Apellido Paterno:";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label28.Location = new System.Drawing.Point(5, 15);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(54, 13);
+            this.label28.TabIndex = 121;
+            this.label28.Text = "Nombre:";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.txtSiglasUser);
+            this.groupBox3.Controls.Add(this.label14);
+            this.groupBox3.Controls.Add(this.cmbTipoUsuario);
+            this.groupBox3.Controls.Add(this.label13);
+            this.groupBox3.Controls.Add(this.btnModifyUser);
+            this.groupBox3.Controls.Add(this.btnDeleteUser);
+            this.groupBox3.Controls.Add(this.btnSaveUser);
+            this.groupBox3.Controls.Add(this.rbDeleteUser);
+            this.groupBox3.Controls.Add(this.rbModifyUser);
+            this.groupBox3.Controls.Add(this.rbNewUser);
+            this.groupBox3.Controls.Add(this.txtContrasena);
+            this.groupBox3.Controls.Add(this.cmbUsers);
+            this.groupBox3.Controls.Add(this.txtApeMaterno);
+            this.groupBox3.Controls.Add(this.label29);
+            this.groupBox3.Controls.Add(this.txtApePaterno);
+            this.groupBox3.Controls.Add(this.label31);
+            this.groupBox3.Controls.Add(this.txtEmail);
+            this.groupBox3.Controls.Add(this.label33);
+            this.groupBox3.Controls.Add(this.label34);
+            this.groupBox3.Controls.Add(this.txtNombre);
+            this.groupBox3.Controls.Add(this.label35);
+            this.groupBox3.Location = new System.Drawing.Point(10, 261);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(450, 274);
+            this.groupBox3.TabIndex = 133;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Analistas";
+            // 
+            // txtSiglasUser
+            // 
+            this.txtSiglasUser.Enabled = false;
+            this.txtSiglasUser.Location = new System.Drawing.Point(99, 152);
+            this.txtSiglasUser.Name = "txtSiglasUser";
+            this.txtSiglasUser.Size = new System.Drawing.Size(132, 20);
+            this.txtSiglasUser.TabIndex = 4;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(9, 154);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(74, 13);
+            this.label14.TabIndex = 131;
+            this.label14.Text = "Siglas Usuario";
+            // 
+            // cmbTipoUsuario
+            // 
+            this.cmbTipoUsuario.FormattingEnabled = true;
+            this.cmbTipoUsuario.Location = new System.Drawing.Point(308, 129);
+            this.cmbTipoUsuario.Name = "cmbTipoUsuario";
+            this.cmbTipoUsuario.Size = new System.Drawing.Size(129, 21);
+            this.cmbTipoUsuario.TabIndex = 129;
+            this.cmbTipoUsuario.SelectedIndexChanged += new System.EventHandler(this.cmbTipoUsuario_SelectedIndexChanged);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(239, 130);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(67, 13);
+            this.label13.TabIndex = 128;
+            this.label13.Text = "Tipo Usuario";
+            // 
+            // btnModifyUser
+            // 
+            this.btnModifyUser.Enabled = false;
+            this.btnModifyUser.Location = new System.Drawing.Point(152, 203);
+            this.btnModifyUser.Name = "btnModifyUser";
+            this.btnModifyUser.Size = new System.Drawing.Size(122, 28);
+            this.btnModifyUser.TabIndex = 127;
+            this.btnModifyUser.Text = "Modificar Analista";
+            this.btnModifyUser.UseVisualStyleBackColor = true;
+            this.btnModifyUser.Click += new System.EventHandler(this.btnModifyUser_Click);
+            // 
+            // btnDeleteUser
+            // 
+            this.btnDeleteUser.Enabled = false;
+            this.btnDeleteUser.Location = new System.Drawing.Point(297, 203);
+            this.btnDeleteUser.Name = "btnDeleteUser";
+            this.btnDeleteUser.Size = new System.Drawing.Size(122, 28);
+            this.btnDeleteUser.TabIndex = 126;
+            this.btnDeleteUser.Text = "Borrar Analista";
+            this.btnDeleteUser.UseVisualStyleBackColor = true;
+            this.btnDeleteUser.Click += new System.EventHandler(this.btnDeleteUser_Click);
+            // 
+            // btnSaveUser
+            // 
+            this.btnSaveUser.Enabled = false;
+            this.btnSaveUser.Location = new System.Drawing.Point(13, 203);
+            this.btnSaveUser.Name = "btnSaveUser";
+            this.btnSaveUser.Size = new System.Drawing.Size(122, 28);
+            this.btnSaveUser.TabIndex = 7;
+            this.btnSaveUser.Text = "Guardar Analista";
+            this.btnSaveUser.UseVisualStyleBackColor = true;
+            this.btnSaveUser.Click += new System.EventHandler(this.btnSaveUser_Click);
+            // 
+            // rbDeleteUser
+            // 
+            this.rbDeleteUser.AutoSize = true;
+            this.rbDeleteUser.Location = new System.Drawing.Point(204, 20);
+            this.rbDeleteUser.Name = "rbDeleteUser";
+            this.rbDeleteUser.Size = new System.Drawing.Size(93, 17);
+            this.rbDeleteUser.TabIndex = 124;
+            this.rbDeleteUser.TabStop = true;
+            this.rbDeleteUser.Text = "Borrar Analista";
+            this.rbDeleteUser.UseVisualStyleBackColor = true;
+            this.rbDeleteUser.CheckedChanged += new System.EventHandler(this.rbDeleteUser_CheckedChanged);
+            // 
+            // rbModifyUser
+            // 
+            this.rbModifyUser.AutoSize = true;
+            this.rbModifyUser.Location = new System.Drawing.Point(106, 20);
+            this.rbModifyUser.Name = "rbModifyUser";
+            this.rbModifyUser.Size = new System.Drawing.Size(92, 17);
+            this.rbModifyUser.TabIndex = 123;
+            this.rbModifyUser.TabStop = true;
+            this.rbModifyUser.Text = "Editar Analista";
+            this.rbModifyUser.UseVisualStyleBackColor = true;
+            this.rbModifyUser.CheckedChanged += new System.EventHandler(this.rbModifyUser_CheckedChanged);
+            // 
+            // rbNewUser
+            // 
+            this.rbNewUser.AutoSize = true;
+            this.rbNewUser.Location = new System.Drawing.Point(7, 20);
+            this.rbNewUser.Name = "rbNewUser";
+            this.rbNewUser.Size = new System.Drawing.Size(97, 17);
+            this.rbNewUser.TabIndex = 122;
+            this.rbNewUser.TabStop = true;
+            this.rbNewUser.Text = "Nuevo Analista";
+            this.rbNewUser.UseVisualStyleBackColor = true;
+            this.rbNewUser.CheckedChanged += new System.EventHandler(this.rbNewUser_CheckedChanged);
+            // 
+            // txtContrasena
+            // 
+            this.txtContrasena.Enabled = false;
+            this.txtContrasena.Location = new System.Drawing.Point(305, 81);
+            this.txtContrasena.Name = "txtContrasena";
+            this.txtContrasena.Size = new System.Drawing.Size(132, 20);
+            this.txtContrasena.TabIndex = 5;
+            // 
+            // cmbUsers
+            // 
+            this.cmbUsers.Enabled = false;
+            this.cmbUsers.FormattingEnabled = true;
+            this.cmbUsers.Location = new System.Drawing.Point(5, 42);
+            this.cmbUsers.Margin = new System.Windows.Forms.Padding(2);
+            this.cmbUsers.Name = "cmbUsers";
+            this.cmbUsers.Size = new System.Drawing.Size(131, 21);
+            this.cmbUsers.Sorted = true;
+            this.cmbUsers.TabIndex = 121;
+            this.cmbUsers.Text = "Selecciona un agente";
+            this.cmbUsers.SelectedIndexChanged += new System.EventHandler(this.cmbUsers_SelectedIndexChanged);
+            // 
+            // txtApeMaterno
+            // 
+            this.txtApeMaterno.Enabled = false;
+            this.txtApeMaterno.Location = new System.Drawing.Point(99, 128);
+            this.txtApeMaterno.Name = "txtApeMaterno";
+            this.txtApeMaterno.Size = new System.Drawing.Size(132, 20);
+            this.txtApeMaterno.TabIndex = 3;
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(9, 130);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(91, 13);
+            this.label29.TabIndex = 120;
+            this.label29.Text = "Apellidos Materno";
+            // 
+            // txtApePaterno
+            // 
+            this.txtApePaterno.Enabled = false;
+            this.txtApePaterno.Location = new System.Drawing.Point(99, 106);
+            this.txtApePaterno.Name = "txtApePaterno";
+            this.txtApePaterno.Size = new System.Drawing.Size(132, 20);
+            this.txtApePaterno.TabIndex = 2;
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(9, 108);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(84, 13);
+            this.label31.TabIndex = 118;
+            this.label31.Text = "Apellido Paterno";
+            // 
+            // txtEmail
+            // 
+            this.txtEmail.Enabled = false;
+            this.txtEmail.Location = new System.Drawing.Point(305, 105);
+            this.txtEmail.Name = "txtEmail";
+            this.txtEmail.Size = new System.Drawing.Size(132, 20);
+            this.txtEmail.TabIndex = 6;
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(239, 108);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(32, 13);
+            this.label33.TabIndex = 107;
+            this.label33.Text = "Email";
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(239, 86);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(61, 13);
+            this.label34.TabIndex = 105;
+            this.label34.Text = "Contraseña";
+            // 
+            // txtNombre
+            // 
+            this.txtNombre.Enabled = false;
+            this.txtNombre.Location = new System.Drawing.Point(99, 84);
+            this.txtNombre.Name = "txtNombre";
+            this.txtNombre.Size = new System.Drawing.Size(132, 20);
+            this.txtNombre.TabIndex = 1;
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Location = new System.Drawing.Point(9, 85);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(44, 13);
+            this.label35.TabIndex = 102;
+            this.label35.Text = "Nombre";
+            // 
             // ChangeParameters
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(757, 582);
-            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ChangeParameters";
             this.Text = "SIDI Omnichannel";
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.GroupBox groupBox3;
-        internal System.Windows.Forms.Label lblBotTokenTelegram;
-        internal System.Windows.Forms.Label lblTokenTwilioAccount;
-        internal System.Windows.Forms.Label lblWhatsappAccount;
-        internal System.Windows.Forms.Label lblSIDTwilioAccount;
-        internal System.Windows.Forms.Label label23;
-        internal System.Windows.Forms.Label label18;
-        internal System.Windows.Forms.Label label21;
-        internal System.Windows.Forms.Label label22;
-        private System.Windows.Forms.GroupBox groupBox2;
-        internal System.Windows.Forms.TextBox txtBotTokenTelegram;
-        internal System.Windows.Forms.Button btnChangeBotsParameters;
-        internal System.Windows.Forms.TextBox txtWhatsappAccount;
-        internal System.Windows.Forms.Label label13;
-        internal System.Windows.Forms.TextBox txtTokenTwilioAccount;
-        internal System.Windows.Forms.Label label14;
-        internal System.Windows.Forms.Label label19;
-        internal System.Windows.Forms.TextBox txtSIDTwilioAccount;
-        internal System.Windows.Forms.Label label20;
         private System.Windows.Forms.GroupBox groupBox4;
         internal System.Windows.Forms.Label lblAuthName;
         internal System.Windows.Forms.Label lblPort;
@@ -670,5 +823,38 @@ namespace LoginForms
         internal System.Windows.Forms.Label Label2;
         internal System.Windows.Forms.TextBox txtUserName;
         internal System.Windows.Forms.Label Label1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        internal System.Windows.Forms.Label lblEmail;
+        internal System.Windows.Forms.Label lblApeMaterno;
+        internal System.Windows.Forms.Label lblApePaterno;
+        internal System.Windows.Forms.Label lblNombre;
+        internal System.Windows.Forms.Label label24;
+        internal System.Windows.Forms.Label label25;
+        internal System.Windows.Forms.Label label26;
+        internal System.Windows.Forms.Label label28;
+        private System.Windows.Forms.GroupBox groupBox3;
+        internal System.Windows.Forms.TextBox txtContrasena;
+        private System.Windows.Forms.ComboBox cmbUsers;
+        internal System.Windows.Forms.TextBox txtApeMaterno;
+        internal System.Windows.Forms.Label label29;
+        internal System.Windows.Forms.TextBox txtApePaterno;
+        internal System.Windows.Forms.Label label31;
+        internal System.Windows.Forms.TextBox txtEmail;
+        internal System.Windows.Forms.Label label33;
+        internal System.Windows.Forms.Label label34;
+        internal System.Windows.Forms.TextBox txtNombre;
+        internal System.Windows.Forms.Label label35;
+        private System.Windows.Forms.RadioButton rbDeleteUser;
+        private System.Windows.Forms.RadioButton rbModifyUser;
+        private System.Windows.Forms.RadioButton rbNewUser;
+        private System.Windows.Forms.Button btnSaveUser;
+        private System.Windows.Forms.Button btnDeleteUser;
+        private System.Windows.Forms.Button btnModifyUser;
+        internal System.Windows.Forms.TextBox txtSiglasUser;
+        internal System.Windows.Forms.Label label14;
+        private System.Windows.Forms.ComboBox cmbTipoUsuario;
+        internal System.Windows.Forms.Label label13;
+        internal System.Windows.Forms.Label lblSiglasUser;
+        internal System.Windows.Forms.Label label18;
     }
 }

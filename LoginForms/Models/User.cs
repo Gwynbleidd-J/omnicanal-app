@@ -21,6 +21,7 @@ namespace LoginForms.Models
         public string rolID { get; set; }
         public string leaderId { get; set; }
         public string token { get; set; }
+        public string siglasUser { get; set; }
         public Rol rol { get; set; }
         public UserDetails details { get; set; }
         public UserStatus status { get; set; }

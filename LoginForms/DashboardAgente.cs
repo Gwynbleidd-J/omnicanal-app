@@ -19,6 +19,8 @@ namespace LoginForms
 {
     public partial class DashboardAgente : Form
     {
+        RestHelper rh = new RestHelper();
+        string appPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\ApplicationLogs\";
         public DashboardAgente()
         {
             InitializeComponent();
@@ -29,8 +31,6 @@ namespace LoginForms
             btnRecargar.BackColor = ColorTranslator.FromHtml("#e2e0e0");
 
         }
-
-        RestHelper rh = new RestHelper();
 
         public async Task getCallsAsync()
         {

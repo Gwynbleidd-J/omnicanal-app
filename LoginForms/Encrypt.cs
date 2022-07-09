@@ -15,17 +15,6 @@ namespace LoginForms
         private static byte[] IV = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
         private static int BlockSize = 128;
 
-        public static string GetSHA256(string str)
-        {
-            SHA256 sha256 = SHA256Managed.Create();
-            ASCIIEncoding encoding = new ASCIIEncoding();
-            byte[] stream = null;
-            StringBuilder sb = new StringBuilder();
-            stream = sha256.ComputeHash(encoding.GetBytes(str));
-            for (int i = 0; i < stream.Length; i++) sb.AppendFormat("{0:x2}", stream[i]);
-            return sb.ToString();
-        }
-
         //public static string GetAES256(string str) {
         //    if (str == "") return "String vacio";
 
@@ -79,6 +68,7 @@ namespace LoginForms
             //Console.WriteLine("\n*********************\nLa cadena encriptada se ve asi:" +temp);
             return temp;
         }
+
         private static void DeriveKeyAndIv(string passPhrase, byte[] salt, out byte[] key, out byte[] iv)
         {
             // generate key and iv

@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using LoginForms.Utils;
 
 namespace LoginForms
 {
@@ -17,118 +18,145 @@ namespace LoginForms
     {
         RestHelper rh = new RestHelper();
         string credentialsId;
+        string userId;
+        string tipoUsuario = "";
+        string appPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\ApplicationLogs\";
         public ChangeParameters()
         {
             InitializeComponent();
-            GetParameters();
+            //GetParameters();
             ComboBoxGetUsers();
+            ComboBoxUserType();
         }
 
-
-        private async void GetParameters()
-        {
-            try
-            {
-                string appParameters = await rh.getAppParameters();
-                Json jsonAppParameters = JsonConvert.DeserializeObject<Json>(appParameters);
-                for (int i = 0; i < jsonAppParameters.data.botParameters.Count; i++)
-                {
-                    lblSIDTwilioAccount.Text = jsonAppParameters.data.botParameters[i].twilioAccountSID;
-                    lblTokenTwilioAccount.Text = jsonAppParameters.data.botParameters[i].twilioAuthToken;
-                    lblWhatsappAccount.Text = jsonAppParameters.data.botParameters[i].whatsappAccount;
-                    lblBotTokenTelegram.Text = jsonAppParameters.data.botParameters[i].botTokenTelegram;
-
-                    txtSIDTwilioAccount.Text = jsonAppParameters.data.botParameters[i].twilioAccountSID;
-                    txtTokenTwilioAccount.Text = jsonAppParameters.data.botParameters[i].twilioAuthToken;
-                    txtWhatsappAccount.Text = jsonAppParameters.data.botParameters[i].whatsappAccount;
-                    txtBotTokenTelegram.Text = jsonAppParameters.data.botParameters[i].botTokenTelegram;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error ChangeParameters: {ex.Message}");
-            }
-        }
-
-        //private async void SetBotParameters()
-        //{
-        //    await rh.AppParameters(txtSIDTwilioAccount.Text, txtTokenTwilioAccount.Text, txtWhatsappAccount.Text, txtBotTokenTelegram.Text);
-        //}
-
-        private void SetValuesOnLabels()
-        {
-            GetParameters();
-        }
-
-        private void ClearTextbox()
-        {
-            txtUserName.Clear();
-            txtPassword.Clear();
-            txtDomain.Clear();
-            txtDisplayName.Clear();
-            txtAuthName.Clear();
-            txtServer.Clear();
-            txtPort.Clear();
-            txtSIDTwilioAccount.Clear();
-            txtTokenTwilioAccount.Clear();
-            txtWhatsappAccount.Clear();
-            txtBotTokenTelegram.Clear();
-        }
-
+        //METODO QUE LLENA LOS COMBO BOX
         private async void ComboBoxGetUsers()
         {
+            Log log = new Log(appPath);
             string users = await rh.getUsers();
             Json jsonUsers = JsonConvert.DeserializeObject<Json>(users);
+            log.Add($"[ChangeParameters][ComboBoxGetUsers]: Usuarios encontrados:{jsonUsers.data.users.Count}");
             for (int i = 0; i < jsonUsers.data.users.Count; i++)
             {
                 if (jsonUsers.data.users[i].rolID == "1" || jsonUsers.data.users[i].rolID == "2")
                 {
                     cmbAgents.Items.Add(new ParametersItems(jsonUsers.data.users[i].name, jsonUsers.data.users[i].ID));
+                    cmbUsers.Items.Add(new ParametersItems(jsonUsers.data.users[i].name, jsonUsers.data.users[i].ID));
                 }
             }
         }
 
-
-        private async void comboBoxGetSOftphoneCredentials()
+        private void ComboBoxUserType()
         {
+            cmbTipoUsuario.Text = "Tipo Usuario";
+            cmbTipoUsuario.Enabled = false;
+            cmbTipoUsuario.Items.Add(new ParametersItems("Analista", "1"));
+            cmbTipoUsuario.Items.Add(new ParametersItems("Supervisor", "2"));
+
+        }
+        
+        private async void comboBoxGetSoftphoneCredentials()
+        {
+            Log log = new Log(appPath);
             ParametersItems classItems = (ParametersItems)cmbAgents.SelectedItem;
             string softphoneCredentials = await rh.SoftphoneParameters(classItems.Value);
             Json jsonSoftphoneCredentials = JsonConvert.DeserializeObject<Json>(softphoneCredentials);
-            credentialsId = jsonSoftphoneCredentials.data.user.credentials.id;
-            lblUserName.Text = jsonSoftphoneCredentials.data.user.credentials.userName;
-            lblDisplayName.Text = jsonSoftphoneCredentials.data.user.credentials.displayName;
-            lblDomain.Text = jsonSoftphoneCredentials.data.user.credentials.domain;
-            lblServer.Text = jsonSoftphoneCredentials.data.user.credentials.server;
-            lblPassword.Text = jsonSoftphoneCredentials.data.user.credentials.password;
-            lblAuthName.Text = jsonSoftphoneCredentials.data.user.credentials.authName;
-            lblPort.Text = jsonSoftphoneCredentials.data.user.credentials.port;
+            if (jsonSoftphoneCredentials.data.user.credentials == null)
+            {
+                credentialsId = "NA";
+                lblUserName.Text = "NA";
+                lblDisplayName.Text = "NA";
+                lblDomain.Text = "NA";
+                lblServer.Text = "NA";
+                lblPassword.Text = "NA";
+                lblAuthName.Text = "NA";
+                lblPort.Text = "NA";
 
-            txtUserName.Text = jsonSoftphoneCredentials.data.user.credentials.userName;
-            txtDisplayName.Text = jsonSoftphoneCredentials.data.user.credentials.displayName;
-            txtDomain.Text = jsonSoftphoneCredentials.data.user.credentials.domain;
-            txtServer.Text = jsonSoftphoneCredentials.data.user.credentials.server;
-            txtPassword.Text = jsonSoftphoneCredentials.data.user.credentials.password;
-            txtAuthName.Text = jsonSoftphoneCredentials.data.user.credentials.authName;
-            txtPort.Text = jsonSoftphoneCredentials.data.user.credentials.port;
+                txtUserName.Text = "NA";
+                txtDisplayName.Text = "NA";
+                txtDomain.Text = "NA";
+                txtServer.Text = "NA";
+                txtPassword.Text = "NA";
+                txtAuthName.Text = "NA";
+                txtPort.Text = "NA";
+            }
+            else
+            {
+                credentialsId = jsonSoftphoneCredentials.data.user.credentials.id;
+                lblUserName.Text = jsonSoftphoneCredentials.data.user.credentials.userName;
+                lblDisplayName.Text = jsonSoftphoneCredentials.data.user.credentials.displayName;
+                lblDomain.Text = jsonSoftphoneCredentials.data.user.credentials.domain;
+                lblServer.Text = jsonSoftphoneCredentials.data.user.credentials.server;
+                lblPassword.Text = jsonSoftphoneCredentials.data.user.credentials.password;
+                lblAuthName.Text = jsonSoftphoneCredentials.data.user.credentials.authName;
+                lblPort.Text = jsonSoftphoneCredentials.data.user.credentials.port;
 
+                txtUserName.Text = jsonSoftphoneCredentials.data.user.credentials.userName;
+                txtDisplayName.Text = jsonSoftphoneCredentials.data.user.credentials.displayName;
+                txtDomain.Text = jsonSoftphoneCredentials.data.user.credentials.domain;
+                txtServer.Text = jsonSoftphoneCredentials.data.user.credentials.server;
+                txtPassword.Text = jsonSoftphoneCredentials.data.user.credentials.password;
+                txtAuthName.Text = jsonSoftphoneCredentials.data.user.credentials.authName;
+                txtPort.Text = jsonSoftphoneCredentials.data.user.credentials.port;
+                log.Add($"[ChangeParameters][comboBoxGetSOftphoneCredentials]:Usuario Seleccionado:{jsonSoftphoneCredentials.data.user.credentials.userName}");
+            }
+        }
+        private void cmbTipoUsuario_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ParametersItems classItems = (ParametersItems)cmbTipoUsuario.SelectedItem;
+            tipoUsuario = classItems.Value;
         }
 
 
+        private async void comboBoxGetUserData()
+        {
+            ParametersItems classItems = (ParametersItems)cmbUsers.SelectedItem;
+            string usersData = await rh.GetUserData(classItems.Value);
+            Json jsonUserData = JsonConvert.DeserializeObject<Json>(usersData);
+            userId = jsonUserData.data.user.ID;
+
+            lblNombre.Text = jsonUserData.data.user.name;
+            lblApePaterno.Text = jsonUserData.data.user.paternalSurname;
+            lblApeMaterno.Text = jsonUserData.data.user.maternalSurname;
+            lblEmail.Text = jsonUserData.data.user.email;
+            lblSiglasUser.Text = jsonUserData.data.user.siglasUser;
+
+            txtNombre.Text = jsonUserData.data.user.name;
+            txtApePaterno.Text = jsonUserData.data.user.paternalSurname;
+            txtApeMaterno.Text = jsonUserData.data.user.maternalSurname; 
+            txtEmail.Text = jsonUserData.data.user.email;
+            txtSiglasUser.Text = jsonUserData.data.user.siglasUser;
+        }
+
         private async Task<string> SetSoftphoneParameters()
         {
+            Log log = new Log(appPath);
             string data = await rh.updateSoftphoneParameters(credentialsId, txtUserName.Text, txtDisplayName.Text, txtDomain.Text, txtServer.Text, txtPassword.Text, txtAuthName.Text, txtPort.Text);
             Console.WriteLine(data);
+            log.Add($"[ChangeParameters][SetSoftphoneParameters]:Respuesta desde servidor:{data}");
             return data;
+        }
+
+        private void cmbAgents_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            comboBoxGetSoftphoneCredentials();
+        }
+
+        private void cmbUsers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            comboBoxGetUserData();
         }
 
         private async void btnChangeSoftphoneParameters_Click(object sender, EventArgs e)
         {
+            Log log = new Log(appPath);
             if (!string.IsNullOrEmpty(txtUserName.Text) && !string.IsNullOrEmpty(txtPassword.Text) && !string.IsNullOrEmpty(txtDomain.Text) && !string.IsNullOrEmpty(txtDisplayName.Text) && !string.IsNullOrEmpty(txtAuthName.Text) && !string.IsNullOrEmpty(txtServer.Text) && !string.IsNullOrEmpty(txtPort.Text))
             {
 
                 if (await SetSoftphoneParameters() == "OK")
                 {
                     cmbAgents_SelectedIndexChanged(sender, e);
+                    log.Add($"[ChangeParameters][btnChangeSoftphoneParameters_Click]: respuesta desde el servidor:{SetSoftphoneParameters()}");
                     MessageBox.Show("Parametros del Softphone Actualizados Correctamente", "Omnicanal");
                 }
                 else
@@ -145,26 +173,6 @@ namespace LoginForms
             }
         }
 
-        private void btnChangeBotsParameters_Click(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrEmpty(txtSIDTwilioAccount.Text) && !string.IsNullOrEmpty(txtTokenTwilioAccount.Text) && !string.IsNullOrEmpty(txtWhatsappAccount.Text) && !string.IsNullOrEmpty(txtBotTokenTelegram.Text))
-            {
-                //SetBotParameters();
-                MessageBox.Show("Parametros de los bots de WhatsApp y Telegram Actualizados Correctamente", "Omnicanal");
-                SetValuesOnLabels();
-                //ClearTextbox();
-            }
-            else
-            {
-                MessageBox.Show("Completa todos los campos", "Omnicanal");
-            }
-        }
-
-        private void cmbAgents_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            comboBoxGetSOftphoneCredentials();
-        }
-
         private void txtPort_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
@@ -173,6 +181,130 @@ namespace LoginForms
                 e.Handled = true;
                 return;
             }
+        }
+
+        private void rbNewUser_CheckedChanged(object sender, EventArgs e)
+        {
+            cmbUsers.Enabled = false;
+            cmbTipoUsuario.Enabled = true;
+            btnDeleteUser.Enabled = false;
+            btnSaveUser.Enabled = true;
+            btnModifyUser.Enabled = false;
+
+            txtNombre.Enabled = true;
+            txtApePaterno.Enabled = true;
+            txtApeMaterno.Enabled = true;
+            txtContrasena.Enabled = true;
+            txtEmail.Enabled = true;
+            txtSiglasUser.Enabled = true;
+
+            cmbUsers.Text = "Selecciona un agente";
+            txtNombre.Text = "";
+            txtApePaterno.Text = "";
+            txtApeMaterno.Text = "";
+            txtContrasena.Text = "";
+            txtEmail.Text = "";
+            txtSiglasUser.Text = "";
+            
+
+            lblNombre.Text = "";
+            lblApePaterno.Text = "";
+            lblApeMaterno.Text = "";
+            lblEmail.Text = "";
+            lblSiglasUser.Text = "";
+        }
+
+        private void rbModifyUser_CheckedChanged(object sender, EventArgs e)
+        {
+            cmbUsers.Enabled = true;
+            cmbTipoUsuario.Enabled = true;
+            btnSaveUser.Enabled = false;
+            btnModifyUser.Enabled = true;
+            btnDeleteUser.Enabled = false;
+            
+            txtNombre.Enabled = true;
+            txtApePaterno.Enabled = true;
+            txtApeMaterno.Enabled = true;
+            txtContrasena.Enabled = true;
+            txtEmail.Enabled = true;
+            txtSiglasUser.Enabled = true;
+        }
+
+        private void rbDeleteUser_CheckedChanged(object sender, EventArgs e)
+        {
+            cmbUsers.Enabled = true;
+            cmbTipoUsuario.Enabled = false;
+            btnDeleteUser.Enabled = true;
+            btnSaveUser.Enabled = false;
+            btnModifyUser.Enabled = false;
+
+            txtNombre.Enabled = false;
+            txtApePaterno.Enabled = false;
+            txtApeMaterno.Enabled = false;
+            txtContrasena.Enabled = false;
+            txtEmail.Enabled = false;
+            txtSiglasUser.Enabled = false;
+
+            cmbUsers.Text = "Selecciona un agente";
+            txtNombre.Text = "";
+            txtApePaterno.Text = "";
+            txtApeMaterno.Text = "";
+            txtContrasena.Text = "";
+            txtEmail.Text = "";
+            txtSiglasUser.Text = "";
+
+            lblNombre.Text = "";
+            lblApePaterno.Text = "";
+            lblApeMaterno.Text = "";
+            lblEmail.Text = "";
+            lblSiglasUser.Text = "";
+        }
+
+        private async void btnSaveUser_Click(object sender, EventArgs e)
+        {
+            #region Ejemplo para el botón
+            //Log log = new Log(appPath);
+            //if (!string.IsNullOrEmpty(txtUserName.Text) && !string.IsNullOrEmpty(txtPassword.Text) && !string.IsNullOrEmpty(txtDomain.Text) && !string.IsNullOrEmpty(txtDisplayName.Text) && !string.IsNullOrEmpty(txtAuthName.Text) && !string.IsNullOrEmpty(txtServer.Text) && !string.IsNullOrEmpty(txtPort.Text))
+            //{
+
+            //    if (await SetSoftphoneParameters() == "OK")
+            //    {
+            //        cmbAgents_SelectedIndexChanged(sender, e);
+            //        log.Add($"[ChangeParameters][btnChangeSoftphoneParameters_Click]: respuesta desde el servidor:{SetSoftphoneParameters()}");
+            //        MessageBox.Show("Parametros del Softphone Actualizados Correctamente", "Omnicanal");
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("Hubo un error al actualizar la información de Softphone");
+            //    }
+
+
+            //    //ClearTextbox();
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Completa todos los campos", "Omnicanal");
+            //}
+            #endregion
+
+            Log log = new Log(appPath);
+
+            //if (!string.IsNullOrEmpty(txtNombre.Text) && !string.IsNullOrEmpty(txtApePaterno.Text) && !string.IsNullOrEmpty() && !string.IsNullOrEmpty() && !string.IsNullOrEmpty() && !string.IsNullOrEmpty())
+            //{
+
+            //}
+            //string nombre = txtNombre.Text, apPaterno = txtApePaterno.Text, apMaterno = txtApeMaterno.Text, email = txtEmail.Text, contrasena = txtContrasena.Text, siglas = txtSiglasUser.Text;
+            //await rh.SaveUser(nombre, apPaterno, apMaterno, email, contrasena, siglas, tipoUsuario);
+        }
+
+        private void btnModifyUser_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine(userId);
+        }
+
+        private void btnDeleteUser_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine(userId);
         }
     }
 

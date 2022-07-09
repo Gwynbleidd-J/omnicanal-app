@@ -28,6 +28,7 @@ namespace LoginForms
         private bool sIPLogined = false;
         private int currentlyLine = LINE_BASE;
         private int callSessionId = 0;
+        private bool hold = false;
         private PortSIPLib sdkLib;
 
         #region Metodos PortSIP
@@ -1073,36 +1074,76 @@ namespace LoginForms
 
         private void btnHold_Click(object sender, EventArgs e)
         {
-            if (sIPInited == false || (checkBoxNeedRegister.Checked && (sIPLogined == false)))
+            if (hold)
             {
-                return;
-            }
+                if (sIPInited == false || (checkBoxNeedRegister.Checked && (sIPLogined == false)))
+                {
+                    return;
+                }
 
-            if (_CallSessions[currentlyLine].getSessionState() == false || _CallSessions[currentlyLine].getHoldState() == true)
-            {
-                return;
-            }
+                if (_CallSessions[currentlyLine].getSessionState() == false || _CallSessions[currentlyLine].getHoldState() == false)
+                {
+                    return;
+                }
 
+                string Text;
+                int rt = sdkLib.unHold(_CallSessions[currentlyLine].getSessionId());
+                if (rt != 0)
+                {
+                    _CallSessions[currentlyLine].setHoldState(false);
 
-            string Text;
-            int rt = sdkLib.hold(_CallSessions[currentlyLine].getSessionId());
-            if (rt != 0)
-            {
+                    Text = "Linea " + currentlyLine.ToString();
+                    Text = Text + ": Fallo al reanudar la llamada.";
+                    ListBoxSIPLog.Items.Add(Text);
+                    Desplazamiento();
+
+                    return;
+                }
+
+                _CallSessions[currentlyLine].setHoldState(false);
+
                 Text = "Linea " + currentlyLine.ToString();
-                Text = Text + ": Fallo al poner en espera la llamada.";
+                Text = Text + ": Llamada renaudada";
                 ListBoxSIPLog.Items.Add(Text);
+                hold = false;
                 Desplazamiento();
+                return ;
+            }
+            else if(!hold)
+            {
+                if (sIPInited == false || (checkBoxNeedRegister.Checked && (sIPLogined == false)))
+                {
+                    return;
+                }
 
+                if (_CallSessions[currentlyLine].getSessionState() == false || _CallSessions[currentlyLine].getHoldState() == true)
+                {
+                    return;
+                }
+
+
+                string Text;
+                int rt = sdkLib.hold(_CallSessions[currentlyLine].getSessionId());
+                if (rt != 0)
+                {
+                    Text = "Linea " + currentlyLine.ToString();
+                    Text = Text + ": Fallo al poner en espera la llamada.";
+                    ListBoxSIPLog.Items.Add(Text);
+                    Desplazamiento();
+
+                    return;
+                }
+
+
+                _CallSessions[currentlyLine].setHoldState(true);
+
+                Text = "Linea " + currentlyLine.ToString();
+                Text = Text + ": llamada en espera";
+                ListBoxSIPLog.Items.Add(Text);
+                hold = true;
+                Desplazamiento();
                 return;
             }
-
-
-            _CallSessions[currentlyLine].setHoldState(true);
-
-            Text = "Linea " + currentlyLine.ToString();
-            Text = Text + ": llamada en espera";
-            ListBoxSIPLog.Items.Add(Text);
-            Desplazamiento();
         }
 
         private void btnUnHold_Click(object sender, EventArgs e)
@@ -1134,7 +1175,7 @@ namespace LoginForms
             _CallSessions[currentlyLine].setHoldState(false);
 
             Text = "Linea " + currentlyLine.ToString();
-            Text = Text + ": Llamada en espera";
+            Text = Text + ": Llamada renaudada";
             ListBoxSIPLog.Items.Add(Text);
             Desplazamiento();
         }
@@ -1198,7 +1239,7 @@ namespace LoginForms
             {
                 return;
             }
-
+            Console.WriteLine($"TrackBarSpeaker Value:{TrackBarSpeaker.Value}");
             sdkLib.setSpeakerVolume(TrackBarSpeaker.Value);
         }
 
@@ -1208,7 +1249,7 @@ namespace LoginForms
             {
                 return;
             }
-
+            Console.WriteLine($"TrackBarMicrophone Value:{TrackBarSpeaker.Value}");
             sdkLib.setMicVolume(TrackBarMicrophone.Value);
         }
 
@@ -1219,7 +1260,9 @@ namespace LoginForms
                 return;
             }
 
+            Console.WriteLine($"ComboBoxMicrophones_SelectedIndexChanged:{ComboBoxMicrophones.SelectedIndex} {ComboBoxSpeakers.SelectedIndex}");
             sdkLib.setAudioDeviceId(ComboBoxMicrophones.SelectedIndex, ComboBoxSpeakers.SelectedIndex);
+
         }
 
         private void ComboBoxSpeakers_SelectedIndexChanged(object sender, EventArgs e)
@@ -1228,7 +1271,7 @@ namespace LoginForms
             {
                 return;
             }
-
+            Console.WriteLine($"ComboBoxMicrophones_SelectedIndexChanged:{ComboBoxMicrophones.SelectedIndex} {ComboBoxSpeakers.SelectedIndex}");
             sdkLib.setAudioDeviceId(ComboBoxMicrophones.SelectedIndex, ComboBoxSpeakers.SelectedIndex);
         }
 
@@ -1938,6 +1981,7 @@ namespace LoginForms
                     lblFolio.Text = rh.SendCall("1").Result.ToString();
                 }
                 lblEstatusLlamada.Text = "En llamada";
+                rh.ChangeStatus(GlobalSocket.currentUser.ID, "5").ConfigureAwait(true);
                 //StartCallRecord();
 
                 FormPrincipal frmP = (FormPrincipal)Application.OpenForms["FormPrincipal"];
@@ -1961,7 +2005,6 @@ namespace LoginForms
                 Desplazamiento();
             }));
             //}
-            rh.ChangeStatus(GlobalSocket.currentUser.ID, "5").ConfigureAwait(true);
             //  You should write your own code to play the wav file here for alert the incoming call(incoming tone);
             return 0;
         }
@@ -2977,8 +3020,7 @@ namespace LoginForms
             //
             return 0;
         }
+
         #endregion
-
-
     }
 }

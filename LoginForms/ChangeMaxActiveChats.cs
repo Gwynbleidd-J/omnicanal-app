@@ -1,15 +1,16 @@
 ﻿using LoginForms.Shared;
 using System;
 using System.Windows.Forms;
+using LoginForms.Utils;
 
 namespace LoginForms
 {
     public partial class ChangeMaxActiveChats : Form
     {
-
+        RestHelper rh = new RestHelper();
         string AgentID;
         string valor;
-        RestHelper rh = new RestHelper();
+        string appPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\ApplicationLogs\";
 
         public ChangeMaxActiveChats(string agentId)
         {
@@ -19,6 +20,7 @@ namespace LoginForms
 
         private async void btnAccept_Click(object sender, EventArgs e)
         {
+            Log log = new Log(appPath);
             try
             {
                 int intTemp;
@@ -29,6 +31,7 @@ namespace LoginForms
                     {
                         valor = temp;
                         await rh.updateAgentMaxActiveChats(AgentID, valor);
+                        log.Add($"[ChangeMaxActiveChats][btnAccept_Click]: cambiando los chats maximos al agente:{AgentID} chats maximos{valor}");
                         MessageBox.Show("Chats simultaneos actualizados correctamente");
                         this.Close();
                     }
@@ -44,6 +47,7 @@ namespace LoginForms
             }
             catch (Exception _e)
             {
+                log.Add($"[ChangeMaxActiveChats][btnAccept_Click]:{_e.Message}");
                 throw _e;
             }
 

@@ -174,7 +174,6 @@ namespace LoginForms
         {
             try
             {
-
                 dgvAgentesActivos.Rows.Clear();
 
                 string supervisorAgents = await rh.getSupervisorAgents(id);
@@ -368,8 +367,7 @@ namespace LoginForms
 
             //}
         }
-
-
+         
         private void btnRecargar_Click(object sender, EventArgs e)
         {
             SupervisorAgents(rolId);
@@ -507,7 +505,7 @@ namespace LoginForms
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Erro[GetUserStatus]" + ex.Message);
+                Console.WriteLine("Error[GetUserStatus]" + ex.Message);
             }
         }
 
@@ -520,7 +518,15 @@ namespace LoginForms
 
         private void MisAgentes_Load(object sender, EventArgs e)
         {
-            timer1.Start();
+
+            if (this.ContainsFocus)
+            {
+                timer1.Start();
+            }
+            else
+            {
+                timer1.Stop();
+            }
         }
     }
 }

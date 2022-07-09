@@ -3,10 +3,12 @@ using System.Configuration;
 using System.Deployment.Application;
 using System.Drawing;
 using System.Net.Sockets;
+using System.Web;
 using System.Windows.Forms;
 using LoginForms.Models;
 using LoginForms.Shared;
 using Newtonsoft.Json;
+using LoginForms.Utils;
 
 
 namespace LoginForms
@@ -14,6 +16,8 @@ namespace LoginForms
     public partial class Login : Form
     {
         readonly RestHelper rh = new RestHelper();
+        string appPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\ApplicationLogs\";
+
         //readonly AsynchronousClient asynchronousClient = new AsynchronousClient();
 
         public Login()
@@ -78,8 +82,8 @@ namespace LoginForms
 
         private async void userLogin(IProgress<int> progress = null)
         {
+            Log log = new Log(appPath);
             string ipAddress = rh.GetLocalIpAddress();
-
             try
             {
                 FormPrincipal formPrincipal = new FormPrincipal();
@@ -115,6 +119,7 @@ namespace LoginForms
                     User user = rh.GetUser(jsonLogin);
                     //string agentStatus = GlobalSocket.currentUser.status.id;
                     GlobalSocket.currentUser = jsonUser.data.user;
+                    log.Add($"Inicio de sesión:{GlobalSocket.currentUser.name} {GlobalSocket.currentUser.paternalSurname}");
                     //GlobalSocket.currentUser.activeIp = ipAddress;
                     GlobalSocket.currentUser.activeIp = "0";
                     GlobalSocket.currentUser.token = user.token;
@@ -124,9 +129,9 @@ namespace LoginForms
                     this.Hide();
                     formPrincipal.FormClosed += async (s, args) =>
                     {
-                        await rh.UpdateOnClosing(GlobalSocket.currentUser.ID, GlobalSocket.currentUser.status.id);
-                        await rh.updateUserStatus("8", GlobalSocket.currentUser.ID);
-                        await rh.UpdateActiveColumnOnClose(GlobalSocket.currentUser.ID);
+                        //await rh.UpdateOnClosing(GlobalSocket.currentUser.ID, GlobalSocket.currentUser.status.id);
+                        //await rh.updateUserStatus("8", GlobalSocket.currentUser.ID);
+                        //await rh.UpdateActiveColumnOnClose(GlobalSocket.currentUser.ID);
                         this.Close();
                     };
 
@@ -137,6 +142,7 @@ namespace LoginForms
             {
                 Console.WriteLine($"Error[Login]: {ex}");
                 MessageBox.Show($"Error[Login]: {ex.Message}", $"Omnicanal", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                log.Add($"Error[login]: {ex.Message}");
             }
         }
 

@@ -17,7 +17,7 @@ namespace LoginForms.Utils
 
         public static string platformIdentifierClose;
         public static string clientPlatformIdentifierClose;
-
+        string appPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\ApplicationLogs\";
         //FORMULARIO PADRE
         #region Atributos
         public string chatId { get; set; }
@@ -61,6 +61,7 @@ namespace LoginForms.Utils
         #region Métodos
         public TabPageChat()
         {
+            Log log = new Log(appPath);
             try
             {
                 tbPage = new TabPage();
@@ -68,6 +69,7 @@ namespace LoginForms.Utils
             catch (Exception ex)
             {
                 Console.WriteLine("Error[constructor TabPageChat]: " + ex.Message);
+                log.Add($"[TabPageChat][Constructor]:{ex.Message}");
             }
         }
 
@@ -87,6 +89,7 @@ namespace LoginForms.Utils
         }
         public void addEmptyControls()
         {
+            Log log = new Log(appPath);
             try
             {
                 lastMessageId = "1";
@@ -124,16 +127,18 @@ namespace LoginForms.Utils
                 //tbPage.Controls.Add(txtSendMessage);
                 //tbPage.Controls.Add(btnSendMessage);
                 //tbPage.Controls.Add(btnCloseButton);
-
+                log.Add($"[TabPageChat][addEmptyControls]: Se agregaron los controles vacios:{tbPage.Controls.Count}");
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error[addEmptyControls]: " + ex.Message); 
+                Console.WriteLine("Error[addEmptyControls]: " + ex.Message);
+                log.Add($"[TabPageChat][addEmptyControls]:{ex.Message}");
             }
 
         }
         public void threadBuildTabPage()
         {
+            Log log = new Log(appPath);
             try
             {
                 //tbPage = new TabPage();
@@ -389,10 +394,12 @@ namespace LoginForms.Utils
                     //btnCloseButton.Location = new Point(586,pnlMessages.Size.Height - 60);
 
                 };
+                log.Add($"[TabPageChat][threadBuildTabPage]:Mensajes asignados al chat:{chatId}");
             }
             catch (Exception ex) 
             { 
-                Console.WriteLine("Error[threadBuildTabPage]: " + ex.Message); 
+                Console.WriteLine("Error[threadBuildTabPage]: " + ex.Message);
+                log.Add($"[TabPageChat][threadBuildTabPage]:{ex.Message}");
                 //tbPage = null;
             }
             //return tbPage;
@@ -400,6 +407,7 @@ namespace LoginForms.Utils
 
         private void PnlMessages_Resize(object sender, EventArgs e)
         {
+            Log log = new Log(appPath);
             foreach (Label item in pnlMessages.Controls)
             {
                 item.MaximumSize = new Size((pnlMessages.Width / 2) + 15, 0);
@@ -416,12 +424,13 @@ namespace LoginForms.Utils
 
         public async void removeTabChat()
         {
+            Log log = new Log(appPath);
             var userId = GlobalSocket.currentUser.ID;
             Control parentTabControlChat = tbPage.Parent;
             parentTabControlChat.Controls.Remove(tbPage);
             await restHelper.getSubstactActiveChat(userId);
             MessageBox.Show("Chat Cerrado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+            log.Add($"[TabPageChat][removeTabChat]:Quitando el chat al usuario:{userId}");
             FormPrincipal frmP = (FormPrincipal)Application.OpenForms["FormPrincipal"];
             ChatWindow.contadorActiveChats -= 1;
 
@@ -440,6 +449,7 @@ namespace LoginForms.Utils
 
         public async Task<bool> sendMessageFromPanelControl()
         {
+            Log log = new Log(appPath);
             bool resultSendMessageFromPanelControl = false;
             try
             {
@@ -448,6 +458,7 @@ namespace LoginForms.Utils
                 //AQUÍ SE TIEENQ UE MANDAR LA IMAGEN, PERO SE MANDA EL TEXTO
                 //string statusCodeSendMessage = await restHelper.SendMessage(txtSendMessage.Text.ToString(), chatId, "whatsapp:+5214621257826", "w");
                 string statusCodeSendMessage = await restHelper.SendMessage(txtSendMessage.Text.ToString(), lblChatId.Text.ToString(), lblClientPlatformIdentifier.Text.ToString(), lblPlatformIdentifier.Text.ToString(), agentId);
+                log.Add($"[TabPageChat][sendMessageFromPanelControl]:respuesta del servidor:{statusCodeSendMessage}");
                 if (!string.IsNullOrEmpty(statusCodeSendMessage) && statusCodeSendMessage == "OK")
                 {
                     resultSendMessageFromPanelControl = true;
@@ -457,7 +468,7 @@ namespace LoginForms.Utils
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error[sendMessageFromPanelControl]: " + ex.Message);
+                log.Add($"[TabPageChat][sendMessageFromPanelControl]:{ex.Message}");
                 resultSendMessageFromPanelControl = false;
             }
             return resultSendMessageFromPanelControl;
@@ -466,11 +477,13 @@ namespace LoginForms.Utils
         //public async Task<bool> askForNewMessages()
         public async void askForNewMessages()
         {
+            Log log = new Log(appPath);
             string resultNewMessages = string.Empty;
             bool gotNewMessages = false;
             try
             {
                 resultNewMessages = await restHelper.GetAllMessage(chatId, lastMessageId);
+                log.Add($"[TabPageChat][askForNewMessages]:respuesta del servidor:{resultNewMessages}");
                 if (!string.IsNullOrEmpty(resultNewMessages))
                 {
                     chatMessagestHistoric = resultNewMessages;
@@ -481,6 +494,7 @@ namespace LoginForms.Utils
             }
             catch (Exception ex)
             {
+                log.Add($"[TabPageChat][askForNewMessages]:{ex.Message}");
                 Console.WriteLine("Error[askForNewMessages]: " + ex.Message); 
             }
             //return gotNewMessages;
@@ -488,13 +502,14 @@ namespace LoginForms.Utils
 
         public void addLabelMessages()
         {
+            Log log = new Log(appPath);
             try
             {
                 //Implementar el uso de páneles independientes para resolver el espaciado creciente en el panel de mensajes
                 //Label lastLabel = new Label();
                 Json jsonChatMessagestHistoric = JsonConvert.DeserializeObject<Json>(chatMessagestHistoric);
                 Console.WriteLine("\nSe han recuperado "+jsonChatMessagestHistoric.data.messages.Count +" mensajes del chat "+jsonChatMessagestHistoric.data.messages[0].chatId);
-
+                log.Add($"[TabPageChat][addLabelMessages]:mensajes recuperados:{jsonChatMessagestHistoric.data.messages.Count} del chat:{jsonChatMessagestHistoric.data.messages[0].chatId}");
                 for (int i = jsonChatMessagestHistoric.data.messages.Count - 1; i >= 0; i--)
                 {
                     var temp = jsonChatMessagestHistoric.data.messages[i].mediaUrl;
@@ -628,15 +643,18 @@ namespace LoginForms.Utils
             catch (Exception ex)
             {
                 Console.WriteLine("Error[addLabelMessages]: " + ex.Message);
+                log.Add($"[TabPageChat][addLabelMessages]:{ex.Message}");
             }
         }
         public async Task<bool> closeChat()
         {
+            Log log = new Log(appPath);
             bool resultCloseChat = false;
             try
             {
                 //closeChatId = chatId;
                 string statusCodeMessage = await restHelper.getCloseChat(chatId);
+                log.Add($"[TabPageChat][closeChat]:Cerrando chat: {chatId} respuesta del servidor:{statusCodeMessage}");
                 if (!string.IsNullOrEmpty(statusCodeMessage) && statusCodeMessage == "OK")
                 {
                     resultCloseChat = true;
@@ -646,6 +664,7 @@ namespace LoginForms.Utils
             catch (Exception ex)
             {
                 Console.WriteLine($"Error[CloseChat] {ex.Message}");
+                log.Add($"[TabPageChat][closeChat]:{ex.Message}");
                 resultCloseChat = false;
             }
 

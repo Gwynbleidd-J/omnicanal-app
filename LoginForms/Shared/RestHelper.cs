@@ -33,6 +33,7 @@ namespace LoginForms.Shared
         private static int llamadaId;
         public static string idStatus;
         private string folio;
+        string appPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\ApplicationLogs\";
         /*
          * Lo mismo preguntar a Juan Carlos que pasa también con este método
          */
@@ -43,9 +44,9 @@ namespace LoginForms.Shared
             {
                 var resultadoGet = await GetAllMessage(chatId, id);
                 Json json = JsonConvert.DeserializeObject<Json>(resultadoGet);
-                rtx.Text = resultadoGet; 
-            } 
-            catch(Exception ex)
+                rtx.Text = resultadoGet;
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine("Error [LlamarGet]: " + ex.Message);
             }
@@ -54,11 +55,13 @@ namespace LoginForms.Shared
         //GET
         public async Task<string> GetAllMessage(string chatId, string id)
         {
+            Log log = new Log(appPath);
             var inputData = new Dictionary<string, string>
             {
                 {"chatId", chatId},
                 {"id", id}
             };
+            log.Add($"[RestHelper][GetAllMessage]: id chat:{chatId}, id tipo mensajes:{id}");
             var input = new FormUrlEncodedContent(inputData);
             HttpClient client = new HttpClient();
             HttpResponseMessage response = await client.PostAsync(baseUrl + "messenger", input);
@@ -80,6 +83,7 @@ namespace LoginForms.Shared
         //public async Task<string> RecoverActiveChats(string agentId, string agentPlatformIdentifier)
         public async Task<string> RecoverActiveChats(string agentId)
         {
+            Log log = new Log(appPath);
             //string activeIp = GlobalSocket.currentUser.activeIp;
             //agentPlatformIdentifier = GlobalSocket.currentUser.activeIp;
             try
@@ -90,6 +94,7 @@ namespace LoginForms.Shared
                     {"userId", agentId}
                     //, { "agentPlatformIdentifier", agentPlatformIdentifier} 
                 };
+                log.Add($"[RestHelper][RecoverActiveChats]: Id de agente:{agentId}");
                 var input = new FormUrlEncodedContent(inputData);
                 HttpClient client = new HttpClient();
                 HttpResponseMessage response = await client.PostAsync(baseUrl + "messenger/recoverActiveChats", input);
@@ -122,12 +127,13 @@ namespace LoginForms.Shared
                 HttpContent content = response.Content;
 
                 string data = await content.ReadAsStringAsync();
+
                 if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
                 {
-                    Console.WriteLine("Se obtuvieron lo siguientes chats:" +data.ToString());
+                    Console.WriteLine("Se obtuvieron lo siguientes chats:" + data.ToString());
                     return data;
                 }
-                    
+
                 else
                     return response.StatusCode.ToString();
             }
@@ -169,6 +175,7 @@ namespace LoginForms.Shared
 
         public async Task<string> RegistrerUser(string userName, string mail, string password)
         {
+            Log log = new Log(appPath);
             var inputData = new Dictionary<string, string>
             {
                 {"username", userName },
@@ -200,6 +207,7 @@ namespace LoginForms.Shared
         //POST
         public async Task<string> Login(string mail, string password, string ipAddress)
         {
+            Log log = new Log(appPath);
             try
             {
                 var inputData = new Dictionary<string, string>
@@ -214,10 +222,11 @@ namespace LoginForms.Shared
                 //Aquí cuando la contraseña o el correo son incorrectos manda un error 401, Unauthorized
                 //Abra que mandarle una advertencia al usuario
                 //de que la contraseña o el correo están mal
+                log.Add($"[RestHelper][Login]: Intentando Login: {mail}");
                 HttpResponseMessage response = await client.PostAsync(baseUrl + "auth", input);
                 HttpContent content = response.Content;
                 string data = await content.ReadAsStringAsync();
-                if(!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+                if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
                 {
                     return data;
                 }
@@ -229,6 +238,7 @@ namespace LoginForms.Shared
             }
             catch (Exception ex)
             {
+                log.Add($"Error [RestHelper][Login]:{ex.Message}");
                 Console.WriteLine("Error [Login]: " + ex.Message);
 
             }
@@ -238,17 +248,19 @@ namespace LoginForms.Shared
 
         public async Task<string> UpdateActiveColumn(string email)
         {
+            Log log = new Log(appPath);
             var inputData = new Dictionary<string, string>
             {
                 {"email", email}
             };
+            log.Add($"[RestHelper][UpdateActiveColumn]:{email}");
             var input = new FormUrlEncodedContent(inputData);
             HttpClient client = new HttpClient();
             HttpResponseMessage response = await client.PostAsync(baseUrl + "auth/activeColumn", input);
             HttpContent content = response.Content;
             string data = await content.ReadAsStringAsync();
 
-            if(!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
             {
                 return data;
             }
@@ -260,6 +272,8 @@ namespace LoginForms.Shared
 
         public async Task<string> UpdateActiveColumnOnClose(string userId)
         {
+            Log log = new Log(appPath);
+            log.Add($"[RestHelper][UpdateActiveColumnOnClose]:{userId}");
             var inputData = new Dictionary<string, string>
             {
                 {"userId", userId}
@@ -297,17 +311,18 @@ namespace LoginForms.Shared
             MsjApi resp = JsonConvert.DeserializeObject<MsjApi>(strJson);
             //Json response = JsonConvert.DeserializeObject<Json>(strJson);
             //Json resp = JsonConvert.DeserializeObject<Json>(strJson);
-             //data = resp.dataLogin;
+            //data = resp.dataLogin;
             var data = resp.data;
             string json = BeautifyJson(data.ToString());
-           //string json = JsonConvert.SerializeObject(data, Formatting.Indented);
-           User user = JsonConvert.DeserializeObject<User>(json);
-           return user; 
+            //string json = JsonConvert.SerializeObject(data, Formatting.Indented);
+            User user = JsonConvert.DeserializeObject<User>(json);
+            return user;
         }
 
+        #region Metodos sin usar
         public async Task<string> getPermissions(string rolId)
-
         {
+            Log log = new Log(appPath);
             var inputData = new Dictionary<string, string>
             {
                 {"rolId", rolId}
@@ -332,6 +347,7 @@ namespace LoginForms.Shared
 
         public async Task<string> getMenu(string id)
         {
+            Log log = new Log(appPath);
             var inputData = new Dictionary<string, string>
             {
                 {"id", id}
@@ -353,9 +369,12 @@ namespace LoginForms.Shared
 
             //return string.Empty;
         }
+        #endregion
+
 
         public async Task<string> getMyAgents(string id)
         {
+            Log log = new Log(appPath);
             var inputData = new Dictionary<string, string>
             {
                 {"leaderId", id}
@@ -366,8 +385,8 @@ namespace LoginForms.Shared
             Console.WriteLine(response);
             HttpContent content = response.Content;
             string data = await content.ReadAsStringAsync();
-            
-            if(!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            log.Add($"[RestHelper][getmyAgents] del supervisor con id:{id}");
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
             {
                 return data;
             }
@@ -379,6 +398,7 @@ namespace LoginForms.Shared
 
         public async Task<string> getSupervisorAgents(string rolId)
         {
+            Log log = new Log(appPath);
             //var inputData = new Dictionary<string, string>
             //{
             //    {"rolID", rolId }
@@ -401,12 +421,13 @@ namespace LoginForms.Shared
 
         public async Task<string> GetActiveUserStatus()
         {
+            Log log = new Log(appPath);
             HttpClient client = new HttpClient();
             HttpResponseMessage response = await client.GetAsync(baseUrl + "status/timer");
             Console.WriteLine(response);
             HttpContent content = response.Content;
             string data = await content.ReadAsStringAsync();
-            if(!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
             {
                 return data;
             }
@@ -420,6 +441,7 @@ namespace LoginForms.Shared
         {
             try
             {
+                Log log = new Log(appPath);
                 var inputData = new Dictionary<string, string> {
                     {"userId", userId }
                 };
@@ -428,6 +450,7 @@ namespace LoginForms.Shared
                 HttpResponseMessage response = await client.PostAsync(baseUrl + "chat/obtenerDatosChatDiarios", input);
                 Console.WriteLine(response);
                 HttpContent content = response.Content;
+                log.Add($"[RestHelper][obtenerDatosChatDiarios]:{userId}");
                 string data = await content.ReadAsStringAsync();
                 if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
                 {
@@ -445,7 +468,9 @@ namespace LoginForms.Shared
             }
         }
 
-        public async Task<string> getUserChats(string userId) {
+        public async Task<string> getUserChats(string userId)
+        {
+            Log log = new Log(appPath);
             var inputData = new Dictionary<string, string>
             {
                 {"userId", userId }
@@ -453,7 +478,8 @@ namespace LoginForms.Shared
             var input = new FormUrlEncodedContent(inputData);
             HttpClient client = new HttpClient();
             HttpResponseMessage response = await client.PostAsync(baseUrl + "chat/getUserChats", input);
-            Console.WriteLine("Respuesta de RestHelper.getUserChats:" +response);
+            Console.WriteLine("Respuesta de RestHelper.getUserChats:" + response);
+            log.Add($"[RestHelper][getUserChats] id del agente:{userId} Respuesta del servidor:{response.StatusCode}");
             HttpContent content = response.Content;
             string data = await content.ReadAsStringAsync();
             if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
@@ -468,6 +494,7 @@ namespace LoginForms.Shared
 
         public async Task<string> getAgentsDetails(string userId)
         {
+            Log log = new Log(appPath);
             var inputData = new Dictionary<string, string>
             {
                 {"userId", userId }
@@ -479,7 +506,7 @@ namespace LoginForms.Shared
             HttpContent content = response.Content;
             string data = await content.ReadAsStringAsync();
 
-            if(!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
             {
                 return data;
             }
@@ -491,6 +518,7 @@ namespace LoginForms.Shared
 
         public async Task<string> getCloseChat(string chatId)
         {
+            Log log = new Log(appPath);
             var inputData = new Dictionary<string, string>
             {
                 { "chatId", chatId }
@@ -502,7 +530,7 @@ namespace LoginForms.Shared
             Console.WriteLine(response);
             HttpContent content = response.Content;
             string data = response.StatusCode.ToString();
-
+            log.Add($"[RestHelper][getCloseChat]:id chat que se va a cerrar{chatId} respuesta del servidor {response.StatusCode}");
             if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
             {
                 return data;
@@ -517,6 +545,7 @@ namespace LoginForms.Shared
         public async Task<string> transferChat(string idAgenteAnterior, string idAgenteNuevo, string idChat) {
             try
             {
+                Log log = new Log(appPath);
                 var inputData = new Dictionary<string, string>
                 {
                     { "idAntiguo", idAgenteAnterior},
@@ -531,7 +560,7 @@ namespace LoginForms.Shared
                 Console.WriteLine(response);
                 HttpContent content = response.Content;
                 string data = response.StatusCode.ToString();
-
+                log.Add($"[RestHelper][transferChat]:id Agente que pasa chat:{idAgenteAnterior} id agente que recibe chat:{idAgenteNuevo} id del chat:{idChat} respuesta servidor:{response.StatusCode}");
                 if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
                 {
                     return data;
@@ -548,9 +577,9 @@ namespace LoginForms.Shared
             }
         }
 
-        public async Task<string> startMonitoring(int idAgente, int idSupervisor) 
+        public async Task<string> startMonitoring(int idAgente, int idSupervisor)
         {
-
+            Log log = new Log(appPath);
             var inputData = new Dictionary<string, string>
             {
                 {"idAgente", idAgente.ToString() },
@@ -563,6 +592,7 @@ namespace LoginForms.Shared
             Console.WriteLine(response);
             HttpContent content = response.Content;
             string data = response.StatusCode.ToString();
+            log.Add($"[RestHelper][startMonitoring]:Id Agente a monitorear:{idAgente} id Supervisor monitoreando:{idSupervisor} respuesta servidor:{response.StatusCode}");
             if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
             {
                 return data;
@@ -571,9 +601,10 @@ namespace LoginForms.Shared
                 return response.StatusCode.ToString();
             }
         }
-       
+
         public async Task<string> shareScreenshot(Bitmap bitImage, string idSupervisor)
         {
+            Log log = new Log(appPath);
             HttpContent stringContent = new StringContent(idSupervisor); // a que chat
             ImageConverter converter = new ImageConverter();
             byte[] BArray = (byte[])converter.ConvertTo(bitImage, typeof(byte[]));
@@ -599,7 +630,7 @@ namespace LoginForms.Shared
                 var response = await client.PostAsync(baseUrl + "record", formData);
                 HttpContent content = response.Content;
                 var data = await content.ReadAsStringAsync();
-
+                log.Add($"[RestHelper][shareScreenshot]:id del supervidor:{idSupervisor} respuesta servidor:{response.StatusCode}");
                 if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
                 {
                     return data;
@@ -613,7 +644,7 @@ namespace LoginForms.Shared
 
         public async Task<byte[]> getMonitoring(string imageName)
         {
-
+            Log log = new Log(appPath);
             var inputData = new Dictionary<string, string> {
                 {"image",imageName }
             };
@@ -623,6 +654,7 @@ namespace LoginForms.Shared
             HttpResponseMessage response = await client.PostAsync(baseUrl + "record/screen/", input);
             HttpContent content = response.Content;
             var data = await content.ReadAsByteArrayAsync();
+            log.Add($"[RestHelper][getMonitoring]: respuesta servidor:{response.StatusCode}");
             if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
             {
                 return data;
@@ -635,6 +667,7 @@ namespace LoginForms.Shared
 
         public async Task<string> getSubstactActiveChat(string userId)
         {
+            Log log = new Log(appPath);
             var inputData = new Dictionary<string, string>
             {
                 { "userId", userId }
@@ -645,6 +678,7 @@ namespace LoginForms.Shared
             Console.WriteLine(response.StatusCode);
             HttpContent content = response.Content;
             string data = response.StatusCode.ToString();
+            log.Add($"[RestHelper][getSubstactActiveChat]: id agente:{userId} respuesta servidor:{response.StatusCode}");
             if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
             {
                 return data;
@@ -657,6 +691,7 @@ namespace LoginForms.Shared
 
         public async Task<string> getNetworkCategories()
         {
+            Log log = new Log(appPath);
             //var inputData = new Dictionary<string, string> 
             //{
             //    { "id", id }
@@ -666,7 +701,7 @@ namespace LoginForms.Shared
             HttpResponseMessage response = await client.GetAsync(baseUrl + "network/networks/");
             HttpContent content = response.Content;
             string data = await content.ReadAsStringAsync();
-            if(!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
             {
                 return data;
             }
@@ -678,6 +713,7 @@ namespace LoginForms.Shared
 
         public async Task<string> updateNetworkCategories(string chatId, string networkCategoryId)
         {
+            Log log = new Log(appPath);
             string clientPlatformIdentifier = TabPageChat.clientPlatformIdentifierClose;
             string platformIdentifier = TabPageChat.platformIdentifierClose;
             var inputData = new Dictionary<string, string>
@@ -694,8 +730,8 @@ namespace LoginForms.Shared
             Console.WriteLine(response);
             HttpContent content = response.Content;
             string data = response.StatusCode.ToString();
-
-            if(!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            log.Add($"[RestHelper][updateNetworkCategories]: id chat:{chatId} id de la red:{networkCategoryId} respuesta servidor:{response.StatusCode}");
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
             {
                 return data;
             }
@@ -733,6 +769,7 @@ namespace LoginForms.Shared
 
         public async Task<string> SoftphoneParameters(string userId)
         {
+            Log log = new Log(appPath);
             var inputData = new Dictionary<string, string>
             {
                 {"userId", userId }
@@ -744,18 +781,43 @@ namespace LoginForms.Shared
             Console.WriteLine(response);
             HttpContent content = response.Content;
             string data = await content.ReadAsStringAsync();
+            log.Add($"[RestHelper][startMonitoring]:Id agente:{userId} respuesta servidor:{response.StatusCode}");
             if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
             {
                 return data;
-            } 
+            }
             else
             {
                 return response.StatusCode.ToString();
             }
         }
 
+        public async Task<string> GetUserData(string userId)
+        {
+            var inputData = new Dictionary<string, string>
+            {
+                { "userId", userId}
+            };
+            var input = new FormUrlEncodedContent(inputData);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync(baseUrl + "parameters/getUserData", input);
+            Console.WriteLine(response);
+            HttpContent content = response.Content;
+            string data = await content.ReadAsStringAsync();
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            {
+                return data;
+            }
+            else
+            {
+                return response.StatusCode.ToString();
+            }
+
+        }
+
         public async Task<string> getAppParameters()
         {
+            Log log = new Log(appPath);
             HttpClient client = new HttpClient();
             HttpResponseMessage response = await client.GetAsync(baseUrl + "parameters/getAppParameters");
             HttpContent content = response.Content;
@@ -772,6 +834,7 @@ namespace LoginForms.Shared
 
         public async Task<string> getUsers()
         {
+            Log log = new Log(appPath);
             HttpClient client = new HttpClient();
             HttpResponseMessage response = await client.GetAsync(baseUrl + "parameters/getUsers");
             HttpContent content = response.Content;
@@ -788,6 +851,7 @@ namespace LoginForms.Shared
 
         public async Task<string> updateSoftphoneParameters(string id, string userName, string displayName, string domain, string server, string password, string authName, string port)
         {
+            Log log = new Log(appPath);
             var inputData = new Dictionary<string, string>
             {
                 {"id", id },
@@ -806,6 +870,7 @@ namespace LoginForms.Shared
             Console.WriteLine(response);
             HttpContent content = response.Content;
             string data = await content.ReadAsStringAsync();
+            log.Add($"[RestHelper][updateSoftphoneParameters]: {response.StatusCode}");
             if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
             {
                 Console.WriteLine(response.StatusCode.ToString());
@@ -819,6 +884,7 @@ namespace LoginForms.Shared
 
         public async Task<string> updateUserStatus(string statusId, string userId)
         {
+            Log log = new Log(appPath);
             string date = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:fff");
 
             var inputData = new Dictionary<string, string>
@@ -831,6 +897,7 @@ namespace LoginForms.Shared
             HttpResponseMessage response = await client.PostAsync(baseUrl + "status/updateUserStatus", input);
             HttpContent content = response.Content;
             string data = response.StatusCode.ToString();
+            log.Add($"[RestHelper][updateUserStatus]: id Usuario:{userId}, status a cambiar:{statusId} fecha:{date} respuesta servidor:{response.StatusCode}");
             if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
             {
                 return data;
@@ -843,6 +910,7 @@ namespace LoginForms.Shared
 
         public async Task<string> getUserStatus()
         {
+            Log log = new Log(appPath);
             HttpClient client = new HttpClient();
             HttpResponseMessage response = await client.GetAsync(baseUrl + "status");
             HttpContent content = response.Content;
@@ -861,6 +929,7 @@ namespace LoginForms.Shared
 
         public async Task<string> getLogOut(string userId)
         {
+            Log log = new Log(appPath);
             var inputData = new Dictionary<string, string>
             {
                 {"Id", userId}
@@ -881,8 +950,9 @@ namespace LoginForms.Shared
 
         }
 
-        public async Task<string> getChatById(string chatId){
-
+        public async Task<string> getChatById(string chatId)
+        {
+            Log log = new Log(appPath);
             var inputData = new Dictionary<string, string>{
                 { "chatId", chatId }
             };
@@ -891,6 +961,7 @@ namespace LoginForms.Shared
             HttpResponseMessage response = await client.PostAsync(baseUrl + "chat/getChatByIdRequest", input);
             HttpContent content = response.Content;
             string data = await content.ReadAsStringAsync();
+            log.Add($"[RestHelper][getChatById]: id del chat:{chatId} respuesta servidor:{response.StatusCode}");
             if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
             {
                 Console.WriteLine("Chat obtenido:" + data);
@@ -900,10 +971,90 @@ namespace LoginForms.Shared
             {
                 return data;
             }
-
-
         }
 
+        public async Task<string> SaveUser(string nombre, string apPaterno, string apMaterno, string email, string contrasena, string siglasUser, string tipoUsuario)
+        {
+            Log log = new Log(appPath);
+            var inputData = new Dictionary<string, string>
+            {
+                { "nombre", nombre },
+                { "apPaterno", apPaterno},
+                { "apMaterno", apMaterno },
+                { "email", email },
+                { "contrasena", contrasena },
+                { "siglasUsuario", siglasUser },
+                { "tipoUsuario", tipoUsuario }
+            };
+            var input = new FormUrlEncodedContent(inputData);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync(baseUrl + "parameters/saveUser", input);
+            HttpContent content = response.Content;
+            string data = await content.ReadAsStringAsync();
+            log.Add($"[RestHelper][SaveUser]: datos del nuevo agente:{nombre}, {apPaterno}, {apMaterno}, {email}, {contrasena} respuesta servidor:{response.StatusCode}");
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            {
+                Console.WriteLine($"Estatus de la petición[SaveUser]:{response.StatusCode.ToString()}");
+                return data;
+            }
+            else
+            {
+                return response.StatusCode.ToString();
+            }
+        }
+
+        public async Task<string> UpdateUser(string userId, string nombre, string apPaterno, string apMaterno, string email, string contrasena, string siglasUser, string tipoUsuario)
+        {
+            Log log = new Log(appPath);
+            var inputData = new Dictionary<string, string>
+            {
+                { "userId", userId },
+                { "nombre", nombre },
+                { "apPaterno", apPaterno},
+                { "apMaterno", apMaterno },
+                { "email", email },
+                { "contrasena", contrasena },
+                { "siglasUsuario", siglasUser },
+                { "tipoUsuario", tipoUsuario }
+            };
+            var input = new FormUrlEncodedContent(inputData);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync(baseUrl + "parameters/updateUser", input);
+            HttpContent content = response.Content;
+            string data = await content.ReadAsStringAsync();
+            log.Add($"[RestHelper][UpdateUser]: UserId del agente que se va a modificar:{userId} respuesta servidor:{response.StatusCode}");
+            if(!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            {
+                return data;
+            }
+            else
+            {
+                return response.StatusCode.ToString();
+            }
+        }
+
+        public async Task<string> DeleteUser(string userId)
+        {
+            Log log = new Log(appPath);
+            var inputData = new Dictionary<string, string>
+            {
+                { "userId", userId },
+            };
+            var input = new FormUrlEncodedContent(inputData);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync(baseUrl + "parameters/deleteUser", input);
+            HttpContent content = response.Content;
+            string data = await content.ReadAsStringAsync();
+            log.Add($"[RestHelper][DeleteUser]: UserId del agente que se va a borrar:{userId} respuesta servidor:{response.StatusCode}");
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            {
+                return data;
+            }
+            else
+            {
+                return response.StatusCode.ToString();
+            }
+        }
 
         public async Task<string> getLastChatByUserId(string userId)
         {
@@ -929,8 +1080,9 @@ namespace LoginForms.Shared
 
         }
 
-        public async Task<string> validateTransferAgent(string userId) {
-
+        public async Task<string> validateTransferAgent(string userId) 
+        {
+            Log log = new Log(appPath);
             var inputData = new Dictionary<string, string>
             {
                 { "id", userId }
@@ -940,6 +1092,7 @@ namespace LoginForms.Shared
             HttpResponseMessage response = await client.PostAsync(baseUrl + "user/validateTransferAgent", input);
             HttpContent content = response.Content;
             string data = await content.ReadAsStringAsync();
+            log.Add($"[RestHelper][validateTransferAgent]: id de usuario:{userId} respuesta servidor:{response.StatusCode}");
             if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK" )
             {
                 Console.WriteLine("\nEste es el estado del agente:" +data.ToString());
@@ -953,11 +1106,12 @@ namespace LoginForms.Shared
 
         public async Task<string> getAllAgents()
         {
-
+            Log log = new Log(appPath);
             HttpClient client = new HttpClient();
             HttpResponseMessage response = await client.GetAsync(baseUrl + "user/getAllAgents");
             HttpContent content = response.Content;
             string data = await content.ReadAsStringAsync();
+            log.Add($"[RestHelper][getAllAgents]: respuesta servidor:{response.StatusCode}");
             if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
             {
                 Console.WriteLine("Se obtuvieron lo siguientes chats:" + data.ToString());
@@ -969,7 +1123,9 @@ namespace LoginForms.Shared
 
         }
 
-        public async Task<string> getTotalCalls(string userId) {
+        public async Task<string> getTotalCalls(string userId) 
+        {
+            Log log = new Log(appPath);
             try
             {
                 var inputData = new Dictionary<string, string>
@@ -981,6 +1137,7 @@ namespace LoginForms.Shared
                 HttpResponseMessage response = await client.PostAsync(baseUrl + "calls/getTotalCalls", input);
                 HttpContent content = response.Content;
                 string data = await content.ReadAsStringAsync();
+                log.Add($"[RestHelper][getTotalCalls]: id Usuario:{userId} respuesta servidor:{response.StatusCode}");
                 if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
                 {
                     return data;
@@ -997,6 +1154,7 @@ namespace LoginForms.Shared
 
         public async Task<string> updateAgentActiveIp(string mail, string ipAddress)
         {
+            Log log = new Log(appPath);
             var inputData = new Dictionary<string, string> 
             {
                 {"email", mail},
@@ -1007,6 +1165,7 @@ namespace LoginForms.Shared
             HttpResponseMessage response = await client.PostAsync(baseUrl + "user/agentUpdateActiveIp", input);
             HttpContent content = response.Content;
             string data = response.StatusCode.ToString();
+            log.Add($"[RestHelper][updateAgentActiveIp]: Active Socket:{ipAddress} respuesta servidor:{response.StatusCode}");
             if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
             {
                 return data;
@@ -1020,6 +1179,7 @@ namespace LoginForms.Shared
 
         public async Task<string> updateAgentMaxActiveChats(string id, string maxActiveChats)
         {
+            Log log = new Log(appPath);
             var inputData = new Dictionary<string, string>
             {
                 {"id", id},
@@ -1030,6 +1190,7 @@ namespace LoginForms.Shared
             HttpResponseMessage response = await client.PostAsync(baseUrl + "user/agentUpdateMaxActiveChats", input);
             HttpContent content = response.Content;
             string data = response.StatusCode.ToString();
+            log.Add($"[RestHelper][updateAgentMaxActiveChats]: id Usuario:{id} chat maximos:{maxActiveChats} respuesta servidor:{response.StatusCode}");
             if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
             {
                 Console.WriteLine("Se actualizo el numero de chats simultaneos");
@@ -1044,6 +1205,7 @@ namespace LoginForms.Shared
 
         public async Task<string> SendMessage(string text, string chatId, string clientPlatformIdentifier, string platformIdentifier, string agentPlatformIdentifier)
         {
+            Log log = new Log(appPath);
             var numberToSend = "";
 
             if (string.IsNullOrEmpty(chatId) && string.IsNullOrEmpty(clientPlatformIdentifier)) 
@@ -1075,6 +1237,7 @@ namespace LoginForms.Shared
             //string data = await content.ReadAsStringAsync();
 
             string data = response.StatusCode.ToString();
+            log.Add($"[RestHelper][sendMessage]: mensaje enviado al chat:{chatId} respuesta servidor:{response.StatusCode}");
             if (data != null)
             {
                 return data.ToString();
@@ -1089,6 +1252,7 @@ namespace LoginForms.Shared
 
         public async Task<string> SendImage(Bitmap bitImage, string chatId, string clientPlatformIdentifier, string platformIdentifier, string agentPlatformIdentifier, string imageLocation)//string text
         {
+            Log log = new Log(appPath);
             ImageConverter converter = new ImageConverter();
             byte[] BArray = (byte[])converter.ConvertTo(bitImage, typeof(byte[]));
 
@@ -1115,6 +1279,7 @@ namespace LoginForms.Shared
                 response.EnsureSuccessStatusCode();
                 client.Dispose();
                 var sd = response.Content.ReadAsStringAsync().Result;
+                log.Add($"[RestHelper][sendImage]: imagen enviada al chat:{chatId} respuesta servidor:{response.StatusCode}");
                 return sd;
             }
         }
@@ -1122,6 +1287,7 @@ namespace LoginForms.Shared
         //Tiempo de cada estado del agente
         public async Task<string> SetStatusTime( string statusId)
         {
+            Log log = new Log(appPath);
             statusDate = DateTime.Now.ToString("HH:mm:ss");
             string date = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             var inputData = new Dictionary<string, string>
@@ -1139,7 +1305,8 @@ namespace LoginForms.Shared
             HttpResponseMessage response = await client.PostAsync(baseUrl + "status/setStarTime", input);
             HttpContent content = response.Content;
             string data = response.Content.ReadAsStringAsync().Result;
-            if(!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            log.Add($"[RestHelper][SetStatusTime]: userId:{GlobalSocket.currentUser.ID} id del status:{statusId} tiempo inicio:{statusDate} fecha:{date} idstatus:{idStatus} respuesta servidor:{response.StatusCode}");
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
             {
                 var values = JsonConvert.DeserializeObject<Dictionary<dynamic, dynamic>>(data);
                 idStatus = values["data"]["statusId"];
@@ -1154,6 +1321,7 @@ namespace LoginForms.Shared
 
         public async Task<string> ChangeStatus(string userId, string statusId)
         {
+            Log log = new Log(appPath);
             Console.WriteLine("idStatus" + idStatus);
             endDate = DateTime.Now.ToString("HH:mm:ss");
             string date = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
@@ -1161,9 +1329,9 @@ namespace LoginForms.Shared
             {
                 {"endingTime", endDate},
                 {"startingTime", endDate },
-                {"userId", GlobalSocket.currentUser.ID},
+                {"userId", userId},
                 {"statusId", statusId },
-                { "startDate", date},
+                {"startDate", date},
                 {"idStatus", idStatus}
             };
             var input = new FormUrlEncodedContent(inputData);
@@ -1171,8 +1339,8 @@ namespace LoginForms.Shared
             HttpResponseMessage response = await client.PostAsync(baseUrl + "status/changeStatus", input);
             HttpContent content = response.Content;
             string data = response.Content.ReadAsStringAsync().Result;
-            
-            if(!string.IsNullOrEmpty(response.StatusCode.ToString())&& response.StatusCode.ToString() == "OK")
+            log.Add($"[RestHelper][ChangeStatus]: userId:{GlobalSocket.currentUser.ID} id del status:{statusId} fecha de inicio:{date} inicio status:{endDate} cierre status:{endDate} fecha:{date} idStatus:{idStatus} respuesta servidor:{response.StatusCode}");
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString())&& response.StatusCode.ToString() == "OK")
             {
                 var values = JsonConvert.DeserializeObject<Dictionary<dynamic, dynamic>>(data);
                 idStatus = values["data"]["idStatus"];
@@ -1187,6 +1355,7 @@ namespace LoginForms.Shared
 
         public async Task<string> TotalTimeStatus(string userId)
         {
+            Log log = new Log(appPath);
             var inputData = new Dictionary<string, string>
             {
                 {"startingTime", endDate},
@@ -1210,6 +1379,7 @@ namespace LoginForms.Shared
 
         public async Task<string> UpdateOnClosing(string userId, string statusId)
         {
+            Log log = new Log(appPath);
             string endDate = DateTime.Now.ToString("HH:mm:ss");
             var inputData = new Dictionary<string, string>
             {
@@ -1223,7 +1393,8 @@ namespace LoginForms.Shared
             HttpResponseMessage response = await client.PostAsync(baseUrl + "status/updateOnClosing", input);
             HttpContent content = response.Content;
             string data = await response.Content.ReadAsStringAsync();
-            if(!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            log.Add($"[RestHelper][UpdateOnClosing]: userId:{userId} endingTime:{endDate} statusId:{statusId} idStatus:{idStatus} respuesta servidor:{response.StatusCode}");
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
             {
                 return data;
             }
@@ -1237,6 +1408,7 @@ namespace LoginForms.Shared
 
         public async Task<string> SendCall(string tipo, string transfer = "0")
         {
+            Log log = new Log(appPath);
             date = DateTime.Now.ToString("HH:mm:ss");
             string dateTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             var inputData = new Dictionary<string, string>
@@ -1254,6 +1426,7 @@ namespace LoginForms.Shared
             HttpResponseMessage response = await client.PostAsync(baseUrl + "calls", input);
             HttpContent content = response.Content;
             string data = response.Content.ReadAsStringAsync().Result;
+            log.Add($"[RestHelper][SendCall]: userId:{GlobalSocket.currentUser.ID} startTime:{date} startingDate:{dateTime} respuesta servidor:{response.StatusCode}");
             if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
             {
                 var folio = GetFolioFromApi(data);
@@ -1267,6 +1440,7 @@ namespace LoginForms.Shared
 
         public async Task<string> UpdateNetworkCategoryCalls(string networkCategoryId = "", string score = "", string comments = "")
         {
+            Log log = new Log(appPath);
             string endingTime = DateTime.Now.ToString("HH:mm:ss:ff");
             Console.WriteLine($"Inicio de la llamada:{date}");
             Console.WriteLine($"Termino de la llamada:{endingTime}");
@@ -1285,7 +1459,7 @@ namespace LoginForms.Shared
             Console.WriteLine(response);
             HttpContent content = response.Content;
             string data = response.StatusCode.ToString();
-
+            log.Add($"[RestHelper][UpdateNetworkCategoryCalls]:idLlamada:{llamadaId} startTime:{date} endingTime:{endingTime} networkCategoryId:{networkCategoryId} espuesta servidor:{response.StatusCode}");
             if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
             {
                 return data;
@@ -1298,6 +1472,7 @@ namespace LoginForms.Shared
 
         public async Task<string> GetIdCall()
         {
+            Log log = new Log(appPath);
             var inputData = new Dictionary<string, string>
             {
                 {"idLlamada", llamadaId.ToString()}
@@ -1309,7 +1484,8 @@ namespace LoginForms.Shared
             Console.WriteLine(response);
             HttpContent content = response.Content;
             string data = await response.Content.ReadAsStringAsync();
-            if(!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            log.Add($"[RestHelper][GetIdCall]: idLlamada:{llamadaId} respuesta servidor:{response.StatusCode}");
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
             {
                 return data;
             }
@@ -1322,6 +1498,7 @@ namespace LoginForms.Shared
 
         public async Task<string> GetUserStates(string id)
         {
+            Log log = new Log(appPath);
             var inputData = new Dictionary<string, string>
             {
                 { "id", id},
@@ -1332,6 +1509,7 @@ namespace LoginForms.Shared
             HttpResponseMessage response = await client.PostAsync(baseUrl + "status/GetUserStates", input);
             HttpContent content = response.Content;
             string data = response.Content.ReadAsStringAsync().Result;
+            log.Add($"[RestHelper][GetUserStates]: userId:{id} respuesta servidor:{response.StatusCode}");
             if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
             {
                 return data;
@@ -1344,6 +1522,7 @@ namespace LoginForms.Shared
 
         public async Task<string> GetUserStatesSupervisor(string id)
         {
+            Log log = new Log(appPath);
             var inputData = new Dictionary<string, string>
             {
                 { "id", id},
@@ -1354,6 +1533,7 @@ namespace LoginForms.Shared
             HttpResponseMessage response = await client.PostAsync(baseUrl + "status/GetUserStatesSupervisor", input);
             HttpContent content = response.Content;
             string data = response.Content.ReadAsStringAsync().Result;
+            log.Add($"[RestHelper][GetUserStatesSupervisor]: idSupervisor:{id} respuesta servidor:{response.StatusCode}");
             if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
             {
                 return data;
@@ -1366,6 +1546,7 @@ namespace LoginForms.Shared
 
         public async Task<string> newEmptyChat(string text, string chatId, string clientPlatformIdentifier, string platformIdentifier, string agentPlatformIdentifier)
         {
+            Log log = new Log(appPath);
             var numberToSend = "";
 
             if (string.IsNullOrEmpty(chatId) && string.IsNullOrEmpty(clientPlatformIdentifier))
@@ -1404,6 +1585,7 @@ namespace LoginForms.Shared
             HttpContent content = response.Content;
             //string data = await content.ReadAsStringAsync();
             string data = response.StatusCode.ToString();
+            log.Add($"[RestHelper][newEmptyChat]: clientPlatformIdentifier:whatsapp:+521{GlobalSocket.numberToSend} userId:{GlobalSocket.currentUser.ID} agentPlatformIdentifier:{GlobalSocket.currentUser.activeIp} respuesta servidor:{response.StatusCode}");
             if (data != null)
             {
                 return data.ToString();
@@ -1537,9 +1719,11 @@ namespace LoginForms.Shared
         //***** MÉTODO QUE SIRVE PARA SACAR EL FOLIO DE LA PETICIÓN HTTP *********//
         public string GetFolioFromApi(string response)
         {
+            Log log = new Log(appPath);
             var values = JsonConvert.DeserializeObject<Dictionary<dynamic, dynamic>>(response);
             folio = values["data"]["folio"];
             llamadaId = values["data"]["idLlamada"];
+            log.Add($"[RestHelper][GetFolioFromAPI]: folio:{folio} llamadaId:{llamadaId}");
             Console.WriteLine(folio);
             Console.WriteLine(llamadaId);
             

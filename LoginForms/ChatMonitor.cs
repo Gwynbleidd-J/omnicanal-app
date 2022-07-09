@@ -1,4 +1,5 @@
 ﻿using LoginForms.Shared;
+using LoginForms.Utils;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -12,6 +13,7 @@ namespace LoginForms
     {
 
         RestHelper rh = new RestHelper();
+        string appPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\ApplicationLogs\";
 
         int currentAgentId = 0;
         int transferAgentId = 0;
@@ -40,8 +42,8 @@ namespace LoginForms
             return valor.ToString();
         }
 
-        public void FillSearchCombo() {
-
+        public void FillSearchCombo() 
+        {
             List<KeyValuePair<string, int>> listaSearch = new List<KeyValuePair<string, int>>();
             for (int i = 0; i < dataGridView1.Columns.Count; i++)
             {
@@ -112,6 +114,7 @@ namespace LoginForms
 
         public async void GetActiveChats()
         {
+            Log log = new Log(appPath);
             string agentId = GlobalSocket.currentUser.ID.ToString();
             var data = await rh.RecoverAllActiveChats(agentId);
             var cleanData = (JObject)JsonConvert.DeserializeObject(data);
@@ -192,6 +195,7 @@ namespace LoginForms
 
         private async void GetAllAgentsAsync()
         {
+            Log log = new Log(appPath);
             try
             {
                 var agents = await rh.getAllAgents();
@@ -218,8 +222,8 @@ namespace LoginForms
                 transferAgentName = comboBox1.GetItemText(comboBox1.SelectedItem);
 
                 Console.WriteLine("\nEl agente seleccionado por ahora es:" +transferAgentName +" \nCon el valor:"+ transferAgentId);
+                log.Add($"[ChatMonitor][GetAllAgentsAsync]:Agente seleccionado:{transferAgentName} con Id:{transferAgentId}");
                 Console.WriteLine("\nY los datos del combo son:" +comboBox1.GetItemText(comboBox1.SelectedItem));
-
             }
             catch (Exception _e)
             {
