@@ -133,9 +133,6 @@ namespace LoginForms
                     Type formtype = asm.GetType(string.Format("{0}.{1}", "LoginForms", GlobalSocket.currentUser.rol.permission[i].menu.name));
                     Form f = (Form)Activator.CreateInstance(formtype);
 
-                    
-                    Console.WriteLine($"Forma:{formtype.Name}");
-                    Console.WriteLine($"Forma1:{f.Name}");
                     //f.Show();
 
 
@@ -153,6 +150,7 @@ namespace LoginForms
                             fo.Show();
                             fo.FormBorderStyle = FormBorderStyle.None;
                             fo.BackColor = ColorTranslator.FromHtml("#e2e0e1");
+                            
                             //client.prueba = fo as Prueba;
 
                             var temp1 = (PictureBox)tableLayoutPanel8.Controls["Chats"];
@@ -214,14 +212,14 @@ namespace LoginForms
 
                     if (menu == "Chats")
                     {
-                        
+
                         dynamicImage.Image = Properties.Resources.chat;
                         dynamicImage.Name = "Chats";
                         dynamicImage.Click += (s, e) =>
                         {
                             EjecucionPictureChatsclick(f);
-
-                        };
+                            DashboardAgente.timer.Stop();
+                        };                  
 
                     }
                     else if (menu == "Softphone")
@@ -248,29 +246,13 @@ namespace LoginForms
 
                         dynamicImage.Click += (s, e) =>
                         {
-                            //softphone = f;
-                            //f.TopLevel = false;
-                            //f.Parent = pnlChatMessages;
-                            //f.ControlBox = false;
-                            //f.BringToFront();
-                            //f.Location = new Point(0, 0);
-                            //f.Dock = DockStyle.Fill;
-                            //f.Focus();
-                            //f.Show()
                             CreateSoftphoneForm(f);
-                            //f.FormBorderStyle = FormBorderStyle.None;
-                            //f.BackColor = ColorTranslator.FromHtml("#e2e0e1");
-                            //client.prueba = f as Prueba;
-                            //CreateSoftphoneForm(f);
-
+                            DashboardAgente.timer.Stop();
                             var temp1 = (PictureBox)tableLayoutPanel8.Controls["Home"];
                             var temp2 = (PictureBox)tableLayoutPanel8.Controls["Chats"];
                             temp1.Image = Properties.Resources.home;
                             temp2.Image = Properties.Resources.chat;
                             dynamicImage.Image = Properties.Resources.llamadas_presionado;
-                            //Console.WriteLine(softphone.Text);
-                            //chats.Dispose();
-                            //dashboard.Dispose();
                         };
 
                     }
@@ -285,7 +267,7 @@ namespace LoginForms
                         dynamicImage.Click += (s, e) =>
                         {
                             EjecucionPictureHomeclick(f);
-
+                            DashboardAgente.timer.Start();
                         };
 
                     }
@@ -314,7 +296,33 @@ namespace LoginForms
                         f.Show();
                         f.FormBorderStyle = FormBorderStyle.None;
                         f.BackColor = SystemColors.ButtonHighlight;
-                        //client.prueba = f as Prueba;
+                        
+                        if (menu == "Agentes")
+                        {
+                            Console.WriteLine("Timer Activo");
+                            MisAgentes.timer.Start();
+                        }
+                        else
+                        {
+                            Console.WriteLine("Timer Inactivo");
+                            MisAgentes.timer.Stop();
+                        }
+
+                        //if (menu == "Agentes")
+                        //{
+                        //    Console.WriteLine("Timer Activo");
+                        //    MisAgentes.timer.Start();
+                        //}
+                        //else if(menu == "Cambiar Parámetros ")
+                        //{
+                        //    Console.WriteLine("Timer Inactivo");
+                        //    MisAgentes.timer.Stop();
+                        //}
+                        //else if(menu == "Monitoreo de pantalla")
+                        //{
+                        //    Console.WriteLine("Timer Inactivo");
+                        //    MisAgentes.timer.Stop();
+                        //}
                     };
 
 
@@ -385,7 +393,7 @@ namespace LoginForms
             {
                 string jsonUserStatus = await rh.getUserStatus();
                 jsonStatus = JsonConvert.DeserializeObject<Json>(jsonUserStatus);
-                for (int i = 0; i < jsonStatus.data.status.Count; i++)
+                for (int i = 0; i <= jsonStatus.data.status.Count; i++)
                 {
                     cmbUserStatus.Items.Add(new StatusItems(jsonStatus.data.status[i].status, jsonStatus.data.status[i].description, jsonStatus.data.status[i].id));
                     if(jsonStatus.data.status[i].id == "9")
@@ -475,6 +483,7 @@ namespace LoginForms
 
         private async void pictureBox1_Click(object sender, EventArgs e)
         {
+            //ESTE BOTÓN ES PARA CERRAR SESIÓN
             Log log = new Log(appPath);
             await rh.UpdateOnClosing(GlobalSocket.currentUser.ID, GlobalSocket.currentUser.status.id);
             await rh.updateUserStatus("8", GlobalSocket.currentUser.ID);
@@ -603,6 +612,7 @@ namespace LoginForms
             //await rh.updateUserStatus("8", GlobalSocket.currentUser.ID);
             //Application.Exit();
         }
+
     }
     class StatusItems
     {

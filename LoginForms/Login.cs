@@ -82,6 +82,7 @@ namespace LoginForms
 
         private async void userLogin(IProgress<int> progress = null)
         {
+            ///MODIFICAR ERROR LOGIN, PARA QUE NO APARESCA 
             Log log = new Log(appPath);
             string ipAddress = rh.GetLocalIpAddress();
             try
@@ -164,7 +165,7 @@ namespace LoginForms
         private void SetProjectVersion()
         {
 
-            lblVersion.Text = $"Versión: 1.0.0.19";        
+            lblVersion.Text = $"Versión: 1.0.0.20";        
         }
 
         private void btnShowPassword_Click(object sender, EventArgs e)

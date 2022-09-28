@@ -117,13 +117,14 @@ namespace LoginForms
             this.groupBox4.Controls.Add(this.label8);
             this.groupBox4.Controls.Add(this.label10);
             this.groupBox4.Controls.Add(this.label11);
-            this.groupBox4.Location = new System.Drawing.Point(465, 11);
+            this.groupBox4.Location = new System.Drawing.Point(475, 342);
             this.groupBox4.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox4.Size = new System.Drawing.Size(283, 169);
+            this.groupBox4.Size = new System.Drawing.Size(240, 170);
             this.groupBox4.TabIndex = 132;
             this.groupBox4.TabStop = false;
+            this.groupBox4.Visible = false;
             // 
             // lblAuthName
             // 
@@ -276,12 +277,13 @@ namespace LoginForms
             this.groupBox1.Controls.Add(this.Label2);
             this.groupBox1.Controls.Add(this.txtUserName);
             this.groupBox1.Controls.Add(this.Label1);
-            this.groupBox1.Location = new System.Drawing.Point(10, 11);
+            this.groupBox1.Location = new System.Drawing.Point(12, 320);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(450, 207);
+            this.groupBox1.Size = new System.Drawing.Size(450, 216);
             this.groupBox1.TabIndex = 131;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Parámetros Softphone";
+            this.groupBox1.Visible = false;
             // 
             // txtPassword
             // 
@@ -430,7 +432,7 @@ namespace LoginForms
             this.groupBox2.Controls.Add(this.label25);
             this.groupBox2.Controls.Add(this.label26);
             this.groupBox2.Controls.Add(this.label28);
-            this.groupBox2.Location = new System.Drawing.Point(465, 261);
+            this.groupBox2.Location = new System.Drawing.Point(467, 11);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
@@ -556,7 +558,7 @@ namespace LoginForms
             this.groupBox3.Controls.Add(this.label34);
             this.groupBox3.Controls.Add(this.txtNombre);
             this.groupBox3.Controls.Add(this.label35);
-            this.groupBox3.Location = new System.Drawing.Point(10, 261);
+            this.groupBox3.Location = new System.Drawing.Point(12, 11);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(450, 274);
             this.groupBox3.TabIndex = 133;

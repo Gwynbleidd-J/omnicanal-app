@@ -19,7 +19,7 @@ namespace LoginForms
         RestHelper rh = new RestHelper();
         string credentialsId;
         string userId;
-        string tipoUsuario = "";
+        string tipoUsuario;
         string appPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\ApplicationLogs\";
         public ChangeParameters()
         {
@@ -38,10 +38,13 @@ namespace LoginForms
             log.Add($"[ChangeParameters][ComboBoxGetUsers]: Usuarios encontrados:{jsonUsers.data.users.Count}");
             for (int i = 0; i < jsonUsers.data.users.Count; i++)
             {
-                if (jsonUsers.data.users[i].rolID == "1" || jsonUsers.data.users[i].rolID == "2")
+                if(jsonUsers.data.users[i].existe == 1)
                 {
-                    cmbAgents.Items.Add(new ParametersItems(jsonUsers.data.users[i].name, jsonUsers.data.users[i].ID));
-                    cmbUsers.Items.Add(new ParametersItems(jsonUsers.data.users[i].name, jsonUsers.data.users[i].ID));
+                    if (jsonUsers.data.users[i].rolID == "1" || jsonUsers.data.users[i].rolID == "2")
+                    {
+                        //cmbAgents.Items.Add(new ParametersItems(jsonUsers.data.users[i].name, jsonUsers.data.users[i].ID));
+                        cmbUsers.Items.Add(new ParametersItems(jsonUsers.data.users[i].name, jsonUsers.data.users[i].ID));
+                    }
                 }
             }
         }
@@ -101,20 +104,21 @@ namespace LoginForms
                 log.Add($"[ChangeParameters][comboBoxGetSOftphoneCredentials]:Usuario Seleccionado:{jsonSoftphoneCredentials.data.user.credentials.userName}");
             }
         }
+
         private void cmbTipoUsuario_SelectedIndexChanged(object sender, EventArgs e)
         {
             ParametersItems classItems = (ParametersItems)cmbTipoUsuario.SelectedItem;
             tipoUsuario = classItems.Value;
+            Console.WriteLine($"Tipo Usuario: {tipoUsuario}");
         }
-
 
         private async void comboBoxGetUserData()
         {
             ParametersItems classItems = (ParametersItems)cmbUsers.SelectedItem;
             string usersData = await rh.GetUserData(classItems.Value);
             Json jsonUserData = JsonConvert.DeserializeObject<Json>(usersData);
+            
             userId = jsonUserData.data.user.ID;
-
             lblNombre.Text = jsonUserData.data.user.name;
             lblApePaterno.Text = jsonUserData.data.user.paternalSurname;
             lblApeMaterno.Text = jsonUserData.data.user.maternalSurname;
@@ -123,7 +127,7 @@ namespace LoginForms
 
             txtNombre.Text = jsonUserData.data.user.name;
             txtApePaterno.Text = jsonUserData.data.user.paternalSurname;
-            txtApeMaterno.Text = jsonUserData.data.user.maternalSurname; 
+            txtApeMaterno.Text = jsonUserData.data.user.maternalSurname;
             txtEmail.Text = jsonUserData.data.user.email;
             txtSiglasUser.Text = jsonUserData.data.user.siglasUser;
         }
@@ -134,6 +138,35 @@ namespace LoginForms
             string data = await rh.updateSoftphoneParameters(credentialsId, txtUserName.Text, txtDisplayName.Text, txtDomain.Text, txtServer.Text, txtPassword.Text, txtAuthName.Text, txtPort.Text);
             Console.WriteLine(data);
             log.Add($"[ChangeParameters][SetSoftphoneParameters]:Respuesta desde servidor:{data}");
+            return data;
+        }
+
+        private async Task<string> CreateUser()
+        {
+            Log log = new Log(appPath);
+            string nombre = txtNombre.Text, apPaterno = txtApePaterno.Text, apMaterno = txtApeMaterno.Text, email = txtEmail.Text, contrasena = txtContrasena.Text, siglas = txtSiglasUser.Text;
+            string data = await rh.SaveUser(nombre, apPaterno, apMaterno, email, contrasena, siglas, tipoUsuario);
+            Console.WriteLine(data);
+            log.Add($"[ChangeParameters][CreateUser]:Respuesta desde servidor:{data}");
+            return data;
+        }
+
+        private async Task<string> UpdateUser()
+        {
+            Log log = new Log(appPath);
+            string nombre = txtNombre.Text, apPaterno = txtApePaterno.Text, apMaterno = txtApeMaterno.Text, email = txtEmail.Text, contrasena = txtContrasena.Text, siglas = txtSiglasUser.Text;
+            string data = await rh.UpdateUser(userId, nombre, apPaterno, apMaterno, email, contrasena, siglas, tipoUsuario);
+            Console.WriteLine(data);
+            log.Add($"[ChangeParameters][UpdateUser]:Respuesta desde servidor:{data}");
+            return data;
+        }
+
+        private async Task<string> DeleteUser()
+        {
+            Log log = new Log(appPath);
+            string data = await rh.DeleteUser(userId);
+            Console.WriteLine(data);
+            log.Add($"[ChangeParameters][Deleteuser]:Respuesta desde servidor:{data}");
             return data;
         }
 
@@ -161,7 +194,7 @@ namespace LoginForms
                 }
                 else
                 {
-                    MessageBox.Show("Hubo un error al actualizar la información de Softphone");
+                    MessageBox.Show("Hubo un error al actualizar la información de Softphone", "Omnichannel", MessageBoxButtons.OK);
                 }
 
 
@@ -169,7 +202,7 @@ namespace LoginForms
             }
             else
             {
-                MessageBox.Show("Completa todos los campos", "Omnicanal");
+                MessageBox.Show("Completa todos los campos", "Omnichannel", MessageBoxButtons.OK);
             }
         }
 
@@ -217,6 +250,8 @@ namespace LoginForms
         private void rbModifyUser_CheckedChanged(object sender, EventArgs e)
         {
             cmbUsers.Enabled = true;
+            cmbUsers.Items.Clear();
+            ComboBoxGetUsers();
             cmbTipoUsuario.Enabled = true;
             btnSaveUser.Enabled = false;
             btnModifyUser.Enabled = true;
@@ -262,49 +297,111 @@ namespace LoginForms
 
         private async void btnSaveUser_Click(object sender, EventArgs e)
         {
-            #region Ejemplo para el botón
-            //Log log = new Log(appPath);
-            //if (!string.IsNullOrEmpty(txtUserName.Text) && !string.IsNullOrEmpty(txtPassword.Text) && !string.IsNullOrEmpty(txtDomain.Text) && !string.IsNullOrEmpty(txtDisplayName.Text) && !string.IsNullOrEmpty(txtAuthName.Text) && !string.IsNullOrEmpty(txtServer.Text) && !string.IsNullOrEmpty(txtPort.Text))
-            //{
+            try
+            {
+                Log log = new Log(appPath);
+                if(!string.IsNullOrEmpty(txtNombre.Text) && !string.IsNullOrEmpty(txtApePaterno.Text) && !string.IsNullOrEmpty(txtApeMaterno.Text) && !string.IsNullOrEmpty(txtSiglasUser.Text) && !string.IsNullOrEmpty(txtContrasena.Text) && !string.IsNullOrEmpty(txtEmail.Text))
+                {
+                    if(await CreateUser() == "OK")
+                    {
+                        //cmbUsers_SelectedIndexChanged(sender, e);
+                        log.Add($"[ChangeParameters][btnSaveUser_Click]: respuesta desde el servidor:OK");
+                        MessageBox.Show("Nuevo Analista Creado Correctamente", "Omnicanal");
+                        txtNombre.Text = "";
+                        txtApePaterno.Text = "";
+                        txtApeMaterno.Text = "";
+                        txtSiglasUser.Text = "";
+                        txtContrasena.Text = "";
+                        txtEmail.Text = "";
+                        cmbTipoUsuario.Text = "Tipo Usuario";
+                    }
+                    else
+                    {
+                        MessageBox.Show("Hubo un error al crear el analista", "Omnichannel", MessageBoxButtons.OK);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Llena todos los campos", "Omnichannel", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
 
-            //    if (await SetSoftphoneParameters() == "OK")
-            //    {
-            //        cmbAgents_SelectedIndexChanged(sender, e);
-            //        log.Add($"[ChangeParameters][btnChangeSoftphoneParameters_Click]: respuesta desde el servidor:{SetSoftphoneParameters()}");
-            //        MessageBox.Show("Parametros del Softphone Actualizados Correctamente", "Omnicanal");
-            //    }
-            //    else
-            //    {
-            //        MessageBox.Show("Hubo un error al actualizar la información de Softphone");
-            //    }
-
-
-            //    //ClearTextbox();
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Completa todos los campos", "Omnicanal");
-            //}
-            #endregion
-
-            Log log = new Log(appPath);
-
-            //if (!string.IsNullOrEmpty(txtNombre.Text) && !string.IsNullOrEmpty(txtApePaterno.Text) && !string.IsNullOrEmpty() && !string.IsNullOrEmpty() && !string.IsNullOrEmpty() && !string.IsNullOrEmpty())
-            //{
-
-            //}
-            //string nombre = txtNombre.Text, apPaterno = txtApePaterno.Text, apMaterno = txtApeMaterno.Text, email = txtEmail.Text, contrasena = txtContrasena.Text, siglas = txtSiglasUser.Text;
-            //await rh.SaveUser(nombre, apPaterno, apMaterno, email, contrasena, siglas, tipoUsuario);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"[ChangeParameters][btnSaveUser_Click]: {ex.Message}");
+            }
         }
 
-        private void btnModifyUser_Click(object sender, EventArgs e)
+        private async void btnModifyUser_Click(object sender, EventArgs e)
         {
-            Console.WriteLine(userId);
+            try
+            {
+                Log log = new Log(appPath);
+                if (await UpdateUser() == "OK")
+                {
+                    log.Add($"[ChangeParameters][btnSaveUser_Click]: respuesta desde el servidor:OK");
+                    MessageBox.Show("Se cambiaron los datos del usuario correctamente", "Omnicanal");
+                    txtNombre.Text = "";
+                    txtApePaterno.Text = "";
+                    txtApeMaterno.Text = "";
+                    txtSiglasUser.Text = "";
+                    txtContrasena.Text = "";
+                    txtEmail.Text = "";
+                    lblNombre.Text = "";
+                    lblApePaterno.Text = "";
+                    lblApeMaterno.Text = "";
+                    lblEmail.Text = "";
+                    lblSiglasUser.Text = "";
+                    cmbTipoUsuario.Text = "Tipo Usuario";
+                    cmbUsers.Items.Clear();
+                    ComboBoxGetUsers();
+                }
+                else
+                {
+                    MessageBox.Show("Hubo un error al modificar el analista", "Omnichannel", MessageBoxButtons.OK);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[ChangeParameters][btnSaveUser_Click]: {ex.Message}");
+            }
         }
 
-        private void btnDeleteUser_Click(object sender, EventArgs e)
+        private async void btnDeleteUser_Click(object sender, EventArgs e)
         {
-            Console.WriteLine(userId);
+            try
+            {
+                Log log = new Log(appPath);
+                if (await DeleteUser() == "OK")
+                {
+                    log.Add($"[ChangeParameters][btnSaveUser_Click]: respuesta desde el servidor:OK");
+                    MessageBox.Show("Se borro el usuario correctamente", "Omnicanal");
+                    txtNombre.Text = "";
+                    txtApePaterno.Text = "";
+                    txtApeMaterno.Text = "";
+                    txtSiglasUser.Text = "";
+                    txtContrasena.Text = "";
+                    txtEmail.Text = "";
+                    lblNombre.Text = "";
+                    lblApePaterno.Text = "";
+                    lblApeMaterno.Text = "";
+                    lblEmail.Text = "";
+                    lblSiglasUser.Text = "";
+                    cmbUsers.Text = "Selecciona un agente";
+                    cmbUsers.Items.Clear();
+                    ComboBoxGetUsers();
+                }
+                else
+                {
+                    MessageBox.Show("Hubo un error borrar al analista", "Omnichannel", MessageBoxButtons.OK);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[ChangeParameters][btnSaveUser_Click]: {ex.Message}");
+            }
         }
     }
 

@@ -885,7 +885,7 @@ namespace LoginForms.Shared
         public async Task<string> updateUserStatus(string statusId, string userId)
         {
             Log log = new Log(appPath);
-            string date = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:fff");
+            string date = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
             var inputData = new Dictionary<string, string>
             {
@@ -995,7 +995,7 @@ namespace LoginForms.Shared
             if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
             {
                 Console.WriteLine($"Estatus de la petición[SaveUser]:{response.StatusCode.ToString()}");
-                return data;
+                return response.StatusCode.ToString();
             }
             else
             {
@@ -1025,7 +1025,7 @@ namespace LoginForms.Shared
             log.Add($"[RestHelper][UpdateUser]: UserId del agente que se va a modificar:{userId} respuesta servidor:{response.StatusCode}");
             if(!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
             {
-                return data;
+                return response.StatusCode.ToString();
             }
             else
             {
@@ -1048,6 +1048,30 @@ namespace LoginForms.Shared
             log.Add($"[RestHelper][DeleteUser]: UserId del agente que se va a borrar:{userId} respuesta servidor:{response.StatusCode}");
             if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
             {
+                return response.StatusCode.ToString();
+            }
+            else
+            {
+                return response.StatusCode.ToString();
+            }
+        }
+
+        public async Task<string> UserHangUp(string colgo)
+        {
+            Log log = new Log(appPath);
+            var inputData = new Dictionary<string, string>
+            {
+                {"IdLlamada", llamadaId.ToString()},
+            };
+
+            var input = new FormUrlEncodedContent(inputData);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync(baseUrl + "calls/user", input);
+            HttpContent content = response.Content;
+            string data = await content.ReadAsStringAsync();
+            log.Add($"");
+            if(!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            {
                 return data;
             }
             else
@@ -1055,6 +1079,56 @@ namespace LoginForms.Shared
                 return response.StatusCode.ToString();
             }
         }
+
+        public async Task<string> VendorHangUp(string colgo)
+        {
+            Log log = new Log(appPath);
+            var inputData = new Dictionary<string, string>
+            {
+                {"IdLlamada", llamadaId.ToString()},
+            };
+
+            var input = new FormUrlEncodedContent(inputData);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync(baseUrl + "calls/vendor", input);
+            HttpContent content = response.Content;
+            string data = await content.ReadAsStringAsync();
+            log.Add($"");
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            {
+                return data;
+            }
+            else
+            {
+                return response.StatusCode.ToString();
+            }
+        }
+
+        public async Task<string> SetUserNumber(string number)
+        {
+            Log log = new Log(appPath);
+            var inputData = new Dictionary<string, string>
+            {
+                {"IdLlamada", llamadaId.ToString()},
+                {"Number", number},
+            };
+
+            var input = new FormUrlEncodedContent(inputData);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync(baseUrl + "calls/phoneUser", input);
+            HttpContent content = response.Content;
+            string data = await content.ReadAsStringAsync();
+            log.Add($"");
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            {
+                return data;
+            }
+            else
+            {
+                return response.StatusCode.ToString();
+            }
+        }
+
 
         public async Task<string> getLastChatByUserId(string userId)
         {
@@ -1175,6 +1249,32 @@ namespace LoginForms.Shared
                 return response.StatusCode.ToString();
             }
 
+        }
+
+        public async Task<string> GenerateExcel(string userId = "" , string fechaInicial = "", string fechaFinal = "")
+        {
+            var inputData = new Dictionary<string, string>
+            {
+                { "userId", userId },
+                { "date", date },
+                { "fechaInicial", fechaInicial },
+                { "fechaFinal", fechaFinal }
+            };
+
+            var input = new FormUrlEncodedContent(inputData);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync(baseUrl + "calls/getCallsUser", input);
+            HttpContent content = response.Content;
+            string data = await content.ReadAsStringAsync();
+            if (!string.IsNullOrEmpty(response.StatusCode.ToString()) && response.StatusCode.ToString() == "OK")
+            {
+                return data;
+            }
+            else
+            {
+                return response.StatusCode.ToString();
+            }
+            
         }
 
         public async Task<string> updateAgentMaxActiveChats(string id, string maxActiveChats)
@@ -1338,7 +1438,7 @@ namespace LoginForms.Shared
             HttpClient client = new HttpClient();
             HttpResponseMessage response = await client.PostAsync(baseUrl + "status/changeStatus", input);
             HttpContent content = response.Content;
-            string data = response.Content.ReadAsStringAsync().Result;
+            string data = await response.Content.ReadAsStringAsync();
             log.Add($"[RestHelper][ChangeStatus]: userId:{GlobalSocket.currentUser.ID} id del status:{statusId} fecha de inicio:{date} inicio status:{endDate} cierre status:{endDate} fecha:{date} idStatus:{idStatus} respuesta servidor:{response.StatusCode}");
             if (!string.IsNullOrEmpty(response.StatusCode.ToString())&& response.StatusCode.ToString() == "OK")
             {
@@ -1406,7 +1506,7 @@ namespace LoginForms.Shared
             //updateOnClosing
         }
 
-        public async Task<string> SendCall(string tipo, string transfer = "0")
+        public async Task<string> SendCall(string tipo, string clientPhoneNumber, string agentPhoneNumber, string transfer = "0")
         {
             Log log = new Log(appPath);
             date = DateTime.Now.ToString("HH:mm:ss");
@@ -1417,7 +1517,10 @@ namespace LoginForms.Shared
                 {"userId", GlobalSocket.currentUser.ID },
                 {"tipoLlamada", tipo },
                 { "llamadaTransferida", transfer },
-                {"startingDate", dateTime}
+                {"startingDate", dateTime},
+                {"clientPhoneNumber", clientPhoneNumber },
+                {"agentPhoneNumber", agentPhoneNumber },
+
             };
 
             Console.WriteLine(inputData);
@@ -1441,7 +1544,7 @@ namespace LoginForms.Shared
         public async Task<string> UpdateNetworkCategoryCalls(string networkCategoryId = "", string score = "", string comments = "")
         {
             Log log = new Log(appPath);
-            string endingTime = DateTime.Now.ToString("HH:mm:ss:ff");
+            string endingTime = DateTime.Now.ToString("HH:mm:ss");
             Console.WriteLine($"Inicio de la llamada:{date}");
             Console.WriteLine($"Termino de la llamada:{endingTime}");
             var inputData = new Dictionary<string, string>
@@ -1501,7 +1604,7 @@ namespace LoginForms.Shared
             Log log = new Log(appPath);
             var inputData = new Dictionary<string, string>
             {
-                { "id", id},
+                { "id", id}
             };
             Console.WriteLine(inputData);
             var input = new FormUrlEncodedContent(inputData);
@@ -1712,7 +1815,6 @@ namespace LoginForms.Shared
             return mostSuitableIp != null
                 ? mostSuitableIp.Address.ToString()
                 : "";
-
         }
 
 

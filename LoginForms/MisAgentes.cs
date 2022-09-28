@@ -9,20 +9,27 @@ using System.Windows.Forms;
 using LiveCharts;
 using LiveCharts.Wpf;
 using LiveCharts.Defaults;
+using System.Windows.Threading;
+using GemBox.Spreadsheet;
+
 
 namespace LoginForms
 {
-    public partial class MisAgentes : Form
+public partial class MisAgentes : Form
     {
         RestHelper rh = new RestHelper();
         string idAgent;
         string rolId = "1";
-
+        int currentAgentId = 0;
+        bool Monitoreando = false;
+        bool Iniciado = false;
+        public static DispatcherTimer timer = new DispatcherTimer();
         public MisAgentes()
         {
+            SpreadsheetInfo.SetLicense("FREE-LIMITED-KEY");
             InitializeComponent();
-            ShowAgents();
-            GetUserStatus();
+            //ShowAgents();
+            //GetUserStatus();
             //agentsInformation(GlobalSocket.currentUser.ID);
         }
 
@@ -49,8 +56,6 @@ namespace LoginForms
             //    SupervisorAgents(rolId);
             //}
         }
-
-
 
         private async void agentsInformation(string leaderId)
         {
@@ -175,7 +180,6 @@ namespace LoginForms
             try
             {
                 dgvAgentesActivos.Rows.Clear();
-
                 string supervisorAgents = await rh.getSupervisorAgents(id);
                 //Json jsonSupervisorAgents = JsonConvert.DeserializeObject<Json>(supervisorAgents);
                 var cleanData = (JObject)JsonConvert.DeserializeObject(supervisorAgents);
@@ -192,6 +196,17 @@ namespace LoginForms
                 DataGridViewComboBoxColumn columnMax = ((DataGridViewComboBoxColumn)dgvAgentesActivos.Columns["chatsMaximos"]);
                 columnMax.DataSource = CB.Items;
                 columnMax.ValueType = intTemp.GetType();
+
+                //DataGridViewButtonColumn monitor = new DataGridViewButtonColumn
+                //{
+                //    Name = "monitor",
+                //    HeaderText = "Pantalla Remota",
+                //    Text = "Monitorear",
+                //    UseColumnTextForButtonValue = true,
+                //};
+                //this.dgvAgentesActivos.Columns.Add(monitor);
+
+
 
                 foreach (var item in algo)
                 {
@@ -305,72 +320,18 @@ namespace LoginForms
                 dgvAgentesActivos.Refresh();
                 DataGridViewColumn colNombre = dgvAgentesActivos.Columns[0];
                 colNombre.Frozen = true;
-
             }
             catch (Exception _e)
             {
                 throw _e;
             }
-
-            //for (int i = 0; i< jsonSupervisorAgents.data.users.Count; i ++)
-            //{
-
-            //    var nombre = jsonSupervisorAgents.data.users[i].name + " "  +
-            //        jsonSupervisorAgents.data.users[i].paternalSurname + " "+
-            //        jsonSupervisorAgents.data.users[i].maternalSurname;
-
-            //    var activeChats = jsonSupervisorAgents.data.users[i].activeChats;
-
-            //    var correo = jsonSupervisorAgents.data.users[i].email;
-
-            //    var chatsMaximos = jsonSupervisorAgents.data.users[i].ac;
-
-            //    dataGridView1.Rows.Add(nombre, activeChats, correo);
-
-            //    FlowLayoutPanel panelAgentInformation = new FlowLayoutPanel
-            //    {
-            //        BackColor = Color.FromArgb(145, 153, 179),
-            //        BorderStyle = BorderStyle.FixedSingle,
-            //        FlowDirection = FlowDirection.TopDown,
-            //        Size = new Size(320, 200)
-            //    };
-            //    flpAgentInfo.Controls.Add(panelAgentInformation);
-
-            //    LinkLabel labelAgentName = new LinkLabel
-            //    {
-            //        Text = $"Nombre Agente: {jsonSupervisorAgents.data.users[i].name} {jsonSupervisorAgents.data.users[i].paternalSurname} {jsonSupervisorAgents.data.users[i].maternalSurname}",
-            //        LinkColor = Color.FromArgb(19, 34, 38),
-            //        VisitedLinkColor = Color.FromArgb(19, 34, 38),
-            //        ActiveLinkColor = Color.FromArgb(255, 255, 255),
-            //        Font = new Font("Microsoft Sans Serif", 11),
-            //        AutoSize = true,
-            //        LinkBehavior = LinkBehavior.NeverUnderline
-            //    };
-
-            //    Label labelActiveChats = new Label
-            //    {
-            //        Text = $"Chats Activos: {jsonSupervisorAgents.data.users[i].activeChats}",
-            //        ForeColor = Color.FromArgb(19, 34, 38),
-            //        Font = new Font("Microsoft Sans Serif", 11),
-            //        AutoSize = true
-            //    };
-
-            //    Label labelEmail = new Label
-            //    {
-            //        Text = $"Email: {jsonSupervisorAgents.data.users[i].email}",
-            //        ForeColor = Color.FromArgb(19, 34, 38),
-            //        Font = new Font("Microsoft Sans Serif", 11),
-            //        AutoSize = true
-            //    };
-
-            //    panelAgentInformation.Controls.AddRange(new Control[] { labelAgentName, labelActiveChats, labelEmail });
-
-            //}
         }
-         
+
+        //NO SE BORRA POSIBLEMENTE SE PUEDA VOLVER A OCUPAR
         private void btnRecargar_Click(object sender, EventArgs e)
         {
             SupervisorAgents(rolId);
+            GetUserStatus();
         }
 
         private void dgvAgentesActivos_CurrentCellDirtyStateChanged(object sender, EventArgs e)
@@ -393,46 +354,6 @@ namespace LoginForms
                 dgvAgentesActivos.CommitEdit(DataGridViewDataErrorContexts.Commit);
                 dgvAgentesActivos.EndEdit();
             }
-        }
-
-        private async void button1_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                string supervisorAgents = await rh.getSupervisorAgents("1");
-                var cleanData = (JObject)JsonConvert.DeserializeObject(supervisorAgents);
-                var algo = cleanData["data"].Children();
-
-                var estados = new Dictionary<string, string>();
-
-                foreach (var item in algo)
-                {
-                    var ID = item["ID"].Value<string>();
-                    var estatusActual = item["status"].Value<string>();
-                    estados.Add(ID, estatusActual);
-                }
-
-                DataGridViewColumn columnaEstatus = dgvAgentesActivos.Columns[1];
-                foreach (DataGridViewRow fila in dgvAgentesActivos.Rows)
-                {
-                    var id = fila.Cells["ID"].ToString();
-                    var estadoA = fila.Cells[1].ToString();
-
-                    foreach (var item in estados)
-                    {
-                        if (item.Key == id)
-                        {
-                            fila.Cells[1].Value = item.Value;
-                        }
-                    }
-                }
-
-                dgvAgentesActivos.Refresh();
-            }
-            catch (Exception _e)
-            {
-                throw _e;
-            }  
         }
 
         private async void GetUserStatus()
@@ -509,24 +430,45 @@ namespace LoginForms
             }
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void UpdateScreen()
         {
-            Console.WriteLine("Se realizo la peticion http de los estatus de los usuarios en las graficas y en la tabla");
+            timer.Interval = TimeSpan.FromMilliseconds(60000);
+            timer.Tick += Timer_Tick;
+            //timer.Start();
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
             GetUserStatus();
             SupervisorAgents(rolId);
         }
 
         private void MisAgentes_Load(object sender, EventArgs e)
         {
+            GetUserStatus();
+            SupervisorAgents(rolId);
+            UpdateScreen();
+        }
 
-            if (this.ContainsFocus)
+        private void dgvAgentesActivos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            screenMonitor monitor = new screenMonitor();
+            if (e.ColumnIndex == dgvAgentesActivos.Columns["Monitoreo"].Index && e.RowIndex >= 0)
             {
-                timer1.Start();
+                var row = dgvAgentesActivos.CurrentRow;
+                currentAgentId = int.Parse(row.Cells[16].Value.ToString());
+                monitor.Show();
+                if (monitor.Enabled == true)
+                {
+                    monitor.Monitoreo(currentAgentId, int.Parse(GlobalSocket.currentUser.ID));
+                }
             }
-            else
-            {
-                timer1.Stop();
-            }
+        }
+
+        private void btnFiltroAgente_Click(object sender, EventArgs e)
+        {
+            ExcelForm excel = new ExcelForm();
+            excel.Show();
         }
     }
 }

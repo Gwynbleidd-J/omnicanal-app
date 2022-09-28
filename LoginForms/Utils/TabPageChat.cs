@@ -295,23 +295,6 @@ namespace LoginForms.Utils
                                 await restHelper.SendImage(image, lblChatId.Text.ToString(), lblClientPlatformIdentifier.Text.ToString(), lblPlatformIdentifier.Text.ToString(), agentId, imagen);
                             }
                         }
-                        //AQUÍ SE TIEENQ UE MANDAR LA IMAGEN, PERO SE MANDA EL TEXTO
-                        //string statusCodeSendMessage = await restHelper.SendMessage(txtSendMessage.Text.ToString(), chatId, "whatsapp:+5214621257826", "w");
-                        //string statusCodeSendMessage = await restHelper.SendMessage(txtSendMessage.Text.ToString(), lblChatId.Text.ToString(), lblClientPlatformIdentifier.Text.ToString(), lblPlatformIdentifier.Text.ToString(), agentId);
-                        //if (!string.IsNullOrEmpty(statusCodeSendMessage) && statusCodeSendMessage == "OK")
-                        //{
-                        //  await restHelper.sendImage(imagen, txtSendMessage.Text.ToString(), lblChatId.Text.ToString(), lblClientPlatformIdentifier.Text.ToString(), lblPlatformIdentifier.Text.ToString(), agentId);
-                        //  txtSendMessage.Text = "";
-                        //}
-                        //if (!string.IsNullOrEmpty(txtSendMessage.Text.ToString()))
-                        //{
-                        //    await restHelper.sendImage(imagen);
-                        //    //await sendMessageFromPanelControl();
-                        //}
-
-                        //Clipboard.SetDataObject(imagen);
-                        //DataFormats.Format formato = DataFormats.GetFormat(DataFormats.Bitmap);
-                        //rtxtImage.Paste(formato);
                     }
                     catch (Exception ex)
                     {

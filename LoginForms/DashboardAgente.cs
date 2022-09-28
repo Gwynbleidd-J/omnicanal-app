@@ -13,7 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
-using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace LoginForms
 {
@@ -21,12 +21,17 @@ namespace LoginForms
     {
         RestHelper rh = new RestHelper();
         string appPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\ApplicationLogs\";
+        public static DispatcherTimer timer = new DispatcherTimer();
         public DashboardAgente()
         {
             InitializeComponent();
-            getChatsAsync();
-            getCallsAsync();
-            getStatusAsync();
+            //getChatsAsync();
+            //getCallsAsync();
+            //getStatusAsync();
+            getChatsAsync().ConfigureAwait(true);
+            getCallsAsync().ConfigureAwait(true);
+            getStatusAsync().ConfigureAwait(true);
+            UpdateScreen();
 
             btnRecargar.BackColor = ColorTranslator.FromHtml("#e2e0e0");
 
@@ -222,6 +227,8 @@ namespace LoginForms
                 var Sanitario = algo["Sanitario"].Value<int>();
                 var Comida = algo["Comida"].Value<int>();
                 var Break = algo["Break"].Value<int>();
+                //AQUI ES DONDE TRUENA EN LLAMADA
+                var Llamada = algo["Llamada"].Value<int>();
 
 
                 bool dataDisponible = false;
@@ -232,6 +239,7 @@ namespace LoginForms
                 bool dataSanitario = false;
                 bool dataComida = false;
                 bool dataBreak = false;
+                bool dataLlamada = false;
 
 
 
@@ -245,9 +253,10 @@ namespace LoginForms
                     if (Sanitario != 0) { dataSanitario = true; }
                     if (Comida != 0) { dataComida = true; }
                     if (Break != 0) { dataBreak = true; }
+                    if (Llamada != 0) { dataLlamada = true; }
 
                 }
-
+                pieStatus.Series.Clear();
                 pieStatus.Series = new SeriesCollection
             {
                 new PieSeries
@@ -331,6 +340,16 @@ namespace LoginForms
                     Title = "Break",
                     Values = new ChartValues<double> {roundMinutesToHours(Break) },
                     DataLabels = dataBreak,
+                    FontWeight = FontWeights.Normal,
+                    LabelPoint = val => val.Y +" "
+            },
+                new PieSeries
+                {
+                    StrokeThickness = 0,
+                    PushOut = 5,
+                    Title = "Llamada",
+                    Values = new ChartValues<double> {roundMinutesToHours(Llamada) },
+                    DataLabels = dataLlamada,
                     FontWeight = FontWeights.Normal,
                     LabelPoint = val => val.Y +" "
             },
@@ -432,16 +451,25 @@ namespace LoginForms
 
         //}
 
+        private void UpdateScreen()
+        {
+            timer.Interval = TimeSpan.FromMilliseconds(60000);
+            timer.Tick += Timer_Tick;
+            timer.Start();
+        }
+
+        private async void Timer_Tick(object sender, EventArgs e)
+        {
+            await getCallsAsync();
+            await getStatusAsync();
+            await getChatsAsync();
+        }
+
         private async void btnRecargar_Click(object sender, EventArgs e)
         {
             await getChatsAsync();
             await getCallsAsync();
             await getStatusAsync();
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

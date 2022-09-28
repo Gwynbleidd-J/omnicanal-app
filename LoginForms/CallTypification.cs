@@ -46,7 +46,7 @@ namespace LoginForms
         private void cmbScore_SelectedIndexChanged(object sender, EventArgs e)
         {
             Log log = new Log(appPath);
-            score = cmbScore.SelectedItem.ToString(); //este es el machin
+            score = cmbScore.SelectedItem.ToString();
             log.Add($"[CallTypification][cmbScore_SelectedIndexChanged]: el score seleccionado es:{score}");
             Console.WriteLine($"Valor seleccionado:{score}");
         }

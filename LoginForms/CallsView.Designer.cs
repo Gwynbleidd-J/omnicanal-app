@@ -124,6 +124,7 @@ namespace LoginForms
             this.Label2 = new System.Windows.Forms.Label();
             this.TextBoxUserName = new System.Windows.Forms.TextBox();
             this.Label1 = new System.Windows.Forms.Label();
+            this.btnLogger = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TrackBarMicrophone)).BeginInit();
@@ -1248,11 +1249,23 @@ namespace LoginForms
             this.Label1.TabIndex = 102;
             this.Label1.Text = "Extensión";
             // 
+            // btnLogger
+            // 
+            this.btnLogger.Location = new System.Drawing.Point(458, 227);
+            this.btnLogger.Name = "btnLogger";
+            this.btnLogger.Size = new System.Drawing.Size(93, 33);
+            this.btnLogger.TabIndex = 60;
+            this.btnLogger.Text = "Activar Logger";
+            this.btnLogger.UseVisualStyleBackColor = true;
+            this.btnLogger.Visible = false;
+            this.btnLogger.Click += new System.EventHandler(this.btnLogger_Click);
+            // 
             // CallsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(869, 635);
+            this.Controls.Add(this.btnLogger);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lblFolio);
             this.Controls.Add(this.lblEstatusLlamada);
@@ -1272,6 +1285,7 @@ namespace LoginForms
             this.Text = "SIDI Omnichannel";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CallsView_FormClosing);
             this.Load += new System.EventHandler(this.CallsView_Load);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CallsView_KeyPress);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
@@ -1385,5 +1399,6 @@ namespace LoginForms
         internal System.Windows.Forms.TextBox TextBoxUserName;
         internal System.Windows.Forms.Label Label1;
         public System.Windows.Forms.Button btnReconnect;
+        private System.Windows.Forms.Button btnLogger;
     }
 }

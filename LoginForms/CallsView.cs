@@ -20,6 +20,8 @@ namespace LoginForms
         //CallTypification typification = new CallTypification();
         private const int MAX_LINES = 2; // Maximum lines // 
         private const int LINE_BASE = 1;
+        public string llamante = "";
+        int contador = 0;
 
         private Session[] _CallSessions = new Session[MAX_LINES]; //LINE_BASE = 1
         //2 lineas ---
@@ -965,7 +967,7 @@ namespace LoginForms
             rh.ChangeStatus(GlobalSocket.currentUser.ID, "5").ConfigureAwait(true);
         }
 
-        private void btnHangUp_Click(object sender, EventArgs e)
+        private async void btnHangUp_Click(object sender, EventArgs e)
         {
             CallTypification typification = new CallTypification();
             string callTo = $"*45*{GlobalSocket.currentUser.credentials.userName}";
@@ -994,6 +996,7 @@ namespace LoginForms
                 _CallSessions[currentlyLine].reset();
                 callSessionId = sdkLib.call(callTo, hasSdp, checkBoxMakeVideo.Checked); //LLAMA *45*
                 _CallSessions[currentlyLine].setSessionId(callSessionId);
+                await rh.UserHangUp("0");
                 typification.calls = this;
                 typification.ShowDialog();
                 //callSessionId = _CallSessions[currentlyLine].getSessionId();
@@ -1890,16 +1893,10 @@ namespace LoginForms
         //
         public Int32 onInviteIncoming(Int32 sessionId, String callerDisplayName, String caller, String calleeDisplayName, String callee, String audioCodecNames, String videoCodecNames, Boolean existsAudio, Boolean existsVideo, StringBuilder sipMessage)
         {
-            //CallTypification typification = (CallTypification)Application.OpenForms.Cast<Form>().FirstOrDefault(x => x is CallTypification);
-
-            //if (typification != null)
-            //{
-            //    sdkLib.setDoNotDisturb(true);
-            //}
-            //else if(typification == null)
-            //{
-            //sdkLib.setDoNotDisturb(false);
+            //AQUÍ SE PUEDE OBTENER EL NÚMERO QUE CONTACTA AL SOFTPHONE
+            
             int index = -1;
+            llamante = callee;
             for (int i = LINE_BASE; i < MAX_LINES; ++i)
             {
                 if (_CallSessions[i].getSessionState() == false && _CallSessions[i].getRecvCallState() == false)
@@ -1978,7 +1975,7 @@ namespace LoginForms
                 //rh.SendCall("1").Wait();
                 if(callSessionId != sessionId)
                 {
-                    lblFolio.Text = rh.SendCall("1").Result.ToString();
+                    lblFolio.Text = rh.SendCall("1", caller, callee).Result.ToString();
                 }
                 lblEstatusLlamada.Text = "En llamada";
                 rh.ChangeStatus(GlobalSocket.currentUser.ID, "5").ConfigureAwait(true);
@@ -1987,7 +1984,9 @@ namespace LoginForms
                 FormPrincipal frmP = (FormPrincipal)Application.OpenForms["FormPrincipal"];
                 frmP.lblLlamadasActual.Text = "Llamada en Progreso";
                 frmP.lblLlamadasActual.ForeColor = Color.Red;
-
+                rh.SetUserNumber(caller).ConfigureAwait(true);
+                //CALLER ES EL QUE LLAMA
+                //CALLE ES LA EXTENSION
                 return 0;
             }
 
@@ -2113,6 +2112,7 @@ namespace LoginForms
 
         public Int32 onInviteAnswered(Int32 sessionId, String callerDisplayName, String caller, String calleeDisplayName, String callee, String audioCodecNames, String videoCodecNames, Boolean existsAudio, Boolean existsVideo, StringBuilder sipMessage)
         {
+            //AQUÍ TAMBIEN SE PUEDE SACAR EL NÚMERO QUE CONTACTA AL SOFTPHONE
             int i = findSession(sessionId);
             if (i == -1)
             {
@@ -2138,7 +2138,7 @@ namespace LoginForms
             //rh.SendCall("2").Wait();
             if(callSessionId != sessionId)
             {
-                lblFolio.Text = rh.SendCall("2").Result.ToString();
+                lblFolio.Text = rh.SendCall("2", callee, caller).Result.ToString();
             }
             ListBoxSIPLog.Invoke(new MethodInvoker(delegate
             {
@@ -2353,6 +2353,7 @@ namespace LoginForms
             {
                 CallTypification typification = new CallTypification();
                 CallPBX();
+                rh.VendorHangUp("1").ConfigureAwait(true);
                 typification.calls = this;
                 typification.ShowDialog();
                 lblEstatusLlamada.Text = "Llamada Terminada";
@@ -2480,7 +2481,7 @@ namespace LoginForms
                     ListBoxSIPLog.Items.Add(Text);
                     Desplazamiento();
                 }));
-                rh.SendCall("3", "2").ConfigureAwait(true);
+                rh.SendCall("3", "", "", "2").ConfigureAwait(true);
             }
             lblEstatusLlamada.Text = "Recibiste una transferencia de llamada";
             return 0;
@@ -2504,7 +2505,7 @@ namespace LoginForms
                 ListBoxSIPLog.Items.Add(Text);
                 Desplazamiento();
             }));
-            rh.SendCall("3", "1").ConfigureAwait(true);
+            rh.SendCall("3", "", "", "1").ConfigureAwait(true);
             lblEstatusLlamada.Text = "Transferiste una llamada";
             return 0;
         }
@@ -2623,9 +2624,7 @@ namespace LoginForms
 
         public Int32 onReceivedSignaling(Int32 sessionId, StringBuilder signaling)
         {
-            // This event will be fired when the SDK received a SIP message
-            // you can use signaling to access the SIP message.
-
+            MessageBox.Show(signaling.ToString());
             return 0;
         }
 
@@ -2637,9 +2636,6 @@ namespace LoginForms
 
             return 0;
         }
-
-
-
 
         public Int32 onWaitingVoiceMessage(String messageAccount, Int32 urgentNewMessageCount, Int32 urgentOldMessageCount, Int32 newMessageCount, Int32 oldMessageCount)
         {
@@ -2759,9 +2755,9 @@ namespace LoginForms
 
         public Int32 onRecvOptions(StringBuilder optionsMessage)
         {
-            //         string text = "Received an OPTIONS message: ";
-            //       text += optionsMessage.ToString();
-            //     MessageBox.Show(text, "Received an OPTIONS message", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //string text = "Received an OPTIONS message: ";
+            //text += optionsMessage.ToString();
+            //MessageBox.Show(text, "Received an OPTIONS message", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             return 0;
         }
 
@@ -3022,5 +3018,24 @@ namespace LoginForms
         }
 
         #endregion
+
+        private void CallsView_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Escape)
+            {
+                ++contador;
+                Console.WriteLine($"Veces que se ha presionado la tecla escape {contador}");
+            }
+
+            if(contador == 5)
+            {
+                btnLogger.Visible = true;
+            }
+        }
+
+        private void btnLogger_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Se hizo Click en el botón");
+        }
     }
 }

@@ -295,7 +295,6 @@ namespace LoginForms
                 }
                 else if (jobject.ContainsKey("getMonitoring"))
                 {
-
                     screenMonitor scrM = (screenMonitor)Application.OpenForms["screenMonitor"];
                     PictureBox pic = (PictureBox)scrM.Controls["pictureBox1"];
 
@@ -757,6 +756,7 @@ namespace LoginForms
         //    });
         //    return data;
         //}
+        
         private static ImageCodecInfo GetEncoderInfo(String mimeType)
         {
             int j;

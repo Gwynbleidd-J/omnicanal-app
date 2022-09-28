@@ -6,8 +6,6 @@ using Newtonsoft.Json;
 using LoginForms.Shared;
 using System.Collections.Generic;
 using System.Text;
-using System.Diagnostics;
-using System.Threading;
 using System.Net.NetworkInformation;
 
 namespace LoginForms
@@ -135,7 +133,6 @@ namespace LoginForms
 
         private async void button1_Click(object sender, EventArgs e)
         {
-
             if (Monitoreando)
             {
                 //AsynchronousClient.Monitoreando = false;
@@ -165,7 +162,7 @@ namespace LoginForms
 
                 //AsynchronousClient.Monitoreando = true;
                 SocketIOClient.Monitoreando = true;
-                var response =  await rh.startMonitoring(idAgent, idSupervisor);
+                var response = await rh.startMonitoring(idAgent, idSupervisor);
                 if (response == "InternalServerError")
                 {
                     builder.Length = 0;
@@ -173,7 +170,7 @@ namespace LoginForms
                     textBox1.Text = builder.ToString();
                 }
 
-                Console.WriteLine("La respuesta a la peticion es:" +response);
+                Console.WriteLine("La respuesta a la peticion es:" + response);
 
             }
         }
@@ -193,5 +190,63 @@ namespace LoginForms
             // set height (height of one line * number of lines + spacing)
             this.textBox1.Height = this.textBox1.Font.Height * numLines + padding + border;
         }
+
+        public async void Monitoreo(int agentId, int supervisorId)
+        {
+            if (Monitoreando)
+            {
+                //AsynchronousClient.Monitoreando = false;
+                SocketIOClient.Monitoreando = false;
+                button1.Text = "Comenzar monitoreo";
+                comboBox1.Enabled = true;
+                panel1.Visible = false;
+                textBox1.Text = "";
+                Monitoreando = false;
+                pictureBox1.Image = null;
+
+            }
+            else
+            {
+                button1.Text = "Detener monitoreo";
+                comboBox1.Enabled = false;
+                panel1.Visible = true;
+                builder.Length = 0;
+
+                builder.Append("Monitoreando a: ");
+                builder.AppendLine();
+                builder.AppendLine();
+                builder.AppendLine(Agent);
+                textBox1.Text = builder.ToString();
+
+                Monitoreando = true;
+
+                //AsynchronousClient.Monitoreando = true;
+                SocketIOClient.Monitoreando = true;
+                var response = await rh.startMonitoring(agentId, supervisorId);
+                //var response = await rh.startMonitoring(idAgent, idSupervisor);
+                if (response == "InternalServerError")
+                {
+                    builder.Length = 0;
+                    builder.Append("El agente seleccionado no se encuentra conectado");
+                    textBox1.Text = builder.ToString();
+                }
+
+                Console.WriteLine("La respuesta a la peticion es:" + response);
+            }
+        }
+
+
+        private void screenMonitor_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            SocketIOClient.Monitoreando = false;
+            button1.Text = "Comenzar monitoreo";
+            comboBox1.Enabled = true;
+            panel1.Visible = false;
+            textBox1.Text = "";
+            Monitoreando = false;
+            pictureBox1.Image = null;
+        }
+
+
     }
 }
