@@ -846,8 +846,12 @@ namespace PortSIP
                                                                    Int32 width,
                                                                    Int32 height);
 
+        [DllImport("portsip_sdk.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static unsafe extern Int32 PortSIP_enableSendScreenStreamToRemote(IntPtr libSDK,
+                                                                            Int32 sessionId,
+                                                                            [MarshalAs(UnmanagedType.I1)] Boolean state);
 
-       [DllImport("portsip_sdk.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("portsip_sdk.dll", CallingConvention = CallingConvention.Cdecl)]
        public static unsafe extern Int32 PortSIP_enableAudioStreamCallback(IntPtr libSDK,
                                                                            Int32 sessionId,
                                                                            [MarshalAs(UnmanagedType.I1)] Boolean enable,

@@ -125,6 +125,8 @@ namespace LoginForms
             this.TextBoxUserName = new System.Windows.Forms.TextBox();
             this.Label1 = new System.Windows.Forms.Label();
             this.btnLogger = new System.Windows.Forms.Button();
+            this.btnAnswer = new System.Windows.Forms.Button();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TrackBarMicrophone)).BeginInit();
@@ -224,6 +226,7 @@ namespace LoginForms
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.btnAnswer);
             this.groupBox2.Controls.Add(this.btnEndRecord);
             this.groupBox2.Controls.Add(this.btnBeginRecord);
             this.groupBox2.Controls.Add(this.btnUnHold);
@@ -632,8 +635,6 @@ namespace LoginForms
             // CheckBoxAA
             // 
             this.CheckBoxAA.AutoSize = true;
-            this.CheckBoxAA.Checked = true;
-            this.CheckBoxAA.CheckState = System.Windows.Forms.CheckState.Checked;
             this.CheckBoxAA.Location = new System.Drawing.Point(219, 25);
             this.CheckBoxAA.Name = "CheckBoxAA";
             this.CheckBoxAA.Size = new System.Drawing.Size(15, 14);
@@ -1260,6 +1261,16 @@ namespace LoginForms
             this.btnLogger.Visible = false;
             this.btnLogger.Click += new System.EventHandler(this.btnLogger_Click);
             // 
+            // btnAnswer
+            // 
+            this.btnAnswer.Location = new System.Drawing.Point(327, 63);
+            this.btnAnswer.Name = "btnAnswer";
+            this.btnAnswer.Size = new System.Drawing.Size(107, 23);
+            this.btnAnswer.TabIndex = 122;
+            this.btnAnswer.Text = "Contestar";
+            this.btnAnswer.UseVisualStyleBackColor = true;
+            this.btnAnswer.Click += new System.EventHandler(this.btnAnswer_Click);
+            // 
             // CallsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1400,5 +1411,7 @@ namespace LoginForms
         internal System.Windows.Forms.Label Label1;
         public System.Windows.Forms.Button btnReconnect;
         private System.Windows.Forms.Button btnLogger;
+        private System.Windows.Forms.Button btnAnswer;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }

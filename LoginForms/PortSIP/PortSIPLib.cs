@@ -1899,6 +1899,23 @@ namespace PortSIP
             return PortSIP_NativeMethods.PortSIP_sendVideoStreamToRemote(_LibSDK, sessionId, data, dataLength, width, height);
         }
 
+        /*!
+        *  @brief Enable the SDK send Screen stream data to remote side from selected screen source instead of camera.
+        *
+        *  @param sessionId The session ID of call.
+        *  @param state     Set to true to enable the sending stream, or false to disable.
+        *
+        *  @return If the function succeeds, it will return value 0. If the function fails, it will return a specific error code.
+        */
+        public Int32 enableSendScreenStreamToRemote(Int32 sessionId, Boolean state)
+        {
+            if (_LibSDK == IntPtr.Zero)
+            {
+                return PortSIP_Errors.ECoreSDKObjectNull;
+            }
+
+            return PortSIP_NativeMethods.PortSIP_enableSendScreenStreamToRemote(_LibSDK, sessionId, state);
+        }
         /** @} */
         // end of group9
 

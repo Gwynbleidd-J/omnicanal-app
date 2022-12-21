@@ -104,6 +104,8 @@ namespace PortSIP
         public static readonly int ECoreTransportNotSet				    = -60099;
         public static readonly int ECoreECreateSignalingFailure         = -60100;
         public static readonly int ECoreArgumentIncorrect       	    = -60101;
+        public static readonly int ECoreSipMethodNameEmpty				= -60102;
+        public static readonly int ECoreSipAlreadySubscribed			= -60103;
 
         // audio
         public static readonly int EAudioFileNameEmpty					= -70000;

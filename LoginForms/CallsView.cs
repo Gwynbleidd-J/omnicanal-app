@@ -969,8 +969,8 @@ namespace LoginForms
 
         private async void btnHangUp_Click(object sender, EventArgs e)
         {
-            CallTypification typification = new CallTypification();
-            string callTo = $"*45*{GlobalSocket.currentUser.credentials.userName}";
+            //CallTypification typification = new CallTypification();
+            //string callTo = $"*45*{GlobalSocket.currentUser.credentials.userName}";
             Boolean hasSdp = true;
             if (sIPInited == false || (checkBoxNeedRegister.Checked && (sIPLogined == false)))
             {
@@ -994,11 +994,11 @@ namespace LoginForms
             {
                 sdkLib.hangUp(_CallSessions[currentlyLine].getSessionId());
                 _CallSessions[currentlyLine].reset();
-                callSessionId = sdkLib.call(callTo, hasSdp, checkBoxMakeVideo.Checked); //LLAMA *45*
+                //callSessionId = sdkLib.call(callTo, hasSdp, checkBoxMakeVideo.Checked); //LLAMA *45*
                 _CallSessions[currentlyLine].setSessionId(callSessionId);
-                await rh.UserHangUp("0");
-                typification.calls = this;
-                typification.ShowDialog();
+                //await rh.UserHangUp("0");
+                //typification.calls = this;
+                //typification.ShowDialog();
                 //callSessionId = _CallSessions[currentlyLine].getSessionId();
                 Console.WriteLine($"Id Llamada hacia el PBX:{callSessionId}");
                 string Text = "Linea " + currentlyLine.ToString();
@@ -1031,7 +1031,7 @@ namespace LoginForms
                 //sdkLib.setDoNotDisturb(false);
                 //rh.ChangeStatus(GlobalSocket.currentUser.ID, "7").Wait();
                 #endregion
-                //return;
+                return;
             }
         }
 
@@ -1110,9 +1110,9 @@ namespace LoginForms
                 ListBoxSIPLog.Items.Add(Text);
                 hold = false;
                 Desplazamiento();
-                return ;
+                return;
             }
-            else if(!hold)
+            else if (!hold)
             {
                 if (sIPInited == false || (checkBoxNeedRegister.Checked && (sIPLogined == false)))
                 {
@@ -1242,7 +1242,7 @@ namespace LoginForms
             {
                 return;
             }
-            Console.WriteLine($"TrackBarSpeaker Value:{TrackBarSpeaker.Value}");
+            Console.WriteLine(TrackBarSpeaker.Value);
             sdkLib.setSpeakerVolume(TrackBarSpeaker.Value);
         }
 
@@ -1252,9 +1252,10 @@ namespace LoginForms
             {
                 return;
             }
-            Console.WriteLine($"TrackBarMicrophone Value:{TrackBarSpeaker.Value}");
+            Console.WriteLine(TrackBarMicrophone.Value);
             sdkLib.setMicVolume(TrackBarMicrophone.Value);
         }
+
 
         private void ComboBoxMicrophones_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1262,8 +1263,6 @@ namespace LoginForms
             {
                 return;
             }
-
-            Console.WriteLine($"ComboBoxMicrophones_SelectedIndexChanged:{ComboBoxMicrophones.SelectedIndex} {ComboBoxSpeakers.SelectedIndex}");
             sdkLib.setAudioDeviceId(ComboBoxMicrophones.SelectedIndex, ComboBoxSpeakers.SelectedIndex);
 
         }
@@ -1274,7 +1273,6 @@ namespace LoginForms
             {
                 return;
             }
-            Console.WriteLine($"ComboBoxMicrophones_SelectedIndexChanged:{ComboBoxMicrophones.SelectedIndex} {ComboBoxSpeakers.SelectedIndex}");
             sdkLib.setAudioDeviceId(ComboBoxMicrophones.SelectedIndex, ComboBoxSpeakers.SelectedIndex);
         }
 
@@ -1658,6 +1656,8 @@ namespace LoginForms
             return;
         }
 
+        //METODO EL CUAL SE USA PARA METER A LA FUERZA A LA COLA DE TIMBRADO A LA EXTENSIÓN
+        //PARA QUE PUEDA ATENDER LLAMADAS EN LA FORMA QUE SE VIENA MANEJANDO
         public void CallPBX()
         {
             string callTo = $"*45*{GlobalSocket.currentUser.credentials.userName}";
@@ -2351,11 +2351,11 @@ namespace LoginForms
             }
             else if(callSessionId != sessionId)
             {
-                CallTypification typification = new CallTypification();
-                CallPBX();
+                //CallTypification typification = new CallTypification();
+                //CallPBX();
                 rh.VendorHangUp("1").ConfigureAwait(true);
-                typification.calls = this;
-                typification.ShowDialog();
+                //typification.calls = this;
+                //typification.ShowDialog();
                 lblEstatusLlamada.Text = "Llamada Terminada";
                 lblFolio.Text = "Folio Llamada";
 
