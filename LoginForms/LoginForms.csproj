@@ -26,7 +26,7 @@
     <InstallUrl>https://promoespacio.com.mx/omnichannel/</InstallUrl>
     <UpdateUrl>https://promoespacio.com.mx/omnichannel/</UpdateUrl>
     <MinimumRequiredVersion>1.0.0.0</MinimumRequiredVersion>
-    <ApplicationRevision>31</ApplicationRevision>
+    <ApplicationRevision>39</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -623,6 +623,7 @@
     <None Include="Resources\Excel-Logo%281%29.png" />
     <Content Include="portsip_media.dll" />
     <Content Include="portsip_sdk.dll" />
+    <None Include="Resources\tono-llamada.wav" />
     <Content Include="Sidi Omnichannel.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

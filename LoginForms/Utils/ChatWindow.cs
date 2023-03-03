@@ -52,7 +52,7 @@ namespace LoginForms.Utils
             catch(Exception ex)
             {
                 Console.WriteLine("Error[construct ChatWindow]: " + ex.Message);
-                log.Add($"[ChatWindow][Constructor]:{ex.Message}");
+              //  log.Add($"[ChatWindow][Constructor]:{ex.Message}");
             }
         }
         public void addTabPage(Object temp)
@@ -62,12 +62,12 @@ namespace LoginForms.Utils
             {
                 Thread threadCreateNewTabChat = new Thread((invokeAddTabPage));    
                 threadCreateNewTabChat.Start(temp);
-                log.Add($"[ChatWindow][addTabPage]:{temp}");
+               // log.Add($"[ChatWindow][addTabPage]:{temp}");
             }
             catch(Exception ex)
             {
                 Console.WriteLine("Error[addTabPage]: " + ex.Message);
-                log.Add($"[ChatWindow][Constructor]:{ex.Message}");
+               // log.Add($"[ChatWindow][Constructor]:{ex.Message}");
             }
         }
           
@@ -85,19 +85,19 @@ namespace LoginForms.Utils
                         Thread.CurrentThread.Priority = ThreadPriority.Highest;
                     }
                     tbControlChats.Invoke(new Action(() => threadAddTabPage(chat)));
-                    log.Add($"[ChatWindow][invokeAddTabPage]:{chat}");
+                   // log.Add($"[ChatWindow][invokeAddTabPage]:{chat}");
                 }
                 else
                 {
                     var chat = (Models.Message)temp;
                     threadAddTabPage(chat);
-                    log.Add($"[ChatWindow][invokeAddTabPage]:{chat}");
+                   // log.Add($"[ChatWindow][invokeAddTabPage]:{chat}");
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine("[invokeAddTabPage]" + ex.Message);
-                log.Add($"[ChatWindow][invokeAddTabPage]:{ex.Message}");
+              //  log.Add($"[ChatWindow][invokeAddTabPage]:{ex.Message}");
             }
         }
 
@@ -117,9 +117,9 @@ namespace LoginForms.Utils
                 tbPageChat.platformIdentifier = temp.platformIdentifier;
                 tbPageChat.clientPlatformIdentifier = temp.clientPlatformIdentifier;
                 //tbControlChats.Controls.Add(tbPageChat.tbPage);
-                log.Add($"[ChatWindow][threadAddTabPage]: chatId:{tbPageChat.chatId}");
-                log.Add($"[ChatWindow][threadAddTabPage]: platformIdentifier:{tbPageChat.platformIdentifier}");
-                log.Add($"[ChatWindow][threadAddTabPage]: clientPlatformIdentifier:{tbPageChat.clientPlatformIdentifier}");
+               // log.Add($"[ChatWindow][threadAddTabPage]: chatId:{tbPageChat.chatId}");
+               // log.Add($"[ChatWindow][threadAddTabPage]: platformIdentifier:{tbPageChat.platformIdentifier}");
+               // log.Add($"[ChatWindow][threadAddTabPage]: clientPlatformIdentifier:{tbPageChat.clientPlatformIdentifier}");
                 Console.WriteLine("\nSe ha creado el siguiente objeto tbPageChat:" +  tbPageChat.ToString());
 
                 tbPageChat.addEmptyControls();
@@ -159,7 +159,7 @@ namespace LoginForms.Utils
             catch (Exception ex)
             {
                 Console.WriteLine("Error[threadAddTabPage]: " + ex.Message);
-                log.Add($"[ChatWindow][threadAddTabPage]:{ex.Message}");
+               // log.Add($"[ChatWindow][threadAddTabPage]:{ex.Message}");
             }
             //return tbPage;
         }
@@ -199,12 +199,12 @@ namespace LoginForms.Utils
             {
                     Thread threadAddNewMessages = new Thread((invokeAddNewMessages));
                     threadAddNewMessages.Start(temp);
-                log.Add($"[ChatWindow][threadAddNewMessages]:{temp}");
+                //log.Add($"[ChatWindow][threadAddNewMessages]:{temp}");
             }
             catch (Exception ex) 
             {
                 Console.WriteLine("Error[ChatWindow ThreadAddNewMessages]: " + ex.Message);
-                log.Add($"[ChatWindow][threadAddNewMessages]:{ex.Message}");
+                //log.Add($"[ChatWindow][threadAddNewMessages]:{ex.Message}");
             } 
         } 
         public void invokeAddNewMessages(object temp)
@@ -216,12 +216,12 @@ namespace LoginForms.Utils
                 {
                     var obj = (Models.Message)temp;
                     tbControlChats.Invoke(new Action(() => AddNewMessages(obj)));
-                    log.Add($"[ChatWindow][if][invokeAddNewMessages]:{obj}");
+                   // log.Add($"[ChatWindow][if][invokeAddNewMessages]:{obj}");
                 }
                 else
                 {
                     var obj = (Models.Message)temp;
-                    log.Add($"[ChatWindow][else][invokeAddNewMessages]:{obj}");
+                    //log.Add($"[ChatWindow][else][invokeAddNewMessages]:{obj}");
                     AddNewMessages(obj);
                 }
                     
@@ -229,7 +229,7 @@ namespace LoginForms.Utils
             catch (Exception ex)
             {
                 Console.WriteLine("[invokeAddTabPage]" + ex.Message);
-                log.Add($"[ChatWindow][invokeAddNewMessages]:{ex.Message}");
+               // log.Add($"[ChatWindow][invokeAddNewMessages]:{ex.Message}");
 
             } 
         }
@@ -259,7 +259,7 @@ namespace LoginForms.Utils
                 {
                     if (arrTabPageChat[position].tbPage != null && arrTabPageChat[position].tbPage.Name == "tabPageChat_" + temp.chatId) {
                         arrTabPageChat[position].askForNewMessages();
-                        log.Add($"[ChatWindow][AddNewMessages]:mensajes en el chat:{temp.chatId}");
+                       // log.Add($"[ChatWindow][AddNewMessages]:mensajes en el chat:{temp.chatId}");
                         if (tbControlChats.SelectedTab != arrTabPageChat[position].tbPage && firstRecoveredChatsLoading)
                         {
                             Console.WriteLine("****************** \n Llego mensaje nuevo a pestaña oculta");
@@ -273,7 +273,7 @@ namespace LoginForms.Utils
             catch (Exception ex)
             {
                 Console.WriteLine("Error[AddNewMessages]: " + ex.Message);
-                log.Add($"[ChatWindow][AddNewMessages]:{ex.Message}");
+               // log.Add($"[ChatWindow][AddNewMessages]:{ex.Message}");
             }
             //return tbPage;
         }

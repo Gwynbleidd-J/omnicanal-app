@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.IO;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -74,7 +75,7 @@ namespace LoginForms
             setStatusAgent();
             createAgentInformationForm();
             await rh.SetStatusTime(GlobalSocket.currentUser.status.id);
-            log.Add($"[PanelControl][FormPrincipal_Load]:Id del agente al que se le va a cambiar el status:{GlobalSocket.currentUser.status.id}");
+           // log.Add($"[PanelControl][FormPrincipal_Load]:Id del agente al que se le va a cambiar el status:{GlobalSocket.currentUser.status.id}");
             await SocketIOClient.ClienteSocketIO();
             //this.WindowState = FormWindowState.Maximized;
         }
@@ -441,7 +442,7 @@ namespace LoginForms
                 #endregion
                 //await rh.TotalTimeStatus(GlobalSocket.currentUser.ID);
 
-                log.Add($"[FormPrincipal][cmbUserStatus_SelectedIndexChanged]: UserId:{userId} statusId:{valor}");
+               // log.Add($"[FormPrincipal][cmbUserStatus_SelectedIndexChanged]: UserId:{userId} statusId:{valor}");
                 MessageBox.Show("Estatus Agente Cambiado", "Estatus Agente", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 
                 //MessageBox.Show("Estatus Agente Cambiado", "Estatus Agente", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -490,7 +491,7 @@ namespace LoginForms
             await rh.UpdateActiveColumnOnClose(GlobalSocket.currentUser.ID);
             //await rh.ChangeStatus() para el tiempo en los cambios de los estados
             //pictureBox1.Image = Properties.Resources.cerrar_sesion_presionado_1;
-            log.Add($"[FormPrincipal][pictureBox1_Click]:userId{GlobalSocket.currentUser.ID} statusId:{GlobalSocket.currentUser.status.id}");
+           // log.Add($"[FormPrincipal][pictureBox1_Click]:userId{GlobalSocket.currentUser.ID} statusId:{GlobalSocket.currentUser.status.id}");
             login = new Login();
             //asynchronousClient = new AsynchronousClient();
             string userToken = GlobalSocket.currentUser.token;

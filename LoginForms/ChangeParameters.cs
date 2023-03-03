@@ -35,7 +35,7 @@ namespace LoginForms
             Log log = new Log(appPath);
             string users = await rh.getUsers();
             Json jsonUsers = JsonConvert.DeserializeObject<Json>(users);
-            log.Add($"[ChangeParameters][ComboBoxGetUsers]: Usuarios encontrados:{jsonUsers.data.users.Count}");
+           // log.Add($"[ChangeParameters][ComboBoxGetUsers]: Usuarios encontrados:{jsonUsers.data.users.Count}");
             for (int i = 0; i < jsonUsers.data.users.Count; i++)
             {
                 if(jsonUsers.data.users[i].existe == 1)
@@ -101,7 +101,7 @@ namespace LoginForms
                 txtPassword.Text = jsonSoftphoneCredentials.data.user.credentials.password;
                 txtAuthName.Text = jsonSoftphoneCredentials.data.user.credentials.authName;
                 txtPort.Text = jsonSoftphoneCredentials.data.user.credentials.port;
-                log.Add($"[ChangeParameters][comboBoxGetSOftphoneCredentials]:Usuario Seleccionado:{jsonSoftphoneCredentials.data.user.credentials.userName}");
+               // log.Add($"[ChangeParameters][comboBoxGetSOftphoneCredentials]:Usuario Seleccionado:{jsonSoftphoneCredentials.data.user.credentials.userName}");
             }
         }
 
@@ -137,7 +137,7 @@ namespace LoginForms
             Log log = new Log(appPath);
             string data = await rh.updateSoftphoneParameters(credentialsId, txtUserName.Text, txtDisplayName.Text, txtDomain.Text, txtServer.Text, txtPassword.Text, txtAuthName.Text, txtPort.Text);
             Console.WriteLine(data);
-            log.Add($"[ChangeParameters][SetSoftphoneParameters]:Respuesta desde servidor:{data}");
+          //  log.Add($"[ChangeParameters][SetSoftphoneParameters]:Respuesta desde servidor:{data}");
             return data;
         }
 
@@ -147,7 +147,7 @@ namespace LoginForms
             string nombre = txtNombre.Text, apPaterno = txtApePaterno.Text, apMaterno = txtApeMaterno.Text, email = txtEmail.Text, contrasena = txtContrasena.Text, siglas = txtSiglasUser.Text;
             string data = await rh.SaveUser(nombre, apPaterno, apMaterno, email, contrasena, siglas, tipoUsuario);
             Console.WriteLine(data);
-            log.Add($"[ChangeParameters][CreateUser]:Respuesta desde servidor:{data}");
+            //log.Add($"[ChangeParameters][CreateUser]:Respuesta desde servidor:{data}");
             return data;
         }
 
@@ -157,7 +157,7 @@ namespace LoginForms
             string nombre = txtNombre.Text, apPaterno = txtApePaterno.Text, apMaterno = txtApeMaterno.Text, email = txtEmail.Text, contrasena = txtContrasena.Text, siglas = txtSiglasUser.Text;
             string data = await rh.UpdateUser(userId, nombre, apPaterno, apMaterno, email, contrasena, siglas, tipoUsuario);
             Console.WriteLine(data);
-            log.Add($"[ChangeParameters][UpdateUser]:Respuesta desde servidor:{data}");
+          //  log.Add($"[ChangeParameters][UpdateUser]:Respuesta desde servidor:{data}");
             return data;
         }
 
@@ -166,7 +166,7 @@ namespace LoginForms
             Log log = new Log(appPath);
             string data = await rh.DeleteUser(userId);
             Console.WriteLine(data);
-            log.Add($"[ChangeParameters][Deleteuser]:Respuesta desde servidor:{data}");
+          //  log.Add($"[ChangeParameters][Deleteuser]:Respuesta desde servidor:{data}");
             return data;
         }
 
@@ -189,7 +189,7 @@ namespace LoginForms
                 if (await SetSoftphoneParameters() == "OK")
                 {
                     cmbAgents_SelectedIndexChanged(sender, e);
-                    log.Add($"[ChangeParameters][btnChangeSoftphoneParameters_Click]: respuesta desde el servidor:{SetSoftphoneParameters()}");
+                  //  log.Add($"[ChangeParameters][btnChangeSoftphoneParameters_Click]: respuesta desde el servidor:{SetSoftphoneParameters()}");
                     MessageBox.Show("Parametros del Softphone Actualizados Correctamente", "Omnicanal");
                 }
                 else
@@ -305,7 +305,7 @@ namespace LoginForms
                     if(await CreateUser() == "OK")
                     {
                         //cmbUsers_SelectedIndexChanged(sender, e);
-                        log.Add($"[ChangeParameters][btnSaveUser_Click]: respuesta desde el servidor:OK");
+                        //log.Add($"[ChangeParameters][btnSaveUser_Click]: respuesta desde el servidor:OK");
                         MessageBox.Show("Nuevo Analista Creado Correctamente", "Omnicanal");
                         txtNombre.Text = "";
                         txtApePaterno.Text = "";
@@ -339,7 +339,7 @@ namespace LoginForms
                 Log log = new Log(appPath);
                 if (await UpdateUser() == "OK")
                 {
-                    log.Add($"[ChangeParameters][btnSaveUser_Click]: respuesta desde el servidor:OK");
+                   // log.Add($"[ChangeParameters][btnSaveUser_Click]: respuesta desde el servidor:OK");
                     MessageBox.Show("Se cambiaron los datos del usuario correctamente", "Omnicanal");
                     txtNombre.Text = "";
                     txtApePaterno.Text = "";
@@ -375,7 +375,7 @@ namespace LoginForms
                 Log log = new Log(appPath);
                 if (await DeleteUser() == "OK")
                 {
-                    log.Add($"[ChangeParameters][btnSaveUser_Click]: respuesta desde el servidor:OK");
+                   // log.Add($"[ChangeParameters][btnSaveUser_Click]: respuesta desde el servidor:OK");
                     MessageBox.Show("Se borro el usuario correctamente", "Omnicanal");
                     txtNombre.Text = "";
                     txtApePaterno.Text = "";

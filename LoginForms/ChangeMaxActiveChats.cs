@@ -31,7 +31,7 @@ namespace LoginForms
                     {
                         valor = temp;
                         await rh.updateAgentMaxActiveChats(AgentID, valor);
-                        log.Add($"[ChangeMaxActiveChats][btnAccept_Click]: cambiando los chats maximos al agente:{AgentID} chats maximos{valor}");
+                      //  log.Add($"[ChangeMaxActiveChats][btnAccept_Click]: cambiando los chats maximos al agente:{AgentID} chats maximos{valor}");
                         MessageBox.Show("Chats simultaneos actualizados correctamente");
                         this.Close();
                     }
@@ -47,7 +47,7 @@ namespace LoginForms
             }
             catch (Exception _e)
             {
-                log.Add($"[ChangeMaxActiveChats][btnAccept_Click]:{_e.Message}");
+               // log.Add($"[ChangeMaxActiveChats][btnAccept_Click]:{_e.Message}");
                 throw _e;
             }
 

@@ -29,7 +29,7 @@ namespace LoginForms
             {
                 string jsonUserStatus = await rh.getUserStatus();
                 jsonStatus = JsonConvert.DeserializeObject<Json>(jsonUserStatus);
-                log.Add($"[ChangeAgentStatus][ComboBoxGetAgentStatus]: Status Obtenidos:{jsonStatus.data.status.Count}");
+               // log.Add($"[ChangeAgentStatus][ComboBoxGetAgentStatus]: Status Obtenidos:{jsonStatus.data.status.Count}");
                 for (int i = 0; i < jsonStatus.data.status.Count; i++)
                 {
                     cmbAgentStatus.Items.Add(new ListItem(jsonStatus.data.status[i].status, jsonStatus.data.status[i].id));
@@ -37,7 +37,7 @@ namespace LoginForms
             }
             catch (Exception ex)
             {
-                log.Add($"[ChangeAgentStatus][ComboBoxGetAgentStatus]:{ex.Message}");
+               // log.Add($"[ChangeAgentStatus][ComboBoxGetAgentStatus]:{ex.Message}");
                 Console.WriteLine($"Error[GetAgentStatus][ChangeAgentStatus]: {ex}");
                 MessageBox.Show($"{ex}");
             }
@@ -49,7 +49,7 @@ namespace LoginForms
             try
             {
                 valor = "";
-                log.Add($"[ChangeAgentStatus][cmbAgentStatus_SelectedIndexChanged]:{jsonStatus.data.status.Count}");
+               // log.Add($"[ChangeAgentStatus][cmbAgentStatus_SelectedIndexChanged]:{jsonStatus.data.status.Count}");
                 for (int i = 0; i < jsonStatus.data.status.Count; i++)
                 {
                     if (jsonStatus.data.status[i].status == cmbAgentStatus.SelectedItem.ToString())
@@ -61,7 +61,7 @@ namespace LoginForms
             }
             catch (Exception ex)
             {
-                log.Add($"[ChangeAgentStatus][cmbAgentStatus_SelectedIndexChanged]:{ex.Message}");
+              //  log.Add($"[ChangeAgentStatus][cmbAgentStatus_SelectedIndexChanged]:{ex.Message}");
                 Console.WriteLine($"Error[cmbUserStatus_SelectedIndexChanged] {ex.Message}");
             }
         }
@@ -75,7 +75,7 @@ namespace LoginForms
                 if (!string.IsNullOrEmpty(valor))
                 {
                     await rh.updateUserStatus(valor, idAgent);
-                    log.Add($"[ChangeAgentStatus][btnAccept_Click]: se guardo el statusId:{valor} del agente:{idAgent}");
+                  //  log.Add($"[ChangeAgentStatus][btnAccept_Click]: se guardo el statusId:{valor} del agente:{idAgent}");
                     MessageBox.Show("Estatus agente guardado correctamente", "Omnicanal", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();
                 }
@@ -86,7 +86,7 @@ namespace LoginForms
             }
             catch (Exception ex)
             {
-                log.Add($"[ChangeAgentStatus][btnAccept_Click]:{ex.Message}");
+              //  log.Add($"[ChangeAgentStatus][btnAccept_Click]:{ex.Message}");
                 Console.WriteLine($"Error[btnAccept] {ex.Message}");
             }
         }

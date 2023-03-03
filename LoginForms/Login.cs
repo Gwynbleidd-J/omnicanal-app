@@ -120,7 +120,7 @@ namespace LoginForms
                     User user = rh.GetUser(jsonLogin);
                     //string agentStatus = GlobalSocket.currentUser.status.id;
                     GlobalSocket.currentUser = jsonUser.data.user;
-                    log.Add($"Inicio de sesión:{GlobalSocket.currentUser.name} {GlobalSocket.currentUser.paternalSurname}");
+                   // log.Add($"Inicio de sesión:{GlobalSocket.currentUser.name} {GlobalSocket.currentUser.paternalSurname}");
                     //GlobalSocket.currentUser.activeIp = ipAddress;
                     GlobalSocket.currentUser.activeIp = "0";
                     GlobalSocket.currentUser.token = user.token;
@@ -142,8 +142,8 @@ namespace LoginForms
             catch (Exception ex)
             {
                 Console.WriteLine($"Error[Login]: {ex}");
-                MessageBox.Show($"Error[Login]: {ex.Message}", $"Omnicanal", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                log.Add($"Error[login]: {ex.Message}");
+                MessageBox.Show($"Error[Login]: Revisa tú conexión a Internet", $"Omnicanal", MessageBoxButtons.OK, MessageBoxIcon.Warning);//
+              //  log.Add($"Error[login]: {ex.Message}");
             }
         }
 
@@ -165,7 +165,7 @@ namespace LoginForms
         private void SetProjectVersion()
         {
 
-            lblVersion.Text = $"Versión: 1.0.0.20";        
+            lblVersion.Text = $"Versión: 1.0.0.21";        
         }
 
         private void btnShowPassword_Click(object sender, EventArgs e)

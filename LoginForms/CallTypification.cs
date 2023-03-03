@@ -23,7 +23,7 @@ namespace LoginForms
             //userid = userId;
             InitializeComponent();
             ComboBoxGetNetwork();
-            log.Add($"[CallTypification][Constructor]: Combo box en ACW");
+            //log.Add($"[CallTypification][Constructor]: Combo box en ACW");
             GlobalSocket.algo.Text = "ACW";
 
         }
@@ -32,7 +32,7 @@ namespace LoginForms
         {
             Log log = new Log(appPath);
             await rh.ChangeStatus(GlobalSocket.currentUser.ID, "9");
-            log.Add($"[CallTypification][CallTypification_Load]: usuarioId:{GlobalSocket.currentUser.ID} asignando el statusId: 9");
+          //  log.Add($"[CallTypification][CallTypification_Load]: usuarioId:{GlobalSocket.currentUser.ID} asignando el statusId: 9");
         }
 
         private void cmbNetwork_SelectedIndexChanged(object sender, EventArgs e)
@@ -40,14 +40,14 @@ namespace LoginForms
             Log log = new Log(appPath);
             CallItems classItems = (CallItems)cmbNetwork.SelectedItem;
             valor = classItems.Id;
-            log.Add($"[CallTypification][cmbNetwork_SelectedIndexChanged]: seleccionando la red: {classItems.Value}: {classItems.Name} con el id:{valor}");
+          //  log.Add($"[CallTypification][cmbNetwork_SelectedIndexChanged]: seleccionando la red: {classItems.Value}: {classItems.Name} con el id:{valor}");
         }
 
         private void cmbScore_SelectedIndexChanged(object sender, EventArgs e)
         {
             Log log = new Log(appPath);
             score = cmbScore.SelectedItem.ToString();
-            log.Add($"[CallTypification][cmbScore_SelectedIndexChanged]: el score seleccionado es:{score}");
+          //  log.Add($"[CallTypification][cmbScore_SelectedIndexChanged]: el score seleccionado es:{score}");
             Console.WriteLine($"Valor seleccionado:{score}");
         }
 
@@ -58,7 +58,7 @@ namespace LoginForms
             {
                 string networkCategories = await rh.getNetworkCategories();
                 Json jsonNetworkCategories = jsonNetwork = JsonConvert.DeserializeObject<Json>(networkCategories);
-                log.Add($"[CallTypification][ComboBoxGetNetwork]:Redes Encontradas:{jsonNetworkCategories.data.networks.Count}");
+              //  log.Add($"[CallTypification][ComboBoxGetNetwork]:Redes Encontradas:{jsonNetworkCategories.data.networks.Count}");
                 for (int i = 0; i < jsonNetworkCategories.data.networks.Count; i++)
                 {
                     cmbNetwork.Items.Add(new CallItems(jsonNetwork.data.networks[i].description, jsonNetwork.data.networks[i].typification, jsonNetwork.data.networks[i].id));
@@ -67,7 +67,7 @@ namespace LoginForms
             }
             catch (Exception ex)
             {
-                log.Add($"[CallTypification][ComboBoxGetNetwork]:{ex.Message}");
+                //log.Add($"[CallTypification][ComboBoxGetNetwork]:{ex.Message}");
                 Console.WriteLine($"Error[getNetworkCategories] {ex}");
             }
         }
@@ -112,14 +112,14 @@ namespace LoginForms
                 GlobalSocket.algo.Text = "Disponible";
                 //GlobalSocket.SoftPhoneReconnect.Connect();
                 //MessageBox.Show("Datos guardados correctamente", "Omnicanal", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                log.Add($"[CallTypification][Typification]:Tipificando con los datos:{valor} {score} {txtComments.Text}");
-                log.Add($"[CallTypification][Typification]:Setenado el status del usuario a statusId:7");
+                //log.Add($"[CallTypification][Typification]:Tipificando con los datos:{valor} {score} {txtComments.Text}");
+                //log.Add($"[CallTypification][Typification]:Setenado el status del usuario a statusId:7");
                 this.Dispose();
 
             }
             catch (Exception ex)
             {
-                log.Add($"[CallTypification][Typification]:{ex.Message}");
+               // log.Add($"[CallTypification][Typification]:{ex.Message}");
                 Console.WriteLine($"Error[Typification Method]: {ex.Message}");
             }
         }
@@ -127,8 +127,8 @@ namespace LoginForms
         private void CallTypification_FormClosed(object sender, FormClosedEventArgs e)
         {
             Log log = new Log(appPath);
-            calls.CallPBX();
-            log.Add($"[CallTypification][Typification]:llamadando al metodo CallPBX del CallsView");
+            //calls.CallPBX();
+           // log.Add($"[CallTypification][Typification]:llamadando al metodo CallPBX del CallsView");
 
         }
     }

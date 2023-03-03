@@ -31,13 +31,10 @@ namespace LoginForms
             //log.Add($"[ChangeParameters][ComboBoxGetUsers]: Usuarios encontrados:{jsonUsers.data.users.Count}");
             for (int i = 0; i < jsonUsers.data.users.Count; i++)
             {
-                if (jsonUsers.data.users[i].existe == 1)
+                if (jsonUsers.data.users[i].rolID == "1")
                 {
-                    if (jsonUsers.data.users[i].rolID == "1" || jsonUsers.data.users[i].rolID == "2")
-                    {
                         //cmbAgents.Items.Add(new ParametersItems(jsonUsers.data.users[i].name, jsonUsers.data.users[i].ID));
                         cmbAgentes.Items.Add(new ExcelItems(jsonUsers.data.users[i].name, jsonUsers.data.users[i].ID));
-                    }
                 }
             }
         }

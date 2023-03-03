@@ -11,6 +11,9 @@ using Newtonsoft.Json.Linq;
 using System.IO;
 using Microsoft.Toolkit.Uwp.Notifications;
 using System.Configuration;
+using System.Media;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace LoginForms
 {
@@ -32,6 +35,7 @@ namespace LoginForms
         private int callSessionId = 0;
         private bool hold = false;
         private PortSIPLib sdkLib;
+        readonly SoundPlayer player = new SoundPlayer(Properties.Resources.tono_llamada);
 
         #region Metodos PortSIP
         private int findSession(int sessionId)
@@ -60,7 +64,6 @@ namespace LoginForms
             return System.Text.Encoding.Default.GetString(bytes);
         }
 
-
         private string getLocalIP()
         {
             StringBuilder localIP = new StringBuilder();
@@ -84,7 +87,6 @@ namespace LoginForms
 
             return localIP.ToString();
         }
-
 
         private void updatePrackSetting()
         {
@@ -160,9 +162,7 @@ namespace LoginForms
             volume = sdkLib.getMicVolume();
             TrackBarMicrophone.SetRange(0, 255);
             TrackBarMicrophone.Value = volume;
-
         }
-
 
         private void InitSettings()
         {
@@ -1044,7 +1044,7 @@ namespace LoginForms
 
             if (_CallSessions[currentlyLine].getRecvCallState() == false)
             {
-                MessageBox.Show("No incoming call on current line, please switch a line.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("No tienes ninguna llamada entrante.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
 
@@ -1056,6 +1056,7 @@ namespace LoginForms
             int rt = sdkLib.answerCall(_CallSessions[currentlyLine].getSessionId(), checkBoxAnswerVideo.Checked);
             if (rt == 0)
             {
+                StopCallTone();
                 string Text = "Linea " + currentlyLine.ToString();
                 Text = Text + ": Llamada establecida";
                 ListBoxSIPLog.Items.Add(Text);
@@ -1073,6 +1074,13 @@ namespace LoginForms
                 ListBoxSIPLog.Items.Add(Text);
                 Desplazamiento();
             }
+
+            //Thread thread = new Thread( () =>
+            //{
+            //    new CallTypification().ShowDialog();
+            //})
+            //{ IsBackground = true };
+            //thread.Start();
         }
 
         private void btnHold_Click(object sender, EventArgs e)
@@ -1395,7 +1403,7 @@ namespace LoginForms
             string agent = "PortSIP VoIP SDK";
             string stunServer = TextBoxStunServer.Text;
 
-             
+
             // Initialize the SDK
             int rt = sdkLib.initialize(transportType,
                  // Use 0.0.0.0 for local IP then the SDK will choose an available local IP automatically.
@@ -1662,9 +1670,19 @@ namespace LoginForms
         {
             string callTo = $"*45*{GlobalSocket.currentUser.credentials.userName}";
             Boolean hasSdp = true;
-            
+
             callSessionId = sdkLib.call(callTo, hasSdp, checkBoxMakeVideo.Checked); //LLAMA *45*
             _CallSessions[currentlyLine].setSessionId(callSessionId);
+        }
+
+        private void PlayCallTone()
+        {
+            player.Play();
+        }
+
+        private void StopCallTone()
+        {
+            player.Stop();
         }
 
         #endregion
@@ -1890,11 +1908,11 @@ namespace LoginForms
 
             return 0;
         }
-        //
+
         public Int32 onInviteIncoming(Int32 sessionId, String callerDisplayName, String caller, String calleeDisplayName, String callee, String audioCodecNames, String videoCodecNames, Boolean existsAudio, Boolean existsVideo, StringBuilder sipMessage)
         {
             //AQUÍ SE PUEDE OBTENER EL NÚMERO QUE CONTACTA AL SOFTPHONE
-            
+
             int index = -1;
             llamante = callee;
             for (int i = LINE_BASE; i < MAX_LINES; ++i)
@@ -1973,7 +1991,7 @@ namespace LoginForms
                 }));
                 AgentNotification("Se ha iniciado una nueva llamada");
                 //rh.SendCall("1").Wait();
-                if(callSessionId != sessionId)
+                if (callSessionId != sessionId)
                 {
                     lblFolio.Text = rh.SendCall("1", caller, callee).Result.ToString();
                 }
@@ -1981,14 +1999,31 @@ namespace LoginForms
                 rh.ChangeStatus(GlobalSocket.currentUser.ID, "5").ConfigureAwait(true);
                 //StartCallRecord();
 
-                FormPrincipal frmP = (FormPrincipal)Application.OpenForms["FormPrincipal"];
-                frmP.lblLlamadasActual.Text = "Llamada en Progreso";
-                frmP.lblLlamadasActual.ForeColor = Color.Red;
-                rh.SetUserNumber(caller).ConfigureAwait(true);
+                //FormPrincipal frmP = (FormPrincipal)Application.OpenForms["FormPrincipal"];
+                //frmP.lblLlamadasActual.Text = "Llamada en Progreso";
+                //frmP.lblLlamadasActual.ForeColor = Color.Red;
+                //rh.SetUserNumber(caller).ConfigureAwait(true);
                 //CALLER ES EL QUE LLAMA
                 //CALLE ES LA EXTENSION
                 return 0;
             }
+            #region Porción del código mientras se implementa de nuevo de las llamadas en automatico
+
+            AgentNotification("Se ha iniciado una nueva llamada");
+            //rh.SendCall("1").Wait();
+            //if (callSessionId != sessionId)
+            //{
+            //    lblFolio.Text = rh.SendCall("1", caller, callee).Result.ToString();
+            //}
+            lblEstatusLlamada.Text = "En llamada";
+            rh.ChangeStatus(GlobalSocket.currentUser.ID, "5").ConfigureAwait(true);
+            //StartCallRecord();
+
+            FormPrincipal frmP = (FormPrincipal)Application.OpenForms["FormPrincipal"];
+            frmP.lblLlamadasActual.Text = "Llamada en Progreso";
+            frmP.lblLlamadasActual.ForeColor = Color.Red;
+            rh.SetUserNumber(caller).ConfigureAwait(true);
+            #endregion
 
             Text = "Linea " + index.ToString();
             Text = Text + ": Llamada entrante de ";
@@ -2005,8 +2040,124 @@ namespace LoginForms
             }));
             //}
             //  You should write your own code to play the wav file here for alert the incoming call(incoming tone);
+            PlayCallTone();
             return 0;
         }
+
+
+        //public Int32 onInviteIncoming(Int32 sessionId, String callerDisplayName, String caller, String calleeDisplayName, String callee, String audioCodecNames, String videoCodecNames, Boolean existsAudio,Boolean existsVideo, StringBuilder sipMessage)
+        //{
+        //    int index = -1;
+        //    for (int i = LINE_BASE; i < MAX_LINES; ++i)
+        //    {
+        //        if (_CallSessions[i].getSessionState() == false && _CallSessions[i].getRecvCallState() == false)
+        //        {
+        //            index = i;
+        //            _CallSessions[i].setRecvCallState(true);
+        //            break;
+        //        }
+        //    }
+
+        //    if (index == -1)
+        //    {
+        //        sdkLib.rejectCall(sessionId, 486);
+        //        return 0;
+        //    }
+
+        //    if (existsVideo)
+        //    {
+        //        // If more than one codecs using, then they are separated with "#",
+        //        // for example: "g.729#GSM#AMR", "H264#H263", you have to parse them by yourself.
+        //    }
+        //    if (existsAudio)
+        //    {
+        //        // If more than one codecs using, then they are separated with "#",
+        //        // for example: "g.729#GSM#AMR", "H264#H263", you have to parse them by yourself.
+        //    }
+
+        //    _CallSessions[index].setSessionId(sessionId);
+        //    string Text = string.Empty;
+
+        //    bool needIgnoreAutoAnswer = false;
+        //    int j = 0;
+
+        //    for (j = LINE_BASE; j < MAX_LINES; ++j)
+        //    {
+        //        if (_CallSessions[j].getSessionState() == true)
+        //        {
+        //            needIgnoreAutoAnswer = true;
+        //            break;
+        //        }
+        //    }
+
+        //    //if (existsVideo)
+        //    //{
+        //    //    ListBoxSIPLog.Invoke(new MethodInvoker(delegate
+        //    //    {
+        //    //        sdkLib.setRemoteVideoWindow(_CallSessions[index].getSessionId(), remoteVideoPanel.Handle);
+        //    //    }));
+        //    //}
+
+        //    Boolean AA = false;
+        //    bool answerVideo = false;
+        //    ListBoxSIPLog.Invoke(new MethodInvoker(delegate
+        //    {
+        //        AA = CheckBoxAA.Checked;
+        //        answerVideo = checkBoxAnswerVideo.Checked;
+        //    }));
+
+        //    if (needIgnoreAutoAnswer == false && AA == true)
+        //    {
+        //        _CallSessions[index].setRecvCallState(false);
+        //        _CallSessions[index].setSessionState(true);
+
+
+        //        sdkLib.answerCall(_CallSessions[index].getSessionId(), answerVideo);
+
+        //        Text = "Line " + index.ToString();
+        //        Text = Text + ": Answered call by Auto answer";
+
+        //        ListBoxSIPLog.Invoke(new MethodInvoker(delegate
+        //        {
+        //            ListBoxSIPLog.Items.Add(Text);
+        //        }));
+
+        //        return 0;
+        //    }
+
+
+        //    AgentNotification("Se ha iniciado una nueva llamada");
+        //    lblEstatusLlamada.Text = "En llamada";
+        //    FormPrincipal frmP = (FormPrincipal)Application.OpenForms["FormPrincipal"];
+        //    frmP.lblLlamadasActual.Text = "Llamada en Progreso";
+        //    frmP.lblLlamadasActual.ForeColor = Color.Red;
+
+
+        //    Text = "Linea " + index.ToString();
+        //    Text = Text + ": Llamada entrante de ";
+        //    Text = Text + callerDisplayName;
+        //    Text = Text + "<";
+        //    Text = Text + caller;4
+        //    Text = Text + ">";
+
+
+        //    ListBoxSIPLog.Invoke(new MethodInvoker(delegate
+        //    {
+        //        ListBoxSIPLog.Items.Add(Text);
+        //        Desplazamiento();
+        //    }));
+
+        //    //  You should write your own code to play the wav file here for alert the incoming call(incoming tone);
+
+        //    rh.ChangeStatus(GlobalSocket.currentUser.ID, "5").ConfigureAwait(true);
+        //    lblFolio.Text = rh.SendCall("1", caller, callee).Result.ToString();
+        //    rh.SetUserNumber(caller).ConfigureAwait(true);
+
+        //    return 0;
+
+        //}
+
+
 
         public void AgentNotification(string Mensaje)
         {
@@ -2278,6 +2429,7 @@ namespace LoginForms
 
         public Int32 onInviteConnected(Int32 sessionId)
         {
+
             int i = findSession(sessionId);
             if (i == -1)
             {
@@ -2294,7 +2446,6 @@ namespace LoginForms
                 ListBoxSIPLog.Items.Add(Text);
                 Desplazamiento();
             }));
-
             return 0;
         }
 
@@ -2351,7 +2502,7 @@ namespace LoginForms
             }
             else if(callSessionId != sessionId)
             {
-                //CallTypification typification = new CallTypification();
+                CallTypification typification = new CallTypification();
                 //CallPBX();
                 rh.VendorHangUp("1").ConfigureAwait(true);
                 //typification.calls = this;

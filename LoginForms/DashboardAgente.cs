@@ -228,7 +228,7 @@ namespace LoginForms
                 var Comida = algo["Comida"].Value<int>();
                 var Break = algo["Break"].Value<int>();
                 //AQUI ES DONDE TRUENA EN LLAMADA
-                var Llamada = algo["Llamada"].Value<int>();
+                //var Llamada = algo["Llamada"].Value<int>();
 
 
                 bool dataDisponible = false;
@@ -253,7 +253,7 @@ namespace LoginForms
                     if (Sanitario != 0) { dataSanitario = true; }
                     if (Comida != 0) { dataComida = true; }
                     if (Break != 0) { dataBreak = true; }
-                    if (Llamada != 0) { dataLlamada = true; }
+                    //if (Llamada != 0) { dataLlamada = true; }
 
                 }
                 pieStatus.Series.Clear();
@@ -343,16 +343,16 @@ namespace LoginForms
                     FontWeight = FontWeights.Normal,
                     LabelPoint = val => val.Y +" "
             },
-                new PieSeries
-                {
-                    StrokeThickness = 0,
-                    PushOut = 5,
-                    Title = "Llamada",
-                    Values = new ChartValues<double> {roundMinutesToHours(Llamada) },
-                    DataLabels = dataLlamada,
-                    FontWeight = FontWeights.Normal,
-                    LabelPoint = val => val.Y +" "
-            },
+            //    new PieSeries
+            //    {
+            //        StrokeThickness = 0,
+            //        PushOut = 5,
+            //        Title = "Llamada",
+            //        Values = new ChartValues<double> {roundMinutesToHours(Llamada) },
+            //        DataLabels = dataLlamada,
+            //        FontWeight = FontWeights.Normal,
+            //        LabelPoint = val => val.Y +" "
+            //},
 
             };
                 //pieStatus.LegendLocation = LegendLocation.Bottom;

@@ -222,7 +222,7 @@ namespace LoginForms
                 transferAgentName = comboBox1.GetItemText(comboBox1.SelectedItem);
 
                 Console.WriteLine("\nEl agente seleccionado por ahora es:" +transferAgentName +" \nCon el valor:"+ transferAgentId);
-                log.Add($"[ChatMonitor][GetAllAgentsAsync]:Agente seleccionado:{transferAgentName} con Id:{transferAgentId}");
+               // log.Add($"[ChatMonitor][GetAllAgentsAsync]:Agente seleccionado:{transferAgentName} con Id:{transferAgentId}");
                 Console.WriteLine("\nY los datos del combo son:" +comboBox1.GetItemText(comboBox1.SelectedItem));
             }
             catch (Exception _e)

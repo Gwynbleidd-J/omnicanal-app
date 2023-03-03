@@ -137,7 +137,7 @@ namespace LoginForms.Utils
 
         public async Task<bool> sendMessageFromPanelControl()
         {
-            Log log = new Log(appPath);
+           // Log log = new Log(appPath);
             bool resultSendMessageFromPanelControl = false;
             //try
             //{ 
@@ -154,7 +154,7 @@ namespace LoginForms.Utils
             //    Console.WriteLine("Error[sendMessageFromPanelControl]: " + ex.Message);
             //    resultSendMessageFromPanelControl = false;
             //}
-            log.Add($"[PanelControl][sendMessageFromPanelControl]:{resultSendMessageFromPanelControl}");
+           // log.Add($"[PanelControl][sendMessageFromPanelControl]:{resultSendMessageFromPanelControl}");
             return resultSendMessageFromPanelControl;
         }
 
@@ -170,13 +170,13 @@ namespace LoginForms.Utils
                     resultNewMessages = "OK"; 
 
                 }
-                log.Add($"[PanelControl][askForNewMessages]:{resultNewMessages}");
+                //log.Add($"[PanelControl][askForNewMessages]:{resultNewMessages}");
                 return resultNewMessages;
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Error[sendMessageFromPanelControl]: " + ex.Message);
-                log.Add($"[PanelControl][sendMessageFromPanelControl]:{ex.Message}");
+                //log.Add($"[PanelControl][sendMessageFromPanelControl]:{ex.Message}");
             }
             return resultNewMessages;
         }

@@ -27,7 +27,7 @@ namespace LoginForms
 
         private async void agentDetails(string idAgent)
         {
-            Log log = new Log(appPath);
+            //Log log = new Log(appPath);
             try
             {
                 string agentDetails = await rh.getAgentsDetails(idAgent);
@@ -117,7 +117,7 @@ namespace LoginForms
             catch (Exception ex)
             {
                 Console.WriteLine($"Error[agentsDetails]: {ex}");
-                log.Add($"[AgentInformation][agentDetails]: Intentando Login: {ex.Message}");
+                //log.Add($"[AgentInformation][agentDetails]: Intentando Login: {ex.Message}");
                 MessageBox.Show(ex.Message);
             }
         }
